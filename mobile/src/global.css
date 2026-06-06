@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@media android {
+  :root {
+    --font-sans: ReadexPro_400Regular, normal;
+    --font-arabic: ReadexPro_400Regular, normal;
+    --font-mono: monospace;
+  }
+}
+
+@media ios {
+  :root {
+    --font-sans: ReadexPro_400Regular, system-ui;
+    --font-mono: ui-monospace;
+    --font-arabic: ReadexPro_400Regular, system-ui;
+  }
+}
+
+/* Brand design tokens */
+@layer theme {
+  @theme {
+    /* Arabic-first typography */
+    --font-arabic: ReadexPro_400Regular, ReadexPro_500Medium, ReadexPro_600SemiBold, ReadexPro_700Bold, system-ui;
+
+    /* Brand palette — deep Saudi green + warm gold accent */
+    --color-brand:        #0A3D2E;
+    --color-brand-light:  #16563F;
+    --color-brand-muted:  #D4EDE5;
+    --color-gold:         #C8973A;
+    --color-gold-light:   #F0C97A;
+
+    /* Semantic surfaces (light) */
+    --color-surface:      #FFFFFF;
+    --color-surface-2:    #F4F6F5;
+    --color-surface-3:    #E8EDEB;
+    --color-border:       #D9E2DE;
+    --color-text:         #0D1F19;
+    --color-text-2:       #4D6B5F;
+    --color-text-3:       #8DA89D;
+  }
+}
+
+/* Light/dark semantic overrides — synced with theme/tokens.ts */
+:root {
+  color-scheme: light dark;
+  /* Warm-white light / neutral-charcoal dark */
+  --bg:         light-dark(#F6F6F3, #0F0F0F);
+  --bg-card:    light-dark(#FFFFFF, #1A1A1A);
+  --bg-card-2:  light-dark(#EEF3EF, #242424);
+  --border:     light-dark(#E4EBE7, #2D2D2D);
+  --text-1:     light-dark(#0E1C16, #F3F4F6);
+  --text-2:     light-dark(#3E5A4A, #9CA3AF);
+  --text-3:     light-dark(#8AA396, #6B7280);
+
+  --tab-bg:     light-dark(#FFFFFF, #1A1A1A);
+  --tab-border: light-dark(#E4EBE7, #2D2D2D);
+}
+
+@layer theme {
+  @theme {
+    --color-bg:       var(--bg);
+    --color-card:     var(--bg-card);
+    --color-card-2:   var(--bg-card-2);
+    --color-surface-2: var(--bg-card-2);
+    --color-surface-3: #E8EDEB;
+    --color-border-s: var(--border);
+    --color-ink:      var(--text-1);
+    --color-ink-2:    var(--text-2);
+    --color-ink-3:    var(--text-3);
+  }
+}
