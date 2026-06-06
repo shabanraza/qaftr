@@ -45,8 +45,6 @@ mobile/.expo/types/
 *.local
 *.pem
 credentials.json
-google-services.json
-GoogleService-Info.plist
 
 # Editor / OS
 .DS_Store

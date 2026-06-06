@@ -37,8 +37,6 @@ yarn-error.*
 .dev.vars
 *.pem
 credentials.json
-google-services.json
-GoogleService-Info.plist
 
 # builds
 *.apk
