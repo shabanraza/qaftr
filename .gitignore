@@ -3,6 +3,11 @@ node_modules
 .pnp
 .pnp.js
 
+# Lockfiles (bun only — keep bun.lock tracked)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
 # Build outputs
 dist
 dist-ssr
@@ -16,29 +21,67 @@ __unconfig*
 
 # Expo / React Native
 .expo
+.expo-shared
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
 *.orig.*
+*.apk
+*.aab
+*.ipa
+*.app
 ios/
 android/
 expo-env.d.ts
+mobile/.expo/types/
 
 # Env / secrets
 .env
 .env.*
 .env.local
+.dev.vars
 *.local
+*.pem
+credentials.json
+google-services.json
+GoogleService-Info.plist
 
 # Editor / OS
 .DS_Store
+Thumbs.db
 .idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*~
 *.log
 
-# App-specific
+# Agent / personal tooling (not for public repo)
+.cursor/
+.claude/
+.cursorrules
+**/.cursorrules
+
+# Generated / test artifacts
+coverage/
+*.tsbuildinfo
+test-results/
+playwright-report/
+blob-report/
+.paraglide/
+invoice-app/src/paraglide/
+
+# Internal docs & research (keep strategy local on public OSS)
 docs/MARKETING.md
+docs/STORE_SETUP.md
 todos.json
 .playwright-mcp/
-uspto-qaftr.json
+uspto-*.json
+
+# Fastlane (if added later)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
