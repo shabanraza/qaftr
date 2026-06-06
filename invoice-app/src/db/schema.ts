@@ -6,6 +6,7 @@ import {
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 // ---------------------------------------------------------------------------
@@ -115,31 +116,40 @@ export const clients = pgTable("clients", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-export const invoices = pgTable("invoices", {
-  id: text().primaryKey(),
-  ownerId: text("owner_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
-  businessId: text("business_id")
-    .notNull()
-    .references(() => businesses.id, { onDelete: "cascade" }),
-  clientId: text("client_id").references(() => clients.id, {
-    onDelete: "set null",
-  }),
-  // Sequential number scoped per business, e.g. INV-001
-  seqNumber: integer("seq_number").notNull(),
-  issueDate: timestamp("issue_date").notNull().defaultNow(),
-  dueDate: timestamp("due_date"),
-  status: invoiceStatusEnum().notNull().default("draft"),
-  subtotal: numeric("subtotal", { precision: 12, scale: 2 }).notNull(),
-  vatAmount: numeric("vat_amount", { precision: 12, scale: 2 }).notNull(),
-  total: numeric("total", { precision: 12, scale: 2 }).notNull(),
-  currency: text().notNull().default("SAR"),
-  notes: text(),
-  pdfUrl: text("pdf_url"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
+export const invoices = pgTable(
+  "invoices",
+  {
+    id: text().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    businessId: text("business_id")
+      .notNull()
+      .references(() => businesses.id, { onDelete: "cascade" }),
+    clientId: text("client_id").references(() => clients.id, {
+      onDelete: "set null",
+    }),
+    // Sequential number scoped per business, e.g. INV-001
+    seqNumber: integer("seq_number").notNull(),
+    issueDate: timestamp("issue_date").notNull().defaultNow(),
+    dueDate: timestamp("due_date"),
+    status: invoiceStatusEnum().notNull().default("draft"),
+    subtotal: numeric("subtotal", { precision: 12, scale: 2 }).notNull(),
+    vatAmount: numeric("vat_amount", { precision: 12, scale: 2 }).notNull(),
+    total: numeric("total", { precision: 12, scale: 2 }).notNull(),
+    currency: text().notNull().default("SAR"),
+    notes: text(),
+    pdfUrl: text("pdf_url"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("invoices_business_id_seq_number_unique").on(
+      table.businessId,
+      table.seqNumber,
+    ),
+  ],
+);
 
 export const lineItems = pgTable("line_items", {
   id: text().primaryKey(),

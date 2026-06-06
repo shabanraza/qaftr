@@ -28,7 +28,7 @@ export const Route = createFileRoute('/api/webhooks/revenuecat')({
           return new Response('Missing event fields', { status: 400 })
         }
 
-        await applyRevenueCatEvent({
+        const applied = await applyRevenueCatEvent({
           type: event.type,
           app_user_id: event.app_user_id,
           product_id: event.product_id,
@@ -36,7 +36,7 @@ export const Route = createFileRoute('/api/webhooks/revenuecat')({
           expiration_at_ms: event.expiration_at_ms,
         })
 
-        return new Response(JSON.stringify({ ok: true }), {
+        return new Response(JSON.stringify({ ok: true, applied }), {
           status: 200,
           headers: { 'Content-Type': 'application/json' },
         })

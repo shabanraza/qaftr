@@ -26,6 +26,7 @@
     "@faker-js/faker": "^10.3.0",
     "@neondatabase/serverless": "^1.0.2",
     "@t3-oss/env-core": "^0.13.10",
+    "@zatca/shared": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/match-sorter-utils": "latest",
     "@tanstack/react-devtools": "latest",

@@ -5,6 +5,9 @@ export const CLIENT_ERROR_CODES = new Set([
   "FREE_INVOICE_LIMIT",
   "INVOICE_NOT_FOUND",
   "CLIENT_NOT_FOUND",
+  "BUSINESS_NOT_FOUND",
+  "INVALID_INVOICE_TOTALS",
+  "INVOICE_CREATE_FAILED",
   "LOGO_TOO_LARGE",
   "BUSINESS_REQUIRED",
   "INVOICES_LOAD_FAILED",
@@ -39,6 +42,8 @@ export function sanitizeClientMessage(message: string): string {
   return "INTERNAL_ERROR";
 }
 
-export function throwNotFound(code: "INVOICE_NOT_FOUND" | "CLIENT_NOT_FOUND"): never {
+export function throwNotFound(
+  code: "INVOICE_NOT_FOUND" | "CLIENT_NOT_FOUND" | "BUSINESS_NOT_FOUND",
+): never {
   throw new TRPCError({ code: "NOT_FOUND", message: code });
 }

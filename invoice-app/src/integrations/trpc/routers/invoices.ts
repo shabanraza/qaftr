@@ -3,6 +3,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { db } from "#/db";
 import { invoices, lineItems, businesses, clients, entitlements } from "#/db/schema";
+import { computeInvoiceTotals, totalsMatch } from "@zatca/shared";
 import { createTRPCRouter, protectedProcedure } from "../init";
 import { throwNotFound } from "../errors";
 import { FREE_INVOICE_LIMIT } from "./billing";
@@ -27,6 +28,17 @@ const createInvoiceInput = z.object({
   total: z.string(),
   lineItems: z.array(lineItemInput).min(1),
 });
+
+const MAX_SEQ_RETRIES = 3;
+
+function isUniqueViolation(err: unknown): boolean {
+  return (
+    typeof err === "object" &&
+    err !== null &&
+    "code" in err &&
+    (err as { code?: string }).code === "23505"
+  );
+}
 
 export const invoicesRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
@@ -76,9 +88,19 @@ export const invoicesRouter = createTRPCRouter({
       const [items, businessRows, clientRows] = await Promise.all([
         db.select().from(lineItems).where(eq(lineItems.invoiceId, invoice.id))
           .orderBy(lineItems.sortOrder),
-        db.select().from(businesses).where(eq(businesses.id, invoice.businessId)).limit(1),
+        db
+          .select()
+          .from(businesses)
+          .where(
+            and(eq(businesses.id, invoice.businessId), eq(businesses.ownerId, ctx.userId)),
+          )
+          .limit(1),
         invoice.clientId
-          ? db.select().from(clients).where(eq(clients.id, invoice.clientId)).limit(1)
+          ? db
+              .select()
+              .from(clients)
+              .where(and(eq(clients.id, invoice.clientId), eq(clients.ownerId, ctx.userId)))
+              .limit(1)
           : Promise.resolve([]),
       ]);
 
@@ -91,7 +113,32 @@ export const invoicesRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure.input(createInvoiceInput).mutation(async ({ ctx, input }) => {
-    const { lineItems: items, ...invoiceData } = input;
+    const { lineItems: items, subtotal, vatAmount, total, ...invoiceData } = input;
+
+    const [business] = await db
+      .select({ id: businesses.id })
+      .from(businesses)
+      .where(and(eq(businesses.id, input.businessId), eq(businesses.ownerId, ctx.userId)))
+      .limit(1);
+
+    if (!business) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "BUSINESS_NOT_FOUND" });
+    }
+
+    if (input.clientId) {
+      const [client] = await db
+        .select({ id: clients.id })
+        .from(clients)
+        .where(and(eq(clients.id, input.clientId), eq(clients.ownerId, ctx.userId)))
+        .limit(1);
+
+      if (!client) throwNotFound("CLIENT_NOT_FOUND");
+    }
+
+    const computed = computeInvoiceTotals(items);
+    if (!totalsMatch(computed, { subtotal, vatAmount, total })) {
+      throw new TRPCError({ code: "BAD_REQUEST", message: "INVALID_INVOICE_TOTALS" });
+    }
 
     const [entitlement] = await db
       .select()
@@ -120,42 +167,65 @@ export const invoicesRouter = createTRPCRouter({
       }
     }
 
-    // Get next sequential number for this business inside a transaction
-    const invoiceId = crypto.randomUUID();
-
-    const [maxRow] = await db
-      .select({ max: max(invoices.seqNumber) })
-      .from(invoices)
-      .where(eq(invoices.businessId, input.businessId));
-
-    const seqNumber = (maxRow?.max ?? 0) + 1;
-
     const { issueDate, dueDate, ...rest } = invoiceData;
-    const [created] = await db
-      .insert(invoices)
-      .values({
-        id: invoiceId,
-        ownerId: ctx.userId,
-        seqNumber,
-        issueDate: new Date(issueDate),
-        dueDate: dueDate ? new Date(dueDate) : null,
-        status: "unpaid",
-        ...rest,
-      })
-      .returning();
 
-    if (items.length > 0) {
-      await db.insert(lineItems).values(
-        items.map((item, i) => ({
-          id: crypto.randomUUID(),
-          invoiceId,
-          ...item,
-          sortOrder: item.sortOrder ?? i,
-        })),
-      );
+    for (let attempt = 0; attempt < MAX_SEQ_RETRIES; attempt++) {
+      const invoiceId = crypto.randomUUID();
+
+      const [maxRow] = await db
+        .select({ max: max(invoices.seqNumber) })
+        .from(invoices)
+        .where(eq(invoices.businessId, input.businessId));
+
+      const seqNumber = (maxRow?.max ?? 0) + 1;
+
+      try {
+        const [created] = await db
+          .insert(invoices)
+          .values({
+            id: invoiceId,
+            ownerId: ctx.userId,
+            seqNumber,
+            issueDate: new Date(issueDate),
+            dueDate: dueDate ? new Date(dueDate) : null,
+            status: "unpaid",
+            subtotal: computed.subtotal,
+            vatAmount: computed.vatAmount,
+            total: computed.total,
+            ...rest,
+          })
+          .returning();
+
+        try {
+          await db.insert(lineItems).values(
+            computed.lineItems.map((item) => ({
+              id: crypto.randomUUID(),
+              invoiceId,
+              description: item.description,
+              qty: item.qty,
+              unitPrice: item.unitPrice,
+              lineTotal: item.lineTotal,
+              sortOrder: item.sortOrder,
+            })),
+          );
+        } catch (lineErr) {
+          await db.delete(invoices).where(eq(invoices.id, invoiceId));
+          throw lineErr;
+        }
+
+        return created;
+      } catch (err) {
+        if (isUniqueViolation(err) && attempt < MAX_SEQ_RETRIES - 1) {
+          continue;
+        }
+        throw err;
+      }
     }
 
-    return created;
+    throw new TRPCError({
+      code: "INTERNAL_SERVER_ERROR",
+      message: "INVOICE_CREATE_FAILED",
+    });
   }),
 
   updateStatus: protectedProcedure

@@ -1,10 +1,7 @@
 import { and, eq, gte, sql } from "drizzle-orm";
-import { z } from "zod";
-import { TRPCError } from "@trpc/server";
 import { db } from "#/db";
 import { entitlements, invoices } from "#/db/schema";
-import { applyRevenueCatEvent } from "#/lib/revenuecat-webhook";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../init";
+import { createTRPCRouter, protectedProcedure } from "../init";
 
 export const FREE_INVOICE_LIMIT = 3;
 
@@ -54,29 +51,4 @@ export const billingRouter = createTRPCRouter({
       remaining: limit === null ? null : Math.max(0, limit - used),
     };
   }),
-
-  // Called by RevenueCat webhook (server-to-server, verified by secret header)
-  revenueCatWebhook: publicProcedure
-    .input(
-      z.object({
-        event: z.object({
-          type: z.string(),
-          app_user_id: z.string(),
-          product_id: z.string().optional(),
-          period_type: z.string().optional(),
-          expiration_at_ms: z.number().optional(),
-        }),
-        webhook_secret: z.string(),
-      }),
-    )
-    .mutation(async ({ input }) => {
-      const expectedSecret = process.env.REVENUECAT_WEBHOOK_SECRET;
-      if (!expectedSecret || input.webhook_secret !== expectedSecret) {
-        throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid webhook secret" });
-      }
-
-      await applyRevenueCatEvent(input.event);
-
-      return { ok: true };
-    }),
 });

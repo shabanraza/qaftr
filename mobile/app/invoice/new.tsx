@@ -36,8 +36,7 @@ import {
   useTranslation,
 } from "@/lib/preferences";
 import { alertTrpcError } from "@/lib/trpc-errors";
-
-const VAT_RATE = 0.15;
+import { computeInvoiceTotals } from "@zatca/shared";
 
 interface LineItem {
   id: string;
@@ -46,8 +45,14 @@ interface LineItem {
   unitPrice: string;
 }
 
-function calcLine(item: LineItem) {
-  return (parseFloat(item.qty) || 0) * (parseFloat(item.unitPrice) || 0);
+function toTotalsInput(items: LineItem[]) {
+  return items
+    .filter((item) => item.description.trim() && parseFloat(item.unitPrice))
+    .map((item) => ({
+      description: item.description.trim(),
+      qty: item.qty,
+      unitPrice: item.unitPrice,
+    }));
 }
 
 export default function NewInvoiceScreen() {
@@ -78,9 +83,13 @@ export default function NewInvoiceScreen() {
     return d;
   }, [issueDate]);
 
-  const subtotal = useMemo(() => lineItems.reduce((s, i) => s + calcLine(i), 0), [lineItems]);
-  const vatAmount = subtotal * VAT_RATE;
-  const total = subtotal + vatAmount;
+  const invoiceTotals = useMemo(
+    () => computeInvoiceTotals(toTotalsInput(lineItems)),
+    [lineItems],
+  );
+  const subtotal = parseFloat(invoiceTotals.subtotal);
+  const vatAmount = parseFloat(invoiceTotals.vatAmount);
+  const total = parseFloat(invoiceTotals.total);
 
   const dueDateLabel = useMemo(
     () =>
@@ -129,7 +138,6 @@ export default function NewInvoiceScreen() {
 
   const previewData: InvoicePreviewData | null = useMemo(() => {
     if (!business) return null;
-    const filledLines = lineItems.filter((i) => i.description.trim());
     return {
       businessName: business.nameAr,
       businessNameEn: business.nameEn,
@@ -139,11 +147,11 @@ export default function NewInvoiceScreen() {
       clientName: selectedClientName || null,
       clientVat: clients?.find((c: { id: string; vatNumber?: string | null }) => c.id === selectedClientId)?.vatNumber ?? null,
       issueDate: issueDate.toISOString(),
-      lineItems: filledLines.map((item) => ({
+      lineItems: invoiceTotals.lineItems.map((item) => ({
         description: item.description,
         qty: item.qty,
         unitPrice: item.unitPrice,
-        lineTotal: calcLine(item),
+        lineTotal: parseFloat(item.lineTotal),
       })),
       subtotal,
       vatAmount,
@@ -154,6 +162,7 @@ export default function NewInvoiceScreen() {
   }, [
     business,
     lineItems,
+    invoiceTotals,
     selectedClientName,
     selectedClientId,
     clients,
@@ -195,15 +204,15 @@ export default function NewInvoiceScreen() {
       dueDate: dueDate.toISOString(),
       notes: notes.trim() || undefined,
       currency: "SAR",
-      subtotal: subtotal.toFixed(2),
-      vatAmount: vatAmount.toFixed(2),
-      total: total.toFixed(2),
-      lineItems: lineItems.map((item, i) => ({
+      subtotal: invoiceTotals.subtotal,
+      vatAmount: invoiceTotals.vatAmount,
+      total: invoiceTotals.total,
+      lineItems: invoiceTotals.lineItems.map((item) => ({
         description: item.description,
-        qty: (parseFloat(item.qty) || 1).toFixed(3),
-        unitPrice: (parseFloat(item.unitPrice) || 0).toFixed(2),
-        lineTotal: calcLine(item).toFixed(2),
-        sortOrder: i,
+        qty: item.qty,
+        unitPrice: item.unitPrice,
+        lineTotal: item.lineTotal,
+        sortOrder: item.sortOrder,
       })),
     });
   }
