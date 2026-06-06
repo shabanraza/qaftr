@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+dist-ssr
+build
+.output
+.vinxi
+.nitro
+.tanstack
+.wrangler
+__unconfig*
+
+# Expo / React Native
+.expo
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+ios/
+android/
+expo-env.d.ts
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Editor / OS
+.DS_Store
+.idea
+*.log
+
+# App-specific
+todos.json
+.playwright-mcp/
+uspto-qaftr.json

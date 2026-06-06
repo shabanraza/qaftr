@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "قافتر",
+    "slug": "qaftr",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "qaftr",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.qaftr.invoice"
+    },
+    "android": {
+      "package": "com.qaftr.invoice",
+      "adaptiveIcon": {
+        "backgroundColor": "#0A3D2E",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-dev-client",
+      "expo-font",
+      "expo-secure-store",
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true,
+          "defaultLanguageTag": "ar"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
