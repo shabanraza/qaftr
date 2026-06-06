@@ -4,6 +4,8 @@ dist
 dist-ssr
 *.local
 .env
+.env.*
+.env.local
 .nitro
 .tanstack
 .wrangler

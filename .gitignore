@@ -29,7 +29,7 @@ expo-env.d.ts
 # Env / secrets
 .env
 .env.*
-!.env.example
+.env.local
 *.local
 
 # Editor / OS
@@ -38,6 +38,7 @@ expo-env.d.ts
 *.log
 
 # App-specific
+docs/MARKETING.md
 todos.json
 .playwright-mcp/
 uspto-qaftr.json
