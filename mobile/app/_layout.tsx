@@ -26,6 +26,8 @@ import { trpc, createTrpcClient } from "@/lib/trpc";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { BillingProvider } from "@/lib/billing-context";
 import { PreferencesProvider, usePreferences } from "@/lib/preferences";
+import { getScreenshotState } from "snapscene";
+import { ScreenshotDeepLinkHandler } from "@/lib/screenshot-handler";
 
 const queryClient = createAppQueryClient();
 
@@ -33,9 +35,10 @@ function AuthGate() {
   const { user, isLoading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  const screenshotMode = getScreenshotState().active;
 
   useEffect(() => {
-    if (isLoading) return;
+    if (screenshotMode || isLoading) return;
     const root = segments[0];
     const inAuth = root === "(auth)";
     const inTabs = root === "(tabs)";
@@ -50,7 +53,16 @@ function AuthGate() {
     } else if (!user && inTabs) {
       router.replace("/(auth)/sign-in");
     }
-  }, [user, isLoading, segments, router]);
+  }, [user, isLoading, segments, router, screenshotMode]);
+
+  if (screenshotMode) {
+    return (
+      <>
+        <ScreenshotDeepLinkHandler />
+        <BusinessGate />
+      </>
+    );
+  }
 
   if (isLoading) {
     return <AppLoader fullScreen variant="brand" />;
@@ -63,29 +75,40 @@ function BusinessGate() {
   const { user } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  const screenshotMode = getScreenshotState().active;
   const root = segments[0];
   const onOnboarding = root === "onboarding";
   const inAuth = root === "(auth)";
-    const onSettings = root === "(tabs)" && segments[1] === "settings";
+  const onPaywall = root === "paywall";
+  const onSettings = root === "(tabs)" && segments[1] === "settings";
 
   const utils = trpc.useUtils();
   const { data: business, isPending: bizPending } = trpc.business.get.useQuery(undefined, {
-    enabled: !!user,
+    enabled: !!user && !screenshotMode,
     ...businessQueryOpts,
   });
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || screenshotMode) return;
     void utils.invoices.list.prefetch(undefined, listQueryOpts);
     void utils.clients.list.prefetch(undefined, listQueryOpts);
-  }, [user, utils]);
+  }, [user, utils, screenshotMode]);
 
   useEffect(() => {
+    if (screenshotMode || onPaywall) return;
     if (!user || bizPending || business || onOnboarding || inAuth || onSettings) return;
     router.replace("/onboarding");
-  }, [user, bizPending, business, onOnboarding, inAuth, onSettings, router]);
+  }, [user, bizPending, business, onOnboarding, inAuth, onSettings, onPaywall, screenshotMode, router]);
 
-  if (user && bizPending && !business && !onOnboarding && !inAuth && !onSettings) {
+  if (
+    !screenshotMode &&
+    user &&
+    bizPending &&
+    !business &&
+    !onOnboarding &&
+    !inAuth &&
+    !onSettings
+  ) {
     return <AppLoader fullScreen variant="surface" />;
   }
 

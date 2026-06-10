@@ -4,7 +4,14 @@ import { MarketingLayout } from '#/components/marketing/MarketingLayout'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { t, seoCopy } from '#/lib/marketing/i18n'
 import { buildMarketingHead } from '#/lib/marketing/seo'
-import { SUPPORT_EMAIL, BRAND } from '#/lib/marketing/constants'
+import { SUPPORT_EMAIL } from '#/lib/marketing/constants'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '#/components/ui/accordion'
+import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 
 export const Route = createFileRoute('/support')({
   validateSearch: marketingSearchSchema,
@@ -25,58 +32,55 @@ function SupportPage() {
     <MarketingLayout lang={lang}>
       <div className="mx-auto max-w-3xl px-5 py-16 md:px-8">
         <header className="mb-10 text-center md:text-start">
-          <h1 className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-[#0E1C16] md:text-4xl">
+          <h1 className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-foreground md:text-4xl">
             {copy.title}
           </h1>
-          <p className="mt-4 text-lg text-[#3E5A4A]">{copy.subtitle}</p>
+          <p className="mt-4 text-lg text-muted-foreground">{copy.subtitle}</p>
         </header>
 
-        <a
-          href={`mailto:${SUPPORT_EMAIL}`}
-          className="mb-12 flex flex-col items-center gap-3 rounded-2xl border border-[#E4EBE7] bg-white p-8 text-center shadow-sm transition-shadow hover:shadow-md no-underline md:flex-row md:text-start"
-        >
-          <div
-            className="flex size-14 shrink-0 items-center justify-center rounded-2xl text-[#0A3D2E]"
-            style={{ backgroundColor: `${BRAND.green}12` }}
+        <Card className="mb-12 shadow-sm transition-shadow hover:shadow-md">
+          <a
+            href={`mailto:${SUPPORT_EMAIL}`}
+            className="flex flex-col items-center gap-3 p-8 text-center no-underline md:flex-row md:text-start"
           >
-            <Mail className="size-6" strokeWidth={1.75} aria-hidden />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-[#8AA396]">{copy.emailLabel}</p>
-            <p className="mt-1 text-xl font-bold text-[#0A3D2E]">{SUPPORT_EMAIL}</p>
-            <p className="mt-1 text-sm text-[#3E5A4A]">{copy.emailHint}</p>
-          </div>
-        </a>
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-accent text-primary">
+              <Mail strokeWidth={1.75} aria-hidden />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-muted-foreground">{copy.emailLabel}</p>
+              <p className="mt-1 text-xl font-bold text-primary">{SUPPORT_EMAIL}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{copy.emailHint}</p>
+            </div>
+          </a>
+        </Card>
 
         <div className="mb-12 grid gap-4 sm:grid-cols-3">
           {copy.topics.map((topic) => (
-            <div
-              key={topic.title}
-              className="rounded-xl border border-[#E4EBE7] bg-white/80 p-5"
-            >
-              <h2 className="font-bold text-[#0A3D2E]">{topic.title}</h2>
-              <p className="mt-2 text-sm text-[#3E5A4A]">{topic.body}</p>
-            </div>
+            <Card key={topic.title} className="gap-2 py-5 shadow-none">
+              <CardHeader className="px-5 pb-0">
+                <CardTitle className="text-base text-primary">{topic.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="px-5">
+                <p className="text-sm text-muted-foreground">{topic.body}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
 
         <section>
-          <h2 className="mb-6 font-[family-name:var(--font-qaftr-display)] text-xl font-bold text-[#0E1C16]">
+          <h2 className="mb-6 font-[family-name:var(--font-qaftr-display)] text-xl font-bold text-foreground">
             {copy.faqTitle}
           </h2>
-          <div className="flex flex-col gap-4">
+          <Accordion type="single" collapsible className="rounded-xl border border-border bg-card px-5">
             {copy.faqs.map((faq) => (
-              <details
-                key={faq.q}
-                className="group rounded-xl border border-[#E4EBE7] bg-white p-5 open:shadow-sm"
-              >
-                <summary className="cursor-pointer list-none font-semibold text-[#0A3D2E] marker:content-none [&::-webkit-details-marker]:hidden">
+              <AccordionItem key={faq.q} value={faq.q}>
+                <AccordionTrigger className="text-primary hover:no-underline">
                   {faq.q}
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-[#3E5A4A]">{faq.a}</p>
-              </details>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{faq.a}</AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </section>
       </div>
     </MarketingLayout>

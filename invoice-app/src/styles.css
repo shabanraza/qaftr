@@ -90,6 +90,7 @@
   --link-bg-hover: rgba(24, 44, 49, 0.8);
   --hero-a: rgba(96, 215, 207, 0.18);
   --hero-b: rgba(110, 200, 154, 0.12);
+  --qaftr-sage: #6ec89a;
 
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
@@ -363,11 +364,80 @@ a {
 .qaftr-marketing {
   --font-qaftr-display: 'Noto Kufi Arabic', 'Fraunces', Georgia, serif;
   --font-qaftr-body: 'IBM Plex Sans Arabic', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  --background: var(--qaftr-warm);
+  --foreground: var(--qaftr-ink);
+  --card: #ffffff;
+  --card-foreground: var(--qaftr-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--qaftr-ink);
+  --primary: var(--qaftr-green);
+  --primary-foreground: #ffffff;
+  --secondary: var(--qaftr-gold);
+  --secondary-foreground: var(--qaftr-ink);
+  --muted: color-mix(in oklab, var(--qaftr-warm) 88%, var(--qaftr-green) 12%);
+  --muted-foreground: var(--qaftr-muted);
+  --accent: color-mix(in oklab, var(--qaftr-gold) 14%, white);
+  --accent-foreground: var(--qaftr-green);
+  --border: var(--qaftr-line);
+  --input: var(--qaftr-line);
+  --ring: var(--qaftr-green);
+  --radius: 0.75rem;
 }
 
-.qaftr-marketing a {
+.qaftr-marketing [data-slot='button'] {
+  border-radius: 9999px;
+  font-weight: 700;
+}
+
+.qaftr-marketing [data-slot='input'],
+.qaftr-marketing [data-slot='textarea'] {
+  border-radius: calc(var(--radius) + 4px);
+  background-color: #ffffff;
+}
+
+.qaftr-marketing [data-slot='card'] {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 12px 32px rgba(10, 61, 46, 0.06);
+}
+
+.qaftr-marketing [data-slot='toggle-group'] {
+  border-radius: 9999px;
+}
+
+.qaftr-marketing [data-slot='toggle-group-item'] {
+  border-radius: 9999px;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.qaftr-marketing [data-slot='toggle-group-item'][data-state='on'] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.qaftr-marketing a:not([data-slot='button']) {
   text-decoration: none;
   color: inherit;
+}
+
+.qaftr-marketing a[data-slot='button'] {
+  text-decoration: none;
+}
+
+.qaftr-marketing a[data-slot='button'][data-variant='default'] {
+  color: var(--primary-foreground);
+}
+
+.qaftr-marketing a.qaftr-btn-primary {
+  color: #fff;
+}
+
+.qaftr-marketing a.qaftr-btn-primary:hover {
+  color: #fff;
+  opacity: 0.92;
 }
 
 .qaftr-nav-link {
@@ -404,4 +474,17 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ── Qaftr loading bar animation ── */
+@keyframes qaftr-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+.qaftr-loading-bar {
+  animation: qaftr-loading 1.5s infinite linear;
 }

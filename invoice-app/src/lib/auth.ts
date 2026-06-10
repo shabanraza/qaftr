@@ -30,8 +30,9 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
-    tanstackStartCookies(),
     // bearer() lets the mobile app send Authorization: Bearer <token>
     bearer(),
+    // Must be last so Set-Cookie headers are forwarded correctly.
+    tanstackStartCookies(),
   ],
 });

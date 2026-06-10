@@ -2,7 +2,7 @@
  * Seed demo business, clients, and invoices for a user by email.
  * Usage: bun --env-file=.env.local scripts/seed-demo.ts [email]
  */
-import { eq, max, and } from "drizzle-orm";
+import { eq, max } from "drizzle-orm";
 import { db } from "../src/db/index.ts";
 import {
   user,

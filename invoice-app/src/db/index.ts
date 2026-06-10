@@ -7,7 +7,7 @@ neonConfig.fetchConnectionCache = true;
 
 const MAX_FETCH_RETRIES = 3;
 
-neonConfig.fetchFunction = async (input, init) => {
+neonConfig.fetchFunction = async (input: RequestInfo | URL, init?: RequestInit) => {
   let lastError: unknown;
   for (let attempt = 0; attempt < MAX_FETCH_RETRIES; attempt++) {
     try {

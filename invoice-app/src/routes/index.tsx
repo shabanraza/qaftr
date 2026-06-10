@@ -11,7 +11,18 @@ import { MarketingLayout } from '#/components/marketing/MarketingLayout'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { t, seoCopy } from '#/lib/marketing/i18n'
 import { buildMarketingHead } from '#/lib/marketing/seo'
-import { BRAND } from '#/lib/marketing/constants'
+import { InstantInvoiceTool } from '#/components/instant-invoice/InstantInvoiceTool'
+import { getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
+import { cn } from '#/lib/utils'
+import { Badge } from '#/components/ui/badge'
+import { Button } from '#/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '#/components/ui/card'
+import { Separator } from '#/components/ui/separator'
 
 const featureIcons = [QrCode, Users, MessageCircle, Sparkles, FileText, Check]
 
@@ -29,46 +40,40 @@ function HomePage() {
   const { lang: searchLang } = Route.useSearch()
   const lang = resolveLang({ lang: searchLang })
   const copy = t(lang).home
+  const toolCopy = getInstantInvoiceCopy(lang)
 
   return (
     <MarketingLayout lang={lang}>
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-8 pt-12 md:grid-cols-2 md:px-8 md:pt-20">
         <div className="qaftr-rise order-2 md:order-1">
-          <p
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#E4EBE7] bg-white px-4 py-1.5 text-xs font-semibold tracking-wide text-[#0A3D2E]"
-            style={{ animationDelay: '0ms' }}
+          <Badge
+            variant="outline"
+            className="mb-4 gap-2 border-border bg-card px-4 py-1.5 text-xs font-semibold tracking-wide text-primary"
           >
-            <span
-              className="size-1.5 rounded-full"
-              style={{ backgroundColor: BRAND.gold }}
-            />
+            <span className="size-1.5 rounded-full bg-secondary" />
             {copy.kicker}
-          </p>
-          <h1 className="font-[family-name:var(--font-qaftr-display)] text-4xl font-bold leading-[1.15] tracking-tight text-[#0E1C16] md:text-5xl lg:text-[3.25rem]">
+          </Badge>
+          <h1 className="font-[family-name:var(--font-qaftr-display)] text-4xl font-bold leading-[1.15] tracking-tight text-foreground md:text-5xl lg:text-[3.25rem]">
             {copy.title}
-            <span className="mt-1 block text-[#0A3D2E]">{copy.titleAccent}</span>
+            <span className="mt-1 block text-primary">{copy.titleAccent}</span>
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-[#3E5A4A] md:text-lg">
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
             {copy.subtitle}
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            <span className="rounded-full bg-[#0A3D2E]/10 px-3 py-1 text-xs font-bold text-[#0A3D2E]">
+            <Badge variant="secondary" className="bg-primary/10 text-primary">
               {copy.badgeZatca}
-            </span>
-            <span
-              className="rounded-full px-3 py-1 text-xs font-bold text-[#0A3D2E]"
-              style={{ backgroundColor: `${BRAND.gold}22` }}
-            >
+            </Badge>
+            <Badge variant="outline" className="border-secondary/30 bg-accent text-primary">
               {copy.badgeFreelancer}
-            </span>
+            </Badge>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <span
-              className="inline-flex items-center rounded-full px-6 py-3 text-sm font-bold text-white shadow-md"
-              style={{ backgroundColor: BRAND.green }}
-            >
-              {t(lang).cta.comingSoon}
-            </span>
+            <Button asChild size="lg" className="qaftr-btn-primary shadow-md">
+              <a href="#invoice-tool" className="no-underline">
+                {toolCopy.heroCta}
+              </a>
+            </Button>
           </div>
         </div>
 
@@ -77,33 +82,33 @@ function HomePage() {
         </div>
       </section>
 
+      <InstantInvoiceTool lang={lang} />
+
       <section id="features" className="mx-auto max-w-6xl px-5 py-16 md:px-8">
         <div className="mb-10 text-center md:text-start">
-          <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold text-[#0E1C16] md:text-3xl">
+          <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold text-foreground md:text-3xl">
             {copy.featuresTitle}
           </h2>
-          <div
-            className="mx-auto mt-3 h-1 w-16 rounded-full md:mx-0"
-            style={{ backgroundColor: BRAND.gold }}
-          />
+          <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-secondary md:mx-0" />
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {copy.features.map((feature, i) => {
             const Icon = featureIcons[i] ?? Check
             return (
-              <article
+              <Card
                 key={feature.title}
-                className="qaftr-card group rounded-2xl border border-[#E4EBE7] bg-white p-6 shadow-sm transition-transform hover:-translate-y-0.5"
+                className="qaftr-card gap-3 py-6 transition-transform hover:-translate-y-0.5"
               >
-                <div
-                  className="mb-4 flex size-11 items-center justify-center rounded-xl text-[#0A3D2E]"
-                  style={{ backgroundColor: `${BRAND.green}12` }}
-                >
-                  <Icon className="size-5" strokeWidth={1.75} aria-hidden />
-                </div>
-                <h3 className="text-lg font-bold text-[#0A3D2E]">{feature.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#3E5A4A]">{feature.body}</p>
-              </article>
+                <CardHeader className="px-6 pb-0">
+                  <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-accent text-primary">
+                    <Icon strokeWidth={1.75} aria-hidden />
+                  </div>
+                  <CardTitle className="text-lg text-primary">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6">
+                  <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
+                </CardContent>
+              </Card>
             )
           })}
         </div>
@@ -115,19 +120,17 @@ function HomePage() {
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
           {copy.steps.map((step) => (
-            <div
-              key={step.title}
-              className="relative rounded-2xl border border-[#E4EBE7] bg-white/80 p-6 text-center md:text-start"
-            >
-              <span
-                className="mb-3 inline-flex size-10 items-center justify-center rounded-full text-lg font-bold text-white"
-                style={{ backgroundColor: BRAND.gold }}
-              >
-                {step.num}
-              </span>
-              <h3 className="text-lg font-bold text-[#0A3D2E]">{step.title}</h3>
-              <p className="mt-2 text-sm text-[#3E5A4A]">{step.body}</p>
-            </div>
+            <Card key={step.title} className="gap-3 py-6 text-center md:text-start">
+              <CardHeader className="items-center px-6 pb-0 md:items-start">
+                <span className="mb-1 inline-flex size-10 items-center justify-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
+                  {step.num}
+                </span>
+                <CardTitle className="text-lg text-primary">{step.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="px-6">
+                <p className="text-sm text-muted-foreground">{step.body}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
@@ -137,7 +140,11 @@ function HomePage() {
           <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold md:text-3xl">
             {copy.pricingTitle}
           </h2>
-          <p className="mt-3 text-[#3E5A4A]">{copy.pricingSubtitle}</p>
+          <p className="mt-3 text-muted-foreground">
+            {lang === 'ar'
+              ? 'حمّل PDF مجاناً بدون حساب — ٣ فواتير محفوظة شهرياً مجاناً بعد التسجيل'
+              : copy.pricingSubtitle}
+          </p>
         </div>
         <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
           <PricingCard
@@ -164,21 +171,19 @@ function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-20 md:px-8">
-        <div
-          className="rounded-3xl px-8 py-12 text-center text-white md:px-12"
-          style={{ backgroundColor: BRAND.green }}
-        >
-          <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold md:text-3xl">
-            {copy.ctaTitle}
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-[#A8D5BC]">{copy.ctaBody}</p>
-          <span
-            className="mt-8 inline-flex rounded-full px-8 py-3 text-sm font-bold"
-            style={{ backgroundColor: BRAND.gold, color: BRAND.ink }}
-          >
-            {t(lang).cta.comingSoon}
-          </span>
-        </div>
+        <Card className="rounded-3xl border-primary bg-primary px-8 py-12 text-center text-primary-foreground md:px-12">
+          <CardHeader className="px-0">
+            <CardTitle className="font-[family-name:var(--font-qaftr-display)] text-2xl md:text-3xl">
+              {copy.ctaTitle}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-0">
+            <p className="mx-auto max-w-md text-primary-foreground/70">{copy.ctaBody}</p>
+            <Badge variant="secondary" className="mt-8 px-8 py-2 text-sm">
+              {t(lang).cta.comingSoon}
+            </Badge>
+          </CardContent>
+        </Card>
       </section>
     </MarketingLayout>
   )
@@ -192,7 +197,6 @@ function PricingCard({
   badge,
   features,
   highlighted,
-  lang,
 }: {
   name: string
   price: string
@@ -203,87 +207,94 @@ function PricingCard({
   highlighted: boolean
 }) {
   return (
-    <div
-      className={`relative rounded-2xl border p-8 ${
-        highlighted
-          ? 'border-[#C8973A] bg-[#0A3D2E] text-white shadow-xl'
-          : 'border-[#E4EBE7] bg-white'
-      }`}
+    <Card
+      className={cn(
+        'relative gap-4 py-8',
+        highlighted && 'border-secondary bg-primary text-primary-foreground shadow-xl',
+      )}
     >
-      {badge && (
-        <span
-          className="absolute -top-3 start-6 rounded-full px-3 py-0.5 text-xs font-bold"
-          style={{ backgroundColor: BRAND.gold, color: BRAND.ink }}
-        >
+      {badge ? (
+        <Badge variant="secondary" className="absolute -top-3 start-6">
           {badge}
-        </span>
-      )}
-      <p className={`text-sm font-semibold ${highlighted ? 'text-[#A8D5BC]' : 'text-[#3E5A4A]'}`}>
-        {name}
-      </p>
-      <p className="mt-3 text-4xl font-extrabold">{price}</p>
-      <p className={`text-sm ${highlighted ? 'text-[#A8D5BC]' : 'text-[#3E5A4A]'}`}>{period}</p>
-      {yearly && (
-        <p className={`mt-1 text-sm ${highlighted ? 'text-[#A8D5BC]' : 'text-[#8AA396]'}`}>
-          {yearly}
+        </Badge>
+      ) : null}
+      <CardHeader className="px-8 pb-0">
+        <p className={cn('text-sm font-semibold', highlighted ? 'text-primary-foreground/70' : 'text-muted-foreground')}>
+          {name}
         </p>
-      )}
-      <ul className="mt-6 flex flex-col gap-2.5">
-        {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-sm">
-            <Check
-              className={`mt-0.5 size-4 shrink-0 ${highlighted ? 'text-[#C8973A]' : 'text-[#0A3D2E]'}`}
-              aria-hidden
-            />
-            <span className={highlighted ? 'text-white/90' : 'text-[#3E5A4A]'}>{f}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <p className="mt-3 text-4xl font-extrabold">{price}</p>
+        <p className={cn('text-sm', highlighted ? 'text-primary-foreground/70' : 'text-muted-foreground')}>
+          {period}
+        </p>
+        {yearly ? (
+          <p className={cn('mt-1 text-sm', highlighted ? 'text-primary-foreground/60' : 'text-muted-foreground/80')}>
+            {yearly}
+          </p>
+        ) : null}
+      </CardHeader>
+      <CardContent className="px-8">
+        <ul className="flex flex-col gap-2.5">
+          {features.map((f) => (
+            <li key={f} className="flex items-start gap-2 text-sm">
+              <Check
+                className={cn(
+                  'mt-0.5 shrink-0',
+                  highlighted ? 'text-secondary' : 'text-primary',
+                )}
+                aria-hidden
+              />
+              <span className={highlighted ? 'text-primary-foreground/90' : 'text-muted-foreground'}>
+                {f}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   )
 }
 
 function InvoicePreview({ lang }: { lang: 'ar' | 'en' }) {
   const isAr = lang === 'ar'
   return (
-    <div
-      className="relative mx-auto max-w-sm rotate-1 rounded-2xl border border-[#E4EBE7] bg-white p-6 shadow-2xl transition-transform hover:rotate-0 md:max-w-md"
+    <Card
+      className="relative mx-auto max-w-sm rotate-1 py-6 shadow-2xl transition-transform hover:rotate-0 md:max-w-md"
       aria-hidden
     >
-      <div className="mb-4 flex items-center justify-between border-b border-[#E4EBE7] pb-4">
-        <div>
-          <p className="text-xs font-semibold text-[#8AA396]">
-            {isAr ? 'فاتورة ضريبية' : 'Tax Invoice'}
-          </p>
-          <p className="font-bold text-[#0A3D2E]">{isAr ? 'قافتر للتصميم' : 'Qaftr Design'}</p>
+      <CardHeader className="px-6 pb-0">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground">
+              {isAr ? 'فاتورة ضريبية' : 'Tax Invoice'}
+            </p>
+            <CardTitle className="text-base text-primary">
+              {isAr ? 'قافتر للتصميم' : 'Qaftr Design'}
+            </CardTitle>
+          </div>
+          <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+            QR
+          </div>
         </div>
-        <div
-          className="flex size-12 items-center justify-center rounded-lg text-xs font-bold text-white"
-          style={{ backgroundColor: BRAND.green }}
-        >
-          QR
-        </div>
-      </div>
-      <div className="flex flex-col gap-2 text-sm">
-        <div className="flex justify-between text-[#3E5A4A]">
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2 px-6 text-sm">
+        <Separator />
+        <div className="flex justify-between text-muted-foreground">
           <span>{isAr ? 'تصميم شعار' : 'Logo design'}</span>
-          <span className="font-semibold text-[#0E1C16]">1,500</span>
+          <span className="font-semibold text-foreground">1,500</span>
         </div>
-        <div className="flex justify-between text-[#3E5A4A]">
+        <div className="flex justify-between text-muted-foreground">
           <span>{isAr ? 'ضريبة 15٪' : 'VAT 15%'}</span>
-          <span className="font-semibold text-[#0E1C16]">225</span>
+          <span className="font-semibold text-foreground">225</span>
         </div>
-        <div className="mt-2 flex justify-between border-t border-[#E4EBE7] pt-3 font-bold text-[#0A3D2E]">
+        <Separator />
+        <div className="flex justify-between pt-1 font-bold text-primary">
           <span>{isAr ? 'الإجمالي' : 'Total'}</span>
-          <span>1,725 {isAr ? 'ر.س' : 'SAR'}</span>
+          <span>{isAr ? '1,725 ر.س' : '1,725 SAR'}</span>
         </div>
-      </div>
-      <div
-        className="absolute -bottom-3 -end-3 rounded-full px-3 py-1 text-[10px] font-bold text-white shadow-lg"
-        style={{ backgroundColor: BRAND.gold }}
-      >
+      </CardContent>
+      <Badge variant="secondary" className="absolute -bottom-3 -end-3 shadow-lg">
         ZATCA Phase 1
-      </div>
-    </div>
+      </Badge>
+    </Card>
   )
 }

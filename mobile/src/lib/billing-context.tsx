@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { Platform } from "react-native";
+import { getScreenshotState } from "snapscene";
 import type { CustomerInfo, PurchasesPackage } from "react-native-purchases";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/lib/auth-context";
@@ -149,8 +150,25 @@ export function BillingProvider({ children }: { children: React.ReactNode }) {
     }
   }, [utils]);
 
-  const value = useMemo<BillingState>(
-    () => ({
+  const value = useMemo<BillingState>(() => {
+    if (getScreenshotState().active) {
+      return {
+        isReady: true,
+        isPro: false,
+        monthlyPrice: "٣٩ ر.س / شهر",
+        annualPrice: "٣٤٩ ر.س / سنة",
+        monthlyPackage: null,
+        annualPackage: null,
+        purchasing: false,
+        restoring: false,
+        purchase: async () => ({ ok: false }),
+        restore: async () => ({ ok: false }),
+        refresh: async () => {},
+        storeAvailable: true,
+      };
+    }
+
+    return {
       isReady,
       isPro,
       monthlyPrice: formatPackagePrice(monthlyPackage),
@@ -163,20 +181,19 @@ export function BillingProvider({ children }: { children: React.ReactNode }) {
       restore,
       refresh,
       storeAvailable,
-    }),
-    [
-      isReady,
-      isPro,
-      monthlyPackage,
-      annualPackage,
-      purchasing,
-      restoring,
-      purchase,
-      restore,
-      refresh,
-      storeAvailable,
-    ],
-  );
+    };
+  }, [
+    isReady,
+    isPro,
+    monthlyPackage,
+    annualPackage,
+    purchasing,
+    restoring,
+    purchase,
+    restore,
+    refresh,
+    storeAvailable,
+  ]);
 
   return <BillingContext.Provider value={value}>{children}</BillingContext.Provider>;
 }

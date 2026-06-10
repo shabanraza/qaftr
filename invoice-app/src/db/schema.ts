@@ -74,6 +74,14 @@ export const invoiceStatusEnum = pgEnum("invoice_status", [
   "overdue",
 ]);
 
+export const quoteStatusEnum = pgEnum("quote_status", [
+  "draft",
+  "pending",
+  "accepted",
+  "rejected",
+  "converted",
+]);
+
 export const planEnum = pgEnum("plan", ["free", "pro"]);
 
 export const entitlementStatusEnum = pgEnum("entitlement_status", [
@@ -163,6 +171,54 @@ export const lineItems = pgTable("line_items", {
   sortOrder: integer("sort_order").notNull().default(0),
 });
 
+export const quotes = pgTable(
+  "quotes",
+  {
+    id: text().primaryKey(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    businessId: text("business_id")
+      .notNull()
+      .references(() => businesses.id, { onDelete: "cascade" }),
+    clientId: text("client_id").references(() => clients.id, {
+      onDelete: "set null",
+    }),
+    // Sequential number scoped per business, e.g. QTE-001
+    seqNumber: integer("seq_number").notNull(),
+    issueDate: timestamp("issue_date").notNull().defaultNow(),
+    validUntil: timestamp("valid_until"),
+    status: quoteStatusEnum().notNull().default("draft"),
+    subtotal: numeric("subtotal", { precision: 12, scale: 2 }).notNull(),
+    vatAmount: numeric("vat_amount", { precision: 12, scale: 2 }).notNull(),
+    total: numeric("total", { precision: 12, scale: 2 }).notNull(),
+    currency: text().notNull().default("SAR"),
+    notes: text(),
+    pdfUrl: text("pdf_url"),
+    convertedToInvoiceId: text("converted_to_invoice_id"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("quotes_business_id_seq_number_unique").on(
+      table.businessId,
+      table.seqNumber,
+    ),
+  ],
+);
+
+export const quoteLineItems = pgTable("quote_line_items", {
+  id: text().primaryKey(),
+  quoteId: text("quote_id")
+    .notNull()
+    .references(() => quotes.id, { onDelete: "cascade" }),
+  description: text().notNull(),
+  qty: numeric("qty", { precision: 10, scale: 3 }).notNull(),
+  unitPrice: numeric("unit_price", { precision: 12, scale: 2 }).notNull(),
+  lineTotal: numeric("line_total", { precision: 12, scale: 2 }).notNull(),
+  sortOrder: integer("sort_order").notNull().default(0),
+});
+
 export const entitlements = pgTable("entitlements", {
   // One row per user — upserted by RevenueCat webhook
   ownerId: text("owner_id")
@@ -172,4 +228,18 @@ export const entitlements = pgTable("entitlements", {
   status: entitlementStatusEnum().notNull().default("active"),
   rcCustomerId: text("rc_customer_id"),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const invoiceEvents = pgTable("invoice_events", {
+  id: text().primaryKey(),
+  invoiceId: text("invoice_id")
+    .notNull()
+    .references(() => invoices.id, { onDelete: "cascade" }),
+  ownerId: text("owner_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // 'created' | 'reminder_sent' | 'status_changed'
+  channel: text("channel"), // 'whatsapp' | 'system'
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });

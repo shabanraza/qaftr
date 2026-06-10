@@ -15,6 +15,8 @@ export const BRAND = {
   sage: '#A8D5BC',
 } as const
 
+export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`
+
 export const SEO_KEYWORDS = [
   'فاتورة زاتكا',
   'فوترة إلكترونية',
@@ -28,4 +30,8 @@ export const SEO_KEYWORDS = [
   'فاتورة واتساب',
   'قافتر',
   'Qaftr',
+  'VAT calculator Saudi',
+  'TRN checker',
+  'حاسبة ضريبة',
+  'الرقم الضريبي',
 ] as const

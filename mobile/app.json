@@ -9,7 +9,10 @@
     "scheme": "qaftr",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.qaftr.invoice"
+      "bundleIdentifier": "com.qaftr.invoice",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.qaftr.invoice",

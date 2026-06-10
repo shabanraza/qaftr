@@ -7,7 +7,8 @@
  */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
@@ -15,7 +16,9 @@ import pg from "pg";
 
 config({ path: [".env.local", ".env"] });
 
-const migrationsFolder = resolve(import.meta.dir, "../drizzle");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const migrationsFolder = resolve(__dirname, "../drizzle");
 
 function migrationHash(filename: string): string {
   const sql = readFileSync(resolve(migrationsFolder, filename), "utf8");
