@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { authClient, clearSessionToken } from "./auth";
+import { authClient, clearSessionToken, getSessionToken } from "./auth";
 
 interface AuthUser {
   id: string;
@@ -32,14 +32,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function signIn(email: string, password: string): Promise<{ error?: string }> {
     const { data, error } = await authClient.signIn.email({ email, password });
     if (error) return { error: error.message ?? "Sign in failed" };
-    setUser(data?.user ?? null);
+    await waitForSessionToken();
+    const session = await authClient.getSession();
+    setUser(session.data?.user ?? data?.user ?? null);
     return {};
   }
 
   async function signUp(name: string, email: string, password: string): Promise<{ error?: string }> {
     const { data, error } = await authClient.signUp.email({ name, email, password });
     if (error) return { error: error.message ?? "Sign up failed" };
-    setUser(data?.user ?? null);
+    await waitForSessionToken();
+    const session = await authClient.getSession();
+    setUser(session.data?.user ?? data?.user ?? null);
     return {};
   }
 
@@ -60,4 +64,12 @@ export function useAuth(): AuthState {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
+}
+
+/** SecureStore write from sign-in onSuccess can lag behind navigation. */
+async function waitForSessionToken(maxAttempts = 20): Promise<void> {
+  for (let i = 0; i < maxAttempts; i++) {
+    if (await getSessionToken()) return;
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
 }

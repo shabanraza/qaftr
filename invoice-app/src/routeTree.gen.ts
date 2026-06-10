@@ -9,13 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkspaceRouteImport } from './routes/workspace'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
+import { Route as ToolsIndexRouteImport } from './routes/tools/index'
+import { Route as InvoicesIndexRouteImport } from './routes/invoices/index'
+import { Route as WorkspaceWhatsappRouteImport } from './routes/workspace/whatsapp'
+import { Route as WorkspaceQuotesRouteImport } from './routes/workspace/quotes'
+import { Route as WorkspaceNewInvoiceRouteImport } from './routes/workspace/new-invoice'
+import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoices'
+import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
+import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
+import { Route as ToolsVatCalculatorRouteImport } from './routes/tools/vat-calculator'
+import { Route as ToolsTrnCheckerRouteImport } from './routes/tools/trn-checker'
+import { Route as ToolsFatoraRouteImport } from './routes/tools/fatora'
+import { Route as InvoicesIdRouteImport } from './routes/invoices/$id'
+import { Route as WorkspaceQuotesIndexRouteImport } from './routes/workspace/quotes/index'
+import { Route as WorkspaceInvoicesIndexRouteImport } from './routes/workspace/invoices/index'
+import { Route as WorkspaceQuotesNewRouteImport } from './routes/workspace/quotes/new'
+import { Route as WorkspaceQuotesIdRouteImport } from './routes/workspace/quotes/$id'
+import { Route as WorkspaceInvoicesIdRouteImport } from './routes/workspace/invoices/$id'
 import { Route as ApiWebhooksRevenuecatRouteImport } from './routes/api/webhooks/revenuecat'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const WorkspaceRoute = WorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -30,6 +54,96 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceIndexRoute = WorkspaceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/tools/',
+  path: '/tools/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesIndexRoute = InvoicesIndexRouteImport.update({
+  id: '/invoices/',
+  path: '/invoices/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceWhatsappRoute = WorkspaceWhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceQuotesRoute = WorkspaceQuotesRouteImport.update({
+  id: '/quotes',
+  path: '/quotes',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceNewInvoiceRoute = WorkspaceNewInvoiceRouteImport.update({
+  id: '/new-invoice',
+  path: '/new-invoice',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceInvoicesRoute = WorkspaceInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceClientsRoute = WorkspaceClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
+  id: '/accountant',
+  path: '/accountant',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const ToolsVatCalculatorRoute = ToolsVatCalculatorRouteImport.update({
+  id: '/tools/vat-calculator',
+  path: '/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsTrnCheckerRoute = ToolsTrnCheckerRouteImport.update({
+  id: '/tools/trn-checker',
+  path: '/tools/trn-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsFatoraRoute = ToolsFatoraRouteImport.update({
+  id: '/tools/fatora',
+  path: '/tools/fatora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoicesIdRoute = InvoicesIdRouteImport.update({
+  id: '/invoices/$id',
+  path: '/invoices/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceQuotesIndexRoute = WorkspaceQuotesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceQuotesRoute,
+} as any)
+const WorkspaceInvoicesIndexRoute = WorkspaceInvoicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceInvoicesRoute,
+} as any)
+const WorkspaceQuotesNewRoute = WorkspaceQuotesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => WorkspaceQuotesRoute,
+} as any)
+const WorkspaceQuotesIdRoute = WorkspaceQuotesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => WorkspaceQuotesRoute,
+} as any)
+const WorkspaceInvoicesIdRoute = WorkspaceInvoicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => WorkspaceInvoicesRoute,
 } as any)
 const ApiWebhooksRevenuecatRoute = ApiWebhooksRevenuecatRouteImport.update({
   id: '/api/webhooks/revenuecat',
@@ -51,26 +165,80 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/trn-checker': typeof ToolsTrnCheckerRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/clients': typeof WorkspaceClientsRoute
+  '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
+  '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
+  '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
+  '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/invoices/': typeof InvoicesIndexRoute
+  '/tools/': typeof ToolsIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
+  '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
+  '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/invoices/': typeof WorkspaceInvoicesIndexRoute
+  '/workspace/quotes/': typeof WorkspaceQuotesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
+  '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/trn-checker': typeof ToolsTrnCheckerRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/clients': typeof WorkspaceClientsRoute
+  '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
+  '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/invoices': typeof InvoicesIndexRoute
+  '/tools': typeof ToolsIndexRoute
+  '/workspace': typeof WorkspaceIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
+  '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
+  '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/invoices': typeof WorkspaceInvoicesIndexRoute
+  '/workspace/quotes': typeof WorkspaceQuotesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
+  '/workspace': typeof WorkspaceRouteWithChildren
+  '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/trn-checker': typeof ToolsTrnCheckerRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/clients': typeof WorkspaceClientsRoute
+  '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
+  '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
+  '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
+  '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/invoices/': typeof InvoicesIndexRoute
+  '/tools/': typeof ToolsIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
+  '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
+  '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/invoices/': typeof WorkspaceInvoicesIndexRoute
+  '/workspace/quotes/': typeof WorkspaceQuotesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,31 +246,92 @@ export interface FileRouteTypes {
     | '/'
     | '/privacy'
     | '/support'
+    | '/workspace'
+    | '/invoices/$id'
+    | '/tools/fatora'
+    | '/tools/trn-checker'
+    | '/tools/vat-calculator'
+    | '/workspace/accountant'
+    | '/workspace/clients'
+    | '/workspace/invoices'
+    | '/workspace/new-invoice'
+    | '/workspace/quotes'
+    | '/workspace/whatsapp'
+    | '/invoices/'
+    | '/tools/'
+    | '/workspace/'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/invoices/$id'
+    | '/workspace/quotes/$id'
+    | '/workspace/quotes/new'
+    | '/workspace/invoices/'
+    | '/workspace/quotes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/privacy'
     | '/support'
+    | '/invoices/$id'
+    | '/tools/fatora'
+    | '/tools/trn-checker'
+    | '/tools/vat-calculator'
+    | '/workspace/accountant'
+    | '/workspace/clients'
+    | '/workspace/new-invoice'
+    | '/workspace/whatsapp'
+    | '/invoices'
+    | '/tools'
+    | '/workspace'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/invoices/$id'
+    | '/workspace/quotes/$id'
+    | '/workspace/quotes/new'
+    | '/workspace/invoices'
+    | '/workspace/quotes'
   id:
     | '__root__'
     | '/'
     | '/privacy'
     | '/support'
+    | '/workspace'
+    | '/invoices/$id'
+    | '/tools/fatora'
+    | '/tools/trn-checker'
+    | '/tools/vat-calculator'
+    | '/workspace/accountant'
+    | '/workspace/clients'
+    | '/workspace/invoices'
+    | '/workspace/new-invoice'
+    | '/workspace/quotes'
+    | '/workspace/whatsapp'
+    | '/invoices/'
+    | '/tools/'
+    | '/workspace/'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/invoices/$id'
+    | '/workspace/quotes/$id'
+    | '/workspace/quotes/new'
+    | '/workspace/invoices/'
+    | '/workspace/quotes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
   SupportRoute: typeof SupportRoute
+  WorkspaceRoute: typeof WorkspaceRouteWithChildren
+  InvoicesIdRoute: typeof InvoicesIdRoute
+  ToolsFatoraRoute: typeof ToolsFatoraRoute
+  ToolsTrnCheckerRoute: typeof ToolsTrnCheckerRoute
+  ToolsVatCalculatorRoute: typeof ToolsVatCalculatorRoute
+  InvoicesIndexRoute: typeof InvoicesIndexRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   ApiWebhooksRevenuecatRoute: typeof ApiWebhooksRevenuecatRoute
@@ -110,6 +339,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workspace': {
+      id: '/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -130,6 +366,132 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/workspace/': {
+      id: '/workspace/'
+      path: '/'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof WorkspaceIndexRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/tools/': {
+      id: '/tools/'
+      path: '/tools'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoices/': {
+      id: '/invoices/'
+      path: '/invoices'
+      fullPath: '/invoices/'
+      preLoaderRoute: typeof InvoicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspace/whatsapp': {
+      id: '/workspace/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/workspace/whatsapp'
+      preLoaderRoute: typeof WorkspaceWhatsappRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/quotes': {
+      id: '/workspace/quotes'
+      path: '/quotes'
+      fullPath: '/workspace/quotes'
+      preLoaderRoute: typeof WorkspaceQuotesRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/new-invoice': {
+      id: '/workspace/new-invoice'
+      path: '/new-invoice'
+      fullPath: '/workspace/new-invoice'
+      preLoaderRoute: typeof WorkspaceNewInvoiceRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/invoices': {
+      id: '/workspace/invoices'
+      path: '/invoices'
+      fullPath: '/workspace/invoices'
+      preLoaderRoute: typeof WorkspaceInvoicesRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/clients': {
+      id: '/workspace/clients'
+      path: '/clients'
+      fullPath: '/workspace/clients'
+      preLoaderRoute: typeof WorkspaceClientsRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/accountant': {
+      id: '/workspace/accountant'
+      path: '/accountant'
+      fullPath: '/workspace/accountant'
+      preLoaderRoute: typeof WorkspaceAccountantRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/tools/vat-calculator': {
+      id: '/tools/vat-calculator'
+      path: '/tools/vat-calculator'
+      fullPath: '/tools/vat-calculator'
+      preLoaderRoute: typeof ToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/trn-checker': {
+      id: '/tools/trn-checker'
+      path: '/tools/trn-checker'
+      fullPath: '/tools/trn-checker'
+      preLoaderRoute: typeof ToolsTrnCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/fatora': {
+      id: '/tools/fatora'
+      path: '/tools/fatora'
+      fullPath: '/tools/fatora'
+      preLoaderRoute: typeof ToolsFatoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoices/$id': {
+      id: '/invoices/$id'
+      path: '/invoices/$id'
+      fullPath: '/invoices/$id'
+      preLoaderRoute: typeof InvoicesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspace/quotes/': {
+      id: '/workspace/quotes/'
+      path: '/'
+      fullPath: '/workspace/quotes/'
+      preLoaderRoute: typeof WorkspaceQuotesIndexRouteImport
+      parentRoute: typeof WorkspaceQuotesRoute
+    }
+    '/workspace/invoices/': {
+      id: '/workspace/invoices/'
+      path: '/'
+      fullPath: '/workspace/invoices/'
+      preLoaderRoute: typeof WorkspaceInvoicesIndexRouteImport
+      parentRoute: typeof WorkspaceInvoicesRoute
+    }
+    '/workspace/quotes/new': {
+      id: '/workspace/quotes/new'
+      path: '/new'
+      fullPath: '/workspace/quotes/new'
+      preLoaderRoute: typeof WorkspaceQuotesNewRouteImport
+      parentRoute: typeof WorkspaceQuotesRoute
+    }
+    '/workspace/quotes/$id': {
+      id: '/workspace/quotes/$id'
+      path: '/$id'
+      fullPath: '/workspace/quotes/$id'
+      preLoaderRoute: typeof WorkspaceQuotesIdRouteImport
+      parentRoute: typeof WorkspaceQuotesRoute
+    }
+    '/workspace/invoices/$id': {
+      id: '/workspace/invoices/$id'
+      path: '/$id'
+      fullPath: '/workspace/invoices/$id'
+      preLoaderRoute: typeof WorkspaceInvoicesIdRouteImport
+      parentRoute: typeof WorkspaceInvoicesRoute
     }
     '/api/webhooks/revenuecat': {
       id: '/api/webhooks/revenuecat'
@@ -155,10 +517,70 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface WorkspaceInvoicesRouteChildren {
+  WorkspaceInvoicesIdRoute: typeof WorkspaceInvoicesIdRoute
+  WorkspaceInvoicesIndexRoute: typeof WorkspaceInvoicesIndexRoute
+}
+
+const WorkspaceInvoicesRouteChildren: WorkspaceInvoicesRouteChildren = {
+  WorkspaceInvoicesIdRoute: WorkspaceInvoicesIdRoute,
+  WorkspaceInvoicesIndexRoute: WorkspaceInvoicesIndexRoute,
+}
+
+const WorkspaceInvoicesRouteWithChildren =
+  WorkspaceInvoicesRoute._addFileChildren(WorkspaceInvoicesRouteChildren)
+
+interface WorkspaceQuotesRouteChildren {
+  WorkspaceQuotesIdRoute: typeof WorkspaceQuotesIdRoute
+  WorkspaceQuotesNewRoute: typeof WorkspaceQuotesNewRoute
+  WorkspaceQuotesIndexRoute: typeof WorkspaceQuotesIndexRoute
+}
+
+const WorkspaceQuotesRouteChildren: WorkspaceQuotesRouteChildren = {
+  WorkspaceQuotesIdRoute: WorkspaceQuotesIdRoute,
+  WorkspaceQuotesNewRoute: WorkspaceQuotesNewRoute,
+  WorkspaceQuotesIndexRoute: WorkspaceQuotesIndexRoute,
+}
+
+const WorkspaceQuotesRouteWithChildren = WorkspaceQuotesRoute._addFileChildren(
+  WorkspaceQuotesRouteChildren,
+)
+
+interface WorkspaceRouteChildren {
+  WorkspaceAccountantRoute: typeof WorkspaceAccountantRoute
+  WorkspaceClientsRoute: typeof WorkspaceClientsRoute
+  WorkspaceInvoicesRoute: typeof WorkspaceInvoicesRouteWithChildren
+  WorkspaceNewInvoiceRoute: typeof WorkspaceNewInvoiceRoute
+  WorkspaceQuotesRoute: typeof WorkspaceQuotesRouteWithChildren
+  WorkspaceWhatsappRoute: typeof WorkspaceWhatsappRoute
+  WorkspaceIndexRoute: typeof WorkspaceIndexRoute
+}
+
+const WorkspaceRouteChildren: WorkspaceRouteChildren = {
+  WorkspaceAccountantRoute: WorkspaceAccountantRoute,
+  WorkspaceClientsRoute: WorkspaceClientsRoute,
+  WorkspaceInvoicesRoute: WorkspaceInvoicesRouteWithChildren,
+  WorkspaceNewInvoiceRoute: WorkspaceNewInvoiceRoute,
+  WorkspaceQuotesRoute: WorkspaceQuotesRouteWithChildren,
+  WorkspaceWhatsappRoute: WorkspaceWhatsappRoute,
+  WorkspaceIndexRoute: WorkspaceIndexRoute,
+}
+
+const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
+  WorkspaceRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyRoute: PrivacyRoute,
   SupportRoute: SupportRoute,
+  WorkspaceRoute: WorkspaceRouteWithChildren,
+  InvoicesIdRoute: InvoicesIdRoute,
+  ToolsFatoraRoute: ToolsFatoraRoute,
+  ToolsTrnCheckerRoute: ToolsTrnCheckerRoute,
+  ToolsVatCalculatorRoute: ToolsVatCalculatorRoute,
+  InvoicesIndexRoute: InvoicesIndexRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   ApiWebhooksRevenuecatRoute: ApiWebhooksRevenuecatRoute,

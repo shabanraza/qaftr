@@ -13,7 +13,6 @@ function handler({ request }: { request: Request }) {
 }
 
 export const Route = createFileRoute("/api/trpc/$")({
-  // @ts-expect-error — server.handlers is a TanStack Start runtime feature, not yet typed
   server: {
     handlers: {
       GET: handler,

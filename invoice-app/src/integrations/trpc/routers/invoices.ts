@@ -2,7 +2,7 @@ import { and, eq, gte, lt, max, sql, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { db } from "#/db";
-import { invoices, lineItems, businesses, clients, entitlements } from "#/db/schema";
+import { invoices, lineItems, businesses, clients, entitlements, invoiceEvents } from "#/db/schema";
 import { computeInvoiceTotals, totalsMatch } from "@zatca/shared";
 import { createTRPCRouter, protectedProcedure } from "../init";
 import { throwNotFound } from "../errors";
@@ -213,6 +213,19 @@ export const invoicesRouter = createTRPCRouter({
           throw lineErr;
         }
 
+        try {
+          await db.insert(invoiceEvents).values({
+            id: crypto.randomUUID(),
+            invoiceId,
+            ownerId: ctx.userId,
+            type: "created",
+            channel: "system",
+            notes: "Invoice created.",
+          });
+        } catch (eventErr) {
+          console.error("Failed to log invoice creation event:", eventErr);
+        }
+
         return created;
       } catch (err) {
         if (isUniqueViolation(err) && attempt < MAX_SEQ_RETRIES - 1) {
@@ -236,12 +249,34 @@ export const invoicesRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const [currInvoice] = await db
+        .select({ status: invoices.status })
+        .from(invoices)
+        .where(and(eq(invoices.id, input.id), eq(invoices.ownerId, ctx.userId)))
+        .limit(1);
+
       const [updated] = await db
         .update(invoices)
         .set({ status: input.status, updatedAt: new Date() })
         .where(and(eq(invoices.id, input.id), eq(invoices.ownerId, ctx.userId)))
         .returning();
       if (!updated) throwNotFound("INVOICE_NOT_FOUND");
+
+      if (currInvoice && currInvoice.status !== input.status) {
+        try {
+          await db.insert(invoiceEvents).values({
+            id: crypto.randomUUID(),
+            invoiceId: input.id,
+            ownerId: ctx.userId,
+            type: "status_changed",
+            channel: "system",
+            notes: `Status changed from ${currInvoice.status} to ${input.status}.`,
+          });
+        } catch (eventErr) {
+          console.error("Failed to log status change event:", eventErr);
+        }
+      }
+
       return updated;
     }),
 
@@ -251,5 +286,35 @@ export const invoicesRouter = createTRPCRouter({
       await db
         .delete(invoices)
         .where(and(eq(invoices.id, input.id), eq(invoices.ownerId, ctx.userId)));
+    }),
+
+  logEvent: protectedProcedure
+    .input(
+      z.object({
+        invoiceId: z.string(),
+        type: z.string(),
+        channel: z.string().optional(),
+        notes: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await db.insert(invoiceEvents).values({
+        id: crypto.randomUUID(),
+        invoiceId: input.invoiceId,
+        ownerId: ctx.userId,
+        type: input.type,
+        channel: input.channel ?? null,
+        notes: input.notes ?? null,
+      }).returning();
+    }),
+
+  getEvents: protectedProcedure
+    .input(z.object({ invoiceId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await db
+        .select()
+        .from(invoiceEvents)
+        .where(and(eq(invoiceEvents.invoiceId, input.invoiceId), eq(invoiceEvents.ownerId, ctx.userId)))
+        .orderBy(invoiceEvents.createdAt);
     }),
 });

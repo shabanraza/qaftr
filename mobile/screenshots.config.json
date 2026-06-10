@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/snapscene/schema.json",
+  "scheme": "qaftr",
+  "homeRoute": "paywall",
+  "scenarios": [{ "name": "paywall", "filePrefix": "01-paywall" }],
+  "devices": ["iPhone 17 Pro Max"],
+  "bundleId": "com.qaftr.invoice",
+  "copyTo": "./assets/screenshots",
+  "killBetweenPermutations": false,
+  "captureDelay": 2000,
+  "waitAfterPermutationChange": 0
+}
