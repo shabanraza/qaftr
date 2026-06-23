@@ -17,6 +17,8 @@ import { Button } from '#/components/ui/button'
 export const Route = createFileRoute('/workspace/')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await Promise.all([
       context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions()),
       context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),
@@ -29,6 +31,7 @@ function WorkspacePageIndex() {
   const { lang: searchLang } = Route.useSearch()
   const lang = resolveLang({ lang: searchLang })
   const trpc = useTRPC()
+  const search = lang === 'en' ? { lang: 'en' as const } : {}
 
   const invoicesQuery = useQuery(trpc.invoices.list.queryOptions())
   const clientsQuery = useQuery(trpc.clients.list.queryOptions())
@@ -92,7 +95,7 @@ function WorkspacePageIndex() {
             </EmptyHeader>
             <EmptyContent>
               <Button asChild>
-                <Link to="/" hash="invoice-tool">
+                <Link to="/" search={search} hash="invoice-tool">
                   {copy.emptyCta}
                 </Link>
               </Button>

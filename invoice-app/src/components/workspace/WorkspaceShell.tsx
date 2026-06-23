@@ -1,4 +1,5 @@
 import { Link, useRouterState } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 import {
   FileSpreadsheet,
   FileText,
@@ -40,7 +41,8 @@ export function WorkspaceShell({
   children,
 }: WorkspaceShellProps) {
   const routerState = useRouterState()
-  const isNavigating = routerState.status === 'pending'
+  const [hasMounted, setHasMounted] = useState(false)
+  const isNavigating = hasMounted && routerState.status === 'pending'
   const isArabic = lang === 'ar'
   const dir = isArabic ? 'rtl' : 'ltr'
   const search = lang === 'en' ? { lang: 'en' as const } : {}
@@ -79,6 +81,10 @@ export function WorkspaceShell({
           { id: 'accountant' as const, label: 'Accountant packet', icon: FileSpreadsheet, to: '/workspace/accountant' as const },
         ] satisfies WorkspaceNavItem[],
       }
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   return (
     <div

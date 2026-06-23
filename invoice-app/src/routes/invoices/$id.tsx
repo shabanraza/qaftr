@@ -25,12 +25,16 @@ import { Skeleton } from '#/components/ui/skeleton'
 export const Route = createFileRoute('/invoices/$id')({
   validateSearch: marketingSearchSchema,
   beforeLoad: async () => {
+    if (typeof window === 'undefined') return
+
     const session = await authClient.getSession()
     if (!session.data?.user) {
       throw redirect({ to: '/', hash: 'invoice-tool' })
     }
   },
   loader: async ({ context, params }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.invoices.get.queryOptions({ id: params.id }))
   },
   head: () =>

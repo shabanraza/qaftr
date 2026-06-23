@@ -21,12 +21,16 @@ import { Skeleton } from '#/components/ui/skeleton'
 export const Route = createFileRoute('/invoices/')({
   validateSearch: marketingSearchSchema,
   beforeLoad: async () => {
+    if (typeof window === 'undefined') return
+
     const session = await authClient.getSession()
     if (!session.data?.user) {
       throw redirect({ to: '/', hash: 'invoice-tool' })
     }
   },
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions())
   },
   head: () =>
@@ -45,6 +49,7 @@ function InvoicesPage() {
   const dir = langDir(lang)
   const trpc = useTRPC()
   const queryClient = useQueryClient()
+  const search = lang === 'en' ? { lang: 'en' as const } : {}
 
   const { data: invoices, isLoading } = useQuery(trpc.invoices.list.queryOptions())
   const deleteMutation = useMutation({
@@ -90,7 +95,7 @@ function InvoicesPage() {
             <p className="mt-2 text-sm text-muted-foreground">{copy.subtitle}</p>
           </div>
           <Button asChild>
-            <Link to="/" hash="invoice-tool" className="no-underline">
+            <Link to="/" search={search} hash="invoice-tool" className="no-underline">
               {copy.new}
             </Link>
           </Button>
@@ -109,7 +114,7 @@ function InvoicesPage() {
             </EmptyHeader>
             <EmptyContent>
               <Button asChild variant="outline">
-                <Link to="/" hash="invoice-tool" className="no-underline">
+                <Link to="/" search={search} hash="invoice-tool" className="no-underline">
                   {copy.emptyCta}
                 </Link>
               </Button>

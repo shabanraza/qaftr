@@ -83,3 +83,4 @@ uspto-*.json
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/
+.gstack/

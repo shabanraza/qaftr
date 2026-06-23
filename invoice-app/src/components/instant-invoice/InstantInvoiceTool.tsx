@@ -72,28 +72,33 @@ export function InstantInvoiceTool({ lang = "ar", variant = "marketing" }: Insta
   const trpc = useTRPC();
   const { data: session } = authClient.useSession();
 
-  const [draft, setDraft] = useState<InstantInvoiceDraft>(() =>
-    typeof window !== "undefined" ? loadDraft() : createEmptyDraft(),
-  );
+  const [draft, setDraft] = useState<InstantInvoiceDraft>(() => createEmptyDraft());
+  const [hasHydrated, setHasHydrated] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [showExportChecks, setShowExportChecks] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [issueDate, setIssueDate] = useState(() => new Date());
-  const [previewSeq, setPreviewSeq] = useState(() =>
-    typeof window !== "undefined" ? peekExportSeqNumber() : 1,
-  );
+  const [previewSeq, setPreviewSeq] = useState(1);
 
   const totals = useMemo(() => computeDraftTotals(draft), [draft]);
   const draftReady = useMemo(() => isDraftReady(draft), [draft]);
 
   useEffect(() => {
-    saveDraft(draft);
-  }, [draft]);
+    setDraft(loadDraft());
+    setPreviewSeq(peekExportSeqNumber());
+    setHasHydrated(true);
+  }, []);
 
   useEffect(() => {
+    if (!hasHydrated) return;
+    saveDraft(draft);
+  }, [draft, hasHydrated]);
+
+  useEffect(() => {
+    if (!hasHydrated) return;
     setPreviewSeq(peekExportSeqNumber());
-  }, [draft]);
+  }, [draft, hasHydrated]);
 
   const saveMutation = useMutation(trpc.instantInvoice.save.mutationOptions());
 
@@ -142,6 +147,7 @@ export function InstantInvoiceTool({ lang = "ar", variant = "marketing" }: Insta
       void navigate({
         to: variant === "workspace" ? "/workspace/invoices/$id" : "/invoices/$id",
         params: { id: result.id },
+        search: lang === "en" ? { lang: "en" } : {},
       });
       return true;
     } catch (err) {
@@ -154,7 +160,7 @@ export function InstantInvoiceTool({ lang = "ar", variant = "marketing" }: Insta
     } finally {
       setBusy(null);
     }
-  }, [applyValidation, copy.auth.saving, copy.errors, draft, navigate, saveMutation, totals, variant]);
+  }, [applyValidation, copy.auth.saving, copy.errors, draft, lang, navigate, saveMutation, totals, variant]);
 
   useEffect(() => {
     if (!session?.user) return;

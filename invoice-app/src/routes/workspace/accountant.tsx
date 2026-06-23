@@ -14,6 +14,8 @@ import { useMemo } from 'react'
 export const Route = createFileRoute('/workspace/accountant')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions())
   },
   head: ({ match }) => {

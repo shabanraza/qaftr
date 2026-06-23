@@ -15,6 +15,8 @@ import { buildMarketingHead } from '#/lib/marketing/seo'
 export const Route = createFileRoute('/workspace/invoices/')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions())
   },
   head: ({ match }) => {

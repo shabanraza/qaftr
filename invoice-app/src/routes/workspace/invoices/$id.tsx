@@ -19,6 +19,8 @@ import { invoiceStatusTone, renderInvoiceStatus } from '#/lib/workspace/invoice-
 export const Route = createFileRoute('/workspace/invoices/$id')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context, params }) => {
+    if (typeof window === 'undefined') return
+
     await Promise.all([
       context.queryClient.ensureQueryData(context.trpc.invoices.get.queryOptions({ id: params.id })),
       context.queryClient.ensureQueryData(context.trpc.invoices.getEvents.queryOptions({ invoiceId: params.id })),

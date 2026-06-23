@@ -44,6 +44,8 @@ export function renderQuoteStatus(status: string, lang: 'ar' | 'en') {
 export const Route = createFileRoute('/workspace/quotes/')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.quotes.list.queryOptions())
   },
   head: ({ match }) => {

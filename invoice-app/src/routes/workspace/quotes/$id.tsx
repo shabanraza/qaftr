@@ -17,6 +17,8 @@ import { quoteStatusTone, renderQuoteStatus } from './index'
 export const Route = createFileRoute('/workspace/quotes/$id')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context, params }) => {
+    if (typeof window === 'undefined') return
+
     await context.queryClient.ensureQueryData(context.trpc.quotes.get.queryOptions({ id: params.id }))
   },
   head: ({ match }) => {

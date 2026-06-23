@@ -24,6 +24,8 @@ type QuoteLineItemDraft = {
 export const Route = createFileRoute('/workspace/quotes/new')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await Promise.all([
       context.queryClient.ensureQueryData(context.trpc.business.get.queryOptions()),
       context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),

@@ -6,6 +6,8 @@ import { buildMarketingHead } from '#/lib/marketing/seo'
 export const Route = createFileRoute('/workspace')({
   validateSearch: marketingSearchSchema,
   beforeLoad: async () => {
+    if (typeof window === 'undefined') return
+
     const session = await authClient.getSession()
     if (!session.data?.user) {
       throw redirect({ to: '/', hash: 'invoice-tool' })

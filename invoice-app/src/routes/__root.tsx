@@ -11,6 +11,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import type { TRPCRouter } from '#/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import { GOOGLE_ANALYTICS_ID, GOOGLE_SITE_VERIFICATION } from '#/lib/marketing/constants'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -43,6 +44,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: 'theme-color',
         content: '#0A3D2E',
       },
+      ...(GOOGLE_SITE_VERIFICATION
+        ? [
+            {
+              name: 'google-site-verification',
+              content: GOOGLE_SITE_VERIFICATION,
+            },
+          ]
+        : []),
     ],
     links: [
       {
@@ -54,6 +63,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { rel: 'icon', href: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
       { rel: 'apple-touch-icon', href: '/logo192.png' },
     ],
+    scripts: GOOGLE_ANALYTICS_ID
+      ? [
+          {
+            async: true,
+            src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
+          },
+          {
+            children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GOOGLE_ANALYTICS_ID}');`,
+          },
+        ]
+      : [],
   }),
   shellComponent: RootDocument,
 })

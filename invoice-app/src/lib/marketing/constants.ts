@@ -17,6 +17,14 @@ export const BRAND = {
 
 export const OG_IMAGE_URL = `${SITE_URL}/og-image.png`
 
+export const GOOGLE_SITE_VERIFICATION =
+  (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined) ??
+  '8H1LqPyUB-MP8VyL6TYWNEwKRV_9U6zl3ebiw2Fmmtc'
+
+export const GOOGLE_ANALYTICS_ID =
+  (import.meta.env.VITE_GOOGLE_ANALYTICS_ID as string | undefined) ??
+  'G-LKFPFV4QSK'
+
 export const SEO_KEYWORDS = [
   'فاتورة زاتكا',
   'فوترة إلكترونية',

@@ -18,6 +18,8 @@ import { MessageSquare, Send, AlertTriangle, Landmark } from 'lucide-react'
 export const Route = createFileRoute('/workspace/whatsapp')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
+    if (typeof window === 'undefined') return
+
     await Promise.all([
       context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions()),
       context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),
