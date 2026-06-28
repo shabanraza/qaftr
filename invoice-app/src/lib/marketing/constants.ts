@@ -25,6 +25,9 @@ export const GOOGLE_ANALYTICS_ID =
   (import.meta.env.VITE_GOOGLE_ANALYTICS_ID as string | undefined) ??
   'G-LKFPFV4QSK'
 
+export const BING_SITE_VERIFICATION =
+  (import.meta.env.VITE_BING_SITE_VERIFICATION as string | undefined) ?? ''
+
 export const SEO_KEYWORDS = [
   'فاتورة زاتكا',
   'فوترة إلكترونية',
@@ -38,6 +41,10 @@ export const SEO_KEYWORDS = [
   'فاتورة واتساب',
   'قافتر',
   'Qaftr',
+  'invoice generator Saudi Arabia',
+  'free invoice generator',
+  'e-invoicing Saudi Arabia',
+  'VAT invoice generator Saudi Arabia',
   'VAT calculator Saudi',
   'TRN checker',
   'حاسبة ضريبة',

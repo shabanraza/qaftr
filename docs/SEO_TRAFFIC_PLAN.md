@@ -164,14 +164,32 @@ Competitor gaps:
 
 Implemented setup:
 - `robots.txt` points crawlers to `https://qaftr.com/sitemap.xml`.
-- `sitemap.xml` includes the home page, tools hub, fatora generator, VAT calculator, TRN checker, support, and privacy pages.
+- `robots.txt` explicitly allows key AI/search crawlers including `OAI-SearchBot`, `ChatGPT-User`, `PerplexityBot`, and `ClaudeBot`.
+- `llms.txt` gives AI agents a concise map of Qaftr positioning, core pages, SEO pages, sitemap, support, and disclaimers.
+- `sitemap.xml` includes the home page, tools hub, fatora generator, VAT calculator, TRN checker, support, privacy, and the first six SEO/AEO landing pages.
 - Google Search Console HTML-tag verification is wired through `VITE_GOOGLE_SITE_VERIFICATION`.
 - Google Analytics 4 gtag is wired through `VITE_GOOGLE_ANALYTICS_ID`.
+- Bing Webmaster verification is wired through `VITE_BING_SITE_VERIFICATION` and emits the `msvalidate.01` meta tag when set.
+- Global structured data now includes `Organization`, `WebSite`, and `WebApplication` JSON-LD.
+- New SEO/AEO landing pages include FAQ JSON-LD and breadcrumb JSON-LD:
+  - `/invoice-generator-saudi-arabia`
+  - `/zatca-invoice-generator`
+  - `/vat-invoice-generator-saudi-arabia`
+  - `/free-invoice-generator`
+  - `/e-invoicing-saudi-arabia`
+  - `/small-business-invoicing-saudi-arabia`
 
 Google account steps:
 - In Search Console, add `https://qaftr.com` as a URL-prefix property, choose HTML tag verification, and set the tag content value as `VITE_GOOGLE_SITE_VERIFICATION` in the deployment environment.
 - In Google Analytics, create or open the Qaftr web data stream and set its Measurement ID, which starts with `G-`, as `VITE_GOOGLE_ANALYTICS_ID`.
 - After deployment, verify that the home page contains the `google-site-verification` meta tag, then submit `https://qaftr.com/sitemap.xml` in Search Console.
+
+Bing account steps:
+- In Bing Webmaster Tools, add `https://qaftr.com`.
+- Choose HTML meta tag verification and copy only the token from the `content` attribute.
+- Add that token to Cloudflare as `VITE_BING_SITE_VERIFICATION`.
+- Redeploy, verify in Bing, then submit `https://qaftr.com/sitemap.xml`.
+- After data appears, monitor Bing's AI/Copilot performance reporting alongside normal Search Console data.
 
 Track in Google Search Console:
 - Impressions and clicks by page.

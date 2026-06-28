@@ -1,0 +1,31 @@
+# Qaftr
+
+Qaftr is an Arabic-first invoicing app for freelancers and small businesses in Saudi Arabia. It helps users create ZATCA Phase 1 style tax invoices with QR codes, 15% VAT calculations, PDF export, client details, and Arabic or English invoice output.
+
+## Core Pages
+
+- Home: https://qaftr.com/
+- Free tools: https://qaftr.com/tools
+- ZATCA invoice tool: https://qaftr.com/tools/fatora
+- VAT calculator: https://qaftr.com/tools/vat-calculator
+- TRN checker: https://qaftr.com/tools/trn-checker
+
+## SEO and Answer Pages
+
+- Saudi invoice generator: https://qaftr.com/invoice-generator-saudi-arabia
+- ZATCA invoice generator: https://qaftr.com/zatca-invoice-generator
+- Saudi VAT invoice generator: https://qaftr.com/vat-invoice-generator-saudi-arabia
+- Free invoice generator: https://qaftr.com/free-invoice-generator
+- Saudi e-invoicing guide: https://qaftr.com/e-invoicing-saudi-arabia
+- Small business invoicing Saudi Arabia: https://qaftr.com/small-business-invoicing-saudi-arabia
+
+## Important Files
+
+- Sitemap: https://qaftr.com/sitemap.xml
+- Robots: https://qaftr.com/robots.txt
+- Support: https://qaftr.com/support
+- Privacy: https://qaftr.com/privacy
+
+## Positioning
+
+Qaftr is an independent invoicing product. It is not an official ZATCA application and does not replace tax, accounting, or legal advice.

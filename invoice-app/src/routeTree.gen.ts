@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ZatcaInvoiceGeneratorRouteImport } from './routes/zatca-invoice-generator'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
+import { Route as VatInvoiceGeneratorSaudiArabiaRouteImport } from './routes/vat-invoice-generator-saudi-arabia'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SmallBusinessInvoicingSaudiArabiaRouteImport } from './routes/small-business-invoicing-saudi-arabia'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as InvoiceGeneratorSaudiArabiaRouteImport } from './routes/invoice-generator-saudi-arabia'
+import { Route as FreeInvoiceGeneratorRouteImport } from './routes/free-invoice-generator'
+import { Route as EInvoicingSaudiArabiaRouteImport } from './routes/e-invoicing-saudi-arabia'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
@@ -35,19 +41,52 @@ import { Route as ApiWebhooksRevenuecatRouteImport } from './routes/api/webhooks
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const ZatcaInvoiceGeneratorRoute = ZatcaInvoiceGeneratorRouteImport.update({
+  id: '/zatca-invoice-generator',
+  path: '/zatca-invoice-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkspaceRoute = WorkspaceRouteImport.update({
   id: '/workspace',
   path: '/workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VatInvoiceGeneratorSaudiArabiaRoute =
+  VatInvoiceGeneratorSaudiArabiaRouteImport.update({
+    id: '/vat-invoice-generator-saudi-arabia',
+    path: '/vat-invoice-generator-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SmallBusinessInvoicingSaudiArabiaRoute =
+  SmallBusinessInvoicingSaudiArabiaRouteImport.update({
+    id: '/small-business-invoicing-saudi-arabia',
+    path: '/small-business-invoicing-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvoiceGeneratorSaudiArabiaRoute =
+  InvoiceGeneratorSaudiArabiaRouteImport.update({
+    id: '/invoice-generator-saudi-arabia',
+    path: '/invoice-generator-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FreeInvoiceGeneratorRoute = FreeInvoiceGeneratorRouteImport.update({
+  id: '/free-invoice-generator',
+  path: '/free-invoice-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EInvoicingSaudiArabiaRoute = EInvoicingSaudiArabiaRouteImport.update({
+  id: '/e-invoicing-saudi-arabia',
+  path: '/e-invoicing-saudi-arabia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -163,9 +202,15 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
+  '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/fatora': typeof ToolsFatoraRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -190,8 +235,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
+  '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
+  '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/fatora': typeof ToolsFatoraRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -215,9 +266,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
+  '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
+  '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/fatora': typeof ToolsFatoraRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -244,9 +301,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/e-invoicing-saudi-arabia'
+    | '/free-invoice-generator'
+    | '/invoice-generator-saudi-arabia'
     | '/privacy'
+    | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
+    | '/zatca-invoice-generator'
     | '/invoices/$id'
     | '/tools/fatora'
     | '/tools/trn-checker'
@@ -271,8 +334,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/e-invoicing-saudi-arabia'
+    | '/free-invoice-generator'
+    | '/invoice-generator-saudi-arabia'
     | '/privacy'
+    | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/vat-invoice-generator-saudi-arabia'
+    | '/zatca-invoice-generator'
     | '/invoices/$id'
     | '/tools/fatora'
     | '/tools/trn-checker'
@@ -295,9 +364,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/e-invoicing-saudi-arabia'
+    | '/free-invoice-generator'
+    | '/invoice-generator-saudi-arabia'
     | '/privacy'
+    | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
+    | '/zatca-invoice-generator'
     | '/invoices/$id'
     | '/tools/fatora'
     | '/tools/trn-checker'
@@ -323,9 +398,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EInvoicingSaudiArabiaRoute: typeof EInvoicingSaudiArabiaRoute
+  FreeInvoiceGeneratorRoute: typeof FreeInvoiceGeneratorRoute
+  InvoiceGeneratorSaudiArabiaRoute: typeof InvoiceGeneratorSaudiArabiaRoute
   PrivacyRoute: typeof PrivacyRoute
+  SmallBusinessInvoicingSaudiArabiaRoute: typeof SmallBusinessInvoicingSaudiArabiaRoute
   SupportRoute: typeof SupportRoute
+  VatInvoiceGeneratorSaudiArabiaRoute: typeof VatInvoiceGeneratorSaudiArabiaRoute
   WorkspaceRoute: typeof WorkspaceRouteWithChildren
+  ZatcaInvoiceGeneratorRoute: typeof ZatcaInvoiceGeneratorRoute
   InvoicesIdRoute: typeof InvoicesIdRoute
   ToolsFatoraRoute: typeof ToolsFatoraRoute
   ToolsTrnCheckerRoute: typeof ToolsTrnCheckerRoute
@@ -339,11 +420,25 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/zatca-invoice-generator': {
+      id: '/zatca-invoice-generator'
+      path: '/zatca-invoice-generator'
+      fullPath: '/zatca-invoice-generator'
+      preLoaderRoute: typeof ZatcaInvoiceGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workspace': {
       id: '/workspace'
       path: '/workspace'
       fullPath: '/workspace'
       preLoaderRoute: typeof WorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vat-invoice-generator-saudi-arabia': {
+      id: '/vat-invoice-generator-saudi-arabia'
+      path: '/vat-invoice-generator-saudi-arabia'
+      fullPath: '/vat-invoice-generator-saudi-arabia'
+      preLoaderRoute: typeof VatInvoiceGeneratorSaudiArabiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -353,11 +448,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/small-business-invoicing-saudi-arabia': {
+      id: '/small-business-invoicing-saudi-arabia'
+      path: '/small-business-invoicing-saudi-arabia'
+      fullPath: '/small-business-invoicing-saudi-arabia'
+      preLoaderRoute: typeof SmallBusinessInvoicingSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invoice-generator-saudi-arabia': {
+      id: '/invoice-generator-saudi-arabia'
+      path: '/invoice-generator-saudi-arabia'
+      fullPath: '/invoice-generator-saudi-arabia'
+      preLoaderRoute: typeof InvoiceGeneratorSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/free-invoice-generator': {
+      id: '/free-invoice-generator'
+      path: '/free-invoice-generator'
+      fullPath: '/free-invoice-generator'
+      preLoaderRoute: typeof FreeInvoiceGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/e-invoicing-saudi-arabia': {
+      id: '/e-invoicing-saudi-arabia'
+      path: '/e-invoicing-saudi-arabia'
+      fullPath: '/e-invoicing-saudi-arabia'
+      preLoaderRoute: typeof EInvoicingSaudiArabiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -572,9 +695,16 @@ const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EInvoicingSaudiArabiaRoute: EInvoicingSaudiArabiaRoute,
+  FreeInvoiceGeneratorRoute: FreeInvoiceGeneratorRoute,
+  InvoiceGeneratorSaudiArabiaRoute: InvoiceGeneratorSaudiArabiaRoute,
   PrivacyRoute: PrivacyRoute,
+  SmallBusinessInvoicingSaudiArabiaRoute:
+    SmallBusinessInvoicingSaudiArabiaRoute,
   SupportRoute: SupportRoute,
+  VatInvoiceGeneratorSaudiArabiaRoute: VatInvoiceGeneratorSaudiArabiaRoute,
   WorkspaceRoute: WorkspaceRouteWithChildren,
+  ZatcaInvoiceGeneratorRoute: ZatcaInvoiceGeneratorRoute,
   InvoicesIdRoute: InvoicesIdRoute,
   ToolsFatoraRoute: ToolsFatoraRoute,
   ToolsTrnCheckerRoute: ToolsTrnCheckerRoute,

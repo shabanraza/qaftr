@@ -11,7 +11,17 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import type { TRPCRouter } from '#/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
-import { GOOGLE_ANALYTICS_ID, GOOGLE_SITE_VERIFICATION } from '#/lib/marketing/constants'
+import {
+  BING_SITE_VERIFICATION,
+  GOOGLE_ANALYTICS_ID,
+  GOOGLE_SITE_VERIFICATION,
+} from '#/lib/marketing/constants'
+import {
+  buildJsonLdScript,
+  buildOrganizationSchema,
+  buildWebApplicationSchema,
+  buildWebsiteSchema,
+} from '#/lib/marketing/seo'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -52,6 +62,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             },
           ]
         : []),
+      ...(BING_SITE_VERIFICATION
+        ? [
+            {
+              name: 'msvalidate.01',
+              content: BING_SITE_VERIFICATION,
+            },
+          ]
+        : []),
     ],
     links: [
       {
@@ -60,20 +78,32 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       { rel: 'manifest', href: '/manifest.json' },
       { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
-      { rel: 'icon', href: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+      {
+        rel: 'icon',
+        href: '/favicon-32.png',
+        type: 'image/png',
+        sizes: '32x32',
+      },
       { rel: 'apple-touch-icon', href: '/logo192.png' },
     ],
-    scripts: GOOGLE_ANALYTICS_ID
-      ? [
-          {
-            async: true,
-            src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
-          },
-          {
-            children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GOOGLE_ANALYTICS_ID}');`,
-          },
-        ]
-      : [],
+    scripts: [
+      buildJsonLdScript([
+        buildOrganizationSchema(),
+        buildWebsiteSchema(),
+        buildWebApplicationSchema(),
+      ]),
+      ...(GOOGLE_ANALYTICS_ID
+        ? [
+            {
+              async: true,
+              src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
+            },
+            {
+              children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GOOGLE_ANALYTICS_ID}');`,
+            },
+          ]
+        : []),
+    ],
   }),
   shellComponent: RootDocument,
 })
