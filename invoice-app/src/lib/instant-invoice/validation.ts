@@ -1,32 +1,10 @@
 import {
   validateInstantInvoiceDraft,
-  validateSaudiVatNumber,
   type InstantInvoiceDraft,
   type InstantInvoiceFieldErrors,
 } from "@zatca/shared";
 import type { MarketingLang } from "#/lib/marketing/lang";
 import { fieldError } from "#/lib/instant-invoice/copy";
-
-export type DraftReadiness = {
-  sellerName: boolean;
-  sellerVat: boolean;
-  clientName: boolean;
-  lineItems: boolean;
-};
-
-export function getDraftReadiness(draft: InstantInvoiceDraft): DraftReadiness {
-  return {
-    sellerName: !!draft.sellerName.trim(),
-    sellerVat: validateSaudiVatNumber(draft.sellerVat),
-    clientName: !!draft.clientName.trim(),
-    lineItems: draft.lineItems.some(
-      (item) =>
-        item.description.trim() &&
-        parseFloat(item.unitPrice) > 0 &&
-        parseFloat(item.qty || "0") > 0,
-    ),
-  };
-}
 
 export function isDraftReady(draft: InstantInvoiceDraft): boolean {
   return validateInstantInvoiceDraft(draft).ok;
@@ -46,9 +24,12 @@ export function mapValidationErrors(
 const FIELD_ANCHORS: Record<string, string> = {
   sellerName: "seller-name",
   sellerVat: "seller-vat",
+  sellerAddress: "seller-address",
   clientName: "client-name",
+  clientAddress: "client-address",
   clientVat: "client-vat",
   lineItems: "invoice-line-items",
+  supplyDate: "supply-date",
 };
 
 export function scrollToFirstValidationError(errors: InstantInvoiceFieldErrors) {
@@ -61,7 +42,10 @@ export function scrollToFirstValidationError(errors: InstantInvoiceFieldErrors) 
     if (!anchor) continue;
     const el = document.getElementById(anchor);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      el.scrollIntoView?.({ behavior: "smooth", block: "center" });
+      // Move keyboard/screen-reader focus to the first field to fix.
+      const target = el.matches("input, textarea") ? el : el.querySelector("input, textarea");
+      if (target instanceof HTMLElement) target.focus({ preventScroll: true });
       break;
     }
   }

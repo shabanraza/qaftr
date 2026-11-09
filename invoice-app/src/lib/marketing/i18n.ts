@@ -2,15 +2,27 @@ import type { MarketingLang } from './lang'
 
 type Copy = {
   nav: { features: string; pricing: string; support: string }
-  cta: { download: string; comingSoon: string }
-  footer: { privacy: string; support: string; rights: string; tagline: string }
+  cta: {
+    download: string
+    comingSoon: string
+    createInvoice: string
+    noCard: string
+    noCardNote: string
+  }
+  footer: {
+    privacy: string
+    support: string
+    rights: string
+    tagline: string
+    taglineAe: string
+  }
   home: {
     kicker: string
     title: string
     titleAccent: string
     subtitle: string
     badgeZatca: string
-    badgeFreelancer: string
+    badgeAudience: string
     featuresTitle: string
     features: Array<{ title: string; body: string }>
     howTitle: string
@@ -18,7 +30,15 @@ type Copy = {
     pricingTitle: string
     pricingSubtitle: string
     free: { name: string; price: string; period: string; features: string[] }
-    pro: { name: string; priceMonthly: string; priceYearly: string; badge: string; features: string[] }
+    pro: {
+      name: string
+      priceMonthly: string
+      priceYearly: string
+      period: string
+      yearly: (price: string) => string
+      badge: string
+      features: string[]
+    }
     ctaTitle: string
     ctaBody: string
   }
@@ -40,76 +60,87 @@ type Copy = {
 
 const ar: Copy = {
   nav: { features: 'المميزات', pricing: 'الأسعار', support: 'الدعم' },
-  cta: { download: 'حمّل التطبيق', comingSoon: 'قريباً على المتاجر' },
+  cta: {
+    download: 'حمّل التطبيق',
+    comingSoon: 'قريباً على المتاجر',
+    createInvoice: 'أصدر فاتورتك الأولى مجاناً',
+    noCard: 'بدون بطاقة ائتمان',
+    noCardNote: 'بدون بطاقة ائتمان · نزّل PDF دون إنشاء حساب',
+  },
   footer: {
     privacy: 'سياسة الخصوصية',
     support: 'الدعم',
     rights: 'جميع الحقوق محفوظة',
-    tagline: 'فواتير زاتكا للمستقلين في السعودية',
+    tagline: 'برنامج فواتير للمنشآت في السعودية — المرحلة الأولى من زاتكا',
+    taglineAe: 'فوترة عربية للشركات في الإمارات واستعداد للفوترة الإلكترونية',
   },
   home: {
-    kicker: 'فوترة إلكترونية للمستقلين',
-    title: 'أنشئ فاتورة زاتكا',
-    titleAccent: 'في ثوانٍ',
+    kicker: 'الفوترة الإلكترونية للمنشآت في السعودية',
+    title: 'فواتير ضريبية وفق المرحلة الأولى من زاتكا',
+    titleAccent: 'لمنشأتك، في دقائق',
     subtitle:
-      'قافتر — تطبيق بسيط بالعربية لإنشاء فاتورة ضريبية متوافقة مع المرحلة الأولى: عملاء، ضريبة 15٪، QR، PDF، ومشاركة واتساب.',
-    badgeZatca: 'ZATCA Phase 1',
-    badgeFreelancer: 'للمستقلين',
-    featuresTitle: 'كل ما تحتاجه للفوترة',
+      'قافتر برنامج فوترة عربي للمنشآت الصغيرة والمتوسطة التي تبيع للشركات والأفراد: فاتورة ضريبية مع رمز QR، وحساب تلقائي لضريبة القيمة المضافة ١٥٪، وملف PDF، ومشاركة عبر واتساب.',
+    badgeZatca: 'زاتكا · مرحلة الإصدار (المرحلة الأولى)',
+    badgeAudience: 'للشركات والأفراد',
+    featuresTitle: 'كل ما تحتاجه منشأتك للفوترة',
     features: [
       {
-        title: 'QR فاتورة زاتكا',
-        body: 'رمز QR متوافق مع متطلبات المرحلة الأولى على كل فاتورة ضريبية.',
+        title: 'رمز QR للفاتورة الضريبية',
+        body: 'رمز QR بصيغة المرحلة الأولى من زاتكا على كل فاتورة ضريبية مبسطة.',
       },
       {
         title: 'عربي أولاً',
-        body: 'واجهة RTL، عملاء، وفواتير بالعربية والإنجليزية — بدون تعقيد برامج المحاسبة.',
+        body: 'واجهة عربية من اليمين إلى اليسار، وفواتير بالعربية أو الإنجليزية، دون تعقيد برامج المحاسبة.',
       },
       {
-        title: 'فاتورة واتساب',
-        body: 'شارك PDF الفاتورة مباشرة مع عملائك بنقرة واحدة.',
+        title: 'مشاركة عبر واتساب',
+        body: 'أرسل الفاتورة بصيغة PDF إلى عميلك بنقرة واحدة.',
       },
       {
-        title: 'شعار وعلامة تجارية',
-        body: 'ارفع شعارك وخصّص قالب الفاتورة ليعكس هوية عملك.',
+        title: 'هوية منشأتك',
+        body: 'أضف شعار منشأتك وبياناتها لتظهر على كل فاتورة.',
       },
       {
-        title: 'ضريبة 15٪',
-        body: 'حساب تلقائي للضريبة والإجمالي — بدون أخطاء يدوية.',
+        title: 'ضريبة ١٥٪ تلقائياً',
+        body: 'يحسب قافتر ضريبة القيمة المضافة والإجمالي المستحق تلقائياً، دون أخطاء يدوية.',
       },
       {
-        title: 'PDF جاهز',
-        body: 'صدّر فاتورتك PDF احترافية جاهزة للإرسال والأرشفة.',
+        title: 'PDF جاهز للإرسال والأرشفة',
+        body: 'صدّر فواتير PDF احترافية لعملائك ولسجلات منشأتك.',
       },
     ],
-    howTitle: 'كيف يعمل؟',
+    howTitle: 'كيف يعمل قافتر؟',
     steps: [
-      { num: '١', title: 'أضف بياناتك', body: 'اسم النشاط، الرقم الضريبي، والشعار.' },
-      { num: '٢', title: 'أنشئ فاتورة', body: 'اختر العميل، أضف البنود، وشاهد الإجمالي.' },
-      { num: '٣', title: 'شارك', body: 'أرسل PDF عبر واتساب أو احفظه للأرشفة.' },
+      { num: '١', title: 'أضف بيانات منشأتك', body: 'الاسم التجاري، والرقم الضريبي، والشعار.' },
+      { num: '٢', title: 'أصدر الفاتورة', body: 'اختر العميل، وأضف البنود، وراجع الإجمالي.' },
+      { num: '٣', title: 'أرسلها إلى عميلك', body: 'شارك ملف PDF عبر واتساب أو احفظه في سجلاتك.' },
     ],
-    pricingTitle: 'أسعار بسيطة وشفافة',
-    pricingSubtitle: 'ابدأ مجاناً — ترقّ للبرو عندما تحتاج فواتير غير محدودة.',
+    pricingTitle: 'أسعار واضحة لكل منشأة',
+    pricingSubtitle:
+      'نزّل PDF مجاناً دون حساب، واحفظ ٣ فواتير شهرياً مجاناً بعد التسجيل. رقِّ اشتراكك إلى برو عندما تحتاج فواتير غير محدودة.',
     free: {
       name: 'مجاني',
-      price: '٠',
-      period: 'ر.س / شهر',
-      features: ['٣ فواتير شهرياً', 'QR زاتكا', 'PDF وواتساب', 'قالب أساسي'],
+      // A lone Arabic-Indic zero (٠) reads as a dot, so spell the free price out.
+      price: 'مجاناً',
+      period: 'دون اشتراك شهري',
+      features: ['٣ فواتير محفوظة شهرياً', 'رمز QR للفاتورة', 'PDF وواتساب', 'قالب أساسي'],
     },
     pro: {
       name: 'برو',
       priceMonthly: '٣٩',
       priceYearly: '٣٤٩',
-      badge: 'الأكثر شعبية',
+      period: 'ر.س / شهر',
+      yearly: (price: string) => `أو ${price} ر.س / سنة`,
+      badge: 'الأكثر طلباً',
       features: [
         'فواتير غير محدودة',
-        'كل القوالب',
-        'تذكيرات الفواتير',
-        'دعم أولوية',
+        'جميع القوالب',
+        'تذكير العملاء بالفواتير المستحقة',
+        'دعم فني بأولوية',
       ],
     },
-    ctaTitle: 'جاهز لتبسيط فواتيرك؟',
-    ctaBody: 'قافتر قادم قريباً على App Store و Google Play.',
+    ctaTitle: 'جاهز لتبسيط فوترة منشأتك؟',
+    ctaBody: 'أصدر فاتورتك الأولى الآن من المتصفح. تطبيق الجوال قادم قريباً على App Store وGoogle Play.',
   },
   privacy: {
     title: 'سياسة الخصوصية',
@@ -117,11 +148,11 @@ const ar: Copy = {
     sections: [
       {
         heading: 'مقدمة',
-        body: 'قافتر («نحن») يحترم خصوصيتك. توضّح هذه السياسة كيف نجمع ونستخدم ونحمي بياناتك عند استخدام تطبيق وموقع قافتر لإنشاء فواتير زاتكا.',
+        body: 'قافتر («نحن») يحترم خصوصيتك. توضّح هذه السياسة كيف نجمع ونستخدم ونحمي بياناتك عند استخدام تطبيق قافتر وموقعه لإصدار الفواتير الضريبية.',
       },
       {
         heading: 'البيانات التي نجمعها',
-        body: 'نجمع: (١) البريد الإلكتروني لإنشاء الحساب والتواصل؛ (٢) بيانات النشاط التجاري مثل الاسم، الرقم الضريبي، العنوان، ورقم الهاتف؛ (٣) بيانات العملاء والفواتير التي تُدخلها؛ (٤) الشعار والصور التي ترفعها (تُخزَّن بصيغة base64 داخل حسابك)؛ (٥) بيانات الاستخدام التقنية لتحسين الخدمة.',
+        body: 'نجمع: (١) البريد الإلكتروني لإنشاء الحساب والتواصل؛ (٢) بيانات المنشأة مثل الاسم التجاري والرقم الضريبي والعنوان ورقم الهاتف؛ (٣) بيانات العملاء والفواتير التي تُدخلها؛ (٤) الشعار والصور التي ترفعها (تُخزَّن بصيغة base٦٤ داخل حسابك)؛ (٥) بيانات الاستخدام التقنية لتحسين الخدمة.',
       },
       {
         heading: 'كيف نستخدم بياناتك',
@@ -143,27 +174,27 @@ const ar: Copy = {
   },
   support: {
     title: 'الدعم',
-    subtitle: 'نحن هنا لمساعدتك في الفوترة الإلكترونية وفواتير زاتكا.',
+    subtitle: 'فريقنا جاهز لمساعدة منشأتك في الفوترة الإلكترونية وفواتير زاتكا.',
     emailLabel: 'البريد الإلكتروني',
     emailHint: 'نرد خلال ٢٤–٤٨ ساعة عمل.',
     topics: [
-      { title: 'الحساب والاشتراك', body: 'تفعيل برو، استرداد، أو مشاكل تسجيل الدخول.' },
-      { title: 'الفواتير والـ QR', body: 'أسئلة عن متطلبات زاتكا المرحلة الأولى.' },
-      { title: 'الخصوصية والبيانات', body: 'تصدير أو حذف بياناتك التجارية.' },
+      { title: 'الحساب والاشتراك', body: 'تفعيل اشتراك برو، أو استرداد المبلغ، أو مشكلات تسجيل الدخول.' },
+      { title: 'الفواتير ورمز QR', body: 'أسئلة عن متطلبات المرحلة الأولى (الإصدار) من زاتكا.' },
+      { title: 'الخصوصية والبيانات', body: 'تصدير بيانات منشأتك أو حذفها.' },
     ],
     faqTitle: 'أسئلة شائعة',
     faqs: [
       {
-        q: 'هل قافتر متوافق مع زاتكا؟',
-        a: 'نعم — قافتر يدعم متطلبات المرحلة الأولى بما فيها QR الفاتورة الضريبية.',
+        q: 'هل يكفي قافتر للامتثال لمتطلبات زاتكا؟',
+        a: 'يُصدر قافتر فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ) مع رمز QR للفاتورة الضريبية. إذا أبلغتك زاتكا بموعد ربطك في المرحلة الثانية (مرحلة الربط والتكامل) — والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال، وموعدها ١ فبراير ٢٠٢٧ — فستحتاج حلاً مربوطاً ببوابة فاتورة. قافتر ليس تطبيقاً رسمياً تابعاً لزاتكا.',
       },
       {
         q: 'كم فاتورة في الخطة المجانية؟',
-        a: '٣ فواتير شهرياً مجاناً. البرو يمنحك فواتير غير محدودة.',
+        a: 'تحفظ ٣ فواتير شهرياً مجاناً، وتنزيل PDF دون حساب مجاني دائماً. اشتراك برو يمنحك فواتير غير محدودة.',
       },
       {
         q: 'هل يمكنني مشاركة الفاتورة عبر واتساب؟',
-        a: 'نعم — صدّر PDF وشاركه مباشرة مع عملائك.',
+        a: 'نعم. صدّر الفاتورة بصيغة PDF وأرسلها مباشرة إلى عميلك.',
       },
     ],
   },
@@ -171,76 +202,86 @@ const ar: Copy = {
 
 const en: Copy = {
   nav: { features: 'Features', pricing: 'Pricing', support: 'Support' },
-  cta: { download: 'Get the app', comingSoon: 'Coming soon to stores' },
+  cta: {
+    download: 'Get the app',
+    comingSoon: 'Coming soon to stores',
+    createInvoice: 'Create your first invoice free',
+    noCard: 'No credit card',
+    noCardNote: 'No credit card · Download the PDF without an account',
+  },
   footer: {
     privacy: 'Privacy Policy',
     support: 'Support',
     rights: 'All rights reserved',
-    tagline: 'ZATCA Phase 1 invoices for Saudi freelancers',
+    tagline: 'ZATCA Phase 1 invoicing software for Saudi businesses',
+    taglineAe: 'Arabic-first invoicing and e-invoicing readiness for UAE businesses',
   },
   home: {
-    kicker: 'E-invoicing for freelancers',
-    title: 'Create ZATCA invoices',
-    titleAccent: 'in seconds',
+    kicker: 'E-invoicing for Saudi businesses',
+    title: 'ZATCA Phase 1 tax invoices',
+    titleAccent: 'for your business, in minutes',
     subtitle:
-      'Qaftr — a simple Arabic-first app for tax-compliant Phase 1 invoices: clients, 15% VAT, QR, PDF, and WhatsApp sharing.',
-    badgeZatca: 'ZATCA Phase 1',
-    badgeFreelancer: 'For freelancers',
-    featuresTitle: 'Everything you need to invoice',
+      'Qaftr is Arabic-first invoicing software for Saudi SMEs that sell to businesses and consumers: tax invoices with a QR code, automatic 15% VAT, PDF export and WhatsApp sharing.',
+    badgeZatca: 'ZATCA Phase 1 (Generation)',
+    badgeAudience: 'B2B and B2C',
+    featuresTitle: 'Everything your business needs to invoice',
     features: [
       {
-        title: 'ZATCA QR invoice',
-        body: 'Phase 1 compliant QR code on every tax invoice.',
+        title: 'Tax invoice QR code',
+        body: 'A ZATCA Phase 1 QR code on every simplified tax invoice.',
       },
       {
         title: 'Arabic-first',
-        body: 'RTL UI, clients, and invoices in Arabic and English — without accounting software complexity.',
+        body: 'A right-to-left Arabic interface and invoices in Arabic or English, without the complexity of accounting software.',
       },
       {
-        title: 'WhatsApp invoice',
-        body: 'Share PDF invoices with clients in one tap.',
+        title: 'Share on WhatsApp',
+        body: 'Send the PDF invoice to your customer in one tap.',
       },
       {
-        title: 'Logo & branding',
-        body: 'Upload your logo and customize invoice templates for your business.',
+        title: 'Your brand',
+        body: 'Add your logo and business details to every invoice.',
       },
       {
-        title: '15% VAT',
-        body: 'Automatic tax and total calculations — no manual errors.',
+        title: 'Automatic 15% VAT',
+        body: 'Qaftr calculates VAT and the total amount due for you, with no manual errors.',
       },
       {
-        title: 'Ready PDF',
-        body: 'Export professional PDF invoices ready to send and archive.',
+        title: 'PDF ready to send and archive',
+        body: 'Export professional PDF invoices for your customers and your records.',
       },
     ],
-    howTitle: 'How it works',
+    howTitle: 'How Qaftr works',
     steps: [
-      { num: '1', title: 'Add your details', body: 'Business name, VAT number, and logo.' },
-      { num: '2', title: 'Create an invoice', body: 'Pick a client, add line items, see totals.' },
-      { num: '3', title: 'Share', body: 'Send PDF via WhatsApp or save for records.' },
+      { num: '1', title: 'Add your business details', body: 'Trade name, VAT number and logo.' },
+      { num: '2', title: 'Issue the invoice', body: 'Pick the customer, add line items and review the total.' },
+      { num: '3', title: 'Send it to your customer', body: 'Share the PDF on WhatsApp or keep it for your records.' },
     ],
-    pricingTitle: 'Simple, transparent pricing',
-    pricingSubtitle: 'Start free — upgrade to Pro when you need unlimited invoices.',
+    pricingTitle: 'Clear pricing for every business',
+    pricingSubtitle:
+      'Download PDFs free without an account, and save 3 invoices a month free once you sign up. Upgrade to Pro when you need unlimited invoices.',
     free: {
       name: 'Free',
       price: '0',
       period: 'SAR / month',
-      features: ['3 invoices / month', 'ZATCA QR', 'PDF & WhatsApp', 'Basic template'],
+      features: ['3 saved invoices / month', 'Tax invoice QR code', 'PDF & WhatsApp', 'Basic template'],
     },
     pro: {
       name: 'Pro',
       priceMonthly: '39',
       priceYearly: '349',
+      period: 'SAR / month',
+      yearly: (price: string) => `or ${price} SAR / year`,
       badge: 'Most popular',
       features: [
         'Unlimited invoices',
         'All templates',
-        'Invoice reminders',
+        'Payment reminders for customers',
         'Priority support',
       ],
     },
-    ctaTitle: 'Ready to simplify invoicing?',
-    ctaBody: 'Qaftr is coming soon to the App Store and Google Play.',
+    ctaTitle: 'Ready to simplify invoicing for your business?',
+    ctaBody: 'Create your first invoice in the browser today. The mobile app is coming soon to the App Store and Google Play.',
   },
   privacy: {
     title: 'Privacy Policy',
@@ -248,7 +289,7 @@ const en: Copy = {
     sections: [
       {
         heading: 'Introduction',
-        body: 'Qaftr ("we") respects your privacy. This policy explains how we collect, use, and protect your data when you use the Qaftr app and website to create ZATCA invoices.',
+        body: 'Qaftr ("we") respects your privacy. This policy explains how we collect, use, and protect your data when you use the Qaftr app and website to issue tax invoices.',
       },
       {
         heading: 'Data we collect',
@@ -274,7 +315,7 @@ const en: Copy = {
   },
   support: {
     title: 'Support',
-    subtitle: 'We are here to help with e-invoicing and ZATCA Phase 1 invoices.',
+    subtitle: 'Our team is here to help your business with e-invoicing and ZATCA Phase 1 invoices.',
     emailLabel: 'Email',
     emailHint: 'We reply within 24–48 business hours.',
     topics: [
@@ -285,16 +326,16 @@ const en: Copy = {
     faqTitle: 'FAQ',
     faqs: [
       {
-        q: 'Is Qaftr ZATCA compliant?',
-        a: 'Yes — Qaftr supports Phase 1 requirements including tax invoice QR codes.',
+        q: 'Is Qaftr enough for ZATCA compliance?',
+        a: 'Qaftr issues Phase 1 (Generation) invoices with the tax invoice QR code. If ZATCA has notified you of a Phase 2 (Integration) date — Wave 25 covers VAT-subject revenue above SAR 187,500, due 1 February 2027 — you need a solution integrated with the FATOORA portal. Qaftr is not an official ZATCA application.',
       },
       {
-        q: 'How many invoices on the free plan?',
-        a: '3 invoices per month free. Pro gives unlimited invoices.',
+        q: 'How many invoices are on the free plan?',
+        a: 'You can save 3 invoices a month free, and downloading a PDF without an account is always free. Pro gives you unlimited invoices.',
       },
       {
         q: 'Can I share invoices via WhatsApp?',
-        a: 'Yes — export PDF and share directly with clients.',
+        a: 'Yes. Export the invoice as a PDF and send it straight to your customer.',
       },
     ],
   },
@@ -311,23 +352,23 @@ export function seoCopy(lang: MarketingLang) {
   return {
     home: {
       title: isAr
-        ? 'قافتر — فاتورة زاتكا للمستقلين | فوترة إلكترونية'
-        : 'Qaftr — ZATCA Invoice for Saudi Freelancers | E-invoicing',
+        ? 'قافتر | برنامج فواتير زاتكا للمنشآت في السعودية'
+        : 'Qaftr | ZATCA Invoicing Software for Saudi Businesses',
       description: isAr
-        ? 'أنشئ فاتورة ضريبية متوافقة مع زاتكا المرحلة الأولى: QR، PDF، ضريبة 15٪، ومشاركة واتساب. تطبيق بسيط للمستقلين في السعودية.'
-        : 'Create ZATCA Phase 1 tax invoices with QR, PDF, 15% VAT, and WhatsApp sharing. Simple invoicing for Saudi freelancers.',
+        ? 'أصدر فواتير ضريبية لمبيعات منشأتك للشركات والأفراد وفق المرحلة الأولى من زاتكا: رمز QR، وضريبة ١٥٪ تلقائياً، وPDF وواتساب. ابدأ مجاناً.'
+        : 'Issue ZATCA Phase 1 tax invoices for your B2B and B2C sales: QR code, automatic 15% VAT, PDF and WhatsApp sharing. Create your first invoice free.',
     },
     privacy: {
-      title: isAr ? 'سياسة الخصوصية — قافتر' : 'Privacy Policy — Qaftr',
+      title: isAr ? 'سياسة الخصوصية | قافتر' : 'Privacy Policy | Qaftr',
       description: isAr
-        ? 'كيف يجمع قافتر ويحمي بياناتك التجارية، البريد الإلكتروني، والشعارات.'
-        : 'How Qaftr collects and protects your business data, email, and uploaded logos.',
+        ? 'كيف يجمع قافتر بيانات منشأتك وبريدك الإلكتروني وشعارك ويستخدمها ويحميها.'
+        : 'How Qaftr collects, uses and protects your business data, email address and uploaded logo.',
     },
     support: {
-      title: isAr ? 'الدعم — قافتر' : 'Support — Qaftr',
+      title: isAr ? 'الدعم | قافتر' : 'Support | Qaftr',
       description: isAr
-        ? 'تواصل مع فريق قافتر للمساعدة في الفوترة الإلكترونية وفواتير زاتكا.'
-        : 'Contact the Qaftr team for help with e-invoicing and ZATCA invoices.',
+        ? 'تواصل مع فريق قافتر للمساعدة في الفوترة الإلكترونية وفواتير زاتكا لمنشأتك، والحساب والاشتراك.'
+        : 'Contact the Qaftr team for help with e-invoicing, ZATCA invoices, your account and your subscription.',
     },
   }
 }

@@ -1,23 +1,39 @@
 # Qaftr
 
-Qaftr is an Arabic-first invoicing app for freelancers and small businesses in Saudi Arabia. It helps users create ZATCA Phase 1 style tax invoices with QR codes, 15% VAT calculations, PDF export, client details, and Arabic or English invoice output.
+Qaftr is Arabic-first invoicing software for small and medium-sized businesses in Saudi Arabia and the UAE that sell to businesses (B2B) and consumers (B2C). In Saudi Arabia it issues ZATCA Phase 1 (Generation) simplified tax invoices with the QR code, 15% VAT calculations, PDF export, customer details, and Arabic or English output. It does not yet support ZATCA Phase 2 (Integration).
 
 ## Core Pages
 
 - Home: https://qaftr.com/
 - Free tools: https://qaftr.com/tools
-- ZATCA invoice tool: https://qaftr.com/tools/fatora
-- VAT calculator: https://qaftr.com/tools/vat-calculator
-- TRN checker: https://qaftr.com/tools/trn-checker
+- Simplified tax invoice tool (ZATCA Phase 1 QR, free, no signup): https://qaftr.com/tools/fatora
+- Saudi 15% VAT calculator: https://qaftr.com/tools/vat-calculator
+- Saudi VAT number checker (15 digits, starts and ends with 3; format only): https://qaftr.com/tools/trn-checker
+- ZATCA Phase 2 wave checker (Is your business in Wave 25? Waves 23/24/25, deadline countdown, next steps; estimate only, verify with ZATCA): https://qaftr.com/tools/zatca-wave-checker
+- Free quotation generator (عرض سعر; 15% VAT, validity date, terms, Arabic/English/bilingual PDF, converts into a tax invoice; a quotation is not a tax invoice): https://qaftr.com/tools/quotation
+- Free receipt voucher generator (سند قبض; amount in figures and in Arabic and English words, cash/bank transfer/cheque/card, receiver signature line; not a tax invoice): https://qaftr.com/tools/receipt-voucher
+- Free credit note generator (إشعار دائن / Credit Note; references the original tax invoice number and date, reason per Article 40(1) of the VAT Implementing Regulations, 15% VAT; PDF only, not a Phase 2 e-invoice): https://qaftr.com/tools/credit-note
 
 ## SEO and Answer Pages
 
-- Saudi invoice generator: https://qaftr.com/invoice-generator-saudi-arabia
-- ZATCA invoice generator: https://qaftr.com/zatca-invoice-generator
+- Invoice generator for Saudi businesses: https://qaftr.com/invoice-generator-saudi-arabia
+- ZATCA Phase 1 invoice generator with QR code: https://qaftr.com/zatca-invoice-generator
 - Saudi VAT invoice generator: https://qaftr.com/vat-invoice-generator-saudi-arabia
-- Free invoice generator: https://qaftr.com/free-invoice-generator
-- Saudi e-invoicing guide: https://qaftr.com/e-invoicing-saudi-arabia
+- Free invoice generator (freelancers and small shops): https://qaftr.com/free-invoice-generator
+- Saudi e-invoicing guide for SMEs (Phase 1, Phase 2, Wave 25): https://qaftr.com/e-invoicing-saudi-arabia
+- ZATCA Wave 25 guide (Waves 23-25 timeline, scope, UBL 2.1, CSID, reporting vs clearance, freelancers, checklist): https://qaftr.com/guides/zatca-wave-25
 - Small business invoicing Saudi Arabia: https://qaftr.com/small-business-invoicing-saudi-arabia
+
+## UAE (Arabic-first, English via ?lang=en)
+
+Free tools and guidance for UAE businesses and SMEs ahead of UAE e-invoicing (pilot from 1 Jul 2026; mandatory 1 Jan 2027 for revenue of AED 50M or more, 1 Jul 2027 for other businesses, 1 Oct 2027 for government entities, per MoF/FTA guidance — verify before relying). B2C is excluded for now.
+
+- UAE hub: https://qaftr.com/ae
+- UAE e-invoicing readiness checker (phase, deadline, days remaining, ASP steps): https://qaftr.com/ae/tools/e-invoicing-readiness
+- UAE Tax Registration Number (TRN) format checker (15 digits, starts with 100; format only): https://qaftr.com/ae/tools/trn-checker
+- UAE 5% VAT calculator (AED): https://qaftr.com/ae/tools/vat-calculator
+- Free UAE tax invoice generator (AED, 5% VAT, zero-rated/exempt lines, Arabic/English/bilingual PDF; a PDF tax invoice, not a Peppol / PINT AE e-invoice): https://qaftr.com/ae/tools/invoice-generator
+- UAE e-invoicing 2027 guide for businesses (timeline, scope, Peppol 5-corner, PINT AE, ASPs, freelancers): https://qaftr.com/ae/guides/uae-e-invoicing-2027
 
 ## Important Files
 
@@ -28,4 +44,4 @@ Qaftr is an Arabic-first invoicing app for freelancers and small businesses in S
 
 ## Positioning
 
-Qaftr is an independent invoicing product. It is not an official ZATCA application and does not replace tax, accounting, or legal advice.
+Qaftr is an independent invoicing product. It is not an official ZATCA application, is not affiliated with the FTA or the UAE Ministry of Finance, and is not an Accredited Service Provider (ASP). It does not replace tax, accounting, or legal advice.

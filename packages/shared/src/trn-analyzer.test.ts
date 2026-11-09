@@ -22,3 +22,10 @@ describe("analyzeSaudiVatNumber", () => {
     expect(result.valid).toBe(true);
   });
 });
+
+describe("Arabic-Indic digits (Arabic keyboards)", () => {
+  it("accepts a VAT number typed with Arabic-Indic or Persian digits", () => {
+    expect(analyzeSaudiVatNumber("٣٠٠٠٠٠٠٠٠٠٠٠٠٠٣").valid).toBe(true);
+    expect(analyzeSaudiVatNumber("۳۰۰۰۰۰۰۰۰۰۰۰۰۰۳").normalized).toBe("300000000000003");
+  });
+});

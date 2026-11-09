@@ -1,5 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { CalculatorIcon, FileTextIcon, ShieldCheckIcon } from "lucide-react";
+import {
+  ArrowRight,
+  CalculatorIcon,
+  CalendarClockIcon,
+  FileMinusIcon,
+  FileTextIcon,
+  ReceiptTextIcon,
+  ScrollTextIcon,
+  ShieldCheckIcon,
+} from "lucide-react";
 import type { MarketingLang } from "#/lib/marketing/lang";
 import { getToolsCopy, TOOL_DEFINITIONS, type ToolId } from "#/lib/tools/copy";
 import { Badge } from "#/components/ui/badge";
@@ -18,6 +27,10 @@ const TOOL_ICONS: Record<ToolId, typeof FileTextIcon> = {
   fatora: FileTextIcon,
   "vat-calculator": CalculatorIcon,
   "trn-checker": ShieldCheckIcon,
+  "zatca-wave-checker": CalendarClockIcon,
+  quotation: ScrollTextIcon,
+  "receipt-voucher": ReceiptTextIcon,
+  "credit-note": FileMinusIcon,
 };
 
 const ACCENT_STYLES: Record<(typeof TOOL_DEFINITIONS)[number]["accent"], string> = {
@@ -35,7 +48,7 @@ export function ToolsHubGrid({ lang }: ToolsHubGridProps) {
   const search = lang === "en" ? { lang: "en" as const } : {};
 
   return (
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-5 md:grid-cols-2">
       {TOOL_DEFINITIONS.map((tool, index) => {
         const meta = copy.tools[tool.id];
         const Icon = TOOL_ICONS[tool.id];
@@ -66,13 +79,10 @@ export function ToolsHubGrid({ lang }: ToolsHubGridProps) {
               <p className="text-xs text-muted-foreground">{meta.keywords}</p>
             </CardContent>
             <CardFooter className="mt-auto w-full px-5 pt-4 pb-5">
-              <Button asChild className="w-full">
-                <Link
-                  to={tool.href as any}
-                  search={search as any}
-                  className="no-underline text-primary-foreground hover:text-primary-foreground"
-                >
+              <Button asChild variant="outline" className="w-full text-primary">
+                <Link to={tool.href as any} search={search as any} className="no-underline">
                   {copy.hub.cta}
+                  <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
                 </Link>
               </Button>
             </CardFooter>

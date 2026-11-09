@@ -1,3 +1,4 @@
+import { parseLocaleDecimal } from "./numbers";
 /** Saudi standard VAT rate applied to invoice line items. */
 export const VAT_RATE = 0.15;
 
@@ -31,8 +32,8 @@ function roundQty(value: number): string {
 export function computeInvoiceTotals(items: LineItemForTotals[]): ComputedInvoiceTotals {
   let subtotal = 0;
   const lineItems = items.map((item, index) => {
-    const qty = parseFloat(item.qty) || 0;
-    const unitPrice = parseFloat(item.unitPrice) || 0;
+    const qty = parseLocaleDecimal(item.qty) || 0;
+    const unitPrice = parseLocaleDecimal(item.unitPrice) || 0;
     const lineTotal = Math.round(qty * unitPrice * 100) / 100;
     subtotal += lineTotal;
 

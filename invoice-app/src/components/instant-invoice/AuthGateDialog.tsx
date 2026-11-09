@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { authClient } from "#/lib/auth-client";
+import { track } from "#/lib/analytics/track";
 import { getInstantInvoiceCopy } from "#/lib/instant-invoice/copy";
 import type { MarketingLang } from "#/lib/marketing/lang";
 import { langDir } from "#/lib/marketing/lang";
@@ -106,6 +107,7 @@ export function AuthGateDialog({
           setError(result.error.message ?? copy.errors.INTERNAL_ERROR);
           return;
         }
+        track("sign_up", { method: "email", source: context });
       } else {
         const result = await authClient.signIn.email({ email, password });
         if (result.error) {

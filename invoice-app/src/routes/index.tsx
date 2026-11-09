@@ -43,9 +43,9 @@ function HomePage() {
   const toolCopy = getInstantInvoiceCopy(lang)
 
   return (
-    <MarketingLayout lang={lang}>
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-8 pt-12 md:grid-cols-2 md:px-8 md:pt-20">
-        <div className="qaftr-rise order-2 md:order-1">
+    <MarketingLayout lang={lang} deadline>
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-12 pt-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:px-8 md:pt-16 lg:gap-14">
+        <div className="qaftr-rise">
           <Badge
             variant="outline"
             className="mb-4 gap-2 border-border bg-card px-4 py-1.5 text-xs font-semibold tracking-wide text-primary"
@@ -53,7 +53,7 @@ function HomePage() {
             <span className="size-1.5 rounded-full bg-secondary" />
             {copy.kicker}
           </Badge>
-          <h1 className="font-[family-name:var(--font-qaftr-display)] text-4xl font-bold leading-[1.15] tracking-tight text-foreground md:text-5xl lg:text-[3.25rem]">
+          <h1 className="font-[family-name:var(--font-qaftr-display)] text-[2rem] font-bold leading-[1.25] tracking-tight text-balance text-foreground sm:text-4xl lg:text-[2.75rem] xl:text-5xl">
             {copy.title}
             <span className="mt-1 block text-primary">{copy.titleAccent}</span>
           </h1>
@@ -65,7 +65,7 @@ function HomePage() {
               {copy.badgeZatca}
             </Badge>
             <Badge variant="outline" className="border-secondary/30 bg-accent text-primary">
-              {copy.badgeFreelancer}
+              {copy.badgeAudience}
             </Badge>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -75,9 +75,10 @@ function HomePage() {
               </a>
             </Button>
           </div>
+          <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>
         </div>
 
-        <div className="qaftr-rise order-1 md:order-2" style={{ animationDelay: '120ms' }}>
+        <div className="qaftr-rise hidden md:block" style={{ animationDelay: '120ms' }}>
           <InvoicePreview lang={lang} />
         </div>
       </section>
@@ -141,9 +142,7 @@ function HomePage() {
             {copy.pricingTitle}
           </h2>
           <p className="mt-3 text-muted-foreground">
-            {lang === 'ar'
-              ? 'حمّل PDF مجاناً بدون حساب — ٣ فواتير محفوظة شهرياً مجاناً بعد التسجيل'
-              : copy.pricingSubtitle}
+            {copy.pricingSubtitle}
           </p>
         </div>
         <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
@@ -157,12 +156,8 @@ function HomePage() {
           <PricingCard
             name={copy.pro.name}
             price={copy.pro.priceMonthly}
-            period={lang === 'ar' ? 'ر.س / شهر' : 'SAR / month'}
-            yearly={
-              lang === 'ar'
-                ? `أو ${copy.pro.priceYearly} ر.س / سنة`
-                : `or ${copy.pro.priceYearly} SAR / year`
-            }
+            period={copy.pro.period}
+            yearly={copy.pro.yearly(copy.pro.priceYearly)}
             badge={copy.pro.badge}
             features={copy.pro.features}
             highlighted
@@ -179,9 +174,17 @@ function HomePage() {
           </CardHeader>
           <CardContent className="px-0">
             <p className="mx-auto max-w-md text-primary-foreground/70">{copy.ctaBody}</p>
-            <Badge variant="secondary" className="mt-8 px-8 py-2 text-sm">
-              {t(lang).cta.comingSoon}
-            </Badge>
+            <Button
+              asChild
+              size="lg"
+              variant="secondary"
+              className="mt-8 px-8 text-primary"
+            >
+              <a href="#invoice-tool" className="no-underline">
+                {t(lang).cta.createInvoice}
+              </a>
+            </Button>
+            <p className="mt-3 text-sm text-primary-foreground/70">{t(lang).cta.noCard}</p>
           </CardContent>
         </Card>
       </section>
@@ -227,7 +230,7 @@ function PricingCard({
           {period}
         </p>
         {yearly ? (
-          <p className={cn('mt-1 text-sm', highlighted ? 'text-primary-foreground/60' : 'text-muted-foreground/80')}>
+          <p className={cn('mt-1 text-sm', highlighted ? 'text-primary-foreground/80' : 'text-muted-foreground')}>
             {yearly}
           </p>
         ) : null}
@@ -268,7 +271,7 @@ function InvoicePreview({ lang }: { lang: 'ar' | 'en' }) {
               {isAr ? 'فاتورة ضريبية' : 'Tax Invoice'}
             </p>
             <CardTitle className="text-base text-primary">
-              {isAr ? 'قافتر للتصميم' : 'Qaftr Design'}
+              {isAr ? 'مؤسسة قافتر التجارية' : 'Qaftr Trading Est.'}
             </CardTitle>
           </div>
           <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
@@ -277,23 +280,26 @@ function InvoicePreview({ lang }: { lang: 'ar' | 'en' }) {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 px-6 text-sm">
+        <p className="text-xs text-muted-foreground">
+          {isAr ? 'المشتري: شركة الأفق للمقاولات' : 'Buyer: Horizon Contracting Co.'}
+        </p>
         <Separator />
         <div className="flex justify-between text-muted-foreground">
-          <span>{isAr ? 'تصميم شعار' : 'Logo design'}</span>
-          <span className="font-semibold text-foreground">1,500</span>
+          <span>{isAr ? 'توريد وتركيب' : 'Supply & installation'}</span>
+          <span className="font-semibold text-foreground">{isAr ? '١٬٥٠٠' : '1,500'}</span>
         </div>
         <div className="flex justify-between text-muted-foreground">
-          <span>{isAr ? 'ضريبة 15٪' : 'VAT 15%'}</span>
-          <span className="font-semibold text-foreground">225</span>
+          <span>{isAr ? 'ضريبة القيمة المضافة ١٥٪' : 'VAT 15%'}</span>
+          <span className="font-semibold text-foreground">{isAr ? '٢٢٥' : '225'}</span>
         </div>
         <Separator />
         <div className="flex justify-between pt-1 font-bold text-primary">
-          <span>{isAr ? 'الإجمالي' : 'Total'}</span>
-          <span>{isAr ? '1,725 ر.س' : '1,725 SAR'}</span>
+          <span>{isAr ? 'الإجمالي شامل الضريبة' : 'Total incl. VAT'}</span>
+          <span>{isAr ? '١٬٧٢٥ ر.س' : '1,725 SAR'}</span>
         </div>
       </CardContent>
       <Badge variant="secondary" className="absolute -bottom-3 -end-3 shadow-lg">
-        ZATCA Phase 1
+        {t(lang).home.badgeZatca}
       </Badge>
     </Card>
   )

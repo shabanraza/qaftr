@@ -5,7 +5,8 @@ import { ToolFaqSection } from '#/components/tools/ToolFaqSection'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
-import { langDir, type MarketingLang } from '#/lib/marketing/lang'
+import { langDir } from '#/lib/marketing/lang'
+import type { MarketingLang } from '#/lib/marketing/lang'
 import type { SeoLandingSlug } from '#/lib/marketing/seo-landing-pages'
 import { getSeoLandingPage } from '#/lib/marketing/seo-landing-pages'
 
@@ -103,12 +104,16 @@ export function SeoLandingPage({ slug, lang }: SeoLandingPageProps) {
         <div className="flex flex-wrap gap-3">
           {page.related.map((item) => (
             <Button key={item.href} asChild variant="outline" size="sm">
-              <a
-                href={`${item.href}${lang === 'en' ? '?lang=en' : ''}`}
+              {/* Client-side navigation (preload, no full reload); keeps ?lang.
+                  Related hrefs are plain strings; every target uses the
+                  shared marketingSearchSchema, typed here via /tools/fatora. */}
+              <Link
+                to={item.href as '/tools/fatora'}
+                search={toolSearch}
                 className="no-underline"
               >
                 {item.label}
-              </a>
+              </Link>
             </Button>
           ))}
         </div>

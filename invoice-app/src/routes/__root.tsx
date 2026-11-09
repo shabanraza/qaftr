@@ -2,8 +2,18 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useRouterState,
 } from '@tanstack/react-router'
-import { getLocale } from '#/paraglide/runtime'
+import {
+  MarketingError,
+  MarketingNotFound,
+} from '#/components/marketing/MarketingStatusPages'
+import {
+  htmlLangAttr,
+  langDir,
+  regionFromPath,
+  resolveLang,
+} from '#/lib/marketing/lang'
 
 import appCss from '../styles.css?url'
 
@@ -15,6 +25,7 @@ import {
   BING_SITE_VERIFICATION,
   GOOGLE_ANALYTICS_ID,
   GOOGLE_SITE_VERIFICATION,
+  SITE_URL,
 } from '#/lib/marketing/constants'
 import {
   buildJsonLdScript,
@@ -22,6 +33,18 @@ import {
   buildWebApplicationSchema,
   buildWebsiteSchema,
 } from '#/lib/marketing/seo'
+import { rootHeadMeta } from '#/lib/marketing/status'
+import { buildGtagBootstrap } from '#/lib/analytics/config'
+import { fontPreloadLinks } from '#/lib/fonts/preload'
+import { ConsentBanner } from '#/components/analytics/ConsentBanner'
+import { AnalyticsListeners } from '#/components/analytics/AnalyticsListeners'
+
+// Consent Mode v2 defaults + GA config, run only on the production host
+// (see lib/analytics/config.ts). Empty when no valid measurement ID is set.
+const GTAG_BOOTSTRAP = buildGtagBootstrap({
+  measurementId: GOOGLE_ANALYTICS_ID,
+  siteUrl: SITE_URL,
+})
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -30,15 +53,7 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  beforeLoad: async () => {
-    // Other redirect strategies are possible; see
-    // https://github.com/TanStack/router/tree/main/examples/react/i18n-paraglide#offline-redirect
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('lang', getLocale())
-    }
-  },
-
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       {
         charSet: 'utf-8',
@@ -47,9 +62,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      {
-        title: 'Qaftr | قافتر',
-      },
+      ...rootHeadMeta(match),
       {
         name: 'theme-color',
         content: '#0A3D2E',
@@ -72,6 +85,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         : []),
     ],
     links: [
+      // Self-hosted fonts: preload the two first-paint files for this
+      // language before the stylesheet discovers them.
+      ...fontPreloadLinks(
+        (match.search as { lang?: unknown } | undefined)?.lang === 'en' ? 'en' : 'ar',
+      ),
       {
         rel: 'stylesheet',
         href: appCss,
@@ -92,30 +110,32 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         buildWebsiteSchema(),
         buildWebApplicationSchema(),
       ]),
-      ...(GOOGLE_ANALYTICS_ID
-        ? [
-            {
-              async: true,
-              src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
-            },
-            {
-              children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GOOGLE_ANALYTICS_ID}');`,
-            },
-          ]
-        : []),
+      ...(GTAG_BOOTSTRAP ? [{ children: GTAG_BOOTSTRAP }] : []),
     ],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: MarketingNotFound,
+  errorComponent: MarketingError,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  // Language comes from the `?lang=` search param used across the site
+  // (Arabic by default), so the document-level lang/dir match the content.
+  const location = useRouterState({ select: (state) => state.location })
+  const searchLang = (location.search as { lang?: unknown } | undefined)?.lang
+  const lang = resolveLang({ lang: searchLang === 'en' ? 'en' : undefined })
+  // /ae pages are the UAE site (ar-AE / en-AE); everything else is Saudi.
+  const region = regionFromPath(location.pathname)
+
   return (
-    <html lang={getLocale()}>
+    <html lang={htmlLangAttr(lang, region)} dir={langDir(lang)}>
       <head>
         <HeadContent />
       </head>
       <body>
         {children}
+        <ConsentBanner lang={lang} />
+        <AnalyticsListeners />
         <Scripts />
       </body>
     </html>

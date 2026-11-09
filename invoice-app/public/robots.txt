@@ -1,17 +1,32 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /workspace
+Disallow: /invoices
+Disallow: /api/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /workspace
+Disallow: /invoices
+Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /workspace
+Disallow: /invoices
+Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /workspace
+Disallow: /invoices
+Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /workspace
+Disallow: /invoices
+Disallow: /api/
 
 Sitemap: https://qaftr.com/sitemap.xml
