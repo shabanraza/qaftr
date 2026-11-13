@@ -30,6 +30,7 @@ export const PAGES: PageEntry[] = [
   { path: '/tools/quotation', region: 'sa' },
   { path: '/tools/receipt-voucher', region: 'sa' },
   { path: '/tools/credit-note', region: 'sa' },
+  { path: '/tools/non-tax-invoice', region: 'sa' },
   { path: '/guides/zatca-wave-25', region: 'sa' },
   { path: '/zatca-invoice-generator', region: 'sa' },
   { path: '/free-invoice-generator', region: 'sa' },

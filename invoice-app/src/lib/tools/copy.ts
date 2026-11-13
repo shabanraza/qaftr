@@ -8,7 +8,8 @@ export type ToolId =
   | "zatca-wave-checker"
   | "quotation"
   | "receipt-voucher"
-  | "credit-note";
+  | "credit-note"
+  | "non-tax-invoice";
 
 export type ToolDefinition = {
   id: ToolId;
@@ -25,6 +26,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { id: "quotation", href: "/tools/quotation", accent: "green", live: true },
   { id: "receipt-voucher", href: "/tools/receipt-voucher", accent: "sage", live: true },
   { id: "credit-note", href: "/tools/credit-note", accent: "gold", live: true },
+  { id: "non-tax-invoice", href: "/tools/non-tax-invoice", accent: "sage", live: true },
 ];
 
 type ToolCopyEntry = {
@@ -164,6 +166,12 @@ const toolsCopyAr: ToolsCopy = {
       badge: "جديد",
       keywords: "إشعار دائن · مرتجع · خصم لاحق",
     },
+    "non-tax-invoice": {
+      title: "فاتورة غير ضريبية",
+      subtitle: "فاتورة دون ضريبة للمنشآت غير المسجلة في ضريبة القيمة المضافة، جاهزة PDF.",
+      badge: "جديد",
+      keywords: "فاتورة غير ضريبية · منشأة غير مسجلة · PDF",
+    },
   },
   vatCalculator: {
     amountLabel: "المبلغ (ر.س)",
@@ -299,6 +307,12 @@ const toolsCopyEn: ToolsCopy = {
       subtitle: "Issue a credit note linked to the original tax invoice, with the reason and the VAT adjustment.",
       badge: "New",
       keywords: "Credit note · Returns · Later discount",
+    },
+    "non-tax-invoice": {
+      title: "Non-tax invoice",
+      subtitle: "An invoice without VAT for businesses not registered for VAT, ready as a PDF.",
+      badge: "New",
+      keywords: "Non-tax invoice · Not VAT-registered · PDF",
     },
   },
   vatCalculator: {

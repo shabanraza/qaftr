@@ -86,7 +86,7 @@ describe('track', () => {
   })
 
   it('sends document_pdf_download for the Saudi document generators', () => {
-    expect(DOCUMENT_TOOLS).toEqual(['receipt_voucher', 'quotation', 'credit_note'])
+    expect(DOCUMENT_TOOLS).toEqual(['receipt_voucher', 'quotation', 'credit_note', 'non_tax_invoice'])
     w.gtag = vi.fn()
     w.__qaftrAnalytics = true
     window.history.replaceState(null, '', '/tools/receipt-voucher')

@@ -34,6 +34,7 @@ import { Route as ToolsVatCalculatorRouteImport } from './routes/tools/vat-calcu
 import { Route as ToolsTrnCheckerRouteImport } from './routes/tools/trn-checker'
 import { Route as ToolsReceiptVoucherRouteImport } from './routes/tools/receipt-voucher'
 import { Route as ToolsQuotationRouteImport } from './routes/tools/quotation'
+import { Route as ToolsNonTaxInvoiceRouteImport } from './routes/tools/non-tax-invoice'
 import { Route as ToolsFatoraRouteImport } from './routes/tools/fatora'
 import { Route as ToolsCreditNoteRouteImport } from './routes/tools/credit-note'
 import { Route as InvoicesIdRouteImport } from './routes/invoices/$id'
@@ -180,6 +181,11 @@ const ToolsQuotationRoute = ToolsQuotationRouteImport.update({
   path: '/tools/quotation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsNonTaxInvoiceRoute = ToolsNonTaxInvoiceRouteImport.update({
+  id: '/tools/non-tax-invoice',
+  path: '/tools/non-tax-invoice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsFatoraRoute = ToolsFatoraRouteImport.update({
   id: '/tools/fatora',
   path: '/tools/fatora',
@@ -283,6 +289,7 @@ export interface FileRoutesByFullPath {
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/non-tax-invoice': typeof ToolsNonTaxInvoiceRoute
   '/tools/quotation': typeof ToolsQuotationRoute
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -326,6 +333,7 @@ export interface FileRoutesByTo {
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/non-tax-invoice': typeof ToolsNonTaxInvoiceRoute
   '/tools/quotation': typeof ToolsQuotationRoute
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -369,6 +377,7 @@ export interface FileRoutesById {
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/non-tax-invoice': typeof ToolsNonTaxInvoiceRoute
   '/tools/quotation': typeof ToolsQuotationRoute
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
@@ -415,6 +424,7 @@ export interface FileRouteTypes {
     | '/invoices/$id'
     | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/non-tax-invoice'
     | '/tools/quotation'
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
@@ -458,6 +468,7 @@ export interface FileRouteTypes {
     | '/invoices/$id'
     | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/non-tax-invoice'
     | '/tools/quotation'
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
@@ -500,6 +511,7 @@ export interface FileRouteTypes {
     | '/invoices/$id'
     | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/non-tax-invoice'
     | '/tools/quotation'
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
@@ -545,6 +557,7 @@ export interface RootRouteChildren {
   InvoicesIdRoute: typeof InvoicesIdRoute
   ToolsCreditNoteRoute: typeof ToolsCreditNoteRoute
   ToolsFatoraRoute: typeof ToolsFatoraRoute
+  ToolsNonTaxInvoiceRoute: typeof ToolsNonTaxInvoiceRoute
   ToolsQuotationRoute: typeof ToolsQuotationRoute
   ToolsReceiptVoucherRoute: typeof ToolsReceiptVoucherRoute
   ToolsTrnCheckerRoute: typeof ToolsTrnCheckerRoute
@@ -740,6 +753,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsQuotationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/non-tax-invoice': {
+      id: '/tools/non-tax-invoice'
+      path: '/tools/non-tax-invoice'
+      fullPath: '/tools/non-tax-invoice'
+      preLoaderRoute: typeof ToolsNonTaxInvoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/fatora': {
       id: '/tools/fatora'
       path: '/tools/fatora'
@@ -931,6 +951,7 @@ const rootRouteChildren: RootRouteChildren = {
   InvoicesIdRoute: InvoicesIdRoute,
   ToolsCreditNoteRoute: ToolsCreditNoteRoute,
   ToolsFatoraRoute: ToolsFatoraRoute,
+  ToolsNonTaxInvoiceRoute: ToolsNonTaxInvoiceRoute,
   ToolsQuotationRoute: ToolsQuotationRoute,
   ToolsReceiptVoucherRoute: ToolsReceiptVoucherRoute,
   ToolsTrnCheckerRoute: ToolsTrnCheckerRoute,

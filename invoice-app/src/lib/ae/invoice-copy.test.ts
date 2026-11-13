@@ -14,4 +14,14 @@ describe('UAE simplified tax invoice rule copy', () => {
     expect(ar.simplifiedRule).toMatch(/10,000 درهم شاملة الضريبة/)
     expect(ar.simplifiedRule).toMatch(/قرار مجلس الوزراء رقم 100 لسنة 2025/)
   })
+
+  it('cites Article 59(16) for the e-invoicing exception, verified against the consolidated regulation', () => {
+    const en = getAeInvoiceCopy('en')
+    const ar = getAeInvoiceCopy('ar')
+    expect(en.simplifiedRule).toMatch(/Article 59\(16\)/)
+    expect(en.simplifiedRule).toMatch(/voluntar/)
+    expect(en.simplifiedRule).not.toMatch(/Verify with the FTA/)
+    expect(ar.simplifiedRule).toMatch(/البند 16 من المادة 59/)
+    expect(ar.simplifiedRule).not.toMatch(/تحقّق من الهيئة/)
+  })
 })

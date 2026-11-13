@@ -435,4 +435,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
+  <url>
+    <loc>https://qaftr.com/tools/non-tax-invoice</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/non-tax-invoice"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/non-tax-invoice?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/non-tax-invoice"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/non-tax-invoice?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/non-tax-invoice"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/non-tax-invoice?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/non-tax-invoice"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
 </urlset>

@@ -8,6 +8,7 @@ import type {
   CreditNoteInput,
   DocumentLineInput,
   DocumentParty,
+  NonTaxInvoiceInput,
   QuotationInput,
   ReceiptVoucherInput,
 } from '@zatca/shared'
@@ -30,16 +31,22 @@ export interface CreditNoteDraft extends CreditNoteInput {
   notes: string
 }
 
+export interface NonTaxInvoiceDraft extends NonTaxInvoiceInput {
+  outputLang: DocumentOutputLang
+}
+
 export type DocumentDrafts = {
   'receipt-voucher': ReceiptDraft
   quotation: QuotationDraft
   'credit-note': CreditNoteDraft
+  'non-tax-invoice': NonTaxInvoiceDraft
 }
 
 export const DOCUMENT_DRAFT_KEYS: Record<DocumentKind, string> = {
   'receipt-voucher': 'qaftr:receipt-voucher-draft:v1',
   quotation: 'qaftr:quotation-draft:v1',
   'credit-note': 'qaftr:credit-note-draft:v1',
+  'non-tax-invoice': 'qaftr:non-tax-invoice-draft:v1',
 }
 
 const MAX_LINES = 50
@@ -93,6 +100,18 @@ export function createEmptyCreditNoteDraft(today: string, outputLang: DocumentOu
     reasonDetail: '',
     seller: emptyParty(),
     buyer: emptyParty(),
+    lines: [createEmptyDocumentLine()],
+    notes: '',
+  }
+}
+
+export function createEmptyNonTaxInvoiceDraft(today: string, outputLang: DocumentOutputLang): NonTaxInvoiceDraft {
+  return {
+    outputLang,
+    number: 'INV-0001',
+    date: today,
+    seller: { name: '', address: '', crNumber: '' },
+    buyer: { name: '', address: '' },
     lines: [createEmptyDocumentLine()],
     notes: '',
   }
@@ -182,10 +201,28 @@ export function parseCreditNoteDraft(raw: string | null): CreditNoteDraft | null
   }
 }
 
+export function parseNonTaxInvoiceDraft(raw: string | null): NonTaxInvoiceDraft | null {
+  const d = parseJson(raw)
+  const parsedLines = d ? lines(d.lines) : null
+  if (!d || !parsedLines) return null
+  const seller = isRecord(d.seller) ? d.seller : {}
+  const buyer = isRecord(d.buyer) ? d.buyer : {}
+  return {
+    outputLang: oneOf(d.outputLang, OUTPUT_LANGS, 'ar'),
+    number: str(d.number),
+    date: str(d.date),
+    seller: { name: str(seller.name), address: str(seller.address), crNumber: str(seller.crNumber) },
+    buyer: { name: str(buyer.name), address: str(buyer.address) },
+    lines: parsedLines,
+    notes: str(d.notes),
+  }
+}
+
 const PARSERS: { [TKind in DocumentKind]: (raw: string | null) => DocumentDrafts[TKind] | null } = {
   'receipt-voucher': parseReceiptDraft,
   quotation: parseQuotationDraft,
   'credit-note': parseCreditNoteDraft,
+  'non-tax-invoice': parseNonTaxInvoiceDraft,
 }
 
 export function loadDocumentDraft<TKind extends DocumentKind>(kind: TKind): DocumentDrafts[TKind] | null {

@@ -12,7 +12,7 @@ const ar = {
   typeFull: 'فاتورة ضريبية',
   typeSimplified: 'فاتورة ضريبية مبسطة',
   simplifiedRule:
-    'تجوز الفاتورة المبسطة إذا كان العميل غير مسجّل في ضريبة القيمة المضافة، أو كان مسجّلاً ولا تتجاوز قيمة التوريد 10,000 درهم شاملة الضريبة (المادة 59 من اللائحة التنفيذية). ألغى قرار مجلس الوزراء رقم 100 لسنة 2025 الفاتورة المبسطة ضمن إطار الفوترة الإلكترونية، فبمجرد دخول منشأتك مرحلة الفوترة الإلكترونية أصدر فاتورة ضريبية كاملة. تحقّق من الهيئة الاتحادية للضرائب قبل الاعتماد عليها.',
+    'تجوز الفاتورة المبسطة إذا كان العميل غير مسجّل في ضريبة القيمة المضافة، أو كان مسجّلاً ولا تتجاوز قيمة التوريد 10,000 درهم شاملة الضريبة (المادة 59 من اللائحة التنفيذية). وبموجب البند 16 من المادة 59 المعدّل بقرار مجلس الوزراء رقم 100 لسنة 2025، لا تنطبق أحكام الفاتورة المبسطة متى أصدرت الفاتورة الضريبية بصيغة فاتورة إلكترونية، إلزامياً أو اختيارياً، فأصدر حينها فاتورة ضريبية كاملة.',
   outputLangLabel: 'لغة الفاتورة',
   outputAr: 'عربي',
   outputEn: 'English',
@@ -103,7 +103,7 @@ const ar = {
     {
       question: 'متى أستخدم الفاتورة الضريبية المبسطة؟',
       answer:
-        'تجوز إذا كان العميل غير مسجّل، أو كان مسجّلاً وقيمة التوريد لا تتجاوز 10,000 درهم شاملة الضريبة. وتحتاج حقولاً أقل: عبارة «فاتورة ضريبية»، وبيانات المورّد ورقم تسجيله الضريبي، التاريخ، الوصف، والإجمالي والضريبة. تنبيه: ألغى قرار مجلس الوزراء رقم 100 لسنة 2025 الفاتورة المبسطة ضمن إطار الفوترة الإلكترونية، فعند دخول منشأتك الفوترة الإلكترونية أصدر فواتير ضريبية كاملة (إلكترونية).',
+        'تجوز إذا كان العميل غير مسجّل، أو كان مسجّلاً وقيمة التوريد لا تتجاوز 10,000 درهم شاملة الضريبة. وتحتاج حقولاً أقل: عبارة «فاتورة ضريبية»، وبيانات المورّد ورقم تسجيله الضريبي، التاريخ، الوصف، والإجمالي والضريبة. تنبيه: بموجب البند 16 من المادة 59 المعدّل بقرار مجلس الوزراء رقم 100 لسنة 2025، لا تنطبق الفاتورة المبسطة متى أصدرت فواتيرك الضريبية إلكترونياً، إلزامياً أو اختيارياً، فتصدر حينها فواتير ضريبية كاملة (إلكترونية).',
     },
     {
       question: 'هل هذه فاتورة إلكترونية متوافقة مع Peppol؟',
@@ -151,7 +151,7 @@ const en: AeInvoiceCopy = {
   typeFull: 'Tax invoice',
   typeSimplified: 'Simplified tax invoice',
   simplifiedRule:
-    'A simplified tax invoice is allowed when the customer is not VAT-registered, or is registered and the supply is not more than AED 10,000 including VAT (Article 59 of the VAT Executive Regulation). Cabinet Decision No. 100 of 2025 removes simplified invoices under the e-invoicing framework, so once your business is in scope for e-invoicing, issue full tax invoices. Verify with the FTA before relying on it.',
+    'A simplified tax invoice is allowed when the customer is not VAT-registered, or is registered and the supply is not more than AED 10,000 including VAT (Article 59 of the VAT Executive Regulation). Under Article 59(16), as amended by Cabinet Decision No. 100 of 2025, the simplified invoice rules stop applying once you issue tax invoices as e-invoices, whether mandatory or voluntary, so you then issue full tax invoices.',
   outputLangLabel: 'Invoice language',
   outputAr: 'عربي',
   outputEn: 'English',
@@ -242,7 +242,7 @@ const en: AeInvoiceCopy = {
     {
       question: 'When can I issue a simplified tax invoice?',
       answer:
-        'When the customer is not VAT-registered, or is registered and the supply is not more than AED 10,000 including VAT. It needs fewer fields: “Tax Invoice”, your name, address and TRN, the date, a description, and the total and VAT. Note: Cabinet Decision No. 100 of 2025 removes simplified invoices under the e-invoicing framework, so once your business is in scope for e-invoicing you issue full tax invoices (as e-invoices).',
+        'When the customer is not VAT-registered, or is registered and the supply is not more than AED 10,000 including VAT. It needs fewer fields: “Tax Invoice”, your name, address and TRN, the date, a description, and the total and VAT. Note: under Article 59(16), as amended by Cabinet Decision No. 100 of 2025, simplified invoices stop applying once you issue tax invoices as e-invoices under e-invoicing (mandatory or voluntary), so you then issue full tax invoices (as e-invoices).',
     },
     {
       question: 'Is this a Peppol e-invoice?',

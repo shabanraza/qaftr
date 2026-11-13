@@ -1,13 +1,16 @@
 import { describe, expect, it } from "bun:test";
 import {
   CREDIT_NOTE_REASONS,
+  computeNonTaxDocumentTotals,
   computeSaudiDocumentTotals,
+  normalizeCrNumber,
   quotationToInstantInvoiceDraft,
   validateCreditNote,
+  validateNonTaxInvoice,
   validateQuotation,
   validateReceiptVoucher,
 } from "./sa-documents";
-import type { CreditNoteInput, QuotationInput, ReceiptVoucherInput } from "./sa-documents";
+import type { CreditNoteInput, NonTaxInvoiceInput, QuotationInput, ReceiptVoucherInput } from "./sa-documents";
 
 const VALID_VAT = "300000000000003";
 
@@ -229,5 +232,78 @@ describe("quotationToInstantInvoiceDraft", () => {
     expect(draft.invoiceType).toBe("standard");
     expect(draft.clientVat).toBe(VALID_VAT);
     expect(draft.clientAddress).toBe("جدة");
+  });
+});
+
+function nonTax(patch: Partial<NonTaxInvoiceInput> = {}): NonTaxInvoiceInput {
+  return {
+    number: "INV-0001",
+    date: "2026-11-13",
+    seller: { name: "مؤسسة النخبة للصيانة", address: "جدة", crNumber: "" },
+    buyer: { name: "", address: "" },
+    lines: [{ description: "صيانة مكيف", qty: "1", unitPrice: "250" }],
+    notes: "",
+    ...patch,
+  };
+}
+
+describe("computeNonTaxDocumentTotals", () => {
+  it("adds up complete lines with no VAT and halala rounding", () => {
+    const totals = computeNonTaxDocumentTotals([
+      { description: "صيانة", qty: "3", unitPrice: "33.335" },
+      { description: "", qty: "1", unitPrice: "" },
+      { description: "قطع غيار", qty: "١", unitPrice: "٢٠٠" },
+    ]);
+    expect(totals.lineItems.map((l) => l.lineTotal)).toEqual(["100.01", "200.00"]);
+    expect(totals.total).toBe("300.01");
+    expect(totals).not.toHaveProperty("vatAmount");
+  });
+
+  it("is zero with no complete lines", () => {
+    expect(computeNonTaxDocumentTotals([{ description: "", qty: "1", unitPrice: "" }]).total).toBe("0.00");
+  });
+});
+
+describe("normalizeCrNumber", () => {
+  it("strips spaces and dashes and converts Arabic-Indic digits", () => {
+    expect(normalizeCrNumber(" ٤٠٣٠ ١٢٣-٤٥٦ ")).toBe("4030123456");
+    expect(normalizeCrNumber("")).toBe("");
+  });
+});
+
+describe("validateNonTaxInvoice", () => {
+  it("accepts a walk-in sale with no buyer and no CR number", () => {
+    expect(validateNonTaxInvoice(nonTax())).toEqual({ valid: true, issues: [] });
+  });
+
+  it("requires number, date, seller name and a line", () => {
+    const r = validateNonTaxInvoice(
+      nonTax({
+        number: "",
+        date: "13/11/2026",
+        seller: { name: " ", address: "", crNumber: "" },
+        lines: [{ description: "", qty: "1", unitPrice: "" }],
+      }),
+    );
+    expect(codes(r.issues)).toEqual(["NUMBER_REQUIRED", "DATE_REQUIRED", "SELLER_NAME_REQUIRED", "LINES_REQUIRED"]);
+  });
+
+  it("accepts a 10-digit CR number and rejects anything else", () => {
+    expect(validateNonTaxInvoice(nonTax({ seller: { name: "x", address: "", crNumber: "٤٠٣٠١٢٣٤٥٦" } })).valid).toBe(true);
+    const r = validateNonTaxInvoice(nonTax({ seller: { name: "x", address: "", crNumber: "12345" } }));
+    expect(codes(r.issues)).toEqual(["SELLER_CR_INVALID"]);
+  });
+
+  it("reports incomplete lines by index", () => {
+    const r = validateNonTaxInvoice(
+      nonTax({
+        lines: [
+          { description: "صيانة", qty: "1", unitPrice: "100" },
+          { description: "", qty: "1", unitPrice: "50" },
+          { description: "تركيب", qty: "0", unitPrice: "50" },
+        ],
+      }),
+    );
+    expect(codes(r.issues)).toEqual(["LINE_DESCRIPTION_REQUIRED@1", "LINE_QTY_INVALID@2"]);
   });
 });
