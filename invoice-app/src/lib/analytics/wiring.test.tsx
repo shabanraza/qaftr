@@ -74,6 +74,27 @@ describe('submit tools fire tool_used once per result', () => {
     expect(spies.track).toHaveBeenCalledWith('tool_used', expect.objectContaining({ tool: 'zatca_wave_checker' }))
   })
 
+  it('ZATCA wave checker reminder actions fire cta_click', async () => {
+    Object.assign(URL, { createObjectURL: vi.fn(() => 'blob:x'), revokeObjectURL: vi.fn() })
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
+    renderWithRouter(<ZatcaWaveChecker lang="en" today="2026-11-08" />)
+    await screen.findByRole('heading', { name: /Quick questions/ })
+    fireEvent.click(document.querySelector('input[name="wave-vat"][value="yes"]')!)
+    type(document.getElementById('wave-revenue-2024')!, '200,000')
+    fireEvent.click(screen.getByRole('button', { name: /Check my wave/ }))
+    const box = await screen.findByRole('region', { name: 'Remind me about the deadline' })
+    spies.track.mockClear()
+    fireEvent.click(within(box).getByRole('button', { name: /\.ics/ }))
+    fireEvent.click(within(box).getByRole('link', { name: /Google Calendar/ }))
+    fireEvent.click(within(box).getByRole('link', { name: /WhatsApp/ }))
+    expect(spies.track.mock.calls).toEqual([
+      ['cta_click', { cta: 'wave_reminder_ics', cta_location: 'wave_checker_result' }],
+      ['cta_click', { cta: 'wave_reminder_google', cta_location: 'wave_checker_result' }],
+      ['cta_click', { cta: 'wave_reminder_whatsapp', cta_location: 'wave_checker_result' }],
+    ])
+    click.mockRestore()
+  })
+
   it('UAE readiness quiz', async () => {
     renderWithRouter(<UaeReadinessQuiz lang="en" today="2026-11-08" />)
     await screen.findByTestId('readiness-form')

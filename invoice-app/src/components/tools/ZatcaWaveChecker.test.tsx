@@ -144,4 +144,80 @@ describe('ZatcaWaveChecker', () => {
     expect(within(result()).getByTestId('wave-days').textContent).toBe('٨٥')
     expect(result().textContent).toContain('١ فبراير ٢٠٢٧')
   })
+
+  describe('deadline reminder', () => {
+    it('offers .ics, Google Calendar and WhatsApp for a future deadline', async () => {
+      const { pick, revenue, submit } = await setup()
+      pick('wave-vat', 'yes')
+      revenue(2024, '200,000')
+      submit()
+      const box = screen.getByRole('region', { name: 'Remind me about the deadline' })
+      const google = within(box).getByRole('link', { name: /Add to Google Calendar/ })
+      const g = new URL(google.getAttribute('href')!)
+      expect(g.hostname).toBe('calendar.google.com')
+      expect(g.searchParams.get('dates')).toBe('20270201/20270202')
+      expect(google.getAttribute('target')).toBe('_blank')
+      const wa = within(box).getByRole('link', { name: /WhatsApp/ })
+      const text = new URL(wa.getAttribute('href')!).searchParams.get('text')!
+      expect(text).toContain('1 Feb 2027')
+      expect(text).toContain('85 days left')
+      expect(text).toContain('/tools/zatca-wave-checker?lang=en')
+      // no email/phone capture
+      expect(box.querySelector('input')).toBeNull()
+    })
+
+    it('downloads a .ics file from the deadline in the wave data', async () => {
+      const blobs: Blob[] = []
+      const createObjectURL = vi.fn((b: Blob) => {
+        blobs.push(b)
+        return 'blob:ics'
+      })
+      Object.assign(URL, { createObjectURL, revokeObjectURL: vi.fn() })
+      const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
+      const { pick, revenue, submit } = await setup()
+      pick('wave-vat', 'yes')
+      revenue(2024, '200,000')
+      submit()
+      fireEvent.click(screen.getByRole('button', { name: /Add to calendar \(\.ics\)/ }))
+      expect(click).toHaveBeenCalledTimes(1)
+      const anchor = click.mock.instances[0] as unknown as HTMLAnchorElement
+      expect(anchor.download).toBe('qaftr-zatca-wave-25-deadline.ics')
+      expect(blobs[0].type).toMatch(/^text\/calendar/)
+      const ics = await blobs[0].text()
+      expect(ics).toContain('DTSTART;VALUE=DATE:20270201')
+      expect(ics).toContain('BEGIN:VALARM')
+    })
+
+    it('opens the free sign-up dialog from the soft CTA', async () => {
+      const { pick, revenue, submit } = await setup()
+      pick('wave-vat', 'yes')
+      revenue(2024, '200,000')
+      submit()
+      fireEvent.click(screen.getByRole('button', { name: 'Create a free account' }))
+      expect(await screen.findByRole('dialog', { name: 'Create your Qaftr account' })).toBeTruthy()
+    })
+
+    it('is not offered when the deadline has passed or there is no wave', async () => {
+      const { pick, revenue, submit } = await setup()
+      pick('wave-vat', 'yes')
+      revenue(2025, '400000')
+      submit()
+      expect(screen.queryByRole('region', { name: 'Remind me about the deadline' })).toBeNull()
+      revenue(2025, '100000')
+      submit()
+      expect(screen.queryByRole('region', { name: 'Remind me about the deadline' })).toBeNull()
+    })
+
+    it('Arabic copy with Arabic-Indic digits in the WhatsApp text', async () => {
+      const { pick, revenue, submit } = await setup('ar')
+      pick('wave-vat', 'yes')
+      revenue(2024, '200000')
+      submit()
+      const box = screen.getByRole('region', { name: 'ذكّرني بموعد الربط' })
+      const wa = within(box).getByRole('link', { name: /واتساب/ })
+      const text = new URL(wa.getAttribute('href')!).searchParams.get('text')!
+      expect(text).toContain('١ فبراير ٢٠٢٧')
+      expect(text).toContain('٨٥')
+    })
+  })
 })
