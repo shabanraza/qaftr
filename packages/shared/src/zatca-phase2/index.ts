@@ -12,4 +12,5 @@ export * from "./csr";
 export * from "./keys";
 export * from "./certificate";
 export * from "./api-client";
+export * from "./inspect";
 export { canonicalize, parseXml } from "./xml";

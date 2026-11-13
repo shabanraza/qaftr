@@ -10,7 +10,8 @@ export type ToolId =
   | "receipt-voucher"
   | "credit-note"
   | "non-tax-invoice"
-  | "zatca-qr";
+  | "zatca-qr"
+  | "zatca-xml-validator";
 
 export type ToolDefinition = {
   id: ToolId;
@@ -29,6 +30,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { id: "credit-note", href: "/tools/credit-note", accent: "gold", live: true },
   { id: "non-tax-invoice", href: "/tools/non-tax-invoice", accent: "sage", live: true },
   { id: "zatca-qr", href: "/tools/zatca-qr", accent: "green", live: true },
+  { id: "zatca-xml-validator", href: "/tools/zatca-xml-validator", accent: "gold", live: true },
 ];
 
 type ToolCopyEntry = {
@@ -180,6 +182,12 @@ const toolsCopyAr: ToolsCopy = {
       badge: "جديد",
       keywords: "رمز QR · فاتورة إلكترونية · فحص",
     },
+    "zatca-xml-validator": {
+      title: "مدقق ملف XML للفاتورة",
+      subtitle: "افحص ملف XML لفاتورة زاتكا: الحقول الإلزامية والقواعد والإجماليات ورمز QR والتوقيع.",
+      badge: "جديد",
+      keywords: "XML · UBL · فحص الفاتورة",
+    },
   },
   vatCalculator: {
     amountLabel: "المبلغ (ر.س)",
@@ -327,6 +335,12 @@ const toolsCopyEn: ToolsCopy = {
       subtitle: "Read the QR code on a Saudi e-invoice and check its fields, from text or an image.",
       badge: "New",
       keywords: "QR code · E-invoice · Check",
+    },
+    "zatca-xml-validator": {
+      title: "ZATCA XML validator",
+      subtitle: "Check a ZATCA invoice XML: mandatory fields, rules, totals, QR code and signature.",
+      badge: "New",
+      keywords: "XML · UBL · Invoice check",
     },
   },
   vatCalculator: {

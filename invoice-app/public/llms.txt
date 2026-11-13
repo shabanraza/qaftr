@@ -15,6 +15,7 @@ Qaftr is Arabic-first invoicing software for small and medium-sized businesses i
 - Free credit note generator (إشعار دائن / Credit Note; references the original tax invoice number and date, reason per Article 40(1) of the VAT Implementing Regulations, 15% VAT; PDF only, not a Phase 2 e-invoice): https://qaftr.com/tools/credit-note
 - Free non-tax invoice generator (فاتورة غير ضريبية / Non-Tax Invoice; for businesses not registered for VAT: no VAT, no VAT number, optional CR number; PDF in Arabic, English or bilingual): https://qaftr.com/tools/non-tax-invoice
 - Free ZATCA QR code decoder (قارئ رمز QR للفاتورة; paste the QR text or upload an image; reads Phase 1 and Phase 2 TLV fields and checks their format in the browser; not an official verification, which is done with ZATCA's VAT app): https://qaftr.com/tools/zatca-qr
+- Free ZATCA e-invoice XML validator (مدقق ملف XML للفاتورة; paste or upload a UBL 2.1 invoice, credit or debit note; checks mandatory fields, business rules, totals, QR fields and the cryptographic stamp against the embedded certificate, in the browser; not an official validation, which is done with ZATCA's SDK, web-based validator and the FATOORA platform): https://qaftr.com/tools/zatca-xml-validator
 
 ## SEO and Answer Pages
 
