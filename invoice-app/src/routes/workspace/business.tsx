@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { BusinessProfileForm } from '#/components/workspace/BusinessProfileForm'
+import { ZatcaOnboardingCard } from '#/components/workspace/ZatcaOnboardingCard'
 import { Skeleton } from '#/components/ui/skeleton'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
@@ -36,7 +37,15 @@ function WorkspaceBusinessPage() {
   const { data: business, isLoading } = useQuery(trpc.business.get.queryOptions())
   const upsert = useMutation({
     ...trpc.business.upsert.mutationOptions(),
-    onSuccess: () => void queryClient.invalidateQueries(trpc.business.get.queryFilter()),
+    onSuccess: () => {
+      void queryClient.invalidateQueries(trpc.business.get.queryFilter())
+      void queryClient.invalidateQueries(trpc.zatca.status.queryFilter())
+    },
+  })
+  const { data: zatcaStatus } = useQuery(trpc.zatca.status.queryOptions())
+  const onboard = useMutation({
+    ...trpc.zatca.onboard.mutationOptions(),
+    onSuccess: () => void queryClient.invalidateQueries(trpc.zatca.status.queryFilter()),
   })
 
   return (
@@ -50,7 +59,7 @@ function WorkspaceBusinessPage() {
           : 'Your business details as they appear on invoices, and what ZATCA Phase 2 needs.'
       }
     >
-      <div className="p-5">
+      <div className="space-y-5 p-5">
         {isLoading ? (
           <Skeleton className="h-96 w-full max-w-4xl rounded-xl" />
         ) : (
@@ -67,6 +76,11 @@ function WorkspaceBusinessPage() {
             }
           />
         )}
+        {zatcaStatus ? (
+          <div className="max-w-4xl">
+            <ZatcaOnboardingCard lang={lang} status={zatcaStatus} onOnboard={(values) => onboard.mutateAsync(values)} />
+          </div>
+        ) : null}
       </div>
     </WorkspaceShell>
   )

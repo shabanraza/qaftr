@@ -36,7 +36,13 @@ The `/ae` section stays as free tools that need no official certification: the P
 3. **Done:** a `/workspace/business` profile page and the client form now capture the CR number, the national address and the buyer
    ID. Shared checks live in `packages/shared/src/zatca-party.ts`: format on save, plus Phase 2 readiness. The routers normalize
    Arabic digits and return `INVALID_PROFILE:field:CODE` errors, which the forms highlight.
-4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
+4. **Done (sandbox):** EGS onboarding (OTP → CSR → CCSID → 6 chained compliance docs → PCSID) in
+   `invoice-app/src/lib/zatca/onboarding.ts`, persisted by the `zatca` tRPC router with sealed credentials
+   (`lib/zatca/egs-records.ts`), and a "Connect to ZATCA" card on `/workspace/business`. The deployment's environment comes from
+   the `ZATCA_ENV` secret (`sandbox` | `simulation` | `production`; unset = feature hidden). The sandbox is open to every plan and
+   uses the documented test OTP and VAT number. Simulation and production need an active Pro plan and the customer's Fatoora OTP.
+   A real sandbox run passed on 2026-11-13 (about 6 seconds end to end). Before turning it on in production: set `ZATCA_KEK_V1`,
+   `ZATCA_KEK_CURRENT` and `ZATCA_ENV` as Worker secrets.
 5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
 6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.
 7. Simulation, with a beta customer's OTP, then production.
