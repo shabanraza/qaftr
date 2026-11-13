@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTrackToolResult } from "#/lib/analytics/use-track-result";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRightIcon, CheckIcon, CircleIcon, XIcon } from "lucide-react";
 import { analyzeSaudiVatNumber } from "@zatca/shared";
@@ -56,6 +57,9 @@ export function TrnCheckerTool({ lang }: TrnCheckerToolProps) {
 
   const analysis = useMemo(() => analyzeSaudiVatNumber(value), [value]);
   const hasInput = value.trim().length > 0;
+  const outcome = analysis.valid ? "valid" : "invalid";
+  // Keyed on the outcome only: the number itself is never sent.
+  useTrackToolResult("trn_checker", hasInput ? outcome : null, { result: outcome });
   const search = lang === "en" ? { lang: "en" as const } : {};
 
   const lengthOk = hasInput ? analysis.digitCount === 15 : null;

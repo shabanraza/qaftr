@@ -1,4 +1,99 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap');
+/* Self-hosted web fonts (S9): no render-blocking third-party CSS. WOFF2
+   subsets copied from @fontsource/ibm-plex-sans-arabic@5.3.0 and
+   @fontsource-variable/noto-kufi-arabic@5.3.0 (devDependencies) into
+   public/fonts. Both families cover Latin too, so English pages use the same
+   two families (Fraunces / Manrope were dropped). The two critical files are
+   preloaded from __root.tsx (lib/fonts/preload.ts). */
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/noto-kufi-arabic-arabic-wght-normal.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/noto-kufi-arabic-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
@@ -127,7 +222,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Qaftr Plex Fallback', 'Qaftr Plex Fallback Arial', ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -183,6 +278,9 @@ body {
     radial-gradient(720px 380px at 50% 115%, rgba(79, 184, 178, 0.1), transparent 68%),
     linear-gradient(180deg, color-mix(in oklab, var(--sand) 68%, white) 0%, var(--foam) 44%, var(--bg-base) 100%);
   overflow-x: hidden;
+  /* Room for the open consent banner (ConsentBanner sets the variable), so
+     the page end and footer can still scroll above it. */
+  padding-bottom: var(--qaftr-consent-offset, 0px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -255,7 +353,7 @@ pre code {
 }
 
 .display-title {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-qaftr-display);
 }
 
 .island-shell {
@@ -356,14 +454,54 @@ a {
 }
 
 /* ── Qaftr marketing ── */
+/* Arabic fallbacks sized to the web fonts' metrics (width-matched size-adjust,
+   ascent/descent overrides), so the display=swap font load does not reflow
+   Arabic headings and text (CLS). Arabic code points only: Latin text keeps
+   its own stack. Segoe UI first (Windows), Arial elsewhere (macOS, Android). */
+@font-face {
+  font-family: 'Qaftr Kufi Fallback';
+  src: local('Segoe UI');
+  size-adjust: 114.7%;
+  ascent-override: 111.6%;
+  descent-override: 54.1%;
+  line-gap-override: 0%;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+@font-face {
+  font-family: 'Qaftr Kufi Fallback Arial';
+  src: local('Arial');
+  size-adjust: 141.5%;
+  ascent-override: 90.5%;
+  descent-override: 43.8%;
+  line-gap-override: 0%;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+@font-face {
+  font-family: 'Qaftr Plex Fallback';
+  src: local('Segoe UI');
+  size-adjust: 90.5%;
+  ascent-override: 120.4%;
+  descent-override: 46.4%;
+  line-gap-override: 0%;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+@font-face {
+  font-family: 'Qaftr Plex Fallback Arial';
+  src: local('Arial');
+  size-adjust: 111.7%;
+  ascent-override: 97.6%;
+  descent-override: 37.6%;
+  line-gap-override: 0%;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
 :root {
-  --font-qaftr-display: 'Noto Kufi Arabic', 'Fraunces', Georgia, serif;
-  --font-qaftr-body: 'IBM Plex Sans Arabic', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-qaftr-display: 'Noto Kufi Arabic', 'Qaftr Kufi Fallback', 'Qaftr Kufi Fallback Arial', ui-sans-serif, system-ui, sans-serif;
+  --font-qaftr-body: 'IBM Plex Sans Arabic', 'Qaftr Plex Fallback', 'Qaftr Plex Fallback Arial', ui-sans-serif, system-ui, sans-serif;
 }
 
 .qaftr-marketing {
-  --font-qaftr-display: 'Noto Kufi Arabic', 'Fraunces', Georgia, serif;
-  --font-qaftr-body: 'IBM Plex Sans Arabic', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-qaftr-display: 'Noto Kufi Arabic', 'Qaftr Kufi Fallback', 'Qaftr Kufi Fallback Arial', ui-sans-serif, system-ui, sans-serif;
+  --font-qaftr-body: 'IBM Plex Sans Arabic', 'Qaftr Plex Fallback', 'Qaftr Plex Fallback Arial', ui-sans-serif, system-ui, sans-serif;
 
   --background: var(--qaftr-warm);
   --foreground: var(--qaftr-ink);
@@ -394,6 +532,20 @@ a {
 .qaftr-marketing [data-slot='textarea'] {
   border-radius: calc(var(--radius) + 4px);
   background-color: #ffffff;
+}
+
+.qaftr-marketing [data-slot='input']::placeholder,
+.qaftr-marketing [data-slot='textarea']::placeholder {
+  /* Lighter than body muted text so examples never read as typed values
+     (~4.5:1 on white). */
+  color: #647a6e;
+}
+
+/* Visible keyboard focus for plain links (buttons/inputs have their own ring). */
+.qaftr-marketing a:not([data-slot='button']):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .qaftr-marketing [data-slot='card'] {
@@ -433,6 +585,12 @@ a {
 
 .qaftr-marketing a.qaftr-btn-primary {
   color: #fff;
+}
+
+/* Gold buttons rendered as links: dark green text (~4.7:1 on gold). */
+.qaftr-marketing a[data-slot='button'][data-variant='secondary'],
+.qaftr-marketing a[data-slot='button'][data-variant='secondary']:hover {
+  color: var(--qaftr-green);
 }
 
 .qaftr-marketing a.qaftr-btn-primary:hover {

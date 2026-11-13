@@ -1,68 +1,438 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Saudi Arabia (ar-SA default, English via ?lang=en) -->
   <url>
     <loc>https://qaftr.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/"/>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>1</priority>
   </url>
   <url>
-    <loc>https://qaftr.com/tools</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://qaftr.com/tools/fatora</loc>
+    <loc>https://qaftr.com/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/"/>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://qaftr.com/invoice-generator-saudi-arabia</loc>
+    <loc>https://qaftr.com/tools</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/fatora</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/fatora"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/fatora?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/fatora"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/invoice-generator-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/invoice-generator-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://qaftr.com/zatca-invoice-generator</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia</loc>
+    <loc>https://qaftr.com/zatca-invoice-generator?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://qaftr.com/free-invoice-generator</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://qaftr.com/free-invoice-generator?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://qaftr.com/e-invoicing-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/e-invoicing-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://qaftr.com/small-business-invoicing-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://qaftr.com/tools/vat-calculator</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/vat-calculator"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/vat-calculator?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/vat-calculator"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://qaftr.com/tools/trn-checker</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/trn-checker"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://qaftr.com/tools/trn-checker?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/trn-checker"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://qaftr.com/support</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/support"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/support?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/support"/>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://qaftr.com/support?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/support"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/support?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/support"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.35</priority>
+  </url>
+  <url>
     <loc>https://qaftr.com/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/privacy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/privacy"/>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/privacy?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/privacy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/privacy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.15</priority>
+  </url>
+  <!-- UAE (ar-AE default, en-AE via ?lang=en) -->
+  <url>
+    <loc>https://qaftr.com/ae</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/e-invoicing-readiness</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/guides/uae-e-invoicing-2027</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/trn-checker</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/trn-checker"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/trn-checker?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/trn-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/trn-checker"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/vat-calculator</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/vat-calculator"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/vat-calculator?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/vat-calculator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/vat-calculator"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/invoice-generator</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/fatora"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/ae/tools/invoice-generator?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/invoice-generator?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/fatora"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/zatca-wave-checker</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/zatca-wave-checker?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-wave-checker"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/zatca-wave-25</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/zatca-wave-25?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
+    <xhtml:link rel="alternate" hreflang="en-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/zatca-wave-25"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/quotation</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/quotation"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/quotation?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/quotation"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/quotation?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/quotation"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/quotation?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/quotation"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/receipt-voucher</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/receipt-voucher"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/receipt-voucher?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/receipt-voucher"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/receipt-voucher?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/receipt-voucher"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/receipt-voucher?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/receipt-voucher"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/credit-note</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/credit-note"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/credit-note?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/credit-note"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/tools/credit-note?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/credit-note"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/credit-note?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/credit-note"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 </urlset>

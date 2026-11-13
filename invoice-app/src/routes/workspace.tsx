@@ -1,16 +1,18 @@
 import { createFileRoute, redirect, Outlet } from '@tanstack/react-router'
 import { authClient } from '#/lib/auth-client'
+import { buildSignedOutRedirect } from '#/lib/auth-guard'
+import { ClientAuthGuard } from '#/components/auth/ClientAuthGuard'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 
 export const Route = createFileRoute('/workspace')({
   validateSearch: marketingSearchSchema,
-  beforeLoad: async () => {
+  beforeLoad: async ({ search }) => {
     if (typeof window === 'undefined') return
 
     const session = await authClient.getSession()
     if (!session.data?.user) {
-      throw redirect({ to: '/', hash: 'invoice-tool' })
+      throw redirect(buildSignedOutRedirect(search))
     }
   },
   head: ({ match }) => {
@@ -25,5 +27,9 @@ export const Route = createFileRoute('/workspace')({
       lang,
     })
   },
-  component: () => <Outlet />,
+  component: () => (
+    <ClientAuthGuard>
+      <Outlet />
+    </ClientAuthGuard>
+  ),
 })

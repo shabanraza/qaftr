@@ -162,7 +162,7 @@ export function InvoiceHtmlPreview({
             {copy.previewTitle}
           </CardTitle>
           <Badge variant={isReady ? "default" : "outline"} className="shrink-0">
-            {isReady ? copy.previewReady : copy.previewIncomplete}
+            {isReady ? copy.previewReady : copy.previewDraft}
           </Badge>
         </div>
       </CardHeader>

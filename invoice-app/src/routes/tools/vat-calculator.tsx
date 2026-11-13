@@ -12,18 +12,7 @@ export const Route = createFileRoute("/tools/vat-calculator")({
   head: ({ match }) => {
     const lang = resolveLang(match.search);
     const copy = getToolsCopy(lang);
-    const seo =
-      lang === "en"
-        ? {
-            title: "15% VAT calculator — Saudi Arabia | Qaftr",
-            description:
-              "Free VAT calculator for Saudi invoices. Compute 15% tax before or after total in SAR — ZATCA Phase 1 helper tool.",
-          }
-        : {
-            title: "حاسبة ضريبة 15٪ — السعودية | قافتر",
-            description:
-              "حاسبة ضريبة القيمة المضافة مجانية للفواتير السعودية. احسب 15٪ قبل أو بعد الإجمالي بالريال — أداة مساعدة لزاتكا.",
-          };
+    const seo = getToolsCopy(lang).seo["vat-calculator"];
 
     return {
       ...buildMarketingHead({
@@ -50,10 +39,10 @@ function VatCalculatorPage() {
   const tool = copy.tools["vat-calculator"];
 
   return (
-    <MarketingLayout lang={lang}>
+    <MarketingLayout lang={lang} deadline>
       <div dir={dir} lang={lang} className="mx-auto max-w-6xl px-5 pb-4 pt-10 md:px-8">
         <ToolBreadcrumb lang={lang} current={tool.title} />
-        <h1 className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-foreground md:text-4xl">
+        <h1 className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-balance text-foreground md:text-4xl">
           {tool.title}
         </h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">{tool.subtitle}</p>

@@ -25,34 +25,34 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
   'invoice-generator-saudi-arabia': {
     en: {
       slug: 'invoice-generator-saudi-arabia',
-      title: 'Invoice generator for Saudi Arabia | Qaftr',
+      title: 'Invoice Generator for Saudi Businesses | Qaftr',
       description:
-        'Create Saudi invoices with 15% VAT, ZATCA Phase 1 QR, PDF export, and Arabic or English invoice details.',
+        'Issue invoices for your Saudi business with 15% VAT, a ZATCA Phase 1 QR code and PDF export, in Arabic or English. Create your first invoice free.',
       eyebrow: 'Saudi invoice generator',
-      heading: 'Create invoices for Saudi clients in minutes',
+      heading: 'Issue invoices to your Saudi customers in minutes',
       intro:
-        'Qaftr helps freelancers and small businesses issue clean Saudi invoices with VAT totals, buyer details, seller details, and a ZATCA Phase 1 QR code.',
-      cta: 'Create a free invoice',
+        'Qaftr helps Saudi SMEs that sell to businesses and consumers issue clear invoices with seller and buyer details, VAT totals and a ZATCA Phase 1 QR code.',
+      cta: 'Create your first invoice free',
       sections: [
         {
-          heading: 'What a Saudi invoice needs',
-          body: 'A practical Saudi invoice should show the seller name, buyer name, invoice date, line items, subtotal, 15% VAT, final total, and tax invoice QR code when VAT information is required.',
+          heading: 'What a Saudi tax invoice shows',
+          body: 'A Saudi tax invoice shows the seller name and VAT number, the buyer details, the issue date, line items, the total excluding VAT, 15% VAT, the total including VAT and, on simplified tax invoices, the ZATCA QR code.',
         },
         {
-          heading: 'Why use Qaftr',
-          body: 'Qaftr keeps the workflow lightweight: enter business details, add items, review VAT totals, then export a PDF that can be shared with a client or stored for your records.',
+          heading: 'Why businesses use Qaftr',
+          body: 'Qaftr keeps invoicing light: enter your business details, add items, review the VAT totals, then export a PDF to send to your customer or keep for your records.',
         },
       ],
       faq: [
         {
           question: 'Can I create a Saudi invoice without signing up?',
           answer:
-            'Yes. You can create and download a PDF invoice for free. Signing up is only needed when you want to save and manage invoices.',
+            'Yes. You can create and download a PDF invoice free. Signing up is only needed to save invoices and customers.',
         },
         {
           question: 'Does Qaftr calculate Saudi VAT?',
           answer:
-            'Yes. Qaftr supports 15% Saudi VAT calculations and shows the subtotal, tax amount, and total.',
+            'Yes. Qaftr calculates 15% Saudi VAT and shows the total excluding VAT, the VAT amount and the total including VAT.',
         },
       ],
       related: [
@@ -62,68 +62,73 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
     },
     ar: {
       slug: 'invoice-generator-saudi-arabia',
-      title: 'منشئ فواتير السعودية | قافتر',
+      title: 'برنامج إصدار فواتير للمنشآت في السعودية | قافتر',
       description:
-        'أنشئ فاتورة سعودية مع ضريبة 15٪، رمز QR للمرحلة الأولى من زاتكا، وتصدير PDF بالعربية أو الإنجليزية.',
-      eyebrow: 'منشئ فواتير السعودية',
-      heading: 'أنشئ فواتير لعملائك في السعودية خلال دقائق',
+        'أصدر فواتير منشأتك مع ضريبة القيمة المضافة ١٥٪ ورمز QR وفق المرحلة الأولى من زاتكا، وصدّرها PDF بالعربية أو الإنجليزية. فاتورتك الأولى مجاناً.',
+      eyebrow: 'برنامج فواتير السعودية',
+      heading: 'أصدر فواتير لعملائك في السعودية خلال دقائق',
       intro:
-        'يساعدك قافتر على إصدار فاتورة سعودية واضحة تتضمن بيانات البائع والمشتري، البنود، ضريبة القيمة المضافة، والإجمالي مع QR زاتكا.',
-      cta: 'أنشئ فاتورة مجانية',
+        'يساعد قافتر المنشآت الصغيرة والمتوسطة التي تبيع للشركات والأفراد على إصدار فواتير واضحة تتضمن بيانات البائع والمشتري، والبنود، وضريبة القيمة المضافة، والإجمالي، مع رمز QR وفق المرحلة الأولى من زاتكا.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
-          heading: 'ماذا تحتاج الفاتورة السعودية؟',
-          body: 'الفاتورة العملية تعرض اسم البائع، اسم العميل، تاريخ الفاتورة، البنود، المجموع قبل الضريبة، ضريبة 15٪، الإجمالي، ورمز QR عند الحاجة.',
+          heading: 'ماذا تتضمن الفاتورة الضريبية في السعودية؟',
+          body: 'تتضمن الفاتورة الضريبية اسم البائع ورقمه الضريبي، وبيانات المشتري، وتاريخ الإصدار، والبنود، والإجمالي غير شامل الضريبة، وضريبة القيمة المضافة ١٥٪، والإجمالي شامل الضريبة، ورمز QR في الفاتورة الضريبية المبسطة.',
         },
         {
-          heading: 'لماذا قافتر؟',
-          body: 'قافتر يجعل إنشاء الفاتورة سريعاً: أدخل بيانات النشاط، أضف البنود، راجع الضريبة والإجمالي، ثم حمّل PDF جاهزاً للمشاركة.',
+          heading: 'لماذا تختار المنشآت قافتر؟',
+          body: 'يجعل قافتر إصدار الفاتورة سريعاً: أدخل بيانات منشأتك، وأضف البنود، وراجع الضريبة والإجمالي، ثم نزّل ملف PDF جاهزاً للإرسال إلى عميلك.',
         },
       ],
       faq: [
         {
-          question: 'هل يمكن إنشاء فاتورة بدون تسجيل؟',
+          question: 'هل يمكن إصدار فاتورة دون تسجيل؟',
           answer:
-            'نعم. يمكنك إنشاء وتحميل PDF مجاناً. التسجيل مطلوب فقط لحفظ الفواتير وإدارتها.',
+            'نعم. يمكنك إصدار الفاتورة وتنزيلها بصيغة PDF مجاناً. التسجيل مطلوب فقط لحفظ الفواتير والعملاء.',
         },
         {
-          question: 'هل يحسب قافتر ضريبة السعودية؟',
+          question: 'هل يحسب قافتر ضريبة القيمة المضافة السعودية؟',
           answer:
-            'نعم. يدعم قافتر حساب ضريبة 15٪ وعرض المجموع قبل الضريبة والضريبة والإجمالي.',
+            'نعم. يحسب قافتر ضريبة القيمة المضافة ١٥٪ ويعرض الإجمالي غير شامل الضريبة ومبلغ الضريبة والإجمالي شامل الضريبة.',
         },
       ],
       related: [
-        { label: 'منشئ فاتورة زاتكا', href: '/zatca-invoice-generator' },
-        { label: 'حاسبة الضريبة', href: '/tools/vat-calculator' },
+        { label: 'فاتورة زاتكا مع QR', href: '/zatca-invoice-generator' },
+        { label: 'حاسبة ضريبة القيمة المضافة', href: '/tools/vat-calculator' },
       ],
     },
   },
   'zatca-invoice-generator': {
     en: {
       slug: 'zatca-invoice-generator',
-      title: 'ZATCA invoice generator with QR | Qaftr',
+      title: 'ZATCA Phase 1 Invoice Generator with QR Code | Qaftr',
       description:
-        'Generate ZATCA Phase 1 tax invoices with QR code, 15% VAT, and PDF export for freelancers and small businesses in Saudi Arabia.',
+        'Generate ZATCA Phase 1 simplified tax invoices with a QR code, 15% VAT and PDF export for Saudi SMEs and shops. Free, no signup.',
       eyebrow: 'ZATCA Phase 1 invoices',
-      heading: 'Generate ZATCA-style invoices with QR',
+      heading: 'ZATCA Phase 1 tax invoices with a QR code',
       intro:
-        'Qaftr creates simplified tax invoices with the fields small businesses need for Saudi Phase 1 invoicing, including QR data and VAT totals.',
-      cta: 'Open the ZATCA invoice tool',
+        'Qaftr issues simplified tax invoices with the fields Saudi businesses need under Phase 1 (Generation), including the QR code and VAT totals.',
+      cta: 'Create your first invoice free',
       sections: [
         {
           heading: 'What is a ZATCA QR invoice?',
-          body: 'A ZATCA Phase 1 QR invoice includes encoded invoice information such as seller name, VAT number, timestamp, VAT amount, and total amount.',
+          body: 'Under Phase 1, a simplified tax invoice carries a QR code that encodes the seller name, VAT number, invoice timestamp, invoice total and VAT amount.',
         },
         {
           heading: 'Who this is for',
-          body: 'The tool is built for freelancers, consultants, service providers, and small businesses that need a fast PDF invoice without heavy accounting software.',
+          body: 'Shops, service companies, contractors and other Saudi SMEs that need a fast, correct PDF invoice without heavy accounting software.',
         },
       ],
       faq: [
         {
           question: 'Is Qaftr an official ZATCA app?',
           answer:
-            'No. Qaftr is an independent invoicing tool that helps generate Phase 1 style invoice data and QR codes.',
+            'No. Qaftr is an independent invoicing tool that issues Phase 1 invoice data and QR codes. It is not affiliated with ZATCA.',
+        },
+        {
+          question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
+          answer:
+            'Not yet. Phase 2 requires integrating your invoicing with the FATOORA portal. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If ZATCA has notified you, use an integrated solution and confirm with your accountant.',
         },
         {
           question: 'Can I export the invoice as PDF?',
@@ -133,65 +138,74 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
       ],
       related: [
         { label: 'Free invoice tool', href: '/tools/fatora' },
-        { label: 'TRN checker', href: '/tools/trn-checker' },
+        { label: 'VAT number checker', href: '/tools/trn-checker' },
+        { label: 'Is your business in Wave 25?', href: '/tools/zatca-wave-checker' },
+        { label: 'ZATCA Wave 25 guide', href: '/guides/zatca-wave-25' },
       ],
     },
     ar: {
       slug: 'zatca-invoice-generator',
-      title: 'منشئ فاتورة زاتكا مع QR | قافتر',
+      title: 'فاتورة زاتكا للمرحلة الأولى مع رمز QR | قافتر',
       description:
-        'أنشئ فاتورة ضريبية للمرحلة الأولى من زاتكا مع QR، ضريبة 15٪، وتصدير PDF للمستقلين والمنشآت الصغيرة.',
-      eyebrow: 'فواتير زاتكا المرحلة الأولى',
-      heading: 'أنشئ فاتورة زاتكا مع QR',
+        'أصدر فاتورة ضريبية مبسطة وفق المرحلة الأولى من زاتكا مع رمز QR وضريبة ١٥٪ وتصدير PDF، للمنشآت الصغيرة والمتوسطة والمتاجر. مجاناً ودون تسجيل.',
+      eyebrow: 'فواتير المرحلة الأولى من زاتكا',
+      heading: 'فاتورة ضريبية وفق المرحلة الأولى من زاتكا مع رمز QR',
       intro:
-        'ينشئ قافتر فاتورة ضريبية مبسطة بالحقول التي تحتاجها المنشآت الصغيرة في السعودية، مع QR وإجمالي الضريبة.',
-      cta: 'افتح أداة فاتورة زاتكا',
+        'يُصدر قافتر فاتورة ضريبية مبسطة بالحقول التي تحتاجها المنشآت في السعودية ضمن المرحلة الأولى (مرحلة الإصدار والحفظ)، مع رمز QR وإجماليات الضريبة.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
-          heading: 'ما هي فاتورة زاتكا QR؟',
-          body: 'فاتورة المرحلة الأولى تحتوي على بيانات مشفرة مثل اسم البائع، الرقم الضريبي، وقت الإصدار، قيمة الضريبة، والإجمالي.',
+          heading: 'ما رمز QR في فاتورة زاتكا؟',
+          body: 'في المرحلة الأولى تحمل الفاتورة الضريبية المبسطة رمز QR يتضمن اسم البائع، ورقمه الضريبي، ووقت إصدار الفاتورة، وإجمالي الفاتورة، ومبلغ الضريبة.',
         },
         {
           heading: 'لمن هذه الأداة؟',
-          body: 'الأداة مناسبة للمستقلين والاستشاريين ومقدمي الخدمات والمنشآت الصغيرة التي تحتاج PDF سريعاً بدون تعقيد برامج المحاسبة.',
+          body: 'للمتاجر وشركات الخدمات والمقاولين وغيرهم من المنشآت الصغيرة والمتوسطة التي تحتاج فاتورة PDF سريعة وصحيحة دون تعقيد برامج المحاسبة.',
         },
       ],
       faq: [
         {
           question: 'هل قافتر تطبيق رسمي من زاتكا؟',
           answer:
-            'لا. قافتر أداة مستقلة تساعدك على إنشاء بيانات فاتورة وQR بنمط المرحلة الأولى.',
+            'لا. قافتر أداة فوترة مستقلة تُصدر بيانات الفاتورة ورمز QR وفق المرحلة الأولى، وهي غير تابعة لهيئة الزكاة والضريبة والجمارك.',
         },
         {
-          question: 'هل يمكن تصدير الفاتورة PDF؟',
-          answer: 'نعم. يدعم قافتر تصدير PDF للمشاركة أو الأرشفة.',
+          question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
+          answer:
+            'ليس بعد. تتطلب المرحلة الثانية ربط نظام الفوترة ببوابة فاتورة. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا أبلغتك زاتكا، فاستخدم حلاً مربوطاً وراجع محاسبك.',
+        },
+        {
+          question: 'هل يمكن تصدير الفاتورة بصيغة PDF؟',
+          answer: 'نعم. يمكنك تنزيل الفاتورة بصيغة PDF لإرسالها إلى عميلك أو أرشفتها.',
         },
       ],
       related: [
         { label: 'أداة الفاتورة المجانية', href: '/tools/fatora' },
         { label: 'التحقق من الرقم الضريبي', href: '/tools/trn-checker' },
+        { label: 'هل منشأتك ضمن الموجة ٢٥؟', href: '/tools/zatca-wave-checker' },
+        { label: 'دليل الموجة ٢٥', href: '/guides/zatca-wave-25' },
       ],
     },
   },
   'vat-invoice-generator-saudi-arabia': {
     en: {
       slug: 'vat-invoice-generator-saudi-arabia',
-      title: 'VAT invoice generator Saudi Arabia | Qaftr',
+      title: 'Saudi VAT Invoice Generator — Automatic 15% | Qaftr',
       description:
-        'Create Saudi VAT invoices with automatic 15% VAT, line items, totals, QR code, and PDF download.',
+        'Create Saudi VAT invoices for your business with automatic 15% VAT, line items, totals excluding and including VAT, a QR code and PDF download.',
       eyebrow: 'Saudi VAT invoices',
-      heading: 'Make VAT invoices with automatic 15% tax',
+      heading: 'VAT invoices with automatic 15% VAT',
       intro:
-        'Use Qaftr to calculate VAT while preparing a professional invoice for Saudi customers, then export the result as a PDF.',
-      cta: 'Create a VAT invoice',
+        'Qaftr calculates VAT while you prepare a professional invoice for your Saudi customers, then exports it as a PDF.',
+      cta: 'Create your first invoice free',
       sections: [
         {
-          heading: 'Before-tax and after-tax totals',
-          body: 'Qaftr separates subtotal, VAT amount, and final total so the invoice is easier for clients and accountants to read.',
+          heading: 'Totals excluding and including VAT',
+          body: 'Qaftr shows the total excluding VAT, the VAT amount and the total including VAT separately, so customers and accountants can read the invoice at a glance.',
         },
         {
-          heading: 'Built for repeated client work',
-          body: 'Save clients and invoice details when you create an account, or use the free browser tool for a one-off invoice.',
+          heading: 'Built for repeat customers',
+          body: 'Save customers and invoice details with a free account, or use the browser tool for a one-off invoice.',
         },
       ],
       faq: [
@@ -203,7 +217,7 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'Can I check VAT separately?',
           answer:
-            'Yes. The VAT calculator tool can calculate tax before or after the total.',
+            'Yes. The VAT calculator adds VAT to a net amount or extracts it from a VAT-inclusive total.',
         },
       ],
       related: [
@@ -213,51 +227,51 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
     },
     ar: {
       slug: 'vat-invoice-generator-saudi-arabia',
-      title: 'منشئ فاتورة ضريبية السعودية | قافتر',
+      title: 'فاتورة ضريبية بحساب ضريبة ١٥٪ تلقائياً | قافتر',
       description:
-        'أنشئ فاتورة ضريبية سعودية مع حساب 15٪ تلقائياً، بنود، إجماليات، QR، وتحميل PDF.',
+        'أصدر فاتورة ضريبية سعودية لمنشأتك مع حساب ضريبة القيمة المضافة ١٥٪ تلقائياً، والبنود، والإجماليات، ورمز QR، وتنزيل PDF.',
       eyebrow: 'فواتير ضريبية سعودية',
-      heading: 'أنشئ فاتورة ضريبية مع حساب 15٪ تلقائياً',
+      heading: 'فاتورة ضريبية مع حساب ضريبة ١٥٪ تلقائياً',
       intro:
-        'استخدم قافتر لحساب الضريبة أثناء إعداد فاتورة احترافية لعملائك في السعودية، ثم صدّرها PDF.',
-      cta: 'أنشئ فاتورة ضريبية',
+        'يحسب قافتر ضريبة القيمة المضافة أثناء إعداد فاتورة احترافية لعملائك في السعودية، ثم يصدّرها بصيغة PDF.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
-          heading: 'مجموع قبل الضريبة وبعدها',
-          body: 'يفصل قافتر بين المجموع قبل الضريبة، قيمة الضريبة، والإجمالي النهائي حتى تكون الفاتورة واضحة للعميل والمحاسب.',
+          heading: 'الإجمالي غير شامل الضريبة وشاملها',
+          body: 'يعرض قافتر الإجمالي غير شامل الضريبة، ومبلغ الضريبة، والإجمالي شامل الضريبة كلاً على حدة، لتكون الفاتورة واضحة للعميل والمحاسب.',
         },
         {
-          heading: 'مناسب للعمل المتكرر',
-          body: 'يمكنك حفظ العملاء والفواتير عند إنشاء حساب، أو استخدام الأداة المجانية لفاتورة سريعة مرة واحدة.',
+          heading: 'مناسب للعملاء المتكررين',
+          body: 'احفظ العملاء والفواتير بحساب مجاني، أو استخدم الأداة المجانية لفاتورة واحدة سريعة.',
         },
       ],
       faq: [
         {
-          question: 'ما نسبة الضريبة في قافتر؟',
-          answer: 'يستخدم قافتر نسبة 15٪ القياسية لحساب الفواتير السعودية.',
+          question: 'ما نسبة الضريبة التي يستخدمها قافتر؟',
+          answer: 'يستخدم قافتر النسبة الأساسية لضريبة القيمة المضافة في السعودية، وهي ١٥٪.',
         },
         {
           question: 'هل يمكن حساب الضريبة وحدها؟',
-          answer: 'نعم. أداة حاسبة الضريبة تحسب الضريبة قبل أو بعد الإجمالي.',
+          answer: 'نعم. تضيف حاسبة الضريبة النسبة إلى المبلغ غير شامل الضريبة أو تستخرجها من الإجمالي شامل الضريبة.',
         },
       ],
       related: [
-        { label: 'حاسبة الضريبة', href: '/tools/vat-calculator' },
-        { label: 'منشئ الفواتير', href: '/invoice-generator-saudi-arabia' },
+        { label: 'حاسبة ضريبة القيمة المضافة', href: '/tools/vat-calculator' },
+        { label: 'برنامج إصدار الفواتير', href: '/invoice-generator-saudi-arabia' },
       ],
     },
   },
   'free-invoice-generator': {
     en: {
       slug: 'free-invoice-generator',
-      title: 'Free invoice generator | Qaftr',
+      title: 'Free Invoice Generator for Freelancers & Shops | Qaftr',
       description:
-        'Create a free invoice online with client details, line items, VAT totals, QR code, and PDF export.',
+        'Create a free invoice online for freelance work or a small business: customer details, line items, VAT totals, QR code and PDF export. No signup.',
       eyebrow: 'Free invoice generator',
       heading: 'Create a free invoice online',
       intro:
-        'Qaftr gives freelancers a fast way to create a clean invoice from the browser without starting with a full accounting system.',
-      cta: 'Start free',
+        'Freelancers and small shops can create a clean invoice in the browser without setting up a full accounting system. When you grow, save customers and invoices in a free account.',
+      cta: 'Create your first invoice free',
       sections: [
         {
           heading: 'No signup for the first invoice',
@@ -287,34 +301,34 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
     },
     ar: {
       slug: 'free-invoice-generator',
-      title: 'منشئ فواتير مجاني | قافتر',
+      title: 'برنامج فواتير مجاني للمستقلين والمتاجر | قافتر',
       description:
-        'أنشئ فاتورة مجانية عبر الإنترنت مع بيانات العميل والبنود والضريبة وQR وتصدير PDF.',
-      eyebrow: 'منشئ فواتير مجاني',
+        'أنشئ فاتورة مجانية عبر الإنترنت لعملك الحر أو منشأتك الصغيرة: بيانات العميل، والبنود، والضريبة، ورمز QR، وتنزيل PDF. دون تسجيل.',
+      eyebrow: 'برنامج فواتير مجاني',
       heading: 'أنشئ فاتورة مجانية عبر الإنترنت',
       intro:
-        'يمنح قافتر المستقلين طريقة سريعة لإنشاء فاتورة واضحة من المتصفح بدون البدء بنظام محاسبة كامل.',
-      cta: 'ابدأ مجاناً',
+        'يتيح قافتر لأصحاب العمل الحر والمتاجر الصغيرة إنشاء فاتورة واضحة من المتصفح دون إعداد نظام محاسبي كامل. وعندما يكبر عملك، احفظ عملاءك وفواتيرك في حساب مجاني.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
-          heading: 'بدون تسجيل لأول فاتورة',
-          body: 'يمكنك إنشاء وتحميل PDF مباشرة. أنشئ حساباً فقط عندما تريد حفظ الفواتير والعملاء.',
+          heading: 'فاتورتك الأولى دون تسجيل',
+          body: 'أنشئ الفاتورة ونزّلها بصيغة PDF مباشرة، وأنشئ حساباً فقط عندما تريد حفظ الفواتير والعملاء.',
         },
         {
           heading: 'جاهزة للإرسال',
-          body: 'تتضمن الفاتورة بيانات النشاط والعميل والبنود والضريبة وتنسيق PDF مناسباً للمشاركة.',
+          body: 'تتضمن الفاتورة بيانات البائع والمشتري والبنود والضريبة بتنسيق PDF مناسب للمشاركة.',
         },
       ],
       faq: [
         {
-          question: 'هل منشئ الفواتير مجاني؟',
+          question: 'هل برنامج الفواتير مجاني؟',
           answer:
-            'نعم. يمكنك إنشاء وتحميل فواتير مجاناً، مع خطط مدفوعة للاستخدام الأعلى.',
+            'نعم. يمكنك إنشاء الفواتير وتنزيلها مجاناً، مع خطة مدفوعة لمن يحتاج حفظ عدد أكبر من الفواتير.',
         },
         {
           question: 'هل يعمل على الجوال؟',
           answer:
-            'نعم. يعمل قافتر في المتصفح ومصمم لإنشاء الفواتير بسرعة على الجوال.',
+            'نعم. يعمل قافتر في متصفح الجوال ومصمم لإصدار الفواتير بسرعة.',
         },
       ],
       related: [
@@ -326,14 +340,14 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
   'e-invoicing-saudi-arabia': {
     en: {
       slug: 'e-invoicing-saudi-arabia',
-      title: 'E-invoicing in Saudi Arabia for small businesses | Qaftr',
+      title: 'E-invoicing in Saudi Arabia for SMEs | Qaftr',
       description:
-        'A practical guide to Saudi e-invoicing basics for freelancers and small businesses, with a free ZATCA Phase 1 invoice tool.',
+        'A practical guide to Saudi e-invoicing for SMEs: Phase 1 (Generation), Phase 2 (Integration) and Wave 25, with a free ZATCA Phase 1 invoice tool.',
       eyebrow: 'Saudi e-invoicing basics',
-      heading: 'E-invoicing basics for Saudi small businesses',
+      heading: 'E-invoicing basics for Saudi SMEs',
       intro:
-        'If you invoice clients in Saudi Arabia, Qaftr helps you prepare consistent invoice records with VAT totals, QR data, and PDF exports.',
-      cta: 'Create an e-invoice',
+        'If your business invoices customers in Saudi Arabia, Qaftr helps you keep consistent invoice records with VAT totals, the QR code and PDF exports.',
+      cta: 'Create your first invoice free',
       sections: [
         {
           heading: 'Start with consistent invoice records',
@@ -348,53 +362,67 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'What is e-invoicing in Saudi Arabia?',
           answer:
-            'E-invoicing is the process of issuing and storing invoices electronically instead of handwritten or scanned paper-only records.',
+            'E-invoicing means issuing, exchanging and storing invoices in a structured electronic format instead of paper or handwritten invoices. ZATCA rolls it out in two phases: Generation (Phase 1) and Integration (Phase 2).',
         },
         {
           question: 'Can Qaftr replace accounting advice?',
           answer:
             'No. Qaftr helps create invoices, but tax and compliance decisions should be reviewed with a qualified advisor.',
         },
+        {
+          question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
+          answer:
+            'Not yet. Phase 2 requires integrating your invoicing with the FATOORA portal. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If ZATCA has notified you, use an integrated solution and confirm with your accountant.',
+        },
       ],
       related: [
         { label: 'ZATCA invoice generator', href: '/zatca-invoice-generator' },
+        { label: 'ZATCA Wave 25 guide', href: '/guides/zatca-wave-25' },
+        { label: 'Is your business in Wave 25?', href: '/tools/zatca-wave-checker' },
         { label: 'Support', href: '/support' },
       ],
     },
     ar: {
       slug: 'e-invoicing-saudi-arabia',
-      title: 'الفوترة الإلكترونية في السعودية للمنشآت الصغيرة | قافتر',
+      title: 'الفوترة الإلكترونية في السعودية للمنشآت | قافتر',
       description:
-        'دليل عملي لأساسيات الفوترة الإلكترونية في السعودية للمستقلين والمنشآت الصغيرة مع أداة فاتورة زاتكا مجانية.',
+        'دليل عملي للفوترة الإلكترونية في السعودية للمنشآت الصغيرة والمتوسطة: مرحلة الإصدار، ومرحلة الربط والتكامل، والموجة ٢٥، مع أداة فاتورة مجانية.',
       eyebrow: 'أساسيات الفوترة الإلكترونية',
-      heading: 'أساسيات الفوترة الإلكترونية للمنشآت الصغيرة',
+      heading: 'أساسيات الفوترة الإلكترونية للمنشآت الصغيرة والمتوسطة',
       intro:
-        'إذا كنت تفوتر عملاء في السعودية، يساعدك قافتر على إعداد سجلات فواتير منتظمة مع الضريبة وQR وتصدير PDF.',
-      cta: 'أنشئ فاتورة إلكترونية',
+        'إذا كانت منشأتك تُصدر فواتير لعملاء في السعودية، فقافتر يساعدك على الاحتفاظ بسجلات فواتير منتظمة مع الضريبة ورمز QR وتصدير PDF.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
           heading: 'ابدأ بسجلات فواتير منتظمة',
-          body: 'استخدم نفس اسم النشاط، الرقم الضريبي، تواريخ الفواتير، بيانات العملاء، وبنية البنود في كل فاتورة.',
+          body: 'استخدم الاسم التجاري والرقم الضريبي نفسيهما، وتسلسلاً واضحاً لأرقام الفواتير وتواريخها، وبيانات عملاء وبنوداً بالبنية نفسها في كل فاتورة.',
         },
         {
           heading: 'احتفظ بنسخ PDF',
-          body: 'تصدير PDF يسهل مشاركة الفواتير مع العملاء وحفظها لسجلاتك المحاسبية.',
+          body: 'يسهّل تصدير PDF إرسال الفواتير إلى العملاء وحفظها في سجلات منشأتك المحاسبية.',
         },
       ],
       faq: [
         {
-          question: 'ما هي الفوترة الإلكترونية في السعودية؟',
+          question: 'ما الفوترة الإلكترونية في السعودية؟',
           answer:
-            'هي إصدار وحفظ الفواتير إلكترونياً بدلاً من الاعتماد على سجلات ورقية أو صور ممسوحة فقط.',
+            'هي إصدار الفواتير وتبادلها وحفظها بصيغة إلكترونية منظمة بدلاً من الفواتير الورقية أو المكتوبة يدوياً. وتطبّقها زاتكا على مرحلتين: مرحلة الإصدار والحفظ (المرحلة الأولى)، ومرحلة الربط والتكامل (المرحلة الثانية).',
         },
         {
           question: 'هل يغني قافتر عن الاستشارة المحاسبية؟',
           answer:
-            'لا. قافتر يساعد في إنشاء الفواتير، لكن قرارات الضريبة والامتثال يجب مراجعتها مع مختص.',
+            'لا. يساعدك قافتر في إصدار الفواتير، لكن قرارات الضريبة والامتثال ينبغي مراجعتها مع مختص.',
+        },
+        {
+          question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
+          answer:
+            'ليس بعد. تتطلب المرحلة الثانية ربط نظام الفوترة ببوابة فاتورة. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا أبلغتك زاتكا، فاستخدم حلاً مربوطاً وراجع محاسبك.',
         },
       ],
       related: [
-        { label: 'منشئ فاتورة زاتكا', href: '/zatca-invoice-generator' },
+        { label: 'فاتورة زاتكا مع QR', href: '/zatca-invoice-generator' },
+        { label: 'دليل الموجة ٢٥', href: '/guides/zatca-wave-25' },
+        { label: 'هل منشأتك ضمن الموجة ٢٥؟', href: '/tools/zatca-wave-checker' },
         { label: 'الدعم', href: '/support' },
       ],
     },
@@ -402,18 +430,18 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
   'small-business-invoicing-saudi-arabia': {
     en: {
       slug: 'small-business-invoicing-saudi-arabia',
-      title: 'Small business invoicing Saudi Arabia | Qaftr',
+      title: 'Invoicing Software for Saudi Small Businesses | Qaftr',
       description:
-        'Simple invoicing for Saudi small businesses: clients, line items, VAT, QR invoices, PDF export, and WhatsApp sharing.',
+        'Simple invoicing for Saudi small businesses selling B2B and B2C: customers, line items, 15% VAT, QR tax invoices, PDF export and WhatsApp sharing.',
       eyebrow: 'Small business invoicing',
       heading: 'Simple invoicing for Saudi small businesses',
       intro:
-        'Qaftr keeps invoicing light enough for owner-led businesses while still covering the fields clients expect to see.',
-      cta: 'Try the invoice tool',
+        'Qaftr keeps invoicing light enough for owner-led shops and service companies while covering the fields your business and consumer customers expect.',
+      cta: 'Create your first invoice free',
       sections: [
         {
-          heading: 'Built for owner-led workflows',
-          body: 'Create invoices between client calls, from your phone, or at your desk without needing a full finance team.',
+          heading: 'Built for owner-led businesses',
+          body: 'Issue invoices between customer visits, from your phone or at your desk, without a full finance team.',
         },
         {
           heading: 'Designed for clarity',
@@ -424,12 +452,12 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'Can Qaftr manage clients?',
           answer:
-            'Yes. Accounts can save client details so repeated invoices are faster to create.',
+            'Yes. A free account saves customer details so repeat invoices are faster to issue.',
         },
         {
           question: 'Can I share invoices on WhatsApp?',
           answer:
-            'Yes. Qaftr is designed around PDF exports that are easy to share with clients.',
+            'Yes. Qaftr exports PDF invoices that are easy to share with customers on WhatsApp.',
         },
       ],
       related: [
@@ -439,37 +467,37 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
     },
     ar: {
       slug: 'small-business-invoicing-saudi-arabia',
-      title: 'فواتير المنشآت الصغيرة في السعودية | قافتر',
+      title: 'برنامج فواتير للمنشآت الصغيرة في السعودية | قافتر',
       description:
-        'فوترة بسيطة للمنشآت الصغيرة في السعودية: عملاء، بنود، ضريبة، QR، تصدير PDF، ومشاركة واتساب.',
+        'فوترة بسيطة للمنشآت الصغيرة التي تبيع للشركات والأفراد: العملاء، والبنود، وضريبة ١٥٪، وفواتير ضريبية مع QR، وتصدير PDF، ومشاركة عبر واتساب.',
       eyebrow: 'فواتير المنشآت الصغيرة',
       heading: 'فوترة بسيطة للمنشآت الصغيرة في السعودية',
       intro:
-        'يبقي قافتر الفوترة خفيفة ومناسبة لأصحاب الأعمال، مع الحقول التي يتوقع العملاء رؤيتها.',
-      cta: 'جرّب أداة الفاتورة',
+        'يبقي قافتر الفوترة خفيفة تناسب المتاجر وشركات الخدمات التي يديرها أصحابها، مع الحقول التي يتوقعها عملاؤك من الشركات والأفراد.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
       sections: [
         {
-          heading: 'مناسب لصاحب العمل',
-          body: 'أنشئ الفواتير بين مكالمات العملاء أو من الجوال أو من المكتب بدون الحاجة إلى فريق مالي كامل.',
+          heading: 'مناسب للمنشآت التي يديرها أصحابها',
+          body: 'أصدر الفواتير بين زيارات العملاء، أو من الجوال، أو من المكتب، دون الحاجة إلى فريق مالي كامل.',
         },
         {
           heading: 'مصمم للوضوح',
-          body: 'إجماليات واضحة، فصل الضريبة، دعم QR، وتصدير PDF يجعل كل فاتورة أسهل في المراجعة والمشاركة.',
+          body: 'إجماليات واضحة، وفصل للضريبة، ورمز QR، وتصدير PDF، لتكون كل فاتورة أسهل في المراجعة والمشاركة.',
         },
       ],
       faq: [
         {
-          question: 'هل يدير قافتر العملاء؟',
+          question: 'هل يدير قافتر بيانات العملاء؟',
           answer:
-            'نعم. يمكن للحسابات حفظ بيانات العملاء لتسريع الفواتير المتكررة.',
+            'نعم. يحفظ الحساب المجاني بيانات العملاء لتسريع إصدار الفواتير المتكررة.',
         },
         {
-          question: 'هل يمكن مشاركة الفواتير على واتساب؟',
-          answer: 'نعم. قافتر مصمم حول تصدير PDF سهل المشاركة مع العملاء.',
+          question: 'هل يمكن مشاركة الفواتير عبر واتساب؟',
+          answer: 'نعم. يصدّر قافتر الفواتير بصيغة PDF سهلة المشاركة مع العملاء عبر واتساب.',
         },
       ],
       related: [
-        { label: 'منشئ الفواتير', href: '/invoice-generator-saudi-arabia' },
+        { label: 'برنامج إصدار الفواتير', href: '/invoice-generator-saudi-arabia' },
         { label: 'الأدوات', href: '/tools' },
       ],
     },

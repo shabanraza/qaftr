@@ -1,9 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Separator } from "#/components/ui/separator";
 
+type ToolFaqItem = {
+  question: string;
+  answer: string;
+  /** Optional follow-up link shown under the answer (not part of FAQ JSON-LD text). */
+  link?: { label: string; href: string };
+};
+
 type ToolFaqSectionProps = {
   title: string;
-  items: { question: string; answer: string }[];
+  items: ToolFaqItem[];
 };
 
 export function ToolFaqSection({ title, items }: ToolFaqSectionProps) {
@@ -20,7 +27,17 @@ export function ToolFaqSection({ title, items }: ToolFaqSectionProps) {
             </CardHeader>
             <CardContent className="px-5">
               <Separator className="mb-3" />
-              <dd className="text-sm text-muted-foreground">{item.answer}</dd>
+              <dd className="text-sm text-muted-foreground">
+                {item.answer}
+                {item.link ? (
+                  <>
+                    {" "}
+                    <a href={item.link.href} className="font-medium text-primary underline-offset-2 hover:underline">
+                      {item.link.label}
+                    </a>
+                  </>
+                ) : null}
+              </dd>
             </CardContent>
           </Card>
         ))}

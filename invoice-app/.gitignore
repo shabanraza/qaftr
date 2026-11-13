@@ -22,3 +22,9 @@ coverage/
 .cursor/
 .cursorrules
 todos.json
+
+# Playwright e2e output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/

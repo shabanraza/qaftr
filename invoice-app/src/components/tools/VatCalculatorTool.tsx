@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRightIcon } from "lucide-react";
-import { calculateVat, VAT_RATE, type VatCalculationMode } from "@zatca/shared";
+import { MAX_VAT_AMOUNT, calculateVat, parseLocaleDecimal } from "@zatca/shared";
+import type { VatCalculationMode } from "@zatca/shared";
 import type { MarketingLang } from "#/lib/marketing/lang";
+import { useTrackToolResult } from "#/lib/analytics/use-track-result";
 import { formatToolMoney, getToolsCopy } from "#/lib/tools/copy";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
@@ -33,14 +35,16 @@ export function VatCalculatorTool({ lang }: VatCalculatorToolProps) {
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState<VatCalculationMode>("exclusive");
 
-  const parsedAmount = parseFloat(amount.replace(/,/g, ""));
+  const parsedAmount = parseLocaleDecimal(amount);
+  const tooLarge = parsedAmount > MAX_VAT_AMOUNT;
   const result = useMemo(() => {
     if (!amount.trim() || Number.isNaN(parsedAmount)) return null;
     return calculateVat(parsedAmount, mode);
   }, [amount, mode, parsedAmount]);
 
+  useTrackToolResult("vat_calculator", result ? `${mode}:${amount.trim()}` : null, { result: mode });
+
   const search = lang === "en" ? { lang: "en" as const } : {};
-  const vatPercent = `${Math.round(VAT_RATE * 100)}%`;
 
   return (
     <section className="mx-auto max-w-6xl px-5 pb-16 md:px-8">
@@ -48,7 +52,7 @@ export function VatCalculatorTool({ lang }: VatCalculatorToolProps) {
         <Card className="overflow-hidden border-border/80 py-0 shadow-sm">
           <CardHeader className="gap-2 border-b border-border/60 bg-muted/20 px-5 py-5">
             <Badge variant="outline" className="w-fit">
-              {vatPercent} VAT
+              {copy.rateChip}
             </Badge>
             <CardTitle className="font-[family-name:var(--font-qaftr-display)] text-xl">
               {lang === "ar" ? "حاسبة ضريبة القيمة المضافة" : "VAT calculator"}
@@ -128,7 +132,12 @@ export function VatCalculatorTool({ lang }: VatCalculatorToolProps) {
                 </div>
               </dl>
             ) : (
-              <p className="py-8 text-center text-sm text-muted-foreground">{copy.emptyHint}</p>
+              <p
+                data-testid={tooLarge ? "vat-too-large" : "vat-empty"}
+                className="py-8 text-center text-sm text-muted-foreground"
+              >
+                {tooLarge ? copy.tooLargeHint : copy.emptyHint}
+              </p>
             )}
           </CardContent>
           <CardFooter className="relative flex-col gap-3 px-5 pb-5 pt-4">

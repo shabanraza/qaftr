@@ -2,6 +2,8 @@ import { createFileRoute, Link, redirect } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { authClient } from '#/lib/auth-client'
+import { buildSignedOutRedirect } from '#/lib/auth-guard'
+import { ClientAuthGuard } from '#/components/auth/ClientAuthGuard'
 import { useTRPC } from '#/integrations/trpc/react'
 import { MarketingLayout } from '#/components/marketing/MarketingLayout'
 import { langDir, marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
@@ -24,12 +26,12 @@ import { Skeleton } from '#/components/ui/skeleton'
 
 export const Route = createFileRoute('/invoices/$id')({
   validateSearch: marketingSearchSchema,
-  beforeLoad: async () => {
+  beforeLoad: async ({ search }) => {
     if (typeof window === 'undefined') return
 
     const session = await authClient.getSession()
     if (!session.data?.user) {
-      throw redirect({ to: '/', hash: 'invoice-tool' })
+      throw redirect(buildSignedOutRedirect(search))
     }
   },
   loader: async ({ context, params }) => {
@@ -44,7 +46,11 @@ export const Route = createFileRoute('/invoices/$id')({
       path: '/invoices',
       lang: 'ar',
     }),
-  component: InvoiceDetailPage,
+  component: () => (
+    <ClientAuthGuard>
+      <InvoiceDetailPage />
+    </ClientAuthGuard>
+  ),
 })
 
 function InvoiceDetailPage() {

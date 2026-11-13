@@ -22,16 +22,22 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as InvoicesIndexRouteImport } from './routes/invoices/index'
+import { Route as AeIndexRouteImport } from './routes/ae/index'
 import { Route as WorkspaceWhatsappRouteImport } from './routes/workspace/whatsapp'
 import { Route as WorkspaceQuotesRouteImport } from './routes/workspace/quotes'
 import { Route as WorkspaceNewInvoiceRouteImport } from './routes/workspace/new-invoice'
 import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoices'
 import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
 import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
+import { Route as ToolsZatcaWaveCheckerRouteImport } from './routes/tools/zatca-wave-checker'
 import { Route as ToolsVatCalculatorRouteImport } from './routes/tools/vat-calculator'
 import { Route as ToolsTrnCheckerRouteImport } from './routes/tools/trn-checker'
+import { Route as ToolsReceiptVoucherRouteImport } from './routes/tools/receipt-voucher'
+import { Route as ToolsQuotationRouteImport } from './routes/tools/quotation'
 import { Route as ToolsFatoraRouteImport } from './routes/tools/fatora'
+import { Route as ToolsCreditNoteRouteImport } from './routes/tools/credit-note'
 import { Route as InvoicesIdRouteImport } from './routes/invoices/$id'
+import { Route as GuidesZatcaWave25RouteImport } from './routes/guides/zatca-wave-25'
 import { Route as WorkspaceQuotesIndexRouteImport } from './routes/workspace/quotes/index'
 import { Route as WorkspaceInvoicesIndexRouteImport } from './routes/workspace/invoices/index'
 import { Route as WorkspaceQuotesNewRouteImport } from './routes/workspace/quotes/new'
@@ -40,6 +46,11 @@ import { Route as WorkspaceInvoicesIdRouteImport } from './routes/workspace/invo
 import { Route as ApiWebhooksRevenuecatRouteImport } from './routes/api/webhooks/revenuecat'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AeToolsVatCalculatorRouteImport } from './routes/ae/tools/vat-calculator'
+import { Route as AeToolsTrnCheckerRouteImport } from './routes/ae/tools/trn-checker'
+import { Route as AeToolsInvoiceGeneratorRouteImport } from './routes/ae/tools/invoice-generator'
+import { Route as AeToolsEInvoicingReadinessRouteImport } from './routes/ae/tools/e-invoicing-readiness'
+import { Route as AeGuidesUaeEInvoicing2027RouteImport } from './routes/ae/guides/uae-e-invoicing-2027'
 
 const ZatcaInvoiceGeneratorRoute = ZatcaInvoiceGeneratorRouteImport.update({
   id: '/zatca-invoice-generator',
@@ -109,6 +120,11 @@ const InvoicesIndexRoute = InvoicesIndexRouteImport.update({
   path: '/invoices/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AeIndexRoute = AeIndexRouteImport.update({
+  id: '/ae/',
+  path: '/ae/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkspaceWhatsappRoute = WorkspaceWhatsappRouteImport.update({
   id: '/whatsapp',
   path: '/whatsapp',
@@ -139,6 +155,11 @@ const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
   path: '/accountant',
   getParentRoute: () => WorkspaceRoute,
 } as any)
+const ToolsZatcaWaveCheckerRoute = ToolsZatcaWaveCheckerRouteImport.update({
+  id: '/tools/zatca-wave-checker',
+  path: '/tools/zatca-wave-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsVatCalculatorRoute = ToolsVatCalculatorRouteImport.update({
   id: '/tools/vat-calculator',
   path: '/tools/vat-calculator',
@@ -149,14 +170,34 @@ const ToolsTrnCheckerRoute = ToolsTrnCheckerRouteImport.update({
   path: '/tools/trn-checker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsReceiptVoucherRoute = ToolsReceiptVoucherRouteImport.update({
+  id: '/tools/receipt-voucher',
+  path: '/tools/receipt-voucher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsQuotationRoute = ToolsQuotationRouteImport.update({
+  id: '/tools/quotation',
+  path: '/tools/quotation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsFatoraRoute = ToolsFatoraRouteImport.update({
   id: '/tools/fatora',
   path: '/tools/fatora',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsCreditNoteRoute = ToolsCreditNoteRouteImport.update({
+  id: '/tools/credit-note',
+  path: '/tools/credit-note',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InvoicesIdRoute = InvoicesIdRouteImport.update({
   id: '/invoices/$id',
   path: '/invoices/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesZatcaWave25Route = GuidesZatcaWave25RouteImport.update({
+  id: '/guides/zatca-wave-25',
+  path: '/guides/zatca-wave-25',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkspaceQuotesIndexRoute = WorkspaceQuotesIndexRouteImport.update({
@@ -199,6 +240,33 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AeToolsVatCalculatorRoute = AeToolsVatCalculatorRouteImport.update({
+  id: '/ae/tools/vat-calculator',
+  path: '/ae/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AeToolsTrnCheckerRoute = AeToolsTrnCheckerRouteImport.update({
+  id: '/ae/tools/trn-checker',
+  path: '/ae/tools/trn-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AeToolsInvoiceGeneratorRoute = AeToolsInvoiceGeneratorRouteImport.update({
+  id: '/ae/tools/invoice-generator',
+  path: '/ae/tools/invoice-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AeToolsEInvoicingReadinessRoute =
+  AeToolsEInvoicingReadinessRouteImport.update({
+    id: '/ae/tools/e-invoicing-readiness',
+    path: '/ae/tools/e-invoicing-readiness',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AeGuidesUaeEInvoicing2027Route =
+  AeGuidesUaeEInvoicing2027RouteImport.update({
+    id: '/ae/guides/uae-e-invoicing-2027',
+    path: '/ae/guides/uae-e-invoicing-2027',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -211,19 +279,30 @@ export interface FileRoutesByFullPath {
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/quotation': typeof ToolsQuotationRoute
+  '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
   '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/ae/': typeof AeIndexRoute
   '/invoices/': typeof InvoicesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
+  '/ae/guides/uae-e-invoicing-2027': typeof AeGuidesUaeEInvoicing2027Route
+  '/ae/tools/e-invoicing-readiness': typeof AeToolsEInvoicingReadinessRoute
+  '/ae/tools/invoice-generator': typeof AeToolsInvoiceGeneratorRoute
+  '/ae/tools/trn-checker': typeof AeToolsTrnCheckerRoute
+  '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
@@ -243,17 +322,28 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/quotation': typeof ToolsQuotationRoute
+  '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/ae': typeof AeIndexRoute
   '/invoices': typeof InvoicesIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
+  '/ae/guides/uae-e-invoicing-2027': typeof AeGuidesUaeEInvoicing2027Route
+  '/ae/tools/e-invoicing-readiness': typeof AeToolsEInvoicingReadinessRoute
+  '/ae/tools/invoice-generator': typeof AeToolsInvoiceGeneratorRoute
+  '/ae/tools/trn-checker': typeof AeToolsTrnCheckerRoute
+  '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
@@ -275,19 +365,30 @@ export interface FileRoutesById {
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
+  '/tools/credit-note': typeof ToolsCreditNoteRoute
   '/tools/fatora': typeof ToolsFatoraRoute
+  '/tools/quotation': typeof ToolsQuotationRoute
+  '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
   '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
+  '/ae/': typeof AeIndexRoute
   '/invoices/': typeof InvoicesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
+  '/ae/guides/uae-e-invoicing-2027': typeof AeGuidesUaeEInvoicing2027Route
+  '/ae/tools/e-invoicing-readiness': typeof AeToolsEInvoicingReadinessRoute
+  '/ae/tools/invoice-generator': typeof AeToolsInvoiceGeneratorRoute
+  '/ae/tools/trn-checker': typeof AeToolsTrnCheckerRoute
+  '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
@@ -310,19 +411,30 @@ export interface FileRouteTypes {
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
+    | '/guides/zatca-wave-25'
     | '/invoices/$id'
+    | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/quotation'
+    | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/invoices'
     | '/workspace/new-invoice'
     | '/workspace/quotes'
     | '/workspace/whatsapp'
+    | '/ae/'
     | '/invoices/'
     | '/tools/'
     | '/workspace/'
+    | '/ae/guides/uae-e-invoicing-2027'
+    | '/ae/tools/e-invoicing-readiness'
+    | '/ae/tools/invoice-generator'
+    | '/ae/tools/trn-checker'
+    | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
@@ -342,17 +454,28 @@ export interface FileRouteTypes {
     | '/support'
     | '/vat-invoice-generator-saudi-arabia'
     | '/zatca-invoice-generator'
+    | '/guides/zatca-wave-25'
     | '/invoices/$id'
+    | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/quotation'
+    | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/new-invoice'
     | '/workspace/whatsapp'
+    | '/ae'
     | '/invoices'
     | '/tools'
     | '/workspace'
+    | '/ae/guides/uae-e-invoicing-2027'
+    | '/ae/tools/e-invoicing-readiness'
+    | '/ae/tools/invoice-generator'
+    | '/ae/tools/trn-checker'
+    | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
@@ -373,19 +496,30 @@ export interface FileRouteTypes {
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
+    | '/guides/zatca-wave-25'
     | '/invoices/$id'
+    | '/tools/credit-note'
     | '/tools/fatora'
+    | '/tools/quotation'
+    | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/invoices'
     | '/workspace/new-invoice'
     | '/workspace/quotes'
     | '/workspace/whatsapp'
+    | '/ae/'
     | '/invoices/'
     | '/tools/'
     | '/workspace/'
+    | '/ae/guides/uae-e-invoicing-2027'
+    | '/ae/tools/e-invoicing-readiness'
+    | '/ae/tools/invoice-generator'
+    | '/ae/tools/trn-checker'
+    | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
@@ -407,12 +541,23 @@ export interface RootRouteChildren {
   VatInvoiceGeneratorSaudiArabiaRoute: typeof VatInvoiceGeneratorSaudiArabiaRoute
   WorkspaceRoute: typeof WorkspaceRouteWithChildren
   ZatcaInvoiceGeneratorRoute: typeof ZatcaInvoiceGeneratorRoute
+  GuidesZatcaWave25Route: typeof GuidesZatcaWave25Route
   InvoicesIdRoute: typeof InvoicesIdRoute
+  ToolsCreditNoteRoute: typeof ToolsCreditNoteRoute
   ToolsFatoraRoute: typeof ToolsFatoraRoute
+  ToolsQuotationRoute: typeof ToolsQuotationRoute
+  ToolsReceiptVoucherRoute: typeof ToolsReceiptVoucherRoute
   ToolsTrnCheckerRoute: typeof ToolsTrnCheckerRoute
   ToolsVatCalculatorRoute: typeof ToolsVatCalculatorRoute
+  ToolsZatcaWaveCheckerRoute: typeof ToolsZatcaWaveCheckerRoute
+  AeIndexRoute: typeof AeIndexRoute
   InvoicesIndexRoute: typeof InvoicesIndexRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
+  AeGuidesUaeEInvoicing2027Route: typeof AeGuidesUaeEInvoicing2027Route
+  AeToolsEInvoicingReadinessRoute: typeof AeToolsEInvoicingReadinessRoute
+  AeToolsInvoiceGeneratorRoute: typeof AeToolsInvoiceGeneratorRoute
+  AeToolsTrnCheckerRoute: typeof AeToolsTrnCheckerRoute
+  AeToolsVatCalculatorRoute: typeof AeToolsVatCalculatorRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   ApiWebhooksRevenuecatRoute: typeof ApiWebhooksRevenuecatRoute
@@ -511,6 +656,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvoicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ae/': {
+      id: '/ae/'
+      path: '/ae'
+      fullPath: '/ae/'
+      preLoaderRoute: typeof AeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workspace/whatsapp': {
       id: '/workspace/whatsapp'
       path: '/whatsapp'
@@ -553,6 +705,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceAccountantRouteImport
       parentRoute: typeof WorkspaceRoute
     }
+    '/tools/zatca-wave-checker': {
+      id: '/tools/zatca-wave-checker'
+      path: '/tools/zatca-wave-checker'
+      fullPath: '/tools/zatca-wave-checker'
+      preLoaderRoute: typeof ToolsZatcaWaveCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/vat-calculator': {
       id: '/tools/vat-calculator'
       path: '/tools/vat-calculator'
@@ -567,6 +726,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsTrnCheckerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/receipt-voucher': {
+      id: '/tools/receipt-voucher'
+      path: '/tools/receipt-voucher'
+      fullPath: '/tools/receipt-voucher'
+      preLoaderRoute: typeof ToolsReceiptVoucherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/quotation': {
+      id: '/tools/quotation'
+      path: '/tools/quotation'
+      fullPath: '/tools/quotation'
+      preLoaderRoute: typeof ToolsQuotationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/fatora': {
       id: '/tools/fatora'
       path: '/tools/fatora'
@@ -574,11 +747,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsFatoraRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/credit-note': {
+      id: '/tools/credit-note'
+      path: '/tools/credit-note'
+      fullPath: '/tools/credit-note'
+      preLoaderRoute: typeof ToolsCreditNoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/invoices/$id': {
       id: '/invoices/$id'
       path: '/invoices/$id'
       fullPath: '/invoices/$id'
       preLoaderRoute: typeof InvoicesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/zatca-wave-25': {
+      id: '/guides/zatca-wave-25'
+      path: '/guides/zatca-wave-25'
+      fullPath: '/guides/zatca-wave-25'
+      preLoaderRoute: typeof GuidesZatcaWave25RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/workspace/quotes/': {
@@ -635,6 +822,41 @@ declare module '@tanstack/react-router' {
       path: '/api/auth/$'
       fullPath: '/api/auth/$'
       preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ae/tools/vat-calculator': {
+      id: '/ae/tools/vat-calculator'
+      path: '/ae/tools/vat-calculator'
+      fullPath: '/ae/tools/vat-calculator'
+      preLoaderRoute: typeof AeToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ae/tools/trn-checker': {
+      id: '/ae/tools/trn-checker'
+      path: '/ae/tools/trn-checker'
+      fullPath: '/ae/tools/trn-checker'
+      preLoaderRoute: typeof AeToolsTrnCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ae/tools/invoice-generator': {
+      id: '/ae/tools/invoice-generator'
+      path: '/ae/tools/invoice-generator'
+      fullPath: '/ae/tools/invoice-generator'
+      preLoaderRoute: typeof AeToolsInvoiceGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ae/tools/e-invoicing-readiness': {
+      id: '/ae/tools/e-invoicing-readiness'
+      path: '/ae/tools/e-invoicing-readiness'
+      fullPath: '/ae/tools/e-invoicing-readiness'
+      preLoaderRoute: typeof AeToolsEInvoicingReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ae/guides/uae-e-invoicing-2027': {
+      id: '/ae/guides/uae-e-invoicing-2027'
+      path: '/ae/guides/uae-e-invoicing-2027'
+      fullPath: '/ae/guides/uae-e-invoicing-2027'
+      preLoaderRoute: typeof AeGuidesUaeEInvoicing2027RouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -705,12 +927,23 @@ const rootRouteChildren: RootRouteChildren = {
   VatInvoiceGeneratorSaudiArabiaRoute: VatInvoiceGeneratorSaudiArabiaRoute,
   WorkspaceRoute: WorkspaceRouteWithChildren,
   ZatcaInvoiceGeneratorRoute: ZatcaInvoiceGeneratorRoute,
+  GuidesZatcaWave25Route: GuidesZatcaWave25Route,
   InvoicesIdRoute: InvoicesIdRoute,
+  ToolsCreditNoteRoute: ToolsCreditNoteRoute,
   ToolsFatoraRoute: ToolsFatoraRoute,
+  ToolsQuotationRoute: ToolsQuotationRoute,
+  ToolsReceiptVoucherRoute: ToolsReceiptVoucherRoute,
   ToolsTrnCheckerRoute: ToolsTrnCheckerRoute,
   ToolsVatCalculatorRoute: ToolsVatCalculatorRoute,
+  ToolsZatcaWaveCheckerRoute: ToolsZatcaWaveCheckerRoute,
+  AeIndexRoute: AeIndexRoute,
   InvoicesIndexRoute: InvoicesIndexRoute,
   ToolsIndexRoute: ToolsIndexRoute,
+  AeGuidesUaeEInvoicing2027Route: AeGuidesUaeEInvoicing2027Route,
+  AeToolsEInvoicingReadinessRoute: AeToolsEInvoicingReadinessRoute,
+  AeToolsInvoiceGeneratorRoute: AeToolsInvoiceGeneratorRoute,
+  AeToolsTrnCheckerRoute: AeToolsTrnCheckerRoute,
+  AeToolsVatCalculatorRoute: AeToolsVatCalculatorRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   ApiWebhooksRevenuecatRoute: ApiWebhooksRevenuecatRoute,

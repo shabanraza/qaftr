@@ -1,4 +1,19 @@
-import { normalizeSaudiVatNumber, validateSaudiVatNumber } from "./instant-invoice";
+/** Arabic-Indic (٠-٩) and Persian (۰-۹) digits → ASCII, for Arabic keyboards. */
+function toAsciiDigits(value: string): string {
+  return value.replace(/[٠-٩۰-۹]/g, (d) =>
+    String(d.charCodeAt(0) & 0xf),
+  );
+}
+
+export function normalizeSaudiVatNumber(vat: string): string {
+  return toAsciiDigits(vat).replace(/\D/g, "");
+}
+
+/** Saudi VAT number (الرقم الضريبي): 15 digits, starts and ends with 3. */
+export function validateSaudiVatNumber(vat: string): boolean {
+  const digits = normalizeSaudiVatNumber(vat);
+  return digits.length === 15 && digits.startsWith("3") && digits.endsWith("3");
+}
 
 export type TrnValidationIssue =
   | "EMPTY"

@@ -84,3 +84,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/
 .gstack/
+
+# Scratch/temp files (some are still tracked: untrack with git rm --cached)
+mobile/.tmp_*
+mobile/assets/review-screenshots/.tmp/
