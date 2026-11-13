@@ -27,7 +27,7 @@ function StatusShell({
   return (
     <MarketingLayout lang={lang}>
       <section className="mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center md:px-8">
-        <p className="font-[family-name:var(--font-qaftr-display)] text-6xl font-bold text-[var(--qaftr-gold)]">
+        <p className="font-[family-name:var(--font-qaftr-display)] text-6xl font-bold text-[var(--qaftr-gold-ink)]">
           {code}
         </p>
         <h1 className="mt-4 font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-foreground">

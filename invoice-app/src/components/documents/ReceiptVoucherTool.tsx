@@ -100,7 +100,7 @@ export function ReceiptVoucherTool({ lang }: { lang: MarketingLang }) {
       <div className="flex flex-wrap items-baseline justify-between gap-x-4">
         <span className="font-medium text-foreground">{copy.amount}</span>
         <span
-          className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+          className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
           data-testid="doc-total"
         >
           {formatSar(amountNumber, lang)}

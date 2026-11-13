@@ -13,4 +13,24 @@ describe('marketing link-button colours', () => {
       /\.qaftr-marketing a\[data-slot='button'\]\[data-variant='secondary'\][^{]*\{\s*color:\s*var\(--qaftr-green\)/,
     )
   })
+
+  it('gives outline / ghost link-buttons the brand green, not the teal link colour', () => {
+    expect(css).toMatch(
+      /\.qaftr-marketing a\[data-slot='button'\]\[data-variant='outline'\],[^{]*\{\s*color:\s*var\(--primary\)/,
+    )
+  })
+})
+
+describe('marketing theme accessibility rules', () => {
+  it('defines an AA-contrast gold for text on light surfaces', () => {
+    expect(css).toMatch(/--qaftr-gold-ink:\s*#8a6420/)
+  })
+
+  it('turns off entrance animations for reduced-motion users', () => {
+    expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)\s*\{\s*\.qaftr-rise/)
+  })
+
+  it('resets letter-spacing on Arabic (RTL) marketing pages', () => {
+    expect(css).toMatch(/\.qaftr-marketing\[dir='rtl'\] \*\s*\{\s*letter-spacing:\s*normal !important/)
+  })
 })
