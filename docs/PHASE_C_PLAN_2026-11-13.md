@@ -28,7 +28,11 @@ The `/ae` section stays as free tools that need no official certification: the P
 1. **Done in this branch:** the database schema and migration `0002_zatca_phase2` (EGS units, encrypted credentials, submission log,
    ZATCA invoice columns, structured seller and buyer addresses, and line VAT categories). Tested on a local Postgres, both
    fresh and db:push-style.
-2. Envelope encryption helper (WebCrypto AES-256-GCM plus a KEK secret), test-first.
+2. **Done:** envelope encryption in `invoice-app/src/lib/zatca/credential-crypto.ts`. Each credential gets a random data key, and each field is
+   sealed with AES-256-GCM, bound to its credential id and column. The data key is wrapped by `ZATCA_KEK_V{n}`, chosen by
+   `ZATCA_KEK_CURRENT`, and `rewrapCredential` handles rotation. Before onboarding goes live, create the secrets:
+   `wrangler secret put ZATCA_KEK_V1` (a 32-byte base64 value from `generateKekBase64()`) and `wrangler secret put ZATCA_KEK_CURRENT` (`1`).
+   Add the same two values to `invoice-app/.env` for local work, using a different key from production.
 3. Business and client forms that capture CR number, structured address and buyer ID (shared validation).
 4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
 5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
