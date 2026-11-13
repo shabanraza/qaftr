@@ -145,7 +145,7 @@ export function UaeVatCalculatorTool({ lang }: UaeVatCalculatorToolProps) {
                   <dd
                     data-testid="vat-total"
                     dir="ltr"
-                    className="break-all font-[family-name:var(--font-qaftr-display)] text-3xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+                    className="break-all font-[family-name:var(--font-qaftr-display)] text-3xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
                   >
                     {formatAed(result.total, lang)}
                   </dd>

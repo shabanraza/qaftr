@@ -147,7 +147,7 @@ export function NonTaxInvoiceTool({ lang }: { lang: MarketingLang }) {
             <div className="flex flex-wrap items-baseline justify-between gap-x-4">
               <dt className="font-medium text-foreground">{copy.totalLabel}</dt>
               <dd
-                className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+                className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
                 data-testid="doc-total"
               >
                 {formatSar(totals.total, lang)}

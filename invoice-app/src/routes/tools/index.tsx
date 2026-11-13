@@ -30,7 +30,7 @@ function ToolsHubPage() {
   return (
     <MarketingLayout lang={lang} deadline>
       <div dir={dir} lang={lang} className="mx-auto max-w-6xl px-5 pb-6 pt-10 md:px-8">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--qaftr-gold)]">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--qaftr-gold-ink)]">
           {copy.hub.breadcrumb}
         </p>
         <h1 className="max-w-3xl font-[family-name:var(--font-qaftr-display)] text-3xl font-bold text-balance text-foreground md:text-4xl">

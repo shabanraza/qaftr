@@ -1,4 +1,4 @@
-import { Check, Circle } from "lucide-react";
+import { Check } from "lucide-react";
 import { getInstantInvoiceChecklist } from "@zatca/shared";
 import type { InstantInvoiceDraft } from "@zatca/shared";
 import { getInstantInvoiceCopy } from "#/lib/instant-invoice/copy";
@@ -46,11 +46,19 @@ export function ExportValidationChecklist({
           {checks.map(({ ok, label }) => (
             <li key={label} className="flex items-start gap-2 text-sm">
               {ok ? (
-                <Check className="mt-0.5 shrink-0 text-primary" />
+                <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
               ) : (
-                <Circle
-                  className={cn("mt-0.5 shrink-0", emphasis ? "text-destructive" : "text-muted-foreground")}
-                />
+                // A plain dot, not an empty circle: an empty circle reads as a
+                // radio button the user could tick.
+                <span
+                  aria-hidden
+                  className={cn(
+                    "mt-0.5 flex size-4 shrink-0 items-center justify-center",
+                    emphasis ? "text-destructive" : "text-muted-foreground",
+                  )}
+                >
+                  <span className="size-1.5 rounded-full bg-current" />
+                </span>
               )}
               <span className={cn(ok && "text-muted-foreground line-through")}>{label}</span>
             </li>

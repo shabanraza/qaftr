@@ -284,7 +284,7 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
                       <p className="mt-1 flex items-baseline gap-2">
                         <span
                           data-testid="wave-days"
-                          className="font-[family-name:var(--font-qaftr-display)] text-4xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+                          className="font-[family-name:var(--font-qaftr-display)] text-4xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
                         >
                           {formatSaNumber(result.daysRemaining, lang)}
                         </span>

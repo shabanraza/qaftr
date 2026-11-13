@@ -104,6 +104,10 @@
 :root {
   --qaftr-green: #0a3d2e;
   --qaftr-gold: #c8973a;
+  /* Gold for text on light surfaces: #c8973a is ~2.6:1 on white (fails AA);
+     this darker gold is ~5.4:1. Keep --qaftr-gold for fills and for text on
+     the dark green. */
+  --qaftr-gold-ink: #8a6420;
   --qaftr-warm: #f6f6f3;
   --qaftr-ink: #0e1c16;
   --qaftr-muted: #3e5a4a;
@@ -534,6 +538,12 @@ a {
   background-color: #ffffff;
 }
 
+/* Native selects (UAE generator VAT category) match the inputs. */
+.qaftr-marketing select {
+  border-radius: calc(var(--radius) + 4px);
+  background-color: #ffffff;
+}
+
 .qaftr-marketing [data-slot='input']::placeholder,
 .qaftr-marketing [data-slot='textarea']::placeholder {
   /* Lighter than body muted text so examples never read as typed values
@@ -598,6 +608,19 @@ a {
   opacity: 0.92;
 }
 
+/* Outline / ghost / link buttons rendered as <a>: brand green, not the global
+   teal link colour (which is outside the Qaftr palette). */
+.qaftr-marketing a[data-slot='button'][data-variant='outline'],
+.qaftr-marketing a[data-slot='button'][data-variant='ghost'],
+.qaftr-marketing a[data-slot='button'][data-variant='link'] {
+  color: var(--primary);
+}
+
+.qaftr-marketing a[data-slot='button'][data-variant='outline']:hover,
+.qaftr-marketing a[data-slot='button'][data-variant='ghost']:hover {
+  color: var(--qaftr-ink);
+}
+
 .qaftr-nav-link {
   position: relative;
   text-decoration: none;
@@ -645,4 +668,38 @@ a {
 }
 .qaftr-loading-bar {
   animation: qaftr-loading 1.5s infinite linear;
+}
+
+/* Arabic is a joined script: letter-spacing (tracking-* utilities, the
+   uppercase kickers) pulls connected letters apart. Reset it on RTL pages. */
+.qaftr-marketing[dir='rtl'],
+.qaftr-marketing[dir='rtl'] * {
+  letter-spacing: normal !important;
+}
+
+/* Long generator forms (FormKit Sections inside DocumentShell / the UAE
+   generator): a hairline above each section after the first. The rule sits on
+   the legend because a fieldset legend is drawn over the fieldset border. */
+.qaftr-form-sections > fieldset + fieldset > legend {
+  width: 100%;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+/* Respect reduced-motion: no entrance animations or hover lifts. */
+@media (prefers-reduced-motion: reduce) {
+  .qaftr-rise,
+  .rise-in {
+    animation: none;
+  }
+  .qaftr-marketing *,
+  .qaftr-marketing *::before,
+  .qaftr-marketing *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .qaftr-marketing [class*='hover:-translate-y']:hover,
+  .qaftr-marketing [class*='hover:rotate']:hover {
+    transform: none;
+  }
 }

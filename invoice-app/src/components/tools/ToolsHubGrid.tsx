@@ -62,7 +62,7 @@ export function ToolsHubGrid({ lang }: ToolsHubGridProps) {
           <Card
             key={tool.id}
             className={cn(
-              "group relative h-full gap-0 overflow-hidden py-0 shadow-sm transition-transform duration-300 hover:-translate-y-0.5",
+              "group relative h-full gap-0 overflow-hidden py-0 shadow-sm transition-[transform,border-color] duration-300 focus-within:ring-2 focus-within:ring-ring/40 hover:-translate-y-0.5 hover:border-primary/30",
               ACCENT_STYLES[tool.accent],
             )}
             style={{ animationDelay: `${index * 80}ms` }}
@@ -86,7 +86,12 @@ export function ToolsHubGrid({ lang }: ToolsHubGridProps) {
             </CardContent>
             <CardFooter className="mt-auto w-full px-5 pt-4 pb-5">
               <Button asChild variant="outline" className="w-full text-primary">
-                <Link to={tool.href as any} search={search as any} className="no-underline">
+                {/* Stretched link: the whole card is the click target. */}
+                <Link
+                  to={tool.href as any}
+                  search={search as any}
+                  className="no-underline after:absolute after:inset-0 after:content-[''] focus-visible:ring-0"
+                >
                   {copy.hub.cta}
                   <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
                 </Link>

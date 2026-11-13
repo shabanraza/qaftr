@@ -199,7 +199,7 @@ export function LinesEditor({
               </Button>
             ) : null}
             <TextField id={`${id}-desc`} label={copy.description} value={line.description} onChange={(description) => update(index, { description })} />
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 items-end gap-3">
               <TextField id={`${id}-qty`} label={copy.qty} value={line.qty} onChange={(qty) => update(index, { qty })} ltr inputMode="decimal" />
               <TextField id={`${id}-price`} label={copy.unitPrice} value={line.unitPrice} onChange={(unitPrice) => update(index, { unitPrice })} ltr inputMode="decimal" />
             </div>
@@ -237,7 +237,7 @@ export function TotalsList({
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 border-t border-border pt-2">
         <dt className="font-medium text-foreground">{c.total}</dt>
         <dd
-          className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+          className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
           data-testid="doc-total"
         >
           {formatSar(totals.total, lang)}
@@ -348,7 +348,7 @@ export function DocumentShell({
             </CardTitle>
             <p className="text-xs text-muted-foreground">{c.draftNote}</p>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8 px-5 py-6">{form}</CardContent>
+          <CardContent className="qaftr-form-sections flex flex-col gap-7 px-5 py-6">{form}</CardContent>
         </Card>
 
         <div className="flex min-w-0 flex-col gap-6 lg:sticky lg:top-6">

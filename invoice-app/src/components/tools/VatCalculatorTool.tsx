@@ -126,7 +126,7 @@ export function VatCalculatorTool({ lang }: VatCalculatorToolProps) {
                 <Separator />
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-base font-medium text-foreground">{copy.total}</dt>
-                  <dd className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold tabular-nums text-[var(--qaftr-gold)]">
+                  <dd className="font-[family-name:var(--font-qaftr-display)] text-3xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]">
                     {formatToolMoney(result.total, lang)}
                   </dd>
                 </div>
