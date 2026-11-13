@@ -5,6 +5,7 @@ import { useTRPC } from '#/integrations/trpc/react'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
+import { ZatcaInvoicePanel } from '#/components/workspace/ZatcaInvoicePanel'
 import { formatMoney, getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
 import { downloadInvoicePdf } from '#/lib/instant-invoice/invoice-pdf'
 import type { InvoiceForPdf } from '#/lib/instant-invoice/invoice-pdf'
@@ -64,6 +65,14 @@ function WorkspaceInvoiceDetailPage() {
       void queryClient.invalidateQueries(trpc.invoices.getEvents.queryFilter({ invoiceId: id }))
     },
   })
+
+  const { data: zatcaStatus } = useQuery(trpc.zatca.status.queryOptions())
+  const refreshInvoice = () => {
+    void queryClient.invalidateQueries(trpc.invoices.get.queryFilter({ id }))
+    void queryClient.invalidateQueries(trpc.invoices.list.queryFilter())
+  }
+  const issueMutation = useMutation({ ...trpc.zatca.issueInvoice.mutationOptions(), onSettled: refreshInvoice })
+  const retryMutation = useMutation({ ...trpc.zatca.retrySubmission.mutationOptions(), onSettled: refreshInvoice })
 
   const logEventMutation = useMutation({
     ...trpc.invoices.logEvent.mutationOptions(),
@@ -143,6 +152,8 @@ function WorkspaceInvoiceDetailPage() {
     setDownloadError(null)
     setDownloading(true)
     const pdfData: InvoiceForPdf = {
+      ...(invoice.zatcaSubtype ? { invoiceType: invoice.zatcaSubtype } : {}),
+      zatcaQr: invoice.qrPayload,
       seqNumber: invoice.seqNumber,
       issueDate: invoice.issueDate,
       subtotal: invoice.subtotal,
@@ -277,6 +288,16 @@ function WorkspaceInvoiceDetailPage() {
                     </Button>
                   )}
                 </div>
+              </div>
+
+              <div className="mt-8 max-w-4xl">
+                <ZatcaInvoicePanel
+                  lang={lang}
+                  invoice={invoice}
+                  connected={Boolean(zatcaStatus?.unit && !zatcaStatus.gate)}
+                  onIssue={() => issueMutation.mutateAsync({ invoiceId: invoice.id })}
+                  onRetry={() => retryMutation.mutateAsync({ invoiceId: invoice.id })}
+                />
               </div>
 
               {/* Event Timeline / History Section */}

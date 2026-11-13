@@ -283,6 +283,15 @@ export const invoicesRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      const [row] = await db
+        .select({ zatcaStatus: invoices.zatcaStatus })
+        .from(invoices)
+        .where(and(eq(invoices.id, input.id), eq(invoices.ownerId, ctx.userId)))
+        .limit(1);
+      // Signed e-invoices are part of the ZATCA chain: correct them with a credit note instead.
+      if (row && row.zatcaStatus !== "not_required" && row.zatcaStatus !== "draft") {
+        throw new TRPCError({ code: "CONFLICT", message: "INVOICE_LOCKED" });
+      }
       await db
         .delete(invoices)
         .where(and(eq(invoices.id, input.id), eq(invoices.ownerId, ctx.userId)));

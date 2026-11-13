@@ -43,8 +43,21 @@ The `/ae` section stays as free tools that need no official certification: the P
    uses the documented test OTP and VAT number. Simulation and production need an active Pro plan and the customer's Fatoora OTP.
    A real sandbox run passed on 2026-11-13 (about 6 seconds end to end). Before turning it on in production: set `ZATCA_KEK_V1`,
    `ZATCA_KEK_CURRENT` and `ZATCA_ENV` as Worker secrets.
-5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
-6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.
+5. **Done (sandbox):** "Send to ZATCA" on the invoice page (`zatca.issueInvoice`). `lib/zatca/invoice-mapping.ts` picks standard
+   (the client has a VAT number or other ID) or simplified, freezes the date and time in Riyadh time, and refuses invoices whose
+   e-invoice totals would differ from the saved ones. `lib/zatca/issue.ts` signs at the next ICV, stores the XML in R2 (binding
+   `ZATCA_XML`, bucket `qaftr-zatca-xml`), then clears standard invoices and reports simplified ones straight away.
+   - **Durable Object replaced:** the ICV/PIH chain is serialized by one compare-and-swap SQL statement on `egs_units.last_icv`
+     (`lib/zatca/egs-store.ts`), backed by the unique (egs_unit_id, icv) index. It gives the same guarantee with no custom Worker
+     entry; a lost race re-reads the chain and re-signs.
+   - A signed invoice is never re-signed. If ZATCA can't be reached, it stays `signed` / `pending_clearance` and
+     `zatca.retrySubmission` resends the stored XML. Signed invoices can't be deleted (`INVOICE_LOCKED`). Every call is logged in
+     `zatca_submissions`. The PDF prints the Phase 2 QR (ZATCA's stamped one for cleared invoices).
+   - A real sandbox run passed on 2026-11-14: a simplified invoice reported at ICV 1 and a standard invoice cleared at ICV 2,
+     with the PIH chained.
+   - Before deploying: create the R2 bucket `qaftr-zatca-xml`.
+6. Cron sweeper that retries `signed` / `pending_clearance` invoices before `report_due_at` (a Queue if volume needs it),
+   plus certificate-expiry reminders. Credit and debit notes.
 7. Simulation, with a beta customer's OTP, then production.
 8. Apply to ZATCA's voluntary Solution Providers Directory once the first production customers are live.
 

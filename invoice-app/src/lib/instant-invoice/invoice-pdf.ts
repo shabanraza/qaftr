@@ -16,6 +16,8 @@ import { htmlToPdfBlob } from "#/lib/invoice/pdf-render";
 export interface InvoiceForPdf {
   /** Missing on saved invoices (the DB has no type column): simplified. */
   invoiceType?: SaudiInvoiceType;
+  /** Phase 2 QR (TLV base64) from the signed or ZATCA-cleared XML; replaces the Phase 1 QR. */
+  zatcaQr?: string | null;
   seqNumber: number;
   issueDate: Date | string;
   /** Supply date (YYYY-MM-DD), printed only when it differs from the issue date. */
@@ -211,7 +213,13 @@ export async function buildInvoiceHtml(
     : "'IBM Plex Sans Arabic', 'Arial', sans-serif";
 
   let qrImg = "";
-  if (includeQr && invoice.business?.vatNumber) {
+  if (includeQr && invoice.zatcaQr) {
+    try {
+      qrImg = await QRCode.toDataURL(invoice.zatcaQr, { margin: 1, width: 140 });
+    } catch {
+      if (strictQr) throw new Error("QR_GENERATION_FAILED");
+    }
+  } else if (includeQr && invoice.business?.vatNumber) {
     try {
       const tlvBase64 = encodeZatcaQr({
         sellerName: invoice.business.nameAr,
@@ -437,7 +445,7 @@ ${compact && perLineVat ? `<div class="scroll-hint" aria-hidden="true">${s.scrol
 </div>
 
 <div class="totals">
-  ${qrImg ? `<div class="qr-block"><img src="${qrImg}" width="140" height="140" alt="ZATCA QR" style="min-width:76px;min-height:76px" /><div class="qr-label">${s.qrLabel}</div></div>` : "<div></div>"}
+  ${qrImg ? `<div class="qr-block"><img src="${qrImg}" width="140" height="140" alt="ZATCA QR" style="min-width:76px;min-height:76px" /><div class="qr-label">${invoice.zatcaQr ? (lang === "ar" ? "رمز الاستجابة السريعة (QR) — المرحلة الثانية من زاتكا" : "ZATCA QR code (Phase 2)") : s.qrLabel}</div></div>` : "<div></div>"}
   <div class="totals-table">
     <div class="totals-row">
       <span class="totals-label">${s.subtotal}</span>

@@ -53,6 +53,12 @@ describe('Saudi invoice PDF title by invoice type', () => {
     expect(html).toContain('alt="ZATCA QR"')
   })
 
+  it('prints the Phase 2 QR from the signed invoice once it has been sent to ZATCA', async () => {
+    const html = await buildInvoiceHtml({ ...base, zatcaQr: 'AQZTZWxsZXICDzMwMDAwMDAwMDAwMDAwMw==' }, 'en')
+    expect(html).toContain('ZATCA QR code (Phase 2)')
+    expect(html).not.toContain('(Phase 1)')
+  })
+
   it('names the PDF document after the type, in English for the metadata', () => {
     expect(pdfDocumentTitle({ ...base, invoiceType: 'standard' })).toBe('Tax Invoice INV-003')
     expect(pdfDocumentTitle(base)).toBe('Simplified Tax Invoice INV-003')
