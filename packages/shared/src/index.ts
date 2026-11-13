@@ -147,3 +147,4 @@ export type {
   ReceiptPaymentMethod,
   ReceiptVoucherInput,
 } from "./sa-documents";
+export * from "./zatca-party";

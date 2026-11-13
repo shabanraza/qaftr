@@ -36,7 +36,13 @@ export function toClientErrorCode(message: string): string {
   return "INTERNAL_ERROR";
 }
 
+/** Business/client profile fields and issue codes (see @zatca/shared zatca-party). */
+const PROFILE_FIELD = "(?:name|nameAr|nameEn|vatNumber|crNumber|country|idScheme|idValue|street|buildingNumber|additionalNumber|district|city|postalCode)";
+const PROFILE_CODE = "(?:REQUIRED|VAT_OR_ID_REQUIRED|INVALID_VAT|INVALID_CR|INVALID_BUILDING|INVALID_ADDITIONAL|INVALID_POSTAL|INVALID_SCHEME|INVALID_COUNTRY)";
+const PROFILE_ERROR_RE = new RegExp(`^INVALID_PROFILE:${PROFILE_FIELD}:${PROFILE_CODE}(?:,${PROFILE_FIELD}:${PROFILE_CODE})*$`);
+
 export function sanitizeClientMessage(message: string): string {
+  if (PROFILE_ERROR_RE.test(message)) return message;
   const code = toClientErrorCode(message);
   if (code !== "INTERNAL_ERROR") return code;
   if (isTechnicalErrorMessage(message)) return "INTERNAL_ERROR";

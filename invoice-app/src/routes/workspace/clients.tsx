@@ -5,13 +5,17 @@ import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
-import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent } from '#/components/ui/card'
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '#/components/ui/empty'
 import { Field, FieldGroup, FieldLabel } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
 import { Skeleton } from '#/components/ui/skeleton'
+import { checkBuyerFormat, normalizePartyInput } from '@zatca/shared'
+import type { PartyIssue } from '@zatca/shared'
+import { ClientB2bBadge, ClientB2bDetails, CLIENT_B2B_KEYS } from '#/components/workspace/ClientB2bDetails'
+import type { PartyValues } from '#/components/workspace/PartyFields'
+import { parseProfileError } from '#/lib/zatca/party-input'
 
 export const Route = createFileRoute('/workspace/clients')({
   validateSearch: marketingSearchSchema,
@@ -49,6 +53,8 @@ function WorkspaceClientsPage() {
       setVatNumber('')
       setEmail('')
       setPhone('')
+      setB2b({})
+      setB2bIssues([])
       setFormError(null)
     },
   })
@@ -57,6 +63,8 @@ function WorkspaceClientsPage() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [formError, setFormError] = useState<string | null>(null)
+  const [b2b, setB2b] = useState<PartyValues>({})
+  const [b2bIssues, setB2bIssues] = useState<PartyIssue[]>([])
 
   const copy =
     lang === 'ar'
@@ -67,8 +75,7 @@ function WorkspaceClientsPage() {
           vat: 'الرقم الضريبي',
           email: 'البريد',
           phone: 'الجوال',
-          status: 'الحالة',
-          saved: 'محفوظ',
+          status: 'فواتير الشركات',
           create: 'إضافة عميل',
           createTitle: 'إضافة عميل جديد',
           createHint: 'احفظ بيانات العميل لاستخدامها في الفواتير وعروض الأسعار.',
@@ -89,8 +96,7 @@ function WorkspaceClientsPage() {
           vat: 'VAT number',
           email: 'Email',
           phone: 'Phone',
-          status: 'Status',
-          saved: 'Saved',
+          status: 'B2B invoices',
           create: 'Add client',
           createTitle: 'Add a new client',
           createHint: 'Save client details for invoices and quotes.',
@@ -119,15 +125,29 @@ function WorkspaceClientsPage() {
       return
     }
 
+    const profile = normalizePartyInput({ ...b2b, vatNumber })
+    const issues = checkBuyerFormat(profile)
+    setB2bIssues(issues)
+    if (issues.length) {
+      setFormError(lang === 'ar' ? 'راجع الحقول المحددة.' : 'Check the highlighted fields.')
+      return
+    }
+
     try {
       await createClientMutation.mutateAsync({
         name: name.trim(),
-        vatNumber: vatNumber.trim() || undefined,
         email: email.trim() || undefined,
         phone: phone.trim() || undefined,
+        ...Object.fromEntries(Object.entries(profile).filter(([, v]) => v !== undefined)),
       })
-    } catch {
-      setFormError(lang === 'ar' ? 'تعذر حفظ العميل.' : 'Could not save the client.')
+    } catch (error) {
+      const serverIssues = parseProfileError(error instanceof Error ? error.message : undefined)
+      setB2bIssues(serverIssues)
+      setFormError(
+        serverIssues.length
+          ? lang === 'ar' ? 'راجع الحقول المحددة.' : 'Check the highlighted fields.'
+          : lang === 'ar' ? 'تعذر حفظ العميل.' : 'Could not save the client.',
+      )
     }
   }
 
@@ -174,7 +194,11 @@ function WorkspaceClientsPage() {
                     dir="ltr"
                     value={vatNumber}
                     placeholder={copy.vatPlaceholder}
-                    onChange={(event) => setVatNumber(event.target.value)}
+                    aria-invalid={b2bIssues.some((i) => i.field === 'vatNumber') ? true : undefined}
+                    onChange={(event) => {
+                      setVatNumber(event.target.value)
+                      setB2bIssues((list) => list.filter((i) => i.field !== 'vatNumber'))
+                    }}
                   />
                 </Field>
                 <Field>
@@ -199,6 +223,20 @@ function WorkspaceClientsPage() {
                   />
                 </Field>
               </FieldGroup>
+              {b2bIssues.some((i) => i.field === 'vatNumber') ? (
+                <p className="text-sm text-destructive">
+                  {copy.vat}: {lang === 'ar' ? '١٥ رقماً تبدأ وتنتهي بـ ٣' : '15 digits, starting and ending with 3'}
+                </p>
+              ) : null}
+              <ClientB2bDetails
+                lang={lang}
+                values={b2b}
+                issues={b2bIssues.filter((i) => CLIENT_B2B_KEYS.includes(i.field as never))}
+                onChange={(key, value) => {
+                  setB2b((v) => ({ ...v, [key]: value }))
+                  setB2bIssues((list) => list.filter((i) => i.field !== key))
+                }}
+              />
               {formError ? <p className="text-sm text-destructive">{formError}</p> : null}
             </form>
           </CardContent>
@@ -238,7 +276,7 @@ function WorkspaceClientsPage() {
                   <td className="px-5 py-4 text-muted-foreground">{client.email || '—'}</td>
                   <td className="px-5 py-4 text-muted-foreground">{client.phone || '—'}</td>
                   <td className="px-5 py-4">
-                    <Badge variant="secondary">{copy.saved}</Badge>
+                    <ClientB2bBadge lang={lang} client={client} />
                   </td>
                 </tr>
               ))}

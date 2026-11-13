@@ -28,6 +28,7 @@ import { Route as WorkspaceQuotesRouteImport } from './routes/workspace/quotes'
 import { Route as WorkspaceNewInvoiceRouteImport } from './routes/workspace/new-invoice'
 import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoices'
 import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
+import { Route as WorkspaceBusinessRouteImport } from './routes/workspace/business'
 import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
 import { Route as ToolsZatcaXmlValidatorRouteImport } from './routes/tools/zatca-xml-validator'
 import { Route as ToolsZatcaWaveCheckerRouteImport } from './routes/tools/zatca-wave-checker'
@@ -151,6 +152,11 @@ const WorkspaceInvoicesRoute = WorkspaceInvoicesRouteImport.update({
 const WorkspaceClientsRoute = WorkspaceClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
+const WorkspaceBusinessRoute = WorkspaceBusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
   getParentRoute: () => WorkspaceRoute,
 } as any)
 const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
@@ -310,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
@@ -356,6 +363,7 @@ export interface FileRoutesByTo {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
@@ -402,6 +410,7 @@ export interface FileRoutesById {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
@@ -451,6 +460,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/invoices'
     | '/workspace/new-invoice'
@@ -497,6 +507,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/new-invoice'
     | '/workspace/whatsapp'
@@ -542,6 +553,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/invoices'
     | '/workspace/new-invoice'
@@ -735,6 +747,13 @@ declare module '@tanstack/react-router' {
       path: '/clients'
       fullPath: '/workspace/clients'
       preLoaderRoute: typeof WorkspaceClientsRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
+    '/workspace/business': {
+      id: '/workspace/business'
+      path: '/business'
+      fullPath: '/workspace/business'
+      preLoaderRoute: typeof WorkspaceBusinessRouteImport
       parentRoute: typeof WorkspaceRoute
     }
     '/workspace/accountant': {
@@ -953,6 +972,7 @@ const WorkspaceQuotesRouteWithChildren = WorkspaceQuotesRoute._addFileChildren(
 
 interface WorkspaceRouteChildren {
   WorkspaceAccountantRoute: typeof WorkspaceAccountantRoute
+  WorkspaceBusinessRoute: typeof WorkspaceBusinessRoute
   WorkspaceClientsRoute: typeof WorkspaceClientsRoute
   WorkspaceInvoicesRoute: typeof WorkspaceInvoicesRouteWithChildren
   WorkspaceNewInvoiceRoute: typeof WorkspaceNewInvoiceRoute
@@ -963,6 +983,7 @@ interface WorkspaceRouteChildren {
 
 const WorkspaceRouteChildren: WorkspaceRouteChildren = {
   WorkspaceAccountantRoute: WorkspaceAccountantRoute,
+  WorkspaceBusinessRoute: WorkspaceBusinessRoute,
   WorkspaceClientsRoute: WorkspaceClientsRoute,
   WorkspaceInvoicesRoute: WorkspaceInvoicesRouteWithChildren,
   WorkspaceNewInvoiceRoute: WorkspaceNewInvoiceRoute,

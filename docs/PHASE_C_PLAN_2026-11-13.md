@@ -33,7 +33,9 @@ The `/ae` section stays as free tools that need no official certification: the P
    `ZATCA_KEK_CURRENT`, and `rewrapCredential` handles rotation. Before onboarding goes live, create the secrets:
    `wrangler secret put ZATCA_KEK_V1` (a 32-byte base64 value from `generateKekBase64()`) and `wrangler secret put ZATCA_KEK_CURRENT` (`1`).
    Add the same two values to `invoice-app/.env` for local work, using a different key from production.
-3. Business and client forms that capture CR number, structured address and buyer ID (shared validation).
+3. **Done:** a `/workspace/business` profile page and the client form now capture the CR number, the national address and the buyer
+   ID. Shared checks live in `packages/shared/src/zatca-party.ts`: format on save, plus Phase 2 readiness. The routers normalize
+   Arabic digits and return `INVALID_PROFILE:field:CODE` errors, which the forms highlight.
 4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
 5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
 6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.

@@ -1,6 +1,7 @@
 import { Link, useRouterState } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import {
+  Building2,
   FileSpreadsheet,
   FileText,
   LayoutDashboard,
@@ -14,12 +15,12 @@ import type { MarketingLang } from '#/lib/marketing/lang'
 import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 
-type WorkspaceSection = 'overview' | 'invoices' | 'quotes' | 'clients' | 'whatsapp' | 'accountant'
+type WorkspaceSection = 'overview' | 'invoices' | 'quotes' | 'clients' | 'business' | 'whatsapp' | 'accountant'
 type WorkspaceNavItem = {
   id: WorkspaceSection
   label: string
   icon: React.ComponentType<{ className?: string }>
-  to?: '/workspace' | '/workspace/invoices' | '/workspace/quotes' | '/workspace/clients' | '/workspace/whatsapp' | '/workspace/accountant'
+  to?: '/workspace' | '/workspace/invoices' | '/workspace/quotes' | '/workspace/clients' | '/workspace/business' | '/workspace/whatsapp' | '/workspace/accountant'
   soon?: boolean
 }
 
@@ -60,6 +61,7 @@ export function WorkspaceShell({
           { id: 'invoices' as const, label: 'الفواتير', icon: FileText, to: '/workspace/invoices' as const },
           { id: 'quotes' as const, label: 'عروض الأسعار', icon: FileText, to: '/workspace/quotes' as const },
           { id: 'clients' as const, label: 'العملاء', icon: Users, to: '/workspace/clients' as const },
+          { id: 'business' as const, label: 'ملف المنشأة', icon: Building2, to: '/workspace/business' as const },
           { id: 'whatsapp' as const, label: 'واتساب', icon: MessageCircleMore, to: '/workspace/whatsapp' as const },
           { id: 'accountant' as const, label: 'ملف المحاسب', icon: FileSpreadsheet, to: '/workspace/accountant' as const },
         ] satisfies WorkspaceNavItem[],
@@ -77,6 +79,7 @@ export function WorkspaceShell({
           { id: 'invoices' as const, label: 'Invoices', icon: FileText, to: '/workspace/invoices' as const },
           { id: 'quotes' as const, label: 'Quotes', icon: FileText, to: '/workspace/quotes' as const },
           { id: 'clients' as const, label: 'Clients', icon: Users, to: '/workspace/clients' as const },
+          { id: 'business' as const, label: 'Business profile', icon: Building2, to: '/workspace/business' as const },
           { id: 'whatsapp' as const, label: 'WhatsApp', icon: MessageCircleMore, to: '/workspace/whatsapp' as const },
           { id: 'accountant' as const, label: 'Accountant packet', icon: FileSpreadsheet, to: '/workspace/accountant' as const },
         ] satisfies WorkspaceNavItem[],
