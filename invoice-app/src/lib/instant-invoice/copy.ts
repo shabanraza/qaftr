@@ -48,6 +48,7 @@ type InstantInvoiceCopy = {
   actionsBarLabel: string;
   totalShort: string;
   itemsTitle: string;
+  detailsTitle: string;
   itemDescription: string;
   itemQty: string;
   itemPrice: string;
@@ -157,6 +158,7 @@ const ar: InstantInvoiceCopy = {
   actionsBarLabel: "إجراءات الفاتورة",
   totalShort: "الإجمالي شامل الضريبة",
   itemsTitle: "البنود",
+  detailsTitle: "تفاصيل إضافية",
   itemDescription: "الوصف",
   itemQty: "الكمية",
   itemPrice: "سعر الوحدة",
@@ -297,6 +299,7 @@ const en: InstantInvoiceCopy = {
   actionsBarLabel: "Invoice actions",
   totalShort: "Total incl. VAT",
   itemsTitle: "Line items",
+  detailsTitle: "Additional details",
   itemDescription: "Description",
   itemQty: "Qty",
   itemPrice: "Unit price",

@@ -335,7 +335,8 @@ export function InstantInvoiceTool({
   const isSaving = busy === copy.auth.saving;
 
   const cardClass = "gap-4 border-border/80 bg-card py-5 shadow-none";
-  const cardTitleClass = "text-sm font-semibold text-primary";
+  const cardTitleClass =
+    "font-[family-name:var(--font-qaftr-display)] text-base font-semibold text-foreground";
   const exportBlocked = showExportChecks && !draftReady;
 
   return (
@@ -551,24 +552,36 @@ export function InstantInvoiceTool({
                         </CardHeader>
                         <CardContent className="px-4">
                           <FieldGroup className="gap-3">
-                            <Field data-invalid={!!descriptionError}>
+                            <Field data-invalid={!!descriptionError} className="gap-1.5">
+                              <FieldLabel
+                                htmlFor={`invoice-line-${index}-desc`}
+                                className="text-xs font-medium text-muted-foreground"
+                              >
+                                {copy.itemDescription}
+                              </FieldLabel>
                               <Input
+                                id={`invoice-line-${index}-desc`}
                                 value={item.description}
                                 onChange={(e) =>
                                   updateLineItem(item.id, { description: e.target.value })
                                 }
-                                placeholder={copy.itemDescription}
                                 aria-label={`${copy.itemN(index + 1)}: ${copy.itemDescription}`}
                                 aria-invalid={!!descriptionError}
                               />
                               {descriptionError ? <FieldError>{descriptionError}</FieldError> : null}
                             </Field>
-                            <div className="grid grid-cols-2 gap-3">
-                              <Field data-invalid={!!qtyError}>
+                            <div className="grid grid-cols-2 items-start gap-3">
+                              <Field data-invalid={!!qtyError} className="gap-1.5">
+                                <FieldLabel
+                                  htmlFor={`invoice-line-${index}-qty`}
+                                  className="text-xs font-medium text-muted-foreground"
+                                >
+                                  {copy.itemQty}
+                                </FieldLabel>
                                 <Input
+                                  id={`invoice-line-${index}-qty`}
                                   value={item.qty}
                                   onChange={(e) => updateLineItem(item.id, { qty: e.target.value })}
-                                  placeholder={copy.itemQty}
                                   aria-label={`${copy.itemN(index + 1)}: ${copy.itemQty}`}
                                   dir="ltr"
                                   inputMode="decimal"
@@ -576,13 +589,19 @@ export function InstantInvoiceTool({
                                 />
                                 {qtyError ? <FieldError>{qtyError}</FieldError> : null}
                               </Field>
-                              <Field data-invalid={!!priceError}>
+                              <Field data-invalid={!!priceError} className="gap-1.5">
+                                <FieldLabel
+                                  htmlFor={`invoice-line-${index}-price`}
+                                  className="text-xs font-medium text-muted-foreground"
+                                >
+                                  {copy.itemPrice}
+                                </FieldLabel>
                                 <Input
+                                  id={`invoice-line-${index}-price`}
                                   value={item.unitPrice}
                                   onChange={(e) =>
                                     updateLineItem(item.id, { unitPrice: e.target.value })
                                   }
-                                  placeholder={copy.itemPrice}
                                   aria-label={`${copy.itemN(index + 1)}: ${copy.itemPrice}`}
                                   dir="ltr"
                                   inputMode="decimal"
@@ -611,40 +630,49 @@ export function InstantInvoiceTool({
                 </CardContent>
               </Card>
 
-              <Field data-invalid={!!fieldErrors.supplyDate}>
-                <FieldLabel htmlFor="supply-date">{copy.supplyDate}</FieldLabel>
-                <Input
-                  id="supply-date"
-                  type="date"
-                  className="w-full bg-card sm:max-w-56"
-                  value={draft.supplyDate ?? ""}
-                  onChange={(e) => updateDraft({ supplyDate: e.target.value })}
-                  aria-invalid={!!fieldErrors.supplyDate}
-                  aria-describedby="supply-date-help"
-                />
-                {fieldErrors.supplyDate ? <FieldError>{fieldErrors.supplyDate}</FieldError> : null}
-                {supplyDateHint(draft.supplyDate, new Date()) ? (
-                  <p
-                    id="supply-date-help"
-                    role="status"
-                    className="text-sm text-amber-800 dark:text-amber-300"
-                  >
-                    {copy.supplyAfterIssue}
-                  </p>
-                ) : (
-                  <FieldDescription id="supply-date-help">{copy.supplyDateHelp}</FieldDescription>
-                )}
-              </Field>
+              <Card className={cardClass}>
+                <CardHeader className="px-5 pb-0">
+                  <CardTitle className={cardTitleClass}>{copy.detailsTitle}</CardTitle>
+                </CardHeader>
+                <CardContent className="px-5">
+                  <FieldGroup className="gap-4">
+                  <Field data-invalid={!!fieldErrors.supplyDate}>
+                    <FieldLabel htmlFor="supply-date">{copy.supplyDate}</FieldLabel>
+                    <Input
+                      id="supply-date"
+                      type="date"
+                      className="w-full sm:max-w-56"
+                      value={draft.supplyDate ?? ""}
+                      onChange={(e) => updateDraft({ supplyDate: e.target.value })}
+                      aria-invalid={!!fieldErrors.supplyDate}
+                      aria-describedby="supply-date-help"
+                    />
+                    {fieldErrors.supplyDate ? <FieldError>{fieldErrors.supplyDate}</FieldError> : null}
+                    {supplyDateHint(draft.supplyDate, new Date()) ? (
+                      <p
+                        id="supply-date-help"
+                        role="status"
+                        className="text-sm text-amber-800 dark:text-amber-300"
+                      >
+                        {copy.supplyAfterIssue}
+                      </p>
+                    ) : (
+                      <FieldDescription id="supply-date-help">{copy.supplyDateHelp}</FieldDescription>
+                    )}
+                  </Field>
 
-              <Field>
-                <FieldLabel htmlFor="invoice-notes">{copy.notes}</FieldLabel>
-                <Textarea
-                  id="invoice-notes"
-                  className="min-h-20 resize-y bg-card"
-                  value={draft.notes}
-                  onChange={(e) => updateDraft({ notes: e.target.value })}
-                />
-              </Field>
+                  <Field>
+                    <FieldLabel htmlFor="invoice-notes">{copy.notes}</FieldLabel>
+                    <Textarea
+                      id="invoice-notes"
+                      className="min-h-20 resize-y"
+                      value={draft.notes}
+                      onChange={(e) => updateDraft({ notes: e.target.value })}
+                    />
+                  </Field>
+                  </FieldGroup>
+                </CardContent>
+              </Card>
             </div>
 
             <div className="flex min-w-0 flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
@@ -669,7 +697,7 @@ export function InstantInvoiceTool({
                       type="button"
                       disabled={!!busy}
                       onClick={() => void handleDownloadPdf()}
-                      className="flex-1"
+                      className="w-full sm:flex-1"
                       size="lg"
                     >
                       {isDownloading ? (
@@ -683,7 +711,7 @@ export function InstantInvoiceTool({
                       type="button"
                       variant="outline"
                       onClick={handleWhatsApp}
-                      className="flex-1"
+                      className="w-full sm:flex-1"
                       size="lg"
                     >
                       {copy.whatsapp}

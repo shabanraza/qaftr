@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
 import {
   Check,
   FileText,
@@ -12,6 +13,7 @@ import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { t, seoCopy } from '#/lib/marketing/i18n'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 import { InstantInvoiceTool } from '#/components/instant-invoice/InstantInvoiceTool'
+import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
 import { cn } from '#/lib/utils'
 import { Badge } from '#/components/ui/badge'
@@ -41,6 +43,7 @@ function HomePage() {
   const lang = resolveLang({ lang: searchLang })
   const copy = t(lang).home
   const toolCopy = getInstantInvoiceCopy(lang)
+  const [signupOpen, setSignupOpen] = useState(false)
 
   return (
     <MarketingLayout lang={lang} deadline>
@@ -121,8 +124,8 @@ function HomePage() {
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
           {copy.steps.map((step) => (
-            <Card key={step.title} className="gap-3 py-6 text-center md:text-start">
-              <CardHeader className="items-center px-6 pb-0 md:items-start">
+            <Card key={step.title} className="gap-3 py-6 text-start">
+              <CardHeader className="items-start px-6 pb-0">
                 <span className="mb-1 inline-flex size-10 items-center justify-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
                   {step.num}
                 </span>
@@ -152,6 +155,13 @@ function HomePage() {
             period={copy.free.period}
             features={copy.free.features}
             highlighted={false}
+            cta={
+              <Button asChild size="lg" variant="outline" className="w-full">
+                <a href="#invoice-tool" data-cta="pricing_free">
+                  {toolCopy.heroCta}
+                </a>
+              </Button>
+            }
           />
           <PricingCard
             name={copy.pro.name}
@@ -161,6 +171,18 @@ function HomePage() {
             badge={copy.pro.badge}
             features={copy.pro.features}
             highlighted
+            cta={
+              <Button
+                type="button"
+                size="lg"
+                variant="secondary"
+                className="w-full text-primary"
+                data-cta="pricing_pro"
+                onClick={() => setSignupOpen(true)}
+              >
+                {lang === 'ar' ? 'إنشاء حساب' : 'Create account'}
+              </Button>
+            }
           />
         </div>
       </section>
@@ -188,6 +210,14 @@ function HomePage() {
           </CardContent>
         </Card>
       </section>
+      <AuthGateDialog
+        lang={lang}
+        open={signupOpen}
+        onClose={() => setSignupOpen(false)}
+        onSuccess={() => setSignupOpen(false)}
+        initialMode="signup"
+        context="general"
+      />
     </MarketingLayout>
   )
 }
@@ -200,6 +230,7 @@ function PricingCard({
   badge,
   features,
   highlighted,
+  cta,
 }: {
   name: string
   price: string
@@ -208,11 +239,12 @@ function PricingCard({
   badge?: string
   features: string[]
   highlighted: boolean
+  cta: React.ReactNode
 }) {
   return (
     <Card
       className={cn(
-        'relative gap-4 py-8',
+        'relative gap-6 py-8',
         highlighted && 'border-secondary bg-primary text-primary-foreground shadow-xl',
       )}
     >
@@ -253,6 +285,7 @@ function PricingCard({
           ))}
         </ul>
       </CardContent>
+      <div className="mt-auto px-8">{cta}</div>
     </Card>
   )
 }
@@ -274,8 +307,8 @@ function InvoicePreview({ lang }: { lang: 'ar' | 'en' }) {
               {isAr ? 'مؤسسة قافتر التجارية' : 'Qaftr Trading Est.'}
             </CardTitle>
           </div>
-          <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-            QR
+          <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-white text-primary">
+            <QrCode className="size-9" strokeWidth={1.5} aria-hidden />
           </div>
         </div>
       </CardHeader>

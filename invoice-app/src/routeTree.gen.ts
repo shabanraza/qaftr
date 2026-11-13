@@ -29,6 +29,7 @@ import { Route as WorkspaceNewInvoiceRouteImport } from './routes/workspace/new-
 import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoices'
 import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
 import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
+import { Route as ToolsZatcaXmlValidatorRouteImport } from './routes/tools/zatca-xml-validator'
 import { Route as ToolsZatcaWaveCheckerRouteImport } from './routes/tools/zatca-wave-checker'
 import { Route as ToolsZatcaQrRouteImport } from './routes/tools/zatca-qr'
 import { Route as ToolsVatCalculatorRouteImport } from './routes/tools/vat-calculator'
@@ -156,6 +157,11 @@ const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
   id: '/accountant',
   path: '/accountant',
   getParentRoute: () => WorkspaceRoute,
+} as any)
+const ToolsZatcaXmlValidatorRoute = ToolsZatcaXmlValidatorRouteImport.update({
+  id: '/tools/zatca-xml-validator',
+  path: '/tools/zatca-xml-validator',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsZatcaWaveCheckerRoute = ToolsZatcaWaveCheckerRouteImport.update({
   id: '/tools/zatca-wave-checker',
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
   '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
+  '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
   '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
+  '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
@@ -392,6 +400,7 @@ export interface FileRoutesById {
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
   '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
+  '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
@@ -440,6 +449,7 @@ export interface FileRouteTypes {
     | '/tools/vat-calculator'
     | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
+    | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/invoices'
@@ -485,6 +495,7 @@ export interface FileRouteTypes {
     | '/tools/vat-calculator'
     | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
+    | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/new-invoice'
@@ -529,6 +540,7 @@ export interface FileRouteTypes {
     | '/tools/vat-calculator'
     | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
+    | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
     | '/workspace/clients'
     | '/workspace/invoices'
@@ -576,6 +588,7 @@ export interface RootRouteChildren {
   ToolsVatCalculatorRoute: typeof ToolsVatCalculatorRoute
   ToolsZatcaQrRoute: typeof ToolsZatcaQrRoute
   ToolsZatcaWaveCheckerRoute: typeof ToolsZatcaWaveCheckerRoute
+  ToolsZatcaXmlValidatorRoute: typeof ToolsZatcaXmlValidatorRoute
   AeIndexRoute: typeof AeIndexRoute
   InvoicesIndexRoute: typeof InvoicesIndexRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
@@ -730,6 +743,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/workspace/accountant'
       preLoaderRoute: typeof WorkspaceAccountantRouteImport
       parentRoute: typeof WorkspaceRoute
+    }
+    '/tools/zatca-xml-validator': {
+      id: '/tools/zatca-xml-validator'
+      path: '/tools/zatca-xml-validator'
+      fullPath: '/tools/zatca-xml-validator'
+      preLoaderRoute: typeof ToolsZatcaXmlValidatorRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/tools/zatca-wave-checker': {
       id: '/tools/zatca-wave-checker'
@@ -978,6 +998,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsVatCalculatorRoute: ToolsVatCalculatorRoute,
   ToolsZatcaQrRoute: ToolsZatcaQrRoute,
   ToolsZatcaWaveCheckerRoute: ToolsZatcaWaveCheckerRoute,
+  ToolsZatcaXmlValidatorRoute: ToolsZatcaXmlValidatorRoute,
   AeIndexRoute: AeIndexRoute,
   InvoicesIndexRoute: InvoicesIndexRoute,
   ToolsIndexRoute: ToolsIndexRoute,

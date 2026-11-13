@@ -211,7 +211,7 @@ function DecodedResult({ qr, lang, errors }: { qr: DecodedZatcaQr; lang: Marketi
                 key={issue.code}
                 className={cn(
                   'flex gap-2 text-sm',
-                  issue.severity === 'error' ? 'text-destructive' : 'text-[var(--qaftr-gold)]',
+                  issue.severity === 'error' ? 'text-destructive' : 'text-[var(--qaftr-gold-ink)]',
                 )}
               >
                 {issue.severity === 'error' ? (

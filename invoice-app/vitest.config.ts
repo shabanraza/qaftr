@@ -14,7 +14,13 @@ export default defineConfig({
         replacement: fileURLToPath(new URL('./src/$1', import.meta.url)),
       },
       {
-        find: '@zatca/shared',
+        find: /^@zatca\/shared\/zatca-phase2$/,
+        replacement: fileURLToPath(
+          new URL('../packages/shared/src/zatca-phase2/index.ts', import.meta.url),
+        ),
+      },
+      {
+        find: /^@zatca\/shared$/,
         replacement: fileURLToPath(
           new URL('../packages/shared/src/index.ts', import.meta.url),
         ),
