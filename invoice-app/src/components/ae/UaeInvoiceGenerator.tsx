@@ -197,7 +197,7 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
             </CardTitle>
             <p className="text-xs text-muted-foreground">{copy.draftNote}</p>
           </CardHeader>
-          <CardContent className="flex flex-col gap-8 px-5 py-6">
+          <CardContent className="qaftr-form-sections flex flex-col gap-7 px-5 py-6">
             <Section legend={copy.settingsTitle}>
               <RadioCards<UaeInvoiceType>
                 name="ae-invoice-type"
@@ -283,7 +283,7 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
                       </Button>
                     ) : null}
                     <TextField id={`${id}-desc`} label={copy.description} value={line.description} onChange={(description) => updateLine(index, { description })} />
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    <div className="grid grid-cols-2 items-end gap-3 sm:grid-cols-3">
                       <TextField id={`${id}-qty`} label={copy.qty} value={line.qty} onChange={(qty) => updateLine(index, { qty })} ltr inputMode="decimal" />
                       <TextField id={`${id}-price`} label={copy.unitPrice} value={line.unitPrice} onChange={(unitPrice) => updateLine(index, { unitPrice })} ltr inputMode="decimal" />
                       <TextField id={`${id}-discount`} label={copy.discount} value={line.discount} onChange={(discount) => updateLine(index, { discount })} ltr inputMode="decimal" />
@@ -349,7 +349,7 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
                   <dt className="font-medium text-foreground">{copy.totalPayable}</dt>
                   <dd
                     dir="ltr"
-                    className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold)]"
+                    className="break-all font-[family-name:var(--font-qaftr-display)] text-2xl font-bold tabular-nums text-[var(--qaftr-gold-ink)]"
                     data-testid="ae-inv-total-payable"
                   >
                     {formatAed(totals.totalPayable, lang)}
