@@ -261,6 +261,10 @@ const RELATED: Record<DocumentKind, Array<{ to: string; ar: string; en: string }
     { to: '/tools/fatora', ar: 'إصدار فاتورة ضريبية مجاناً', en: 'Create a free tax invoice' },
     { to: '/tools/vat-calculator', ar: 'حاسبة ضريبة القيمة المضافة', en: 'VAT calculator' },
   ],
+  'non-tax-invoice': [
+    { to: '/tools/receipt-voucher', ar: 'إصدار سند قبض', en: 'Create a receipt voucher' },
+    { to: '/tools/quotation', ar: 'إعداد عرض سعر', en: 'Create a quotation' },
+  ],
 }
 
 type ShellProps = {

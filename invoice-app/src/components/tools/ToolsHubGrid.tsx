@@ -5,6 +5,7 @@ import {
   CalendarClockIcon,
   FileMinusIcon,
   FileTextIcon,
+  ReceiptIcon,
   ReceiptTextIcon,
   ScrollTextIcon,
   ShieldCheckIcon,
@@ -31,6 +32,7 @@ const TOOL_ICONS: Record<ToolId, typeof FileTextIcon> = {
   quotation: ScrollTextIcon,
   "receipt-voucher": ReceiptTextIcon,
   "credit-note": FileMinusIcon,
+  "non-tax-invoice": ReceiptIcon,
 };
 
 const ACCENT_STYLES: Record<(typeof TOOL_DEFINITIONS)[number]["accent"], string> = {

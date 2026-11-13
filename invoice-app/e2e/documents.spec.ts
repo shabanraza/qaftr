@@ -3,7 +3,7 @@ import type { Download, Page } from '@playwright/test'
 import { test, expect, open, asciiDigits } from './fixtures'
 
 // Saudi document generators: /tools/receipt-voucher, /tools/quotation,
-// /tools/credit-note. Fill each in Arabic and English, check the computed
+// /tools/credit-note, /tools/non-tax-invoice. Fill each in Arabic and English, check the computed
 // values and that the download is a real PDF whose metadata names the type.
 const DOWNLOAD = { ar: 'تنزيل PDF', en: 'Download PDF' } as const
 const VAT = '300000000000003'
@@ -89,12 +89,33 @@ for (const lang of ['ar', 'en'] as const) {
       expect(download.suggestedFilename()).toBe('qaftr-credit-note-CN-0001.pdf')
       expect(pdf).toMatch(/\/Title \(Credit Note CN-0001\)/)
     })
+
+    test(`non-tax invoice: no VAT, CR number and PDF [${lang}]`, async ({ page }) => {
+      await open(page, url('/tools/non-tax-invoice', lang))
+      await expect(page.locator('input[id$="-vat"]')).toHaveCount(0)
+      await page.locator('#nt-seller-name').fill(lang === 'ar' ? 'مؤسسة النخبة للصيانة' : 'Elite Maintenance Est.')
+      await page.locator('#nt-seller-cr').fill('4030123456')
+      await page.locator('#nt-line-0-desc').fill(lang === 'ar' ? 'صيانة مكيف' : 'AC maintenance')
+      await page.locator('#nt-line-0-qty').fill('2')
+      await page.locator('#nt-line-0-price').fill('150')
+      await expect.poll(async () => asciiDigits(await page.getByTestId('doc-total').innerText())).toContain('300.00')
+      await expect(page.getByTestId('doc-vat')).toHaveCount(0)
+
+      const preview = page.frameLocator(`iframe[title="${PREVIEW[lang]}"]`)
+      await expect(preview.locator('h1')).toContainText(lang === 'ar' ? 'فاتورة غير ضريبية' : 'Non-Tax Invoice')
+      await expect(preview.locator('body')).toContainText('4030123456')
+      await expect(preview.locator('body')).not.toContainText(lang === 'ar' ? 'الرقم الضريبي' : 'VAT number')
+
+      const { download, pdf } = await downloadPdf(page, lang)
+      expect(download.suggestedFilename()).toBe('qaftr-non-tax-invoice-INV-0001.pdf')
+      expect(pdf).toMatch(/\/Title \(Invoice INV-0001\)/)
+    })
   })
 }
 
-test('tools hub links to the three document generators', async ({ page }) => {
+test('tools hub links to the four document generators', async ({ page }) => {
   await open(page, '/tools?lang=en')
-  for (const href of ['/tools/quotation', '/tools/receipt-voucher', '/tools/credit-note']) {
+  for (const href of ['/tools/quotation', '/tools/receipt-voucher', '/tools/credit-note', '/tools/non-tax-invoice']) {
     await expect(page.locator(`a[href^="${href}"]`).first()).toBeVisible()
   }
 })

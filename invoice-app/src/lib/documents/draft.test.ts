@@ -23,6 +23,7 @@ describe('document drafts', () => {
       'receipt-voucher': 'qaftr:receipt-voucher-draft:v1',
       quotation: 'qaftr:quotation-draft:v1',
       'credit-note': 'qaftr:credit-note-draft:v1',
+      'non-tax-invoice': 'qaftr:non-tax-invoice-draft:v1',
     })
   })
 

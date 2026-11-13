@@ -1,6 +1,7 @@
 import type {
   CreditNoteIssueCode,
   CreditNoteReason,
+  NonTaxInvoiceIssueCode,
   QuotationIssueCode,
   ReceiptIssueCode,
   ReceiptPaymentMethod,
@@ -13,13 +14,14 @@ import type { MarketingLang } from '#/lib/marketing/lang'
  * Glossary: docs/COMPETITOR_UX_SPEC_2026-11-09.md §2.1 (البائع / المشتري,
  * الرقم الضريبي, إشعار دائن / Credit Note).
  */
-export const DOCUMENT_KINDS = ['receipt-voucher', 'quotation', 'credit-note'] as const
+export const DOCUMENT_KINDS = ['receipt-voucher', 'quotation', 'credit-note', 'non-tax-invoice'] as const
 export type DocumentKind = (typeof DOCUMENT_KINDS)[number]
 
 export const DOCUMENT_PATHS: Record<DocumentKind, `/tools/${DocumentKind}`> = {
   'receipt-voucher': '/tools/receipt-voucher',
   quotation: '/tools/quotation',
   'credit-note': '/tools/credit-note',
+  'non-tax-invoice': '/tools/non-tax-invoice',
 }
 
 type Seo = { title: string; description: string }
@@ -143,11 +145,35 @@ export type CreditNoteCopy = PageCopy &
     issues: Record<CreditNoteIssueCode, string>
   }
 
+export type NonTaxInvoiceCopy = PageCopy &
+  LinesCopy & {
+    number: string
+    date: string
+    sellerTitle: string
+    sellerName: string
+    address: string
+    crNumber: string
+    crHint: string
+    buyerTitle: string
+    buyerHint: string
+    buyerName: string
+    notes: string
+    notesHint: string
+    totalLabel: string
+    /** Printed on the document and shown under the preview. */
+    notRegisteredNote: string
+    /** Shown above the form: registered businesses must issue a tax invoice. */
+    registeredWarning: string
+    registeredCta: string
+    issues: Record<NonTaxInvoiceIssueCode, string>
+  }
+
 export type DocumentCopy = {
   common: CommonDocumentCopy
   'receipt-voucher': ReceiptCopy
   quotation: QuotationCopy
   'credit-note': CreditNoteCopy
+  'non-tax-invoice': NonTaxInvoiceCopy
 }
 
 const linesAr: LinesCopy = {
@@ -457,6 +483,78 @@ const ar: DocumentCopy = {
       ],
     },
   },
+  'non-tax-invoice': {
+    ...linesAr,
+    unitPrice: 'سعر الوحدة',
+    seo: {
+      title: 'فاتورة غير ضريبية PDF مجاناً — للمنشآت غير المسجلة | قافتر',
+      description:
+        'أنشئ فاتورة غير ضريبية لمنشأتك غير المسجلة في ضريبة القيمة المضافة، دون ضريبة أو رقم ضريبي، ونزّلها PDF بالعربية أو الإنجليزية. مجاناً ودون تسجيل.',
+    },
+    title: 'فاتورة غير ضريبية مجانية للمنشآت غير المسجلة في الضريبة',
+    subtitle:
+      'للمحلات والمنشآت الصغيرة غير المسجلة في ضريبة القيمة المضافة: فاتورة لعملائك من الأفراد والشركات ببنود وإجمالي دون ضريبة، جاهزة PDF في دقائق.',
+    formTitle: 'بيانات الفاتورة غير الضريبية',
+    number: 'رقم الفاتورة',
+    date: 'تاريخ الفاتورة',
+    sellerTitle: 'بيانات منشأتك',
+    sellerName: 'اسم المنشأة',
+    address: 'العنوان',
+    crNumber: 'رقم السجل التجاري',
+    crHint: 'اختياري: ١٠ أرقام.',
+    buyerTitle: 'بيانات العميل',
+    buyerHint: 'اختياري للعملاء الأفراد.',
+    buyerName: 'اسم العميل',
+    notes: 'ملاحظات',
+    notesHint: 'مثل: الضمان، أو طريقة الدفع، أو رقم الجوال.',
+    totalLabel: 'الإجمالي',
+    notRegisteredNote: 'صادرة من منشأة غير مسجلة في ضريبة القيمة المضافة، ولا تتضمن ضريبة.',
+    registeredWarning:
+      'إذا كانت منشأتك مسجلة في ضريبة القيمة المضافة فيجب عليك إصدار فاتورة ضريبية بدلاً من الفاتورة غير الضريبية.',
+    registeredCta: 'أصدر فاتورة ضريبية',
+    issues: {
+      NUMBER_REQUIRED: 'أدخل رقم الفاتورة.',
+      DATE_REQUIRED: 'اختر تاريخ الفاتورة.',
+      SELLER_NAME_REQUIRED: 'أدخل اسم المنشأة.',
+      SELLER_CR_INVALID: 'رقم السجل التجاري يتكون من ١٠ أرقام.',
+      ...lineIssuesAr,
+    },
+    faq: [
+      {
+        question: 'ما هي الفاتورة غير الضريبية؟',
+        answer:
+          'هي فاتورة تصدرها منشأة غير مسجلة في ضريبة القيمة المضافة لإثبات البيع أو تقديم الخدمة. تتضمن رقم الفاتورة وتاريخها، واسم المنشأة، والبنود والإجمالي، ولا تتضمن ضريبة ولا رقماً ضريبياً.',
+      },
+      {
+        question: 'من يحق له إصدار فاتورة غير ضريبية؟',
+        answer:
+          'المنشأة غير المسجلة في الضريبة، وغالباً تكون توريداتها الخاضعة للضريبة أقل من ٣٧٥٬٠٠٠ ريال سنوياً، وهو حد التسجيل الإلزامي. يمكن التسجيل اختيارياً عند تجاوز ١٨٧٬٥٠٠ ريال. بعد التسجيل يجب إصدار فواتير ضريبية.',
+      },
+      {
+        question: 'هل أضيف ضريبة القيمة المضافة على الفاتورة غير الضريبية؟',
+        answer:
+          'لا. يُحظر على المنشأة غير المسجلة إصدار فاتورة ضريبية أو أي مستند يُظهر مبلغ الضريبة، أو تحصيل أي مبلغ بوصفه ضريبة قيمة مضافة، وغرامة ذلك تصل إلى ١٠٠٬٠٠٠ ريال. إذا تجاوزت توريداتك حد التسجيل الإلزامي فسجّل في الضريبة ثم أصدر فواتير ضريبية.',
+      },
+      {
+        question: 'هل تحتاج الفاتورة غير الضريبية إلى رمز QR أو الفوترة الإلكترونية؟',
+        answer:
+          'الفوترة الإلكترونية ورمز QR يخصّان الفواتير الضريبية التي يصدرها الخاضعون لضريبة القيمة المضافة. المنشأة غير المسجلة لا يحق لها إصدار فاتورة ضريبية، فتصدر فاتورة عادية دون ضريبة ودون رمز QR. وإذا أصبحت ملزمة بالتسجيل فسجّل أولاً.',
+      },
+      {
+        question: 'هل الأداة مجانية؟',
+        answer:
+          'نعم. أنشئ الفاتورة ونزّلها PDF بالعربية أو الإنجليزية أو بلغتين دون تسجيل. تُحفظ المسودة في متصفحك فقط.',
+      },
+    ],
+    howTo: {
+      name: 'كيف تُصدر فاتورة غير ضريبية PDF',
+      steps: [
+        { name: 'أدخل بيانات منشأتك', text: 'اكتب اسم المنشأة وعنوانها، ورقم السجل التجاري إن وُجد.' },
+        { name: 'أدخل العميل والبنود', text: 'اكتب اسم العميل إن أردت، ثم الوصف والكمية وسعر الوحدة لكل بند.' },
+        { name: 'نزّل الفاتورة', text: 'راجع الإجمالي دون ضريبة، ثم نزّل الفاتورة PDF وأرسلها إلى العميل.' },
+      ],
+    },
+  },
 }
 
 const en: DocumentCopy = {
@@ -700,6 +798,78 @@ const en: DocumentCopy = {
         { name: 'Choose the reason', text: 'Pick the case, such as a return, a later discount or a cancellation.' },
         { name: 'Enter parties and items', text: 'Copy the seller and buyer from the original invoice and enter the credited items before VAT.' },
         { name: 'Download', text: 'Check the VAT and total, download the PDF and send it to the customer.' },
+      ],
+    },
+  },
+  'non-tax-invoice': {
+    ...linesEn,
+    unitPrice: 'Unit price',
+    seo: {
+      title: 'Free Non-Tax Invoice PDF for Non-VAT Businesses | Qaftr',
+      description:
+        'Create a non-tax invoice for a business not registered for VAT in Saudi Arabia: no VAT, no VAT number, PDF in Arabic or English. Free, no sign-up.',
+    },
+    title: 'Free non-tax invoice for businesses not registered for VAT',
+    subtitle:
+      'For shops and small businesses that are not VAT-registered: invoice consumers and companies with line items and a total without VAT, ready as a PDF in minutes.',
+    formTitle: 'Non-tax invoice details',
+    number: 'Invoice number',
+    date: 'Invoice date',
+    sellerTitle: 'Your business',
+    sellerName: 'Business name',
+    address: 'Address',
+    crNumber: 'CR number',
+    crHint: 'Optional: 10-digit commercial registration number.',
+    buyerTitle: 'Customer',
+    buyerHint: 'Optional for consumers.',
+    buyerName: 'Customer name',
+    notes: 'Notes',
+    notesHint: 'For example: warranty, payment method or phone number.',
+    totalLabel: 'Total',
+    notRegisteredNote: 'Issued by a business not registered for VAT. No VAT is charged.',
+    registeredWarning:
+      'If your business is registered for VAT, you must issue a tax invoice instead of a non-tax invoice.',
+    registeredCta: 'Create a tax invoice',
+    issues: {
+      NUMBER_REQUIRED: 'Enter the invoice number.',
+      DATE_REQUIRED: 'Choose the invoice date.',
+      SELLER_NAME_REQUIRED: 'Enter your business name.',
+      SELLER_CR_INVALID: 'The CR number has 10 digits.',
+      ...lineIssuesEn,
+    },
+    faq: [
+      {
+        question: 'What is a non-tax invoice?',
+        answer:
+          'An invoice issued by a business that is not registered for VAT, to record a sale or service. It shows the invoice number and date, the business name, the items and the total, with no VAT and no VAT number.',
+      },
+      {
+        question: 'Who can issue a non-tax invoice?',
+        answer:
+          'A business that is not registered for VAT, usually because its taxable supplies are below SAR 375,000 a year, the mandatory registration threshold. Voluntary registration is possible above SAR 187,500. Once registered, you must issue tax invoices.',
+      },
+      {
+        question: 'Do I add VAT to a non-tax invoice?',
+        answer:
+          'No. A business that is not registered for VAT must not issue a tax invoice or any document showing a VAT amount, or collect VAT, and faces a fine of up to SAR 100,000. If your taxable supplies pass the mandatory threshold, register for VAT and then issue tax invoices.',
+      },
+      {
+        question: 'Does a non-tax invoice need a QR code or e-invoicing?',
+        answer:
+          'E-invoicing and the QR code apply to tax invoices issued by VAT taxpayers. A business that is not registered may not issue tax invoices, so it issues a regular invoice without VAT and without a QR code. If you become required to register, register first.',
+      },
+      {
+        question: 'Is the tool free?',
+        answer:
+          'Yes. Create the invoice and download it in Arabic, English or both, with no sign-up. The draft stays in your browser.',
+      },
+    ],
+    howTo: {
+      name: 'How to issue a non-tax invoice PDF',
+      steps: [
+        { name: 'Enter your business', text: 'Type your business name and address, and the CR number if you have one.' },
+        { name: 'Enter the customer and items', text: 'Optionally add the customer, then the description, quantity and unit price of each item.' },
+        { name: 'Download', text: 'Check the total without VAT, download the PDF and send it to the customer.' },
       ],
     },
   },

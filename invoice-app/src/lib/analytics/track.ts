@@ -16,7 +16,7 @@ export type ToolName =
   | 'uae_readiness_quiz'
 
 /** Free Saudi document generators (receipt voucher, quotation, credit note). */
-export const DOCUMENT_TOOLS = ['receipt_voucher', 'quotation', 'credit_note'] as const
+export const DOCUMENT_TOOLS = ['receipt_voucher', 'quotation', 'credit_note', 'non_tax_invoice'] as const
 export type DocumentToolName = (typeof DOCUMENT_TOOLS)[number]
 
 export type InvoiceToolName = 'fatora' | 'home_instant' | 'workspace' | 'uae_invoice_generator'

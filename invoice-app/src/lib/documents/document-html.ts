@@ -1,14 +1,16 @@
 import {
   amountInArabicWords,
   amountInEnglishWords,
+  computeNonTaxDocumentTotals,
   computeSaudiDocumentTotals,
+  normalizeCrNumber,
   normalizeSaudiVatNumber,
   parseLocaleDecimal,
 } from '@zatca/shared'
 import { formatAeDate } from '#/lib/ae/format'
 import { documentFontFaceCss } from '#/lib/fonts/document-fonts'
 import { getDocumentCopy } from './copy'
-import type { CreditNoteDraft, DocumentOutputLang, QuotationDraft, ReceiptDraft } from './draft'
+import type { CreditNoteDraft, DocumentOutputLang, NonTaxInvoiceDraft, QuotationDraft, ReceiptDraft } from './draft'
 
 /**
  * Printable HTML for the Saudi document generators (preview iframe and PDF via
@@ -21,6 +23,13 @@ const DOC = {
   receipt: { ar: 'سند قبض', en: 'Receipt Voucher' },
   quotation: { ar: 'عرض سعر', en: 'Quotation' },
   creditNote: { ar: 'إشعار دائن', en: 'Credit Note' },
+  nonTaxInvoice: { ar: 'فاتورة غير ضريبية', en: 'Non-Tax Invoice' },
+  invoiceNo: { ar: 'رقم الفاتورة', en: 'Invoice no.' },
+  crNo: { ar: 'السجل التجاري', en: 'CR no.' },
+  from: { ar: 'من', en: 'From' },
+  billTo: { ar: 'إلى', en: 'Bill to' },
+  amount: { ar: 'المبلغ', en: 'Amount' },
+  grandTotal: { ar: 'الإجمالي', en: 'Total' },
   receiptNo: { ar: 'رقم السند', en: 'Receipt no.' },
   quotationNo: { ar: 'رقم العرض', en: 'Quotation no.' },
   creditNoteNo: { ar: 'رقم الإشعار', en: 'Credit note no.' },
@@ -373,4 +382,64 @@ ${items}
 ${draft.notes.trim() ? `<div class="section"><div class="muted">${p.label(DOC.notes)}</div>${text(draft.notes)}</div>` : ''}
 ${foot(p, DOC.creditLinked)}`
   return page(p, DOC.creditNote, draft.number, body, Boolean(options.forPdf))
+}
+
+export function buildNonTaxInvoiceHtml(draft: NonTaxInvoiceDraft, options: { forPdf?: boolean } = {}): string {
+  const p = new Printer(draft.outputLang)
+  const meta = [
+    p.field(DOC.invoiceNo, ltr(draft.number.trim())),
+    p.field(DOC.date, p.date(draft.date)),
+  ].join('')
+  const cr = normalizeCrNumber(draft.seller.crNumber)
+  const seller = `<div class="party">
+    <div class="muted">${p.label(DOC.from)}</div>
+    <div class="party-name">${text(draft.seller.name)}</div>
+    ${draft.seller.address.trim() ? `<div>${text(draft.seller.address)}</div>` : ''}
+    ${cr ? p.field(DOC.crNo, ltr(cr)) : ''}
+  </div>`
+  const buyer = draft.buyer.name.trim()
+    ? `<div class="party">
+    <div class="muted">${p.label(DOC.billTo)}</div>
+    <div class="party-name">${text(draft.buyer.name)}</div>
+    ${draft.buyer.address.trim() ? `<div>${text(draft.buyer.address)}</div>` : ''}
+  </div>`
+    : ''
+  const totals = computeNonTaxDocumentTotals(draft.lines)
+  const rows = totals.lineItems
+    .map(
+      (l, i) => `<tr>
+  <td class="n">${i + 1}</td>
+  <td>${text(l.description)}</td>
+  <td class="n">${ltr(String(Number(l.qty)))}</td>
+  <td class="n">${ltr(money(l.unitPrice))}</td>
+  <td class="n b">${ltr(money(l.lineTotal))}</td>
+</tr>`,
+    )
+    .join('')
+  const note: Label = {
+    ar: getDocumentCopy('ar')['non-tax-invoice'].notRegisteredNote,
+    en: getDocumentCopy('en')['non-tax-invoice'].notRegisteredNote,
+  }
+  const body = `${head(p, DOC.nonTaxInvoice, meta)}
+<div class="parties">
+  ${seller}
+  ${buyer}
+</div>
+<table class="items">
+  <thead><tr>
+    <th class="n">#</th>
+    <th>${p.header(DOC.description)}</th>
+    <th class="n">${p.header(DOC.qty)}</th>
+    <th class="n">${p.header(DOC.unitPrice)}</th>
+    <th class="n">${p.header(DOC.amount)}</th>
+  </tr></thead>
+  <tbody>${rows}</tbody>
+</table>
+<table class="totals">
+  <tr class="grand"><td>${p.label(DOC.grandTotal)}</td><td class="n">${p.amount(totals.total)}</td></tr>
+</table>
+${Number(totals.total) > 0 ? `<div class="box" style="margin-top:12px"><div class="muted">${p.label(DOC.totalInWords)}</div>${p.words(totals.total)}</div>` : ''}
+${draft.notes.trim() ? `<div class="section"><div class="muted">${p.label(DOC.notes)}</div>${text(draft.notes)}</div>` : ''}
+${foot(p, note)}`
+  return page(p, DOC.nonTaxInvoice, draft.number, body, Boolean(options.forPdf))
 }

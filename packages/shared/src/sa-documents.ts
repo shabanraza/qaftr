@@ -272,3 +272,67 @@ export function validateCreditNote(input: CreditNoteInput): DocumentValidation<C
   issues.push(...lineIssues(input.lines));
   return result(issues);
 }
+
+/* ----------------------------- Non-tax invoice ----------------------------- */
+
+/**
+ * فاتورة غير ضريبية — an invoice from a business that is NOT registered for
+ * VAT (registration is mandatory above SAR 375,000 of annual taxable supplies,
+ * voluntary from SAR 187,500). Such a
+ * business must not charge VAT or present itself as registered, so the input
+ * has no VAT number and the totals carry no VAT. E-invoicing (Fatoora) applies
+ * to VAT-registered persons only.
+ */
+export interface NonTaxInvoiceSeller {
+  name: string;
+  address: string;
+  /** Commercial registration (السجل التجاري), optional: 10 digits. */
+  crNumber: string;
+}
+
+export interface NonTaxInvoiceInput {
+  number: string;
+  date: string;
+  seller: NonTaxInvoiceSeller;
+  /** Optional: walk-in consumers often have no name on the invoice. */
+  buyer: { name: string; address: string };
+  lines: DocumentLineInput[];
+  notes: string;
+}
+
+export type NonTaxInvoiceIssueCode =
+  | "NUMBER_REQUIRED"
+  | "DATE_REQUIRED"
+  | "SELLER_NAME_REQUIRED"
+  | "SELLER_CR_INVALID"
+  | LineIssueCode;
+
+export interface NonTaxDocumentTotals {
+  lineItems: ComputedInvoiceTotals["lineItems"];
+  total: string;
+}
+
+/** Line totals rounded to the halala and summed; no VAT. */
+export function computeNonTaxDocumentTotals(lines: DocumentLineInput[]): NonTaxDocumentTotals {
+  const { lineItems, subtotal } = computeSaudiDocumentTotals(lines);
+  return { lineItems, total: subtotal };
+}
+
+/** "٤٠٣٠ ١٢٣-٤٥٦" → "4030123456". */
+export function normalizeCrNumber(raw: string): string {
+  return raw
+    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
+    .replace(/[\s-]/g, "");
+}
+
+export function validateNonTaxInvoice(input: NonTaxInvoiceInput): DocumentValidation<NonTaxInvoiceIssueCode> {
+  const issues: DocumentIssue<NonTaxInvoiceIssueCode>[] = [];
+  if (blank(input.number)) issues.push({ code: "NUMBER_REQUIRED" });
+  if (!ISO_DATE.test(input.date)) issues.push({ code: "DATE_REQUIRED" });
+  if (blank(input.seller.name)) issues.push({ code: "SELLER_NAME_REQUIRED" });
+  const cr = normalizeCrNumber(input.seller.crNumber);
+  if (cr && !/^\d{10}$/.test(cr)) issues.push({ code: "SELLER_CR_INVALID" });
+  issues.push(...lineIssues(input.lines));
+  return result(issues);
+}

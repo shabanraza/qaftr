@@ -23,8 +23,8 @@ describe('document generator copy', () => {
         descriptions.add(seo.description)
       }
     }
-    expect(titles.size).toBe(6)
-    expect(descriptions.size).toBe(6)
+    expect(titles.size).toBe(DOCUMENT_KINDS.length * 2)
+    expect(descriptions.size).toBe(DOCUMENT_KINDS.length * 2)
   })
 
   it('puts the Arabic keyword first in Arabic titles', () => {
