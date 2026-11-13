@@ -15,6 +15,13 @@
       "when": 1780740287652,
       "tag": "0001_invoices_business_seq_unique",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794591207456,
+      "tag": "0002_zatca_phase2",
+      "breakpoints": true
     }
   ]
 }
