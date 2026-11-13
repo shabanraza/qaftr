@@ -4,6 +4,7 @@ import {
   CalculatorIcon,
   CalendarClockIcon,
   FileMinusIcon,
+  FileCode2Icon,
   FileTextIcon,
   ReceiptIcon,
   ReceiptTextIcon,
@@ -35,6 +36,7 @@ const TOOL_ICONS: Record<ToolId, typeof FileTextIcon> = {
   "credit-note": FileMinusIcon,
   "non-tax-invoice": ReceiptIcon,
   "zatca-qr": ScanQrCodeIcon,
+  "zatca-xml-validator": FileCode2Icon,
 };
 
 const ACCENT_STYLES: Record<(typeof TOOL_DEFINITIONS)[number]["accent"], string> = {

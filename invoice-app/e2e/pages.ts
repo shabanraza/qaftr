@@ -32,6 +32,7 @@ export const PAGES: PageEntry[] = [
   { path: '/tools/credit-note', region: 'sa' },
   { path: '/tools/non-tax-invoice', region: 'sa' },
   { path: '/tools/zatca-qr', region: 'sa' },
+  { path: '/tools/zatca-xml-validator', region: 'sa' },
   { path: '/guides/zatca-wave-25', region: 'sa' },
   { path: '/zatca-invoice-generator', region: 'sa' },
   { path: '/free-invoice-generator', region: 'sa' },
