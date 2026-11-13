@@ -150,23 +150,14 @@ describe('UaeInvoiceGenerator', () => {
     await waitFor(() => expect(pdf.downloadBlob).toHaveBeenCalledTimes(1))
   })
 
-  it('moves the sign-up offer right after the summary once the PDF is downloaded', async () => {
+  it('does not offer a UAE account or promise features that are not planned', async () => {
     const { field, type } = await setup()
-    expect(screen.getByTestId('ae-inv-save').getAttribute('data-placement')).toBe('bottom')
     fillValid(field, type)
     fireEvent.click(screen.getAllByRole('button', { name: /Download PDF/ })[0]!)
-    await waitFor(() =>
-      expect(screen.getByTestId('ae-inv-save').getAttribute('data-placement')).toBe('after-result'),
-    )
-    const summary = screen.getByRole('heading', { name: 'Summary' }).closest('[data-slot="card"]')!
-    expect(summary.nextElementSibling).toBe(screen.getByTestId('ae-inv-save'))
-  })
-
-  it('shows save as coming soon with a signup button instead of saving', async () => {
-    await setup()
-    expect(document.body.textContent).toMatch(/Save & manage: coming soon for UAE/)
-    fireEvent.click(screen.getByRole('button', { name: 'Create a free account' }))
-    expect(screen.getByRole('dialog').textContent).toBe('signup dialog')
+    await waitFor(() => expect(pdf.downloadBlob).toHaveBeenCalledTimes(1))
+    expect(screen.queryByTestId('ae-inv-save')).toBeNull()
+    expect(document.body.textContent).not.toMatch(/coming soon/i)
+    expect(screen.queryByRole('button', { name: 'Create a free account' })).toBeNull()
   })
 
   it('renders Arabic by default labels in Arabic', async () => {

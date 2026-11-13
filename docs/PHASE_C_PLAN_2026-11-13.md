@@ -1,14 +1,17 @@
-# Phase C: real e-invoicing for Saudi Arabia and the UAE (2026-11-13)
+# Phase C: ZATCA Phase 2 e-invoicing, Saudi Arabia only (2026-11-13)
 
 Builds on `docs/PHASE2_DATA_MODEL_PROPOSAL.md` (data model, signing, queue, certificate lifecycle) and the existing
 `packages/shared/src/zatca-phase2/` code (UBL builder, hash, XAdES signature, QR, CSR, API client).
 
 ## 1. Decision summary
 
-| Market | Route | Why |
-|---|---|---|
-| **Saudi Arabia (ZATCA Phase 2)** | **Build in-house now** | ZATCA licenses no solution providers. Each taxpayer onboards its own EGS units with an OTP from the Fatoora portal. We already have the signing stack. |
-| **UAE (Peppol / PINT AE)** | **Partner with an Accredited Service Provider (ASP) now; apply for our own accreditation later** | The Ministerial Decision requires **2 years of operating an e-invoicing system**, Peppol certification, ISO 27001 and 22301, and AED 12.5M of insurance cover. We can't meet that before the UAE mandate dates. |
+**Scope: Saudi Arabia only.** Qaftr builds ZATCA Phase 2 (integration) in-house. ZATCA licenses no solution providers, each taxpayer
+onboards its own EGS units with a Fatoora OTP, and the signing stack already exists in `packages/shared`.
+
+**UAE: no e-invoicing service.** Providing UAE e-invoicing requires Ministry of Finance accreditation (see the appendix), which
+needs a UAE entity, 2 years' experience, Peppol certification, ISO 27001/22301 and AED 12.5M of insurance. We will not pursue it.
+The `/ae` section stays as free tools that need no official certification: the PDF tax-invoice generator, TRN format checker,
+5% VAT calculator, readiness quiz and the 2027 guide. They say plainly that Qaftr is not an ASP, and they promise no UAE account features.
 
 ## 2. Saudi Arabia: no licence needed (verified)
 
@@ -20,7 +23,29 @@ Builds on `docs/PHASE2_DATA_MODEL_PROPOSAL.md` (data model, signing, queue, cert
   Source: <https://zatca.gov.sa/en/E-Invoicing/SolutionProviders/Pages/SolutionProvidersDirectory.aspx>
 - Taxpayer flow: OTP from Fatoora → CSR → compliance CSID → compliance checks → production CSID (see the proposal, §7).
 
-## 3. UAE: how to become an Accredited Service Provider ourselves
+## 3. Build order
+
+1. **Done in this branch:** the database schema and migration `0002_zatca_phase2` (EGS units, encrypted credentials, submission log,
+   ZATCA invoice columns, structured seller and buyer addresses, and line VAT categories). Tested on a local Postgres, both
+   fresh and db:push-style.
+2. Envelope encryption helper (WebCrypto AES-256-GCM plus a KEK secret), test-first.
+3. Business and client forms that capture CR number, structured address and buyer ID (shared validation).
+4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
+5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
+6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.
+7. Simulation, with a beta customer's OTP, then production.
+8. Apply to ZATCA's voluntary Solution Providers Directory once the first production customers are live.
+
+## 4. Notes and risks
+
+- **Deleting a user account** now fails once the user has an EGS unit or submitted invoices. The `restrict` foreign keys do this on
+  purpose so tax records are kept. Before Phase 2 ships, the account-deletion flow needs a soft delete or a retention path. That is
+  auth work and needs sign-off.
+- The `0000` snapshot predates `quotes`, `quote_line_items` and `invoice_events`, which were created with `db:push`. `0002` therefore
+  creates them only if missing. Apply `0002` to a Neon branch of production before production itself. The production endpoint is
+  not in the Neon org connected to this session.
+
+## Appendix: UAE Accredited Service Provider requirements (for reference, not pursued)
 
 The source is **Ministerial Decision No. 64 of 2025**, which I read in full from the MoF PDF:
 <https://mof.gov.ae/wp-content/uploads/2025/03/Ministerial_Decision_Eligibility_and_Accreditation_procedure_for_SPs_EN.pdf>.
@@ -58,32 +83,3 @@ send invoices through an ASP over Peppol.
 4. Final tests: tax data reporting to the FTA, the OpenPeppol test services, and a production trial run with the FTA. If those pass,
    accreditation is granted and the provider is published on the MoF list.
 5. **Valid 2 years** (Art. 16.3). Apply to renew **at least 70 business days before expiry**, with current insurance and ISO 27001.
-
-### Realistic timeline
-
-- **Our own accreditation: 24 months or more**, because of the 2-year experience rule. ISO 27001 and 22301, Peppol certification and
-  insurance can run in parallel, about 6–12 months and roughly USD 30–80k all-in (estimate; get quotes).
-- **The way to UAE revenue now: partner with one of the ~88 ASPs on the MoF list** (white-label or API). We keep the UX, the customer
-  and the invoice data. The ASP handles Peppol transport and FTA reporting.
-
-## 4. Build order
-
-1. **Done in this branch:** the database schema and migration `0002_zatca_phase2` (EGS units, encrypted credentials, submission log,
-   ZATCA invoice columns, structured addresses, line VAT categories, and a `country` on businesses). Tested on a local Postgres, both
-   fresh and db:push-style.
-2. Envelope encryption helper (WebCrypto AES-256-GCM plus a KEK secret), test-first.
-3. Business and client forms that capture CR number, structured address and buyer ID (shared validation).
-4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
-5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
-6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.
-7. Simulation, with a beta customer's OTP, then production.
-8. UAE: choose an ASP partner (API, pricing, PINT AE coverage) and map our invoice model to PINT AE.
-
-## 5. Notes and risks
-
-- **Deleting a user account** now fails once the user has an EGS unit or submitted invoices. The `restrict` foreign keys do this on
-  purpose so tax records are kept. Before Phase 2 ships, the account-deletion flow needs a soft delete or a retention path. That is
-  auth work and needs sign-off.
-- The `0000` snapshot predates `quotes`, `quote_line_items` and `invoice_events`, which were created with `db:push`. `0002` therefore
-  creates them only if missing. Apply `0002` to a Neon branch of production before production itself. The production endpoint is
-  not in the Neon org connected to this session.

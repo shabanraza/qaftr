@@ -2,8 +2,6 @@
 -- quotes, quote_line_items, invoice_events and two unique indexes were first created with
 -- db:push and never captured in a migration; they are guarded here so this file runs on both
 -- the live database and a fresh one. Everything ZATCA-specific is new and unguarded.
-CREATE TYPE "public"."country" AS ENUM('SA', 'AE');
---> statement-breakpoint
 CREATE TYPE "public"."egs_status" AS ENUM('pending_otp', 'compliance', 'active', 'expiring', 'revoked', 'failed');
 --> statement-breakpoint
 DO $$ BEGIN
@@ -116,8 +114,6 @@ CREATE TABLE "zatca_submissions" (
 	"responded_at" timestamp,
 	"next_retry_at" timestamp
 );
---> statement-breakpoint
-ALTER TABLE "businesses" ADD COLUMN "country" "country" DEFAULT 'SA' NOT NULL;
 --> statement-breakpoint
 ALTER TABLE "businesses" ADD COLUMN "cr_number" text;
 --> statement-breakpoint

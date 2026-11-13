@@ -70,9 +70,10 @@ describe('Phase C schema: invoices', () => {
 describe('Phase C schema: seller, buyer and line data ZATCA needs', () => {
   const address = ['street', 'building_number', 'additional_number', 'district', 'city', 'postal_code']
 
-  it('gives businesses a country, a CR number and a structured address', () => {
-    for (const name of ['country', 'cr_number', ...address]) expect(columnNames(schema.businesses)).toContain(name)
-    expect(col(schema.businesses, 'country')?.default).toBe('SA')
+  it('gives businesses a CR number and a structured Saudi address', () => {
+    for (const name of ['cr_number', ...address]) expect(columnNames(schema.businesses)).toContain(name)
+    // Saudi-only product: no country switch on businesses.
+    expect(columnNames(schema.businesses)).not.toContain('country')
   })
 
   it('gives clients a structured address and an ID scheme for buyers without a VAT number', () => {

@@ -96,8 +96,6 @@ export const entitlementStatusEnum = pgEnum("entitlement_status", [
 
 export const languageEnum = pgEnum("language", ["ar", "en"]);
 
-export const countryEnum = pgEnum("country", ["SA", "AE"]);
-
 // ZATCA Phase 2 (integration). See docs/PHASE2_DATA_MODEL_PROPOSAL.md.
 export const zatcaEnvEnum = pgEnum("zatca_env", ["sandbox", "simulation", "production"]);
 
@@ -152,7 +150,6 @@ export const businesses = pgTable("businesses", {
   logoUrl: text("logo_url"),
   address: text(),
   defaultLanguage: languageEnum("default_language").notNull().default("ar"),
-  country: countryEnum().notNull().default("SA"),
   // Structured seller identity and address (ZATCA BR-KSA-08/09/37/66).
   crNumber: text("cr_number"),
   street: text(),

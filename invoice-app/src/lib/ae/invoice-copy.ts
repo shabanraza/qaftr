@@ -63,10 +63,6 @@ const ar = {
     'هذه الأداة تُنشئ فاتورة ضريبية بصيغة PDF. هي ليست فاتورة إلكترونية عبر Peppol / PINT AE، ولا تُرسل لأي جهة. الفوترة الإلكترونية الإلزامية تتم عبر مزوّد خدمة معتمد (ASP).',
   readinessLink: 'اعرف موعدك الإلزامي للفوترة الإلكترونية',
   guideLink: 'اقرأ دليل الفوترة الإلكترونية 2027',
-  saveTitle: 'الحفظ والإدارة: قريباً للإمارات',
-  saveBody:
-    'حفظ الفواتير وإدارة العملاء بالدرهم غير متاح بعد في الإمارات. أنشئ حساباً الآن وسنُبلغك فور إتاحته.',
-  signup: 'أنشئ حساباً مجانياً',
   lineIssue: (n: number, message: string) => `البند ${n}: ${message}`,
   issues: {
     TITLE_MISSING_TAX_INVOICE: 'يجب أن تحمل الفاتورة عبارة «فاتورة ضريبية».',
@@ -202,10 +198,6 @@ const en: AeInvoiceCopy = {
     'This tool creates a PDF tax invoice. It is not a Peppol / PINT AE e-invoice and is not sent anywhere. Mandatory UAE e-invoicing runs through an accredited service provider (ASP).',
   readinessLink: 'Check your e-invoicing deadline',
   guideLink: 'Read the UAE e-invoicing 2027 guide',
-  saveTitle: 'Save & manage: coming soon for UAE',
-  saveBody:
-    'Saving invoices and managing clients in AED is not available for the UAE yet. Sign up now and we will let you know when it is ready.',
-  signup: 'Create a free account',
   lineIssue: (n: number, message: string) => `Line ${n}: ${message}`,
   issues: {
     TITLE_MISSING_TAX_INVOICE: 'The invoice must show the words “Tax Invoice”.',

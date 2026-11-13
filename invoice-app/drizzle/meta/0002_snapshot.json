@@ -1,5 +1,5 @@
 {
-  "id": "5167a726-c2c5-48c3-9b40-cf1b5ded04ff",
+  "id": "28c97e70-8f84-43e4-84ab-93042fb3ad7e",
   "prevId": "1c5ece56-58f0-42b5-ba69-f2688fc8188b",
   "version": "7",
   "dialect": "postgresql",
@@ -164,14 +164,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'ar'"
-        },
-        "country": {
-          "name": "country",
-          "type": "country",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'SA'"
         },
         "cr_number": {
           "name": "cr_number",
@@ -1840,14 +1832,6 @@
     }
   },
   "enums": {
-    "public.country": {
-      "name": "country",
-      "schema": "public",
-      "values": [
-        "SA",
-        "AE"
-      ]
-    },
     "public.egs_status": {
       "name": "egs_status",
       "schema": "public",

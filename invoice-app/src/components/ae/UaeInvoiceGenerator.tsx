@@ -36,7 +36,6 @@ import type { UaeInvoiceDraft, UaeInvoiceDraftLine } from '#/lib/ae/invoice-draf
 import { buildUaeInvoiceHtml } from '#/lib/ae/invoice-html'
 import { downloadBlob, htmlToPdfBlob } from '#/lib/invoice/pdf-render'
 import { MobileInvoiceActionBar } from '#/components/instant-invoice/MobileInvoiceActionBar'
-import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
@@ -71,7 +70,6 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
   const [hydrated, setHydrated] = useState(false)
   const [showIssues, setShowIssues] = useState(false)
   const [status, setStatus] = useState<'idle' | 'generating' | 'done' | 'failed'>('idle')
-  const [signupOpen, setSignupOpen] = useState(false)
   const alertRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const summaryRef = useRef<HTMLDivElement>(null)
@@ -149,40 +147,6 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
   }
 
   const full = draft.type === 'full'
-
-  // Sign-up offer: right after the summary once a PDF was downloaded (the
-  // moment it converts best), otherwise at the bottom of the column.
-  const afterResult = status === 'done'
-  const saveOffer = (
-    <div
-      data-testid="ae-inv-save"
-      data-placement={afterResult ? 'after-result' : 'bottom'}
-      className={
-        afterResult
-          ? 'rounded-xl bg-primary p-4 text-sm text-primary-foreground shadow-sm'
-          : 'rounded-xl border border-dashed border-[var(--qaftr-gold)]/60 p-4 text-sm'
-      }
-    >
-      <p className={afterResult ? 'font-semibold' : 'font-semibold text-foreground'}>{copy.saveTitle}</p>
-      <p className={afterResult ? 'mt-1 text-primary-foreground/85' : 'mt-1 text-muted-foreground'}>
-        {copy.saveBody}
-      </p>
-      <Button
-        type="button"
-        variant={afterResult ? 'secondary' : 'outline'}
-        size="sm"
-        className={afterResult ? 'mt-3 text-primary' : 'mt-3'}
-        onClick={() => {
-          if (afterResult) {
-            track('cta_click', { cta: 'sign_up_after_download', cta_location: 'invoice_result' })
-          }
-          setSignupOpen(true)
-        }}
-      >
-        {copy.signup}
-      </Button>
-    </div>
-  )
 
   return (
     <section ref={sectionRef} className="mx-auto max-w-6xl px-5 pb-28 md:px-8 lg:pb-12">
@@ -392,7 +356,6 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
             </CardContent>
           </Card>
 
-          {status === 'done' ? saveOffer : null}
 
           <InvoicePreview html={previewHtml} title={copy.previewFrameTitle} heading={copy.previewTitle} />
 
@@ -415,7 +378,6 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
             </ul>
           </div>
 
-          {status !== 'done' ? saveOffer : null}
         </div>
       </div>
       <MobileInvoiceActionBar
@@ -429,14 +391,6 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
         sectionRef={sectionRef}
         actionsRef={summaryRef}
         onDownload={() => void handleDownload()}
-      />
-      <AuthGateDialog
-        lang={lang}
-        open={signupOpen}
-        onClose={() => setSignupOpen(false)}
-        onSuccess={() => setSignupOpen(false)}
-        initialMode="signup"
-        context="general"
       />
     </section>
   )
