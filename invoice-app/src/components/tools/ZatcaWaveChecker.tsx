@@ -1,7 +1,14 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { track } from '#/lib/analytics/track'
 import { Link } from '@tanstack/react-router'
-import { ArrowUpRightIcon, BellIcon, CalendarClockIcon } from 'lucide-react'
+import {
+  ArrowUpRightIcon,
+  BellIcon,
+  CalendarClockIcon,
+  CalendarPlusIcon,
+  DownloadIcon,
+  MessageCircleIcon,
+} from 'lucide-react'
 import { ZATCA_REVENUE_YEARS, getZatcaWaveStatus } from '@zatca/shared'
 import type { ZatcaRevenueYear, ZatcaWaveStatus } from '@zatca/shared'
 import type { MarketingLang } from '#/lib/marketing/lang'
@@ -9,6 +16,9 @@ import { SUPPORT_EMAIL } from '#/lib/marketing/constants'
 import { parseAmountInput } from '#/lib/ae/format'
 import { formatSaDate, formatSaNumber, toArabicIndic, todayInSaudi } from '#/lib/sa/format'
 import { getWaveCopy } from '#/lib/sa/wave-copy'
+import { buildWaveReminder } from '#/lib/sa/wave-reminder'
+import { downloadBlob } from '#/lib/invoice/pdf-render'
+import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { FieldError } from '#/components/ui/field'
@@ -93,6 +103,7 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
   const [result, setResult] = useState<ZatcaWaveStatus | null>(null)
   const resultRef = useRef<HTMLElement>(null)
   const [scrollToken, setScrollToken] = useState(0)
+  const [signupOpen, setSignupOpen] = useState(false)
 
   useEffect(() => {
     if (!scrollToken || !resultRef.current) return
@@ -138,6 +149,23 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
     setResult(status)
     track('tool_used', { tool: 'zatca_wave_checker', result: status.status })
     setScrollToken((t) => t + 1)
+  }
+
+  // Deadline reminder: only for a future deadline from the wave data.
+  const reminderInput =
+    result?.status === 'due' && result.wave && result.deadline && result.daysRemaining
+      ? { lang, wave: result.wave, deadline: result.deadline, daysRemaining: result.daysRemaining }
+      : null
+  const reminder = reminderInput ? buildWaveReminder({ ...reminderInput, now: new Date() }) : null
+  const trackReminder = (cta: 'wave_reminder_ics' | 'wave_reminder_google' | 'wave_reminder_whatsapp') =>
+    track('cta_click', { cta, cta_location: 'wave_checker_result' })
+
+  function downloadIcs() {
+    if (!reminderInput) return
+    trackReminder('wave_reminder_ics')
+    // rebuilt on click so DTSTAMP is the download time
+    const { ics, filename } = buildWaveReminder({ ...reminderInput, now: new Date() })
+    downloadBlob(new Blob([ics], { type: 'text/calendar;charset=utf-8' }), filename)
   }
 
   const subject = encodeURIComponent(copy.notifySubject)
@@ -297,6 +325,77 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
                 </div>
               ) : null}
 
+              {reminder ? (
+                <section
+                  aria-labelledby="wave-reminder-title"
+                  data-testid="wave-reminder"
+                  className="mt-5 rounded-xl border border-border/80 bg-muted/20 p-4"
+                >
+                  <h4 id="wave-reminder-title" className="flex items-center gap-2 font-semibold text-foreground">
+                    <BellIcon className="size-4 text-[var(--qaftr-gold)]" aria-hidden />
+                    {copy.reminder.title}
+                  </h4>
+                  <p className="mt-1 text-sm text-muted-foreground">{copy.reminder.body}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-auto max-w-full whitespace-normal py-2 text-start"
+                      onClick={downloadIcs}
+                    >
+                      <DownloadIcon className="size-4 shrink-0" aria-hidden />
+                      {copy.reminder.ics}
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="h-auto max-w-full whitespace-normal py-2 text-start"
+                    >
+                      <a
+                        href={reminder.googleUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="no-underline"
+                        onClick={() => trackReminder('wave_reminder_google')}
+                      >
+                        <CalendarPlusIcon className="size-4 shrink-0" aria-hidden />
+                        {copy.reminder.google}
+                      </a>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="h-auto max-w-full whitespace-normal py-2 text-start"
+                    >
+                      <a
+                        href={reminder.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="no-underline"
+                        onClick={() => trackReminder('wave_reminder_whatsapp')}
+                      >
+                        <MessageCircleIcon className="size-4 shrink-0" aria-hidden />
+                        {copy.reminder.whatsapp}
+                      </a>
+                    </Button>
+                  </div>
+                  <p className="mt-3 text-xs text-muted-foreground">{copy.reminder.privacy}</p>
+                  <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border/60 pt-3 text-sm text-muted-foreground">
+                    <span>{copy.reminder.signupBody}</span>
+                    <button
+                      type="button"
+                      className="font-medium text-primary underline-offset-4 hover:underline"
+                      onClick={() => setSignupOpen(true)}
+                    >
+                      {copy.reminder.signupCta}
+                    </button>
+                  </p>
+                </section>
+              ) : null}
+
               <Link
                 to="/guides/zatca-wave-25"
                 search={search}
@@ -345,6 +444,14 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
           <p className="text-xs text-muted-foreground/80">{copy.disclaimer}</p>
         </div>
       </div>
+      <AuthGateDialog
+        lang={lang}
+        open={signupOpen}
+        onClose={() => setSignupOpen(false)}
+        onSuccess={() => setSignupOpen(false)}
+        initialMode="signup"
+        context="general"
+      />
     </section>
   )
 }

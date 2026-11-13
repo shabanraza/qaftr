@@ -75,3 +75,42 @@ test('incomplete: validation errors, no result', async ({ page }) => {
   await expect(page.getByText('Enter revenue for at least one year (a positive number).')).toBeVisible()
   await expect(result(page)).toHaveCount(0)
 })
+
+test('reminder: downloads a parseable .ics and offers Google Calendar + WhatsApp', async ({ page }) => {
+  await open(page, URL_EN)
+  await check(page, { vat: 'Yes', revenues: { 2024: '200,000' } })
+  const reminder = page.getByRole('region', { name: 'Remind me about the deadline' })
+  await expect(reminder).toBeVisible()
+
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    reminder.getByRole('button', { name: 'Add to calendar (.ics)' }).click(),
+  ])
+  expect(download.suggestedFilename()).toBe('qaftr-zatca-wave-25-deadline.ics')
+  const path = await download.path()
+  const ics = (await import('node:fs')).readFileSync(path, 'utf-8')
+  expect(ics).toMatch(/\r\n$/)
+  for (const line of ics.split('\r\n')) expect(Buffer.byteLength(line, 'utf-8')).toBeLessThanOrEqual(75)
+  const props = ics
+    .replace(/\r\n[ \t]/g, '')
+    .split('\r\n')
+    .filter(Boolean)
+    .map((l) => [l.slice(0, l.indexOf(':')), l.slice(l.indexOf(':') + 1)])
+  const get = (k: string) => props.filter(([name]) => name === k).map(([, v]) => v)
+  expect(props[0]).toEqual(['BEGIN', 'VCALENDAR'])
+  expect(props.at(-1)).toEqual(['END', 'VCALENDAR'])
+  expect(get('VERSION')).toEqual(['2.0'])
+  expect(get('UID')).toEqual(['zatca-wave-25-2027-02-01@qaftr.com'])
+  expect(get('DTSTAMP')[0]).toMatch(/^\d{8}T\d{6}Z$/)
+  expect(get('DTSTART;VALUE=DATE')).toEqual(['20270201'])
+  expect(get('DTEND;VALUE=DATE')).toEqual(['20270202'])
+  expect(get('SUMMARY')).toEqual(['ZATCA Wave 25 integration deadline'])
+  expect(get('TRIGGER')).toEqual(['-P30D', '-P7D', '-P1D'])
+  expect(get('DESCRIPTION')[0]).toContain('/tools/zatca-wave-checker?lang=en')
+
+  const google = new URL((await reminder.getByRole('link', { name: 'Add to Google Calendar' }).getAttribute('href'))!)
+  expect(google.searchParams.get('dates')).toBe('20270201/20270202')
+  const wa = new URL((await reminder.getByRole('link', { name: /WhatsApp/ }).getAttribute('href'))!)
+  expect(wa.hostname).toBe('wa.me')
+  expect(wa.searchParams.get('text')).toContain('85 days left')
+})
