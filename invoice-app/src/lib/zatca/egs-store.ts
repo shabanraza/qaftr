@@ -40,7 +40,7 @@ export async function claimChain(egsUnitId: string, invoiceId: string, c: ChainC
     )
     UPDATE invoices
        SET egs_unit_id = ${egsUnitId},
-           zatca_kind = 'invoice',
+           zatca_kind = ${c.kind},
            zatca_subtype = ${c.subtype},
            invoice_type_name = ${c.invoiceTypeName},
            zatca_uuid = ${c.uuid},

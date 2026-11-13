@@ -149,3 +149,33 @@ describe('toZatcaDocument', () => {
     expect(doc.input.note).toBe('Thanks')
   })
 })
+
+describe('toZatcaDocument for credit and debit notes', () => {
+  it('references the original invoice, keeps its subtype and numbers the note CN-', () => {
+    const doc = toZatcaDocument({
+      ...base,
+      client: b2bClient,
+      invoice: { ...base.invoice, seqNumber: 9 },
+      note: { kind: 'credit-note', originalNumber: 'INV-007', originalSubtype: 'standard', reason: 'Returned goods' },
+    })
+    expect(doc.subtype).toBe('standard')
+    expect(doc.input).toMatchObject({
+      kind: 'credit-note',
+      id: 'CN-009',
+      billingReference: { invoiceId: 'INV-007' },
+      noteReason: 'Returned goods',
+    })
+    expect(() => buildInvoiceXml(doc.input, { now: base.now })).not.toThrow()
+  })
+
+  it('keeps a simplified note simplified even if the client later gained a VAT number', () => {
+    const doc = toZatcaDocument({
+      ...base,
+      client: b2bClient,
+      note: { kind: 'debit-note', originalNumber: 'INV-003', originalSubtype: 'simplified', reason: 'Price correction' },
+    })
+    expect(doc.subtype).toBe('simplified')
+    expect(doc.input.id).toBe('DN-007')
+    expect(() => buildInvoiceXml(doc.input, { now: base.now })).not.toThrow()
+  })
+})

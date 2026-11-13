@@ -87,5 +87,21 @@ describe('ZatcaOnboardingCard', () => {
     expect(screen.getByText('Qaftr-EGS-abcd1234')).toBeTruthy()
     expect(screen.getByText(/2031/)).toBeTruthy()
     expect(screen.queryByRole('button', { name: /Connect to ZATCA/ })).toBeNull()
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
+  it('warns when the device certificate expires within 30 days', () => {
+    const soon = new Date(Date.now() + 10 * 24 * 3600 * 1000)
+    render(
+      <ZatcaOnboardingCard
+        lang="en"
+        status={{
+          ...READY,
+          unit: { id: 'u1', status: 'active', commonName: 'Qaftr-EGS-x', egsSerial: 's', certNotAfter: soon, createdAt: new Date() },
+        }}
+        onOnboard={vi.fn()}
+      />,
+    )
+    expect(screen.getByRole('alert').textContent).toMatch(/expires in 10 days/)
   })
 })

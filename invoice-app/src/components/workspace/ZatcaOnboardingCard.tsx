@@ -50,6 +50,8 @@ const TEXT = {
     connected: 'متصل بهيئة الزكاة',
     device: 'اسم الجهاز',
     validUntil: 'الشهادة صالحة حتى',
+    expiring: (d: number) => `تنتهي شهادة الجهاز خلال ${d} يومًا. جدّدها برمز تحقق جديد من بوابة فاتورة قبل انتهائها حتى لا يتوقف الإرسال.`,
+    expired: 'انتهت شهادة الجهاز. لا يمكن إرسال الفواتير حتى تجديدها.',
     errors: {
       SELLER_NOT_READY: 'ملف المنشأة غير مكتمل للمرحلة الثانية.',
       OTP_INVALID: 'رمز التحقق 6 أرقام.',
@@ -84,6 +86,8 @@ const TEXT = {
     connected: 'Connected to ZATCA',
     device: 'Device name',
     validUntil: 'Certificate valid until',
+    expiring: (d: number) => `The device certificate expires in ${d} days. Renew it with a new Fatoora OTP before then so sending does not stop.`,
+    expired: 'The device certificate has expired. Invoices cannot be sent until it is renewed.',
     errors: {
       SELLER_NOT_READY: 'The business profile is not complete for Phase 2.',
       OTP_INVALID: 'The OTP is 6 digits.',
@@ -185,6 +189,16 @@ export function ZatcaOnboardingCard({
                 </>
               ) : null}
             </dl>
+            {(() => {
+              if (!status.unit.certNotAfter) return null
+              const days = Math.ceil((new Date(status.unit.certNotAfter).getTime() - Date.now()) / 86_400_000)
+              if (days > 30) return null
+              return (
+                <p role="alert" className="text-sm text-amber-700 dark:text-amber-400">
+                  {days <= 0 ? t.expired : t.expiring(days)}
+                </p>
+              )
+            })()}
           </div>
         ) : status.gate === 'ZATCA_PRO_REQUIRED' ? (
           <p className="text-sm text-muted-foreground">{t.pro}</p>

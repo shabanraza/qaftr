@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { documentNumber, amountSign } from '#/lib/zatca/document-kind'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -64,9 +65,11 @@ function WorkspaceAccountantPage() {
         let paidTotal = 0
         
         items.forEach((item) => {
-          const sub = parseFloat(item.subtotal) || 0
-          const vat = parseFloat(item.vatAmount) || 0
-          const tot = parseFloat(item.total) || 0
+          // Credit notes reduce sales and output VAT.
+          const sign = amountSign(item.zatcaKind)
+          const sub = sign * (parseFloat(item.subtotal) || 0)
+          const vat = sign * (parseFloat(item.vatAmount) || 0)
+          const tot = sign * (parseFloat(item.total) || 0)
           
           subtotal += sub
           vatAmount += vat
@@ -112,7 +115,7 @@ function WorkspaceAccountantPage() {
       : ["Invoice Number", "Issue Date", "Subtotal", "VAT Amount 15%", "Total Amount", "Status"]
 
     const rows = monthInvoices.map((inv) => [
-      `INV-${String(inv.seqNumber).padStart(3, '0')}`,
+      documentNumber(inv.seqNumber, inv.zatcaKind),
       new Date(inv.issueDate).toLocaleDateString(isArabic ? 'ar-SA' : 'en-US'),
       inv.subtotal,
       inv.vatAmount,

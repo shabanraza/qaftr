@@ -22,6 +22,7 @@ export type ZatcaIssueStatus =
   | 'pending_clearance'
 
 export interface ChainClaim {
+  kind: 'invoice' | 'credit-note' | 'debit-note'
   prevIcv: number
   icv: number
   pih: string
@@ -134,6 +135,7 @@ export async function issueInvoice(p: {
       signingTime: at,
     })
     const candidate: ChainClaim = {
+      kind: doc.input.kind,
       prevIcv: chain.lastIcv,
       icv: doc.input.icv,
       pih: doc.input.pih,

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from '@tanstack/react-router'
+import { documentNumber } from '#/lib/zatca/document-kind'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { authClient } from '#/lib/auth-client'
 import { buildSignedOutRedirect } from '#/lib/auth-guard'
@@ -139,7 +140,7 @@ function InvoicesPage() {
                         search={lang === 'en' ? { lang: 'en' } : {}}
                         className="font-bold text-primary no-underline hover:underline"
                       >
-                        INV-{String(invoice.seqNumber).padStart(3, '0')}
+                        {documentNumber(invoice.seqNumber, invoice.zatcaKind)}
                       </Link>
                       <p className="mt-1 text-sm text-muted-foreground">
                         {new Date(invoice.issueDate).toLocaleDateString(

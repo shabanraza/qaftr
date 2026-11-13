@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { CheckCircle2Icon, CircleAlertIcon, ClockIcon, SendIcon } from 'lucide-react'
 import { Button } from '#/components/ui/button'
+import { Field, FieldError, FieldLabel } from '#/components/ui/field'
+import { Input } from '#/components/ui/input'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { cn } from '#/lib/utils'
 
@@ -37,6 +39,12 @@ const TEXT = {
     simplified: 'فاتورة ضريبية مبسطة',
     sendHint: 'بعد الإرسال لا يمكن تعديل الفاتورة أو حذفها؛ يُصحَّح الخطأ بإشعار دائن.',
     errorCodes: 'رموز الهيئة',
+    creditNote: 'إصدار إشعار دائن',
+    creditHint: 'يلغي الإشعار الدائن الفاتورة كاملة ويُرسل إلى الهيئة. لا يمكن التراجع عنه.',
+    reason: 'سبب الإشعار',
+    reasonRequired: 'اكتب سبب الإشعار.',
+    creditFull: 'إشعار دائن بكامل الفاتورة',
+    cancel: 'إلغاء',
     errors: {
       BUYER_NOT_READY: 'بيانات العميل لفواتير الشركات ناقصة. أكملها من صفحة العملاء.',
       SELLER_NOT_READY: 'ملف المنشأة غير مكتمل للمرحلة الثانية.',
@@ -45,6 +53,8 @@ const TEXT = {
       INVOICE_ALREADY_SIGNED: 'أُرسلت هذه الفاتورة بالفعل.',
       CHAIN_BUSY: 'تُرسَل فاتورة أخرى الآن. حاول بعد لحظات.',
       ZATCA_PRO_REQUIRED: 'يتطلب الإرسال الباقة الاحترافية.',
+      CREDIT_EXCEEDS_INVOICE: 'الإشعارات الدائنة تتجاوز مبلغ الفاتورة؛ لعلها أُلغيت بالفعل.',
+      INVOICE_NOT_NOTEABLE: 'لا يمكن إصدار إشعار لهذه الفاتورة.',
       generic: 'تعذّر الإرسال. حاول مجددًا.',
     } as Record<string, string>,
   },
@@ -58,6 +68,12 @@ const TEXT = {
     simplified: 'Simplified tax invoice',
     sendHint: 'Once sent, the invoice cannot be edited or deleted; correct mistakes with a credit note.',
     errorCodes: 'ZATCA codes',
+    creditNote: 'Issue credit note',
+    creditHint: 'The credit note cancels the whole invoice and is sent to ZATCA. This cannot be undone.',
+    reason: 'Reason for the credit note',
+    reasonRequired: 'Enter a reason.',
+    creditFull: 'Credit the full invoice',
+    cancel: 'Cancel',
     errors: {
       BUYER_NOT_READY: 'The client’s B2B details are incomplete. Complete them on the Clients page.',
       SELLER_NOT_READY: 'The business profile is not complete for Phase 2.',
@@ -66,6 +82,8 @@ const TEXT = {
       INVOICE_ALREADY_SIGNED: 'This invoice was already sent.',
       CHAIN_BUSY: 'Another invoice is being sent right now. Try again in a moment.',
       ZATCA_PRO_REQUIRED: 'Sending needs the Pro plan.',
+      CREDIT_EXCEEDS_INVOICE: 'Credit notes would exceed the invoice amount; it may already be credited.',
+      INVOICE_NOT_NOTEABLE: 'A note cannot be issued for this invoice.',
       generic: 'Could not send. Please try again.',
     } as Record<string, string>,
   },
@@ -91,6 +109,7 @@ export function ZatcaInvoicePanel({
   connected,
   onIssue,
   onRetry,
+  onCreditNote,
 }: {
   lang: MarketingLang
   invoice: ZatcaInvoiceState
@@ -98,10 +117,15 @@ export function ZatcaInvoicePanel({
   connected: boolean
   onIssue: () => Promise<unknown>
   onRetry: () => Promise<unknown>
+  /** Only for invoices (not notes) that can be corrected. */
+  onCreditNote?: (reason: string) => Promise<unknown>
 }) {
   const t = TEXT[lang]
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [crediting, setCrediting] = useState(false)
+  const [reason, setReason] = useState('')
+  const [reasonError, setReasonError] = useState<string | null>(null)
   const unsigned = invoice.zatcaStatus === 'not_required' || invoice.zatcaStatus === 'draft'
   if (unsigned && !connected) return null
 
@@ -109,6 +133,10 @@ export function ZatcaInvoicePanel({
   const Icon = s.tone === 'ok' ? CheckCircle2Icon : s.tone === 'warn' ? ClockIcon : s.tone === 'bad' ? CircleAlertIcon : SendIcon
   const retryable = connected && (invoice.zatcaStatus === 'signed' || invoice.zatcaStatus === 'pending_clearance')
   const codes = errorCodes(invoice.zatcaLastError)
+  const creditable =
+    connected &&
+    onCreditNote &&
+    ['signed', 'pending_clearance', 'reported', 'reported_with_warnings', 'cleared', 'cleared_with_warnings'].includes(invoice.zatcaStatus)
 
   async function run(action: () => Promise<unknown>) {
     setPending(true)
@@ -161,6 +189,53 @@ export function ZatcaInvoicePanel({
               {error}
             </p>
           ) : null}
+        </div>
+      ) : null}
+      {creditable && !crediting ? (
+        <Button type="button" size="sm" variant="outline" className="mt-3" onClick={() => setCrediting(true)}>
+          {t.creditNote}
+        </Button>
+      ) : null}
+      {creditable && crediting ? (
+        <div className="mt-3 space-y-3 rounded-lg bg-muted/60 p-3">
+          <p className="text-xs text-muted-foreground">{t.creditHint}</p>
+          <Field data-invalid={Boolean(reasonError)}>
+            <FieldLabel htmlFor="credit-reason">{t.reason}</FieldLabel>
+            <Input
+              id="credit-reason"
+              value={reason}
+              maxLength={500}
+              aria-invalid={Boolean(reasonError)}
+              onChange={(e) => setReason(e.target.value)}
+            />
+            {reasonError ? <FieldError>{reasonError}</FieldError> : null}
+          </Field>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              type="button"
+              size="sm"
+              variant="destructive"
+              disabled={pending}
+              onClick={() => {
+                if (!reason.trim()) {
+                  setReasonError(t.reasonRequired)
+                  return
+                }
+                setReasonError(null)
+                void run(() => onCreditNote(reason.trim()))
+              }}
+            >
+              {pending ? t.sending : t.creditFull}
+            </Button>
+            <Button type="button" size="sm" variant="ghost" disabled={pending} onClick={() => setCrediting(false)}>
+              {t.cancel}
+            </Button>
+            {error ? (
+              <p role="alert" className="text-sm text-destructive">
+                {error}
+              </p>
+            ) : null}
+          </div>
         </div>
       ) : null}
     </section>

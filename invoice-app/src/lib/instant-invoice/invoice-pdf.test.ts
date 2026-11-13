@@ -59,6 +59,14 @@ describe('Saudi invoice PDF title by invoice type', () => {
     expect(html).not.toContain('(Phase 1)')
   })
 
+  it('prints a credit note with its CN- number and the invoice it corrects', async () => {
+    const html = await buildInvoiceHtml({ ...base, documentKind: 'credit-note', referenceNumber: 'INV-002' }, 'en', { includeQr: false })
+    expect(html).toContain('Credit Note')
+    expect(html).toContain('CN-003')
+    expect(html).toContain('INV-002')
+    expect(pdfDocumentTitle({ ...base, documentKind: 'credit-note' })).toBe('Credit Note CN-003')
+  })
+
   it('names the PDF document after the type, in English for the metadata', () => {
     expect(pdfDocumentTitle({ ...base, invoiceType: 'standard' })).toBe('Tax Invoice INV-003')
     expect(pdfDocumentTitle(base)).toBe('Simplified Tax Invoice INV-003')

@@ -56,8 +56,18 @@ The `/ae` section stays as free tools that need no official certification: the P
    - A real sandbox run passed on 2026-11-14: a simplified invoice reported at ICV 1 and a standard invoice cleared at ICV 2,
      with the PIH chained.
    - Before deploying: create the R2 bucket `qaftr-zatca-xml`.
-6. Cron sweeper that retries `signed` / `pending_clearance` invoices before `report_due_at` (a Queue if volume needs it),
-   plus certificate-expiry reminders. Credit and debit notes.
+6. **Done (sandbox):**
+   - **Retry sweeper:** a cron trigger every 5 minutes (`src/server.ts`, now the Worker `main`, wrapping TanStack Start's
+     handler) resends `signed` / `pending_clearance` invoices from R2. It backs off 5, 10, 20… minutes up to 2 hours, and always
+     tries again 15 minutes before the 24-hour reporting deadline (`lib/zatca/sweeper.ts`, `lib/zatca/resubmit.ts`).
+   - **Certificate expiry:** the ZATCA card on the business page warns 30 days before the device certificate expires.
+     Renewal itself (new OTP, `renewProductionCsid`) is not built yet.
+   - **Credit and debit notes:** `zatca.createNote` creates a CN-/DN- row linked to the original invoice, with the original's
+     subtype, and signs and sends it. Without lines it credits the whole invoice; credits can't exceed the invoice. The invoice
+     page has "Issue credit note" (whole invoice); partial credits and debit notes are API-only for now. Credit notes subtract
+     in the dashboard month total and the accountant VAT summary, and don't count toward the free plan's monthly limit.
+   - A real sandbox run passed on 2026-11-14: partial credit and debit notes were reported (B2C) and cleared (B2B), and the
+     cron handler resent a pending invoice.
 7. Simulation, with a beta customer's OTP, then production.
 8. Apply to ZATCA's voluntary Solution Providers Directory once the first production customers are live.
 

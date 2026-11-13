@@ -83,6 +83,7 @@ function WorkspacePageIndex() {
             dueDate: invoice.dueDate ? new Date(invoice.dueDate) : null,
             total: invoice.total,
             clientName: invoice.clientId ? clientsById.get(invoice.clientId)?.name ?? null : null,
+            zatcaKind: invoice.zatcaKind,
           }))}
           clientCount={clients.length}
         />

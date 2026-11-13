@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { documentNumber, isNote } from '#/lib/zatca/document-kind'
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
@@ -44,6 +45,7 @@ export const Route = createFileRoute('/workspace/invoices/$id')({
 
 function WorkspaceInvoiceDetailPage() {
   const { id } = Route.useParams()
+  const navigate = useNavigate()
   const { lang: searchLang } = Route.useSearch()
   const lang = resolveLang({ lang: searchLang })
   const toolCopy = getInstantInvoiceCopy(lang)
@@ -73,6 +75,11 @@ function WorkspaceInvoiceDetailPage() {
   }
   const issueMutation = useMutation({ ...trpc.zatca.issueInvoice.mutationOptions(), onSettled: refreshInvoice })
   const retryMutation = useMutation({ ...trpc.zatca.retrySubmission.mutationOptions(), onSettled: refreshInvoice })
+  const noteMutation = useMutation({
+    ...trpc.zatca.createNote.mutationOptions(),
+    onSettled: refreshInvoice,
+    onSuccess: (r) => void navigate({ to: '/workspace/invoices/$id', params: { id: r.noteId }, search }),
+  })
 
   const logEventMutation = useMutation({
     ...trpc.invoices.logEvent.mutationOptions(),
@@ -84,7 +91,7 @@ function WorkspaceInvoiceDetailPage() {
   const copy =
     lang === 'ar'
       ? {
-          title: invoice ? `INV-${String(invoice.seqNumber).padStart(3, '0')}` : 'تفاصيل الفاتورة',
+          title: invoice ? documentNumber(invoice.seqNumber, invoice.zatcaKind) : 'تفاصيل الفاتورة',
           back: 'الفواتير',
           loading: 'جاري التحميل…',
           markPaid: 'تعليم كمدفوعة',
@@ -101,7 +108,7 @@ function WorkspaceInvoiceDetailPage() {
           status_changed: 'تم تحديث حالة الفاتورة',
         }
       : {
-          title: invoice ? `INV-${String(invoice.seqNumber).padStart(3, '0')}` : 'Invoice detail',
+          title: invoice ? documentNumber(invoice.seqNumber, invoice.zatcaKind) : 'Invoice detail',
           back: 'Invoices',
           loading: 'Loading…',
           markPaid: 'Mark as paid',
@@ -120,7 +127,7 @@ function WorkspaceInvoiceDetailPage() {
 
   async function handleWhatsAppShare() {
     if (!invoice) return
-    const invoiceNum = `INV-${String(invoice.seqNumber).padStart(3, '0')}`
+    const invoiceNum = documentNumber(invoice.seqNumber, invoice.zatcaKind)
     const formattedAmount = formatMoney(invoice.total, lang)
     const clientName = invoice.client?.name ?? (isArabic ? 'العميل' : 'Client')
     const phone = invoice.client?.phone ?? ''
@@ -154,6 +161,9 @@ function WorkspaceInvoiceDetailPage() {
     const pdfData: InvoiceForPdf = {
       ...(invoice.zatcaSubtype ? { invoiceType: invoice.zatcaSubtype } : {}),
       zatcaQr: invoice.qrPayload,
+      ...(isNote(invoice.zatcaKind) && invoice.zatcaKind
+        ? { documentKind: invoice.zatcaKind, referenceNumber: invoice.original ? documentNumber(invoice.original.seqNumber, invoice.original.zatcaKind) : null }
+        : {}),
       seqNumber: invoice.seqNumber,
       issueDate: invoice.issueDate,
       subtotal: invoice.subtotal,
@@ -229,7 +239,22 @@ function WorkspaceInvoiceDetailPage() {
               <div className="max-w-4xl border border-border bg-background/35">
                 <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border p-5">
                   <div>
-                    <p className="text-xs font-medium text-muted-foreground">{copy.taxInvoice}</p>
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {invoice.zatcaKind === 'credit-note'
+                        ? isArabic ? 'إشعار دائن' : 'Credit note'
+                        : invoice.zatcaKind === 'debit-note'
+                          ? isArabic ? 'إشعار مدين' : 'Debit note'
+                          : copy.taxInvoice}
+                    </p>
+                    {invoice.original ? (
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {isArabic ? 'للفاتورة ' : 'For invoice '}
+                        <Link to="/workspace/invoices/$id" params={{ id: invoice.original.id }} search={search} className="font-medium text-foreground underline underline-offset-2">
+                          {documentNumber(invoice.original.seqNumber, invoice.original.zatcaKind)}
+                        </Link>
+                        {invoice.adjustmentReason ? ` · ${invoice.adjustmentReason}` : ''}
+                      </p>
+                    ) : null}
                     <p className="mt-1 text-sm text-muted-foreground">
                       {invoice.business?.nameAr} → {invoice.client?.name ?? '—'}
                     </p>
@@ -238,12 +263,14 @@ function WorkspaceInvoiceDetailPage() {
                     <p className="text-lg font-semibold tabular-nums text-foreground">
                       {formatMoney(invoice.total, lang)}
                     </p>
-                    <Badge
-                      className={cn('border', invoiceStatusTone[invoice.status] ?? invoiceStatusTone.draft)}
-                      variant="outline"
-                    >
-                      {renderInvoiceStatus(invoice.status, lang)}
-                    </Badge>
+                    {isNote(invoice.zatcaKind) ? null : (
+                      <Badge
+                        className={cn('border', invoiceStatusTone[invoice.status] ?? invoiceStatusTone.draft)}
+                        variant="outline"
+                      >
+                        {renderInvoiceStatus(invoice.status, lang)}
+                      </Badge>
+                    )}
                   </div>
                 </div>
 
@@ -267,7 +294,7 @@ function WorkspaceInvoiceDetailPage() {
                     <TotalRow label={copy.total} value={formatMoney(invoice.total, lang)} strong />
                   </div>
 
-                  {invoice.status !== 'paid' ? (
+                  {isNote(invoice.zatcaKind) ? null : invoice.status !== 'paid' ? (
                     <Button
                       type="button"
                       variant="outline"
@@ -297,6 +324,9 @@ function WorkspaceInvoiceDetailPage() {
                   connected={Boolean(zatcaStatus?.unit && !zatcaStatus.gate)}
                   onIssue={() => issueMutation.mutateAsync({ invoiceId: invoice.id })}
                   onRetry={() => retryMutation.mutateAsync({ invoiceId: invoice.id })}
+                  {...(isNote(invoice.zatcaKind)
+                    ? {}
+                    : { onCreditNote: (reason: string) => noteMutation.mutateAsync({ invoiceId: invoice.id, kind: 'credit-note', reason }) })}
                 />
               </div>
 

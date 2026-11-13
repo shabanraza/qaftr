@@ -9,6 +9,7 @@ import type { PartyIssue } from '@zatca/shared'
 import { computeZatcaTotals } from '@zatca/shared/zatca-phase2'
 import type { BuyerIdScheme, ZatcaBuyer, ZatcaInvoiceInput, ZatcaInvoiceSubtype, ZatcaLineInput, ZatcaVatCategory } from '@zatca/shared/zatca-phase2'
 import type { OnboardingEnv } from './onboarding'
+import { documentNumber } from './document-kind'
 import { ZATCA_SANDBOX_VAT } from './onboarding'
 
 type Text = string | null
@@ -54,6 +55,13 @@ export interface MappingInput {
   chain: { icv: number; pih: string }
   uuid: string
   now: Date
+  /** Set for credit/debit notes: the original invoice they correct. */
+  note?: {
+    kind: 'credit-note' | 'debit-note'
+    originalNumber: string
+    originalSubtype: ZatcaInvoiceSubtype
+    reason: string
+  }
 }
 
 export type InvoiceMappingErrorCode = 'SELLER_NOT_READY' | 'BUYER_NOT_READY' | 'INVOICE_TOTALS_MISMATCH'
@@ -83,7 +91,6 @@ export function riyadhDateTime(now: Date): { date: string; time: string } {
   return { date: iso.slice(0, 10), time: iso.slice(11, 19) }
 }
 
-export const invoiceNumber = (seq: number) => `INV-${String(seq).padStart(3, '0')}`
 
 const money = (s: string) => Number(s).toFixed(2)
 
@@ -93,10 +100,16 @@ export function toZatcaDocument(m: MappingInput): ZatcaDocument {
   const s = normalizePartyInput({ ...m.business, name: m.business.nameAr })
 
   const c = m.client ? normalizePartyInput(m.client) : null
-  const isB2b = Boolean(c && (c.vatNumber || (c.idScheme && c.idValue)))
-  const subtype: ZatcaInvoiceSubtype = isB2b ? 'standard' : 'simplified'
+  // A note always has its original invoice's subtype.
+  const subtype: ZatcaInvoiceSubtype = m.note
+    ? m.note.originalSubtype
+    : c && (c.vatNumber || (c.idScheme && c.idValue))
+      ? 'standard'
+      : 'simplified'
+  const isB2b = subtype === 'standard'
 
   let buyer: ZatcaBuyer | undefined
+  if (isB2b && !c) throw new InvoiceMappingError('BUYER_NOT_READY')
   if (isB2b && c) {
     const ready = buyerStandardReadiness(m.client!)
     if (!ready.ready) throw new InvoiceMappingError('BUYER_NOT_READY', ready.issues)
@@ -142,9 +155,9 @@ export function toZatcaDocument(m: MappingInput): ZatcaDocument {
 
   const { date, time } = riyadhDateTime(m.now)
   const input: ZatcaInvoiceInput = {
-    kind: 'invoice',
+    kind: m.note?.kind ?? 'invoice',
     subtype,
-    id: invoiceNumber(m.invoice.seqNumber),
+    id: documentNumber(m.invoice.seqNumber, m.note?.kind),
     uuid: m.uuid,
     issueDate: date,
     issueTime: time,
@@ -168,6 +181,7 @@ export function toZatcaDocument(m: MappingInput): ZatcaDocument {
     ...(subtype === 'standard' ? { supplyDate: date } : {}),
     paymentMeansCode: subtype === 'standard' ? '42' : '10',
     ...(m.invoice.notes?.trim() ? { note: m.invoice.notes.trim().slice(0, 1000) } : {}),
+    ...(m.note ? { billingReference: { invoiceId: m.note.originalNumber }, noteReason: m.note.reason.slice(0, 1000) } : {}),
     lines,
   }
   return { input, subtype, issueDateKsa: date, issueTimeKsa: time }

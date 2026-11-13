@@ -85,7 +85,7 @@ export const invoicesRouter = createTRPCRouter({
         .limit(1);
       if (!invoice) throwNotFound("INVOICE_NOT_FOUND");
 
-      const [items, businessRows, clientRows] = await Promise.all([
+      const [items, businessRows, clientRows, originalRows] = await Promise.all([
         db.select().from(lineItems).where(eq(lineItems.invoiceId, invoice.id))
           .orderBy(lineItems.sortOrder),
         db
@@ -102,6 +102,13 @@ export const invoicesRouter = createTRPCRouter({
               .where(and(eq(clients.id, invoice.clientId), eq(clients.ownerId, ctx.userId)))
               .limit(1)
           : Promise.resolve([]),
+        invoice.billingReferenceInvoiceId
+          ? db
+              .select({ id: invoices.id, seqNumber: invoices.seqNumber, zatcaKind: invoices.zatcaKind })
+              .from(invoices)
+              .where(and(eq(invoices.id, invoice.billingReferenceInvoiceId), eq(invoices.ownerId, ctx.userId)))
+              .limit(1)
+          : Promise.resolve([]),
       ]);
 
       return {
@@ -109,6 +116,8 @@ export const invoicesRouter = createTRPCRouter({
         lineItems: items,
         business: businessRows[0] ?? null,
         client: clientRows[0] ?? null,
+        /** For credit/debit notes: the invoice they correct. */
+        original: originalRows[0] ?? null,
       };
     }),
 
@@ -156,7 +165,7 @@ export const invoicesRouter = createTRPCRouter({
         .select({ count: sql<number>`count(*)::int` })
         .from(invoices)
         .where(
-          and(eq(invoices.ownerId, ctx.userId), gte(invoices.createdAt, monthStart)),
+          and(eq(invoices.ownerId, ctx.userId), gte(invoices.createdAt, monthStart), sql`coalesce(${invoices.zatcaKind}, 'invoice') = 'invoice'`),
         );
 
       if ((countRow?.count ?? 0) >= FREE_INVOICE_LIMIT) {
