@@ -30,6 +30,7 @@ import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoic
 import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
 import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
 import { Route as ToolsZatcaWaveCheckerRouteImport } from './routes/tools/zatca-wave-checker'
+import { Route as ToolsZatcaQrRouteImport } from './routes/tools/zatca-qr'
 import { Route as ToolsVatCalculatorRouteImport } from './routes/tools/vat-calculator'
 import { Route as ToolsTrnCheckerRouteImport } from './routes/tools/trn-checker'
 import { Route as ToolsReceiptVoucherRouteImport } from './routes/tools/receipt-voucher'
@@ -159,6 +160,11 @@ const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
 const ToolsZatcaWaveCheckerRoute = ToolsZatcaWaveCheckerRouteImport.update({
   id: '/tools/zatca-wave-checker',
   path: '/tools/zatca-wave-checker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsZatcaQrRoute = ToolsZatcaQrRouteImport.update({
+  id: '/tools/zatca-qr',
+  path: '/tools/zatca-qr',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsVatCalculatorRoute = ToolsVatCalculatorRouteImport.update({
@@ -294,6 +300,7 @@ export interface FileRoutesByFullPath {
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
@@ -338,6 +345,7 @@ export interface FileRoutesByTo {
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
@@ -382,6 +390,7 @@ export interface FileRoutesById {
   '/tools/receipt-voucher': typeof ToolsReceiptVoucherRoute
   '/tools/trn-checker': typeof ToolsTrnCheckerRoute
   '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/zatca-qr': typeof ToolsZatcaQrRoute
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
@@ -429,6 +438,7 @@ export interface FileRouteTypes {
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
@@ -473,6 +483,7 @@ export interface FileRouteTypes {
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
@@ -516,6 +527,7 @@ export interface FileRouteTypes {
     | '/tools/receipt-voucher'
     | '/tools/trn-checker'
     | '/tools/vat-calculator'
+    | '/tools/zatca-qr'
     | '/tools/zatca-wave-checker'
     | '/workspace/accountant'
     | '/workspace/clients'
@@ -562,6 +574,7 @@ export interface RootRouteChildren {
   ToolsReceiptVoucherRoute: typeof ToolsReceiptVoucherRoute
   ToolsTrnCheckerRoute: typeof ToolsTrnCheckerRoute
   ToolsVatCalculatorRoute: typeof ToolsVatCalculatorRoute
+  ToolsZatcaQrRoute: typeof ToolsZatcaQrRoute
   ToolsZatcaWaveCheckerRoute: typeof ToolsZatcaWaveCheckerRoute
   AeIndexRoute: typeof AeIndexRoute
   InvoicesIndexRoute: typeof InvoicesIndexRoute
@@ -723,6 +736,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/zatca-wave-checker'
       fullPath: '/tools/zatca-wave-checker'
       preLoaderRoute: typeof ToolsZatcaWaveCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/zatca-qr': {
+      id: '/tools/zatca-qr'
+      path: '/tools/zatca-qr'
+      fullPath: '/tools/zatca-qr'
+      preLoaderRoute: typeof ToolsZatcaQrRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tools/vat-calculator': {
@@ -956,6 +976,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsReceiptVoucherRoute: ToolsReceiptVoucherRoute,
   ToolsTrnCheckerRoute: ToolsTrnCheckerRoute,
   ToolsVatCalculatorRoute: ToolsVatCalculatorRoute,
+  ToolsZatcaQrRoute: ToolsZatcaQrRoute,
   ToolsZatcaWaveCheckerRoute: ToolsZatcaWaveCheckerRoute,
   AeIndexRoute: AeIndexRoute,
   InvoicesIndexRoute: InvoicesIndexRoute,

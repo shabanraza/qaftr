@@ -7,6 +7,7 @@ import {
 import { buildFaqSchema } from '#/components/tools/ToolFaqSection'
 import { getToolsCopy } from '#/lib/tools/copy'
 import { OG_IMAGE_URL, SITE_URL } from '#/lib/marketing/constants'
+import { getQrCopy } from './qr-copy'
 import { getWaveCopy } from './wave-copy'
 import {
   WAVE_GUIDE_DATE_MODIFIED,
@@ -17,6 +18,7 @@ import {
 export const SA_PAGE_PATHS = {
   'zatca-wave-checker': '/tools/zatca-wave-checker',
   'zatca-wave-25': '/guides/zatca-wave-25',
+  'zatca-qr': '/tools/zatca-qr',
 } as const
 
 export type SaPageId = keyof typeof SA_PAGE_PATHS
@@ -28,6 +30,18 @@ function getSaPage(id: SaPageId, lang: MarketingLang) {
   switch (id) {
     case 'zatca-wave-checker': {
       const copy = getWaveCopy(lang)
+      return {
+        seo: copy.seo,
+        crumbs: [
+          { name: brand, path: '/' },
+          { name: getToolsCopy(lang).breadcrumbRoot, path: '/tools' },
+          { name: copy.pageName, path: SA_PAGE_PATHS[id] },
+        ],
+        schemas: [buildFaqSchema(copy.faq)] as unknown[],
+      }
+    }
+    case 'zatca-qr': {
+      const copy = getQrCopy(lang)
       return {
         seo: copy.seo,
         crumbs: [

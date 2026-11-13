@@ -9,7 +9,8 @@ export type ToolId =
   | "quotation"
   | "receipt-voucher"
   | "credit-note"
-  | "non-tax-invoice";
+  | "non-tax-invoice"
+  | "zatca-qr";
 
 export type ToolDefinition = {
   id: ToolId;
@@ -27,6 +28,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { id: "receipt-voucher", href: "/tools/receipt-voucher", accent: "sage", live: true },
   { id: "credit-note", href: "/tools/credit-note", accent: "gold", live: true },
   { id: "non-tax-invoice", href: "/tools/non-tax-invoice", accent: "sage", live: true },
+  { id: "zatca-qr", href: "/tools/zatca-qr", accent: "green", live: true },
 ];
 
 type ToolCopyEntry = {
@@ -172,6 +174,12 @@ const toolsCopyAr: ToolsCopy = {
       badge: "جديد",
       keywords: "فاتورة غير ضريبية · منشأة غير مسجلة · PDF",
     },
+    "zatca-qr": {
+      title: "قارئ رمز QR للفاتورة",
+      subtitle: "اقرأ بيانات رمز QR في الفاتورة الإلكترونية وافحص صيغة حقوله، من النص أو الصورة.",
+      badge: "جديد",
+      keywords: "رمز QR · فاتورة إلكترونية · فحص",
+    },
   },
   vatCalculator: {
     amountLabel: "المبلغ (ر.س)",
@@ -313,6 +321,12 @@ const toolsCopyEn: ToolsCopy = {
       subtitle: "An invoice without VAT for businesses not registered for VAT, ready as a PDF.",
       badge: "New",
       keywords: "Non-tax invoice · Not VAT-registered · PDF",
+    },
+    "zatca-qr": {
+      title: "ZATCA QR decoder",
+      subtitle: "Read the QR code on a Saudi e-invoice and check its fields, from text or an image.",
+      badge: "New",
+      keywords: "QR code · E-invoice · Check",
     },
   },
   vatCalculator: {

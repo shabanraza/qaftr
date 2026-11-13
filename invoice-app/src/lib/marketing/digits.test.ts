@@ -29,6 +29,7 @@ const SAUDI_FILES = [
   'src/routes/tools/quotation.tsx',
   'src/routes/tools/credit-note.tsx',
   'src/routes/tools/non-tax-invoice.tsx',
+  'src/routes/tools/zatca-qr.tsx',
   'src/components/documents/DocumentShell.tsx',
 ]
 // Allowed Latin digits in Saudi Arabic strings: typed-input examples only.
