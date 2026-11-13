@@ -1,5 +1,13 @@
 export { encodeZatcaQr, ZATCA_QR_TAGS } from "./zatca-qr";
 export type { ZatcaQrData } from "./zatca-qr";
+export { decodeZatcaQrPayload } from "./zatca-qr-decode";
+export type {
+  DecodedZatcaQr,
+  ZatcaQrDecodeError,
+  ZatcaQrDecodeResult,
+  ZatcaQrIssue,
+  ZatcaQrIssueCode,
+} from "./zatca-qr-decode";
 export {
   VAT_RATE,
   computeInvoiceTotals,

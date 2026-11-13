@@ -7,6 +7,7 @@ import {
   FileTextIcon,
   ReceiptIcon,
   ReceiptTextIcon,
+  ScanQrCodeIcon,
   ScrollTextIcon,
   ShieldCheckIcon,
 } from "lucide-react";
@@ -33,6 +34,7 @@ const TOOL_ICONS: Record<ToolId, typeof FileTextIcon> = {
   "receipt-voucher": ReceiptTextIcon,
   "credit-note": FileMinusIcon,
   "non-tax-invoice": ReceiptIcon,
+  "zatca-qr": ScanQrCodeIcon,
 };
 
 const ACCENT_STYLES: Record<(typeof TOOL_DEFINITIONS)[number]["accent"], string> = {

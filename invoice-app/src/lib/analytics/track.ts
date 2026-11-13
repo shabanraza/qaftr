@@ -11,6 +11,7 @@ export type ToolName =
   | 'vat_calculator'
   | 'trn_checker'
   | 'zatca_wave_checker'
+  | 'zatca_qr_decoder'
   | 'uae_vat_calculator'
   | 'uae_trn_checker'
   | 'uae_readiness_quiz'
