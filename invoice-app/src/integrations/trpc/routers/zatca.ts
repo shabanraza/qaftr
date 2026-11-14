@@ -1,12 +1,13 @@
 import { and, desc, eq, max, ne, sql } from "drizzle-orm";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { computeInvoiceTotals, sellerZatcaReadiness } from "@zatca/shared";
+import { computeInvoiceTotals } from "@zatca/shared";
 import { ZATCA_SANDBOX_OTP, createZatcaClient } from "@zatca/shared/zatca-phase2";
 import { db } from "#/db";
 import { businesses, clients, egsUnits, entitlements, invoices, lineItems, zatcaCredentials } from "#/db/schema";
 import { keyRingFromProcessEnv } from "#/lib/zatca/credential-crypto";
 import { onboardingGate, resolveZatcaEnv, toEgsRecords } from "#/lib/zatca/egs-records";
+import { buildZatcaStatus } from "#/lib/zatca/status";
 import { OnboardingError, onboardEgs } from "#/lib/zatca/onboarding";
 import type { OnboardingEnv } from "#/lib/zatca/onboarding";
 import { toZatcaDocument } from "#/lib/zatca/invoice-mapping";
@@ -150,34 +151,27 @@ export const zatcaRouter = createTRPCRouter({
   /** What the business page needs to show the onboarding card. */
   status: protectedProcedure.query(async ({ ctx }) => {
     const env = resolveZatcaEnv(process.env);
-    const business = await loadBusiness(ctx.userId);
-    const [entitlement] = await db.select().from(entitlements).where(eq(entitlements.ownerId, ctx.userId)).limit(1);
-    const unit =
-      business && env
-        ? (
-            await db
-              .select({
-                id: egsUnits.id,
-                status: egsUnits.status,
-                commonName: egsUnits.commonName,
-                egsSerial: egsUnits.egsSerial,
-                certNotAfter: egsUnits.certNotAfter,
-                createdAt: egsUnits.createdAt,
-              })
-              .from(egsUnits)
-              .where(and(eq(egsUnits.businessId, business.id), eq(egsUnits.env, env), eq(egsUnits.status, "active")))
-              .orderBy(desc(egsUnits.createdAt))
-              .limit(1)
-          )[0] ?? null
-        : null;
-    return {
-      env,
-      gate: onboardingGate({ env, entitlement }),
-      hasBusiness: Boolean(business),
-      sellerReady: business ? sellerZatcaReadiness({ ...business, name: business.nameAr }).ready : false,
-      sandboxOtp: env === "sandbox" ? ZATCA_SANDBOX_OTP : null,
-      unit,
-    };
+    // One round trip: business, plan and active EGS unit in a single batch.
+    const businessQuery = db.select().from(businesses).where(eq(businesses.ownerId, ctx.userId)).limit(1);
+    const entitlementQuery = db.select().from(entitlements).where(eq(entitlements.ownerId, ctx.userId)).limit(1);
+    const unitQuery = db
+      .select({
+        id: egsUnits.id,
+        status: egsUnits.status,
+        commonName: egsUnits.commonName,
+        egsSerial: egsUnits.egsSerial,
+        certNotAfter: egsUnits.certNotAfter,
+        createdAt: egsUnits.createdAt,
+      })
+      .from(egsUnits)
+      .innerJoin(businesses, eq(businesses.id, egsUnits.businessId))
+      .where(and(eq(businesses.ownerId, ctx.userId), eq(egsUnits.env, env ?? "sandbox"), eq(egsUnits.status, "active")))
+      .orderBy(desc(egsUnits.createdAt))
+      .limit(1);
+    const [[business], [entitlement], [unit]] = env
+      ? await db.batch([businessQuery, entitlementQuery, unitQuery])
+      : [...(await db.batch([businessQuery, entitlementQuery])), []];
+    return buildZatcaStatus({ env, business, entitlement, unit });
   }),
 
   onboard: protectedProcedure.input(onboardInput).mutation(async ({ ctx, input }) => {

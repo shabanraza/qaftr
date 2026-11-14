@@ -141,6 +141,6 @@ Sidebar click → page rendered, same seeded account, Neon dev branch (eu-centra
 | `invoices.list` | 0.9 – 1.2 s | ~230 ms |
 | `clients.list` | 0.6 – 0.96 s | ~225 ms |
 
-Still slow (follow-up): `zatca.status` (~1.1 – 1.4 s) on Settings and the invoice page.
+`zatca.status` (Settings, invoice page, new invoice): 630 – 820 ms → 230 – 310 ms (dev server). Its three serial queries (business, plan, active EGS unit) now run as one `db.batch` round trip.
 
 Shipped: persistent `WorkspaceLayout` in the `/workspace` route, cached client session for guards, Better Auth `cookieCache` (5 min), non-blocking loaders, overdue derived on read, new sidebar (Home, Invoices, Quotes, Customers, Reports, Settings) + "New" menu, `/workspace/whatsapp` redirects to Home, new invoice editor with live PDF preview (`WorkspaceInvoiceEditor`, `InvoicePagePreview`), `invoices.create` accepts `supplyDate` and `status: draft`.
