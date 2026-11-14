@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { MarketingLayout } from "#/components/marketing/MarketingLayout";
 import { ToolsHubGrid } from "#/components/tools/ToolsHubGrid";
 import { AeCrossLinkCard } from "#/components/ae/AeCrossLinkCard";
@@ -46,11 +46,15 @@ function ToolsHubPage() {
         <ToolsHubGrid lang={lang} />
         <p className="mt-6 text-sm text-muted-foreground">
           {lang === "ar" ? "جديد: " : "New: "}
-          <a href={`/guides/zatca-wave-25${lang === "en" ? "?lang=en" : ""}`} className="font-medium text-primary">
+          <Link
+            to="/guides/zatca-wave-25"
+            search={lang === "en" ? { lang: "en" } : {}}
+            className="font-medium text-primary"
+          >
             {lang === "ar"
               ? "دليل الموجة ٢٥ — من يشملها وموعد ١ فبراير ٢٠٢٧"
               : "ZATCA Wave 25 guide — who is in scope and the 1 February 2027 deadline"}
-          </a>
+          </Link>
         </p>
         <AeCrossLinkCard lang={lang} />
       </div>

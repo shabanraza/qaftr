@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import {
   Check,
@@ -73,9 +73,9 @@ function HomePage() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="qaftr-btn-primary shadow-md">
-              <a href="#invoice-tool" className="no-underline">
+              <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="#invoice-tool">
                 {toolCopy.heroCta}
-              </a>
+              </Link>
             </Button>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>
@@ -157,9 +157,9 @@ function HomePage() {
             highlighted={false}
             cta={
               <Button asChild size="lg" variant="outline" className="w-full">
-                <a href="#invoice-tool" data-cta="pricing_free">
+                <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="pricing_free">
                   {toolCopy.heroCta}
-                </a>
+                </Link>
               </Button>
             }
           />
@@ -202,9 +202,9 @@ function HomePage() {
               variant="secondary"
               className="mt-8 px-8 text-primary"
             >
-              <a href="#invoice-tool" className="no-underline">
+              <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="#invoice-tool">
                 {t(lang).cta.createInvoice}
-              </a>
+              </Link>
             </Button>
             <p className="mt-3 text-sm text-primary-foreground/70">{t(lang).cta.noCard}</p>
           </CardContent>

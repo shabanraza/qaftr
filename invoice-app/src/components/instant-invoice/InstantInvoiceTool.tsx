@@ -743,14 +743,16 @@ export function InstantInvoiceTool({
                   aria-live="polite"
                   className="relative rounded-2xl border border-primary/25 bg-primary p-5 text-primary-foreground shadow-md"
                 >
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon-sm"
                     onClick={() => setDownloaded(false)}
-                    className="absolute end-3 top-3 rounded-md p-1 text-primary-foreground/70 hover:text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                    className="absolute end-2 top-2 text-primary-foreground/70 hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-secondary/60"
                     aria-label={copy.result.dismiss}
                   >
-                    <X aria-hidden className="size-4" />
-                  </button>
+                    <X aria-hidden />
+                  </Button>
                   <h3
                     id="invoice-result-title"
                     className="flex items-center gap-2 pe-6 text-base font-bold"
