@@ -21,3 +21,15 @@ export function renderInvoiceStatus(status: string, lang: 'ar' | 'en'): string {
   if (status === 'draft') return 'Draft'
   return 'Unpaid'
 }
+
+/**
+ * Status as shown to the user: an unpaid invoice past its due date reads as
+ * overdue. Computed on read so listing invoices never needs a DB write.
+ */
+export function withEffectiveStatus<T extends { status: string; dueDate: Date | string | null }>(
+  invoice: T,
+  now: Date = new Date(),
+): T {
+  if (invoice.status !== 'unpaid' || !invoice.dueDate) return invoice
+  return new Date(invoice.dueDate).getTime() < now.getTime() ? { ...invoice, status: 'overdue' } : invoice
+}

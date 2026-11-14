@@ -29,6 +29,11 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  session: {
+    // Signed session cookie (5 min): get-session and every tRPC call skip the
+    // DB session lookup while it is fresh. Revoked sessions expire within 5 min.
+    cookieCache: { enabled: true, maxAge: 5 * 60 },
+  },
   plugins: [
     // bearer() lets the mobile app send Authorization: Bearer <token>
     bearer(),

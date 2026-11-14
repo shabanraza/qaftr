@@ -3,5 +3,9 @@
   "name": "tanstack-start-app",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "src/server.ts",
+  // Signed and cleared ZATCA invoice XML (kept 6+ years under the VAT law).
+  "r2_buckets": [{ "binding": "ZATCA_XML", "bucket_name": "qaftr-zatca-xml" }],
+  // Resend signed invoices ZATCA has not accepted yet (src/server.ts scheduled handler).
+  "triggers": { "crons": ["*/5 * * * *"] }
 }

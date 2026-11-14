@@ -46,7 +46,7 @@ export const Route = createFileRoute('/workspace/quotes/')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await context.queryClient.ensureQueryData(context.trpc.quotes.list.queryOptions())
+    void context.queryClient.prefetchQuery(context.trpc.quotes.list.queryOptions())
   },
   head: ({ match }) => {
     const lang = resolveLang(match.search)

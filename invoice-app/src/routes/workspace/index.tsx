@@ -19,9 +19,9 @@ export const Route = createFileRoute('/workspace/')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await Promise.all([
-      context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions()),
-      context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),
+    void Promise.all([
+      context.queryClient.prefetchQuery(context.trpc.invoices.list.queryOptions()),
+      context.queryClient.prefetchQuery(context.trpc.clients.list.queryOptions()),
     ])
   },
   component: WorkspacePageIndex,
@@ -83,6 +83,7 @@ function WorkspacePageIndex() {
             dueDate: invoice.dueDate ? new Date(invoice.dueDate) : null,
             total: invoice.total,
             clientName: invoice.clientId ? clientsById.get(invoice.clientId)?.name ?? null : null,
+            zatcaKind: invoice.zatcaKind,
           }))}
           clientCount={clients.length}
         />
@@ -95,7 +96,7 @@ function WorkspacePageIndex() {
             </EmptyHeader>
             <EmptyContent>
               <Button asChild>
-                <Link to="/" search={search} hash="invoice-tool">
+                <Link to="/workspace/new-invoice" search={search}>
                   {copy.emptyCta}
                 </Link>
               </Button>

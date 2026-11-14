@@ -6,7 +6,7 @@ import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { Textarea } from '#/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '#/components/ui/card'
+import { FormSection } from '#/components/workspace/FormSection'
 import { Field, FieldLabel, FieldGroup } from '#/components/ui/field'
 import { Alert, AlertDescription } from '#/components/ui/alert'
 import { Plus, Trash2, ArrowLeft, ArrowRight } from 'lucide-react'
@@ -26,9 +26,9 @@ export const Route = createFileRoute('/workspace/quotes/new')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await Promise.all([
-      context.queryClient.ensureQueryData(context.trpc.business.get.queryOptions()),
-      context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),
+    void Promise.all([
+      context.queryClient.prefetchQuery(context.trpc.business.get.queryOptions()),
+      context.queryClient.prefetchQuery(context.trpc.clients.list.queryOptions()),
     ])
   },
   head: ({ match }) => {
@@ -261,7 +261,7 @@ function WorkspaceNewQuotePage() {
         </Button>
       }
     >
-      <form onSubmit={handleSave} className="p-5 max-w-4xl space-y-6">
+      <form onSubmit={handleSave} className="flex max-w-4xl flex-col px-5 py-6">
         {errorMsg ? (
           <Alert variant="destructive">
             <AlertDescription>{errorMsg}</AlertDescription>
@@ -269,11 +269,7 @@ function WorkspaceNewQuotePage() {
         ) : null}
 
         {/* 1. Business Profile Readonly info */}
-        <Card className="border-border/80 bg-muted/20 py-4 shadow-none">
-          <CardHeader className="px-5 pb-0 pt-2">
-            <CardTitle className="text-sm text-primary">{copy.businessTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="px-5 pt-3">
+        <FormSection title={copy.businessTitle}>
             {business ? (
               <div className="grid gap-2 sm:grid-cols-2 text-sm">
                 <div>
@@ -290,15 +286,10 @@ function WorkspaceNewQuotePage() {
                 {isArabic ? 'لم يتم العثور على منشأة مفعلة. يرجى تهيئة الملف الشخصي.' : 'No active business setup found.'}
               </p>
             )}
-          </CardContent>
-        </Card>
+        </FormSection>
 
         {/* 2. Client Selection & Details */}
-        <Card className="border-border/80 bg-muted/20 py-4 shadow-none">
-          <CardHeader className="px-5 pb-0 pt-2">
-            <CardTitle className="text-sm text-primary">{copy.clientTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="px-5 pt-4 space-y-4">
+        <FormSection title={copy.clientTitle}>
             {clients.length ? (
               <Field>
                 <FieldLabel htmlFor="client-select">{copy.selectClient}</FieldLabel>
@@ -339,17 +330,13 @@ function WorkspaceNewQuotePage() {
                 />
               </Field>
             </FieldGroup>
-          </CardContent>
-        </Card>
+        </FormSection>
 
         {/* 3. Line Items */}
-        <Card className="border-border/80 bg-muted/20 py-4 shadow-none">
-          <CardHeader className="px-5 pb-0 pt-2">
-            <CardTitle className="text-sm text-primary">{copy.itemsTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="px-5 pt-4 space-y-4">
+        <FormSection title={copy.itemsTitle}>
+          <div className="divide-y divide-border border-y border-border">
             {lineItems.map((item, index) => (
-              <Card key={item.id} className="p-4 relative border-border bg-card shadow-none">
+              <div key={item.id} className="py-3">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-muted-foreground">{copy.itemN(index + 1)}</span>
                   {lineItems.length > 1 && (
@@ -360,7 +347,7 @@ function WorkspaceNewQuotePage() {
                       className="text-destructive hover:text-destructive"
                       onClick={() => removeLineItem(item.id)}
                     >
-                      <Trash2 className="size-3.5 mr-1" />
+                      <Trash2 className="size-3.5 me-1" />
                       {copy.removeItem}
                     </Button>
                   )}
@@ -395,21 +382,17 @@ function WorkspaceNewQuotePage() {
                     />
                   </div>
                 </FieldGroup>
-              </Card>
+              </div>
             ))}
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full border-dashed"
-              onClick={addLineItem}
-            >
-              <Plus className="size-4 mr-1.5" />
-              {copy.addItem}
-            </Button>
-          </CardContent>
-        </Card>
+          </div>
+          <Button type="button" variant="ghost" size="sm" className="self-start" onClick={addLineItem}>
+            <Plus className="size-4 me-1.5" />
+            {copy.addItem}
+          </Button>
+        </FormSection>
 
         {/* 4. Dates & Notes */}
+        <FormSection title={isArabic ? 'تفاصيل إضافية' : 'More details'}>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field>
             <FieldLabel htmlFor="valid-until">{copy.validUntil}</FieldLabel>
@@ -430,10 +413,10 @@ function WorkspaceNewQuotePage() {
             />
           </Field>
         </div>
+        </FormSection>
 
         {/* 5. Totals Overview & Submit */}
-        <Card className="border-border">
-          <CardContent className="p-5 space-y-3">
+        <div className="flex flex-col gap-3 border-t-2 border-foreground/80 pt-4 sm:ms-auto sm:w-80">
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">{copy.totals.subtotal}</span>
               <span className="font-semibold tabular-nums">{formatMoney(totals.subtotal, lang)}</span>
@@ -446,13 +429,10 @@ function WorkspaceNewQuotePage() {
               <span>{copy.totals.total}</span>
               <span className="tabular-nums">{formatMoney(totals.total, lang)}</span>
             </div>
-          </CardContent>
-          <CardFooter className="p-5 bg-muted/10 border-t border-border flex justify-end">
-            <Button type="submit" disabled={isSubmitting || !business} className="qaftr-btn-primary w-full sm:w-auto">
+            <Button type="submit" disabled={isSubmitting || !business} className="qaftr-btn-primary mt-2 w-full">
               {isSubmitting ? copy.saving : copy.save}
             </Button>
-          </CardFooter>
-        </Card>
+        </div>
       </form>
     </WorkspaceShell>
   )

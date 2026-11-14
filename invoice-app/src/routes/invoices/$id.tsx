@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from '@tanstack/react-router'
+import { documentNumber } from '#/lib/zatca/document-kind'
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { authClient } from '#/lib/auth-client'
@@ -153,7 +154,7 @@ function InvoiceDetailPage() {
                 <div>
                   <p className="text-xs font-semibold text-muted-foreground">{copy.taxInvoice}</p>
                   <CardTitle className="mt-1 text-2xl text-primary">
-                    INV-{String(invoice.seqNumber).padStart(3, '0')}
+                    {documentNumber(invoice.seqNumber, invoice.zatcaKind)}
                   </CardTitle>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {invoice.business?.nameAr} → {invoice.client?.name ?? '—'}

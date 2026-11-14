@@ -38,7 +38,7 @@ export const billingRouter = createTRPCRouter({
       .select({ count: sql<number>`count(*)::int` })
       .from(invoices)
       .where(
-        and(eq(invoices.ownerId, ctx.userId), gte(invoices.createdAt, monthStart)),
+        and(eq(invoices.ownerId, ctx.userId), gte(invoices.createdAt, monthStart), sql`coalesce(${invoices.zatcaKind}, 'invoice') = 'invoice'`),
       );
 
     const used = countRow?.count ?? 0;

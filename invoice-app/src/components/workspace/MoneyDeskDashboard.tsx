@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { documentNumber, amountSign } from '#/lib/zatca/document-kind'
 import {
   ArrowUpRight,
   Clock3,
@@ -24,6 +25,7 @@ type InvoiceSummary = {
   dueDate: Date | null
   total: string
   clientName: string | null
+  zatcaKind?: 'invoice' | 'credit-note' | 'debit-note' | null
 }
 
 type MoneyDeskDashboardProps = {
@@ -49,7 +51,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
   const logEventMutation = useMutation(trpc.invoices.logEvent.mutationOptions())
 
   const handleQuickReminder = async (invoice: InvoiceSummary) => {
-    const invoiceNum = `INV-${String(invoice.seqNumber).padStart(3, '0')}`
+    const invoiceNum = documentNumber(invoice.seqNumber, invoice.zatcaKind)
     const formattedAmount = formatMoney(invoice.total, lang)
     const clientName = invoice.clientName ?? (isArabic ? 'العميل' : 'Client')
     const messageText = isArabic
@@ -85,7 +87,8 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
     .sort((a, b) => b.issueDate.getTime() - a.issueDate.getTime())
     .slice(0, 5)
 
-  const monthTotal = sumAmounts(monthInvoices.map((invoice) => invoice.total))
+  // Credit notes reduce the month's sales.
+  const monthTotal = sumAmounts(monthInvoices.map((invoice) => String(amountSign(invoice.zatcaKind) * Number(invoice.total))))
   const unpaidTotal = sumAmounts(
     invoices
       .filter((invoice) => invoice.status === 'unpaid' || invoice.status === 'overdue')
@@ -211,7 +214,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
                               search={lang === 'en' ? { lang: 'en' } : {}}
                               className="font-medium !text-primary hover:underline"
                             >
-                              INV-{String(invoice.seqNumber).padStart(3, '0')}
+                              {documentNumber(invoice.seqNumber, invoice.zatcaKind)}
                             </Link>
                             <p className="mt-1 text-xs text-muted-foreground">
                               {invoice.clientName ?? copy.unnamed}
@@ -278,7 +281,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
                                     search={lang === 'en' ? { lang: 'en' } : {}}
                                     className="font-medium !text-primary hover:underline"
                                   >
-                                    INV-{String(invoice.seqNumber).padStart(3, '0')}
+                                    {documentNumber(invoice.seqNumber, invoice.zatcaKind)}
                                   </Link>
                                 </td>
                                 <td className="px-5 py-4 text-muted-foreground">

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { documentNumber } from '#/lib/zatca/document-kind'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -17,7 +18,7 @@ export const Route = createFileRoute('/workspace/invoices/')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions())
+    void context.queryClient.prefetchQuery(context.trpc.invoices.list.queryOptions())
   },
   head: ({ match }) => {
     const lang = resolveLang(match.search)
@@ -139,7 +140,7 @@ function WorkspaceInvoicesPage() {
                       search={search}
                       className="font-medium !text-primary hover:underline"
                     >
-                      INV-{String(invoice.seqNumber).padStart(3, '0')}
+                      {documentNumber(invoice.seqNumber, invoice.zatcaKind)}
                     </Link>
                   </td>
                   <td className="px-5 py-4 text-muted-foreground">

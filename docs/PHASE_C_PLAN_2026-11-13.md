@@ -28,11 +28,46 @@ The `/ae` section stays as free tools that need no official certification: the P
 1. **Done in this branch:** the database schema and migration `0002_zatca_phase2` (EGS units, encrypted credentials, submission log,
    ZATCA invoice columns, structured seller and buyer addresses, and line VAT categories). Tested on a local Postgres, both
    fresh and db:push-style.
-2. Envelope encryption helper (WebCrypto AES-256-GCM plus a KEK secret), test-first.
-3. Business and client forms that capture CR number, structured address and buyer ID (shared validation).
-4. EGS onboarding flow (OTP → CSR → CCSID → compliance docs → PCSID) against the **sandbox**, behind a `zatca_phase2` Pro flag.
-5. Signing in a Durable Object per EGS unit, R2 storage for signed XML, synchronous clearance for standard invoices.
-6. Cloudflare Queue for 24-hour reporting, plus a cron sweeper and certificate-expiry reminders.
+2. **Done:** envelope encryption in `invoice-app/src/lib/zatca/credential-crypto.ts`. Each credential gets a random data key, and each field is
+   sealed with AES-256-GCM, bound to its credential id and column. The data key is wrapped by `ZATCA_KEK_V{n}`, chosen by
+   `ZATCA_KEK_CURRENT`, and `rewrapCredential` handles rotation. Before onboarding goes live, create the secrets:
+   `wrangler secret put ZATCA_KEK_V1` (a 32-byte base64 value from `generateKekBase64()`) and `wrangler secret put ZATCA_KEK_CURRENT` (`1`).
+   Add the same two values to `invoice-app/.env` for local work, using a different key from production.
+3. **Done:** a `/workspace/business` profile page and the client form now capture the CR number, the national address and the buyer
+   ID. Shared checks live in `packages/shared/src/zatca-party.ts`: format on save, plus Phase 2 readiness. The routers normalize
+   Arabic digits and return `INVALID_PROFILE:field:CODE` errors, which the forms highlight.
+4. **Done (sandbox):** EGS onboarding (OTP → CSR → CCSID → 6 chained compliance docs → PCSID) in
+   `invoice-app/src/lib/zatca/onboarding.ts`, persisted by the `zatca` tRPC router with sealed credentials
+   (`lib/zatca/egs-records.ts`), and a "Connect to ZATCA" card on `/workspace/business`. The deployment's environment comes from
+   the `ZATCA_ENV` secret (`sandbox` | `simulation` | `production`; unset = feature hidden). The sandbox is open to every plan and
+   uses the documented test OTP and VAT number. Simulation and production need an active Pro plan and the customer's Fatoora OTP.
+   A real sandbox run passed on 2026-11-13 (about 6 seconds end to end). Before turning it on in production: set `ZATCA_KEK_V1`,
+   `ZATCA_KEK_CURRENT` and `ZATCA_ENV` as Worker secrets.
+5. **Done (sandbox):** "Send to ZATCA" on the invoice page (`zatca.issueInvoice`). `lib/zatca/invoice-mapping.ts` picks standard
+   (the client has a VAT number or other ID) or simplified, freezes the date and time in Riyadh time, and refuses invoices whose
+   e-invoice totals would differ from the saved ones. `lib/zatca/issue.ts` signs at the next ICV, stores the XML in R2 (binding
+   `ZATCA_XML`, bucket `qaftr-zatca-xml`), then clears standard invoices and reports simplified ones straight away.
+   - **Durable Object replaced:** the ICV/PIH chain is serialized by one compare-and-swap SQL statement on `egs_units.last_icv`
+     (`lib/zatca/egs-store.ts`), backed by the unique (egs_unit_id, icv) index. It gives the same guarantee with no custom Worker
+     entry; a lost race re-reads the chain and re-signs.
+   - A signed invoice is never re-signed. If ZATCA can't be reached, it stays `signed` / `pending_clearance` and
+     `zatca.retrySubmission` resends the stored XML. Signed invoices can't be deleted (`INVOICE_LOCKED`). Every call is logged in
+     `zatca_submissions`. The PDF prints the Phase 2 QR (ZATCA's stamped one for cleared invoices).
+   - A real sandbox run passed on 2026-11-14: a simplified invoice reported at ICV 1 and a standard invoice cleared at ICV 2,
+     with the PIH chained.
+   - Before deploying: create the R2 bucket `qaftr-zatca-xml`.
+6. **Done (sandbox):**
+   - **Retry sweeper:** a cron trigger every 5 minutes (`src/server.ts`, now the Worker `main`, wrapping TanStack Start's
+     handler) resends `signed` / `pending_clearance` invoices from R2. It backs off 5, 10, 20… minutes up to 2 hours, and always
+     tries again 15 minutes before the 24-hour reporting deadline (`lib/zatca/sweeper.ts`, `lib/zatca/resubmit.ts`).
+   - **Certificate expiry:** the ZATCA card on the business page warns 30 days before the device certificate expires.
+     Renewal itself (new OTP, `renewProductionCsid`) is not built yet.
+   - **Credit and debit notes:** `zatca.createNote` creates a CN-/DN- row linked to the original invoice, with the original's
+     subtype, and signs and sends it. Without lines it credits the whole invoice; credits can't exceed the invoice. The invoice
+     page has "Issue credit note" (whole invoice); partial credits and debit notes are API-only for now. Credit notes subtract
+     in the dashboard month total and the accountant VAT summary, and don't count toward the free plan's monthly limit.
+   - A real sandbox run passed on 2026-11-14: partial credit and debit notes were reported (B2C) and cleared (B2B), and the
+     cron handler resent a pending invoice.
 7. Simulation, with a beta customer's OTP, then production.
 8. Apply to ZATCA's voluntary Solution Providers Directory once the first production customers are live.
 
