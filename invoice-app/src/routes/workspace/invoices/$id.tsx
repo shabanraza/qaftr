@@ -23,9 +23,9 @@ export const Route = createFileRoute('/workspace/invoices/$id')({
   loader: async ({ context, params }) => {
     if (typeof window === 'undefined') return
 
-    await Promise.all([
-      context.queryClient.ensureQueryData(context.trpc.invoices.get.queryOptions({ id: params.id })),
-      context.queryClient.ensureQueryData(context.trpc.invoices.getEvents.queryOptions({ invoiceId: params.id })),
+    void Promise.all([
+      context.queryClient.prefetchQuery(context.trpc.invoices.get.queryOptions({ id: params.id })),
+      context.queryClient.prefetchQuery(context.trpc.invoices.getEvents.queryOptions({ invoiceId: params.id })),
     ])
   },
   head: ({ match }) => {

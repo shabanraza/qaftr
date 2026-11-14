@@ -18,7 +18,7 @@ export const Route = createFileRoute('/workspace/invoices/')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await context.queryClient.ensureQueryData(context.trpc.invoices.list.queryOptions())
+    void context.queryClient.prefetchQuery(context.trpc.invoices.list.queryOptions())
   },
   head: ({ match }) => {
     const lang = resolveLang(match.search)

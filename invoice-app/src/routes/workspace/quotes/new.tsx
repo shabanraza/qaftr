@@ -26,9 +26,9 @@ export const Route = createFileRoute('/workspace/quotes/new')({
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
 
-    await Promise.all([
-      context.queryClient.ensureQueryData(context.trpc.business.get.queryOptions()),
-      context.queryClient.ensureQueryData(context.trpc.clients.list.queryOptions()),
+    void Promise.all([
+      context.queryClient.prefetchQuery(context.trpc.business.get.queryOptions()),
+      context.queryClient.prefetchQuery(context.trpc.clients.list.queryOptions()),
     ])
   },
   head: ({ match }) => {

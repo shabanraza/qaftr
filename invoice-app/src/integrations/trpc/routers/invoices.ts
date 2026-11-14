@@ -1,4 +1,4 @@
-import { and, eq, gte, lt, max, sql, isNotNull } from "drizzle-orm";
+import { and, eq, gte, max, sql } from "drizzle-orm";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { db } from "#/db";
@@ -7,6 +7,7 @@ import { computeInvoiceTotals, totalsMatch } from "@zatca/shared";
 import { createTRPCRouter, protectedProcedure } from "../init";
 import { throwNotFound } from "../errors";
 import { FREE_INVOICE_LIMIT } from "./billing";
+import { withEffectiveStatus } from "#/lib/workspace/invoice-status";
 
 const lineItemInput = z.object({
   description: z.string().min(1),
@@ -21,6 +22,10 @@ const createInvoiceInput = z.object({
   clientId: z.string().optional(),
   issueDate: z.string(), // ISO string
   dueDate: z.string().optional(),
+  /** YYYY-MM-DD; printed (and sent to ZATCA) only when it differs from the issue date. */
+  supplyDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  /** "draft" keeps it out of collections until the user marks it issued. */
+  status: z.enum(["draft", "unpaid"]).default("unpaid"),
   notes: z.string().optional(),
   currency: z.string().default("SAR"),
   subtotal: z.string(),
@@ -42,30 +47,15 @@ function isUniqueViolation(err: unknown): boolean {
 
 export const invoicesRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
-    const now = new Date();
     try {
-      await db
-        .update(invoices)
-        .set({ status: "overdue", updatedAt: now })
-        .where(
-          and(
-            eq(invoices.ownerId, ctx.userId),
-            eq(invoices.status, "unpaid"),
-            isNotNull(invoices.dueDate),
-            lt(invoices.dueDate, now),
-          ),
-        );
-    } catch (err) {
-      // Non-fatal: DB may be missing due_date/overdue enum until migration runs.
-      console.error("[invoices.list] overdue auto-update failed:", err);
-    }
-
-    try {
-      return await db
+      const rows = await db
         .select()
         .from(invoices)
         .where(eq(invoices.ownerId, ctx.userId))
         .orderBy(sql`${invoices.createdAt} desc`);
+      // Overdue is derived on read (no UPDATE per list call).
+      const now = new Date();
+      return rows.map((row) => withEffectiveStatus(row, now));
     } catch (err) {
       console.error("[invoices.list] fetch failed:", err);
       throw new TRPCError({
@@ -112,7 +102,7 @@ export const invoicesRouter = createTRPCRouter({
       ]);
 
       return {
-        ...invoice,
+        ...withEffectiveStatus(invoice),
         lineItems: items,
         business: businessRows[0] ?? null,
         client: clientRows[0] ?? null,
@@ -197,7 +187,6 @@ export const invoicesRouter = createTRPCRouter({
             seqNumber,
             issueDate: new Date(issueDate),
             dueDate: dueDate ? new Date(dueDate) : null,
-            status: "unpaid",
             subtotal: computed.subtotal,
             vatAmount: computed.vatAmount,
             total: computed.total,

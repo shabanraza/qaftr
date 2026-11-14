@@ -12,7 +12,7 @@ export const Route = createFileRoute('/workspace/business')({
   validateSearch: marketingSearchSchema,
   loader: async ({ context }) => {
     if (typeof window === 'undefined') return
-    await context.queryClient.ensureQueryData(context.trpc.business.get.queryOptions())
+    void context.queryClient.prefetchQuery(context.trpc.business.get.queryOptions())
   },
   head: ({ match }) => {
     const lang = resolveLang(match.search)
