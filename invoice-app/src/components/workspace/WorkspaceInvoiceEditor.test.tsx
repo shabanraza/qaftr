@@ -3,8 +3,8 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import type { EditorBusiness, EditorClient } from '#/lib/workspace/invoice-editor'
 
 vi.mock('@tanstack/react-router', () => ({
-  Link: ({ children, to, hash: _h, search: _s, ...rest }: { children: React.ReactNode; to: string; hash?: string; search?: unknown }) => (
-    <a href={to} {...rest}>
+  Link: ({ children, to, hash, search, ...rest }: { children: React.ReactNode; to: string; hash?: string; search?: unknown }) => (
+    <a href={hash ? `${to}#${hash}` : to} data-search={JSON.stringify(search ?? {})} {...rest}>
       {children}
     </a>
   ),
@@ -99,6 +99,24 @@ describe('WorkspaceInvoiceEditor', () => {
     setup({ clients: [{ ...b2b, city: null }] })
     fireEvent.change(screen.getByLabelText('Customer'), { target: { value: 'c1' } })
     expect(screen.getByText(/address is incomplete/)).toBeTruthy()
+  })
+
+  it('links the incomplete-customer warning to editing that customer, then back here', () => {
+    setup({ clients: [{ ...b2b, city: null }] })
+    fireEvent.change(screen.getByLabelText('Customer'), { target: { value: 'c1' } })
+    const link = screen.getByRole('link', { name: 'Complete customer details' })
+    expect(JSON.parse(link.getAttribute('data-search') ?? '{}')).toMatchObject({ edit: 'c1', from: 'new-invoice', lang: 'en' })
+  })
+
+  it('preselects the customer passed in, e.g. after editing them', () => {
+    setup({ initialClientId: 'c1' })
+    expect((screen.getByLabelText('Customer') as HTMLSelectElement).value).toBe('c1')
+    expect(screen.getByTestId('invoice-type').textContent).toMatch(/Tax invoice/)
+  })
+
+  it('ignores an unknown preselected customer', () => {
+    setup({ initialClientId: 'gone' })
+    expect((screen.getByLabelText('Customer') as HTMLSelectElement).value).toBe('__cash__')
   })
 
   it('asks to complete the business profile when there is none', () => {

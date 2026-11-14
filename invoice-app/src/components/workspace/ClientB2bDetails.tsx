@@ -41,29 +41,32 @@ export function ClientB2bDetails({
   values,
   onChange,
   issues,
+  defaultOpen = false,
 }: {
   lang: MarketingLang
   values: PartyValues
   onChange: (key: PartyFormKey, value: string) => void
   issues: PartyIssue[]
+  /** Start expanded, e.g. when editing a client that already has these details. */
+  defaultOpen?: boolean
 }) {
   const t = TEXT[lang]
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(defaultOpen)
   const hasError = issues.some((i) => CLIENT_B2B_KEYS.includes(i.field as PartyFormKey))
   const expanded = open || hasError
   return (
-    <div className="rounded-lg border border-border/80">
+    <div className="border-t border-border pt-4">
       <button
         type="button"
         aria-expanded={expanded}
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-start text-sm font-medium text-foreground"
+        className="flex items-center gap-2 text-start text-sm font-medium text-foreground hover:text-primary"
       >
-        {t.toggle}
         <ChevronDownIcon className={cn('size-4 shrink-0 transition-transform', expanded && 'rotate-180')} aria-hidden />
+        {t.toggle}
       </button>
       {expanded ? (
-        <div className="border-t border-border/80 px-4 py-4">
+        <div className="pt-3">
           <p className="mb-4 text-xs text-muted-foreground">{t.hint}</p>
           <PartyFields
             idPrefix="client"

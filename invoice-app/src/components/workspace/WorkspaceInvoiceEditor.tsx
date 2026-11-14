@@ -32,6 +32,8 @@ type Props = {
   nextSeq: number
   zatcaConnected: boolean
   onSave: (input: CreateInvoiceInput, opts: { sendToZatca: boolean }) => Promise<void>
+  /** Customer to start with, e.g. after adding or editing them on the Customers page. */
+  initialClientId?: string
 }
 
 const CASH = '__cash__'
@@ -128,10 +130,12 @@ function newLine(): EditorLine {
   return { id: `line-${lineCounter}-${Date.now()}`, description: '', qty: '1', unitPrice: '' }
 }
 
-export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatcaConnected, onSave }: Props) {
+export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatcaConnected, onSave, initialClientId }: Props) {
   const copy = getCopy(lang)
   const search = lang === 'en' ? { lang: 'en' as const } : {}
-  const [clientId, setClientId] = useState<string>(CASH)
+  const [clientId, setClientId] = useState<string>(() =>
+    initialClientId && clients.some((c) => c.id === initialClientId) ? initialClientId : CASH,
+  )
   const [lines, setLines] = useState<EditorLine[]>(() => [newLine()])
   const [notes, setNotes] = useState('')
   const [dueDate, setDueDate] = useState('')
@@ -252,7 +256,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
             ))}
           </select>
           <Button asChild variant="outline" size="icon" className="size-10 shrink-0" aria-label={copy.addCustomer} title={copy.addCustomer}>
-            <Link to="/workspace/clients" search={search} hash="create-client-form">
+            <Link to="/workspace/clients" search={{ ...search, from: 'new-invoice' }} hash="client-form">
               <Plus className="size-4" />
             </Link>
           </Button>
@@ -272,7 +276,12 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
           <p className="flex flex-wrap items-center gap-2 rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-900">
             <AlertTriangle className="size-3.5" />
             {copy.buyerIncomplete}
-            <Link to="/workspace/clients" search={search} className="font-medium underline">
+            <Link
+              to="/workspace/clients"
+              search={{ ...search, edit: client?.id, from: 'new-invoice' }}
+              hash="client-form"
+              className="font-medium underline"
+            >
               {copy.completeCustomer}
             </Link>
           </p>

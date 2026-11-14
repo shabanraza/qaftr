@@ -3,7 +3,7 @@ import { CheckCircle2Icon, CircleAlertIcon } from 'lucide-react'
 import { checkSellerFormat, normalizePartyInput, sellerZatcaReadiness } from '@zatca/shared'
 import type { PartyIssue } from '@zatca/shared'
 import { Button } from '#/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '#/components/ui/card'
+import { FormSection } from './FormSection'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { toArabicIndic } from '#/lib/sa/format'
 import { getPartyCopy } from '#/lib/zatca/party-copy'
@@ -97,24 +97,14 @@ export function BusinessProfileForm({
   return (
     <form onSubmit={submit} noValidate className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
       <div className="flex min-w-0 flex-col gap-6">
-        <Card className="py-0 shadow-none">
-          <CardHeader className="px-5 pt-5">
-            <CardTitle className="text-base">{t.identityTitle}</CardTitle>
-            <CardDescription>{t.identityHint}</CardDescription>
-          </CardHeader>
-          <CardContent className="px-5 pb-5">
+        <div className="flex flex-col">
+          <FormSection title={t.identityTitle} description={t.identityHint}>
             <PartyFields idPrefix="biz" keys={IDENTITY} values={values} onChange={onChange} issues={shownIssues} copy={copy} />
-          </CardContent>
-        </Card>
-        <Card className="py-0 shadow-none">
-          <CardHeader className="px-5 pt-5">
-            <CardTitle className="text-base">{copy.addressTitle}</CardTitle>
-            <CardDescription>{copy.addressHint}</CardDescription>
-          </CardHeader>
-          <CardContent className="px-5 pb-5">
+          </FormSection>
+          <FormSection title={copy.addressTitle} description={copy.addressHint}>
             <PartyFields idPrefix="biz" keys={ADDRESS} values={values} onChange={onChange} issues={shownIssues} copy={copy} />
-          </CardContent>
-        </Card>
+          </FormSection>
+        </div>
         <div className="flex flex-wrap items-center gap-3">
           <Button type="submit" className="qaftr-btn-primary" disabled={state === 'saving'}>
             {state === 'saving' ? t.saving : t.save}
@@ -137,8 +127,8 @@ export function BusinessProfileForm({
         data-testid="zatca-readiness"
         aria-live="polite"
         className={cn(
-          'rounded-xl border p-4 text-sm lg:sticky lg:top-6',
-          readiness.ready ? 'border-primary/40 bg-primary/5' : 'border-[var(--qaftr-gold)]/50 bg-[var(--qaftr-gold)]/5',
+          'border-s-2 py-1 ps-4 text-sm lg:sticky lg:top-6',
+          readiness.ready ? 'border-primary' : 'border-[var(--qaftr-gold)]',
         )}
       >
         {readiness.ready ? (

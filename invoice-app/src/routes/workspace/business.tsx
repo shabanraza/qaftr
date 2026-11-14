@@ -59,7 +59,7 @@ function WorkspaceBusinessPage() {
           : 'Your business details as they appear on invoices, and what ZATCA Phase 2 needs.'
       }
     >
-      <div className="space-y-5 p-5">
+      <div className="flex flex-col gap-0 px-5 py-6">
         {isLoading ? (
           <Skeleton className="h-96 w-full max-w-4xl rounded-xl" />
         ) : (
@@ -77,7 +77,7 @@ function WorkspaceBusinessPage() {
           />
         )}
         {zatcaStatus ? (
-          <div className="max-w-4xl">
+          <div className="mt-8 max-w-4xl border-t border-border pt-6">
             <ZatcaOnboardingCard lang={lang} status={zatcaStatus} onOnboard={(values) => onboard.mutateAsync(values)} />
           </div>
         ) : null}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2Icon, FlaskConicalIcon, PlugZapIcon } from 'lucide-react'
 import { Button } from '#/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '#/components/ui/card'
+import { FormSection } from './FormSection'
 import { Field, FieldDescription, FieldError, FieldLabel } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
 import type { MarketingLang } from '#/lib/marketing/lang'
@@ -155,15 +155,16 @@ export function ZatcaOnboardingCard({
   }
 
   return (
-    <Card className="py-0 shadow-none" data-testid="zatca-onboarding">
-      <CardHeader className="px-5 pt-5">
-        <CardTitle className="flex items-center gap-2 text-base">
+    <FormSection
+      data-testid="zatca-onboarding"
+      title={
+        <>
           <PlugZapIcon className="size-4 text-primary" aria-hidden />
           {t.title}
-        </CardTitle>
-        <CardDescription>{t.hint}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4 px-5 pb-5">
+        </>
+      }
+      description={t.hint}
+    >
         {status.env !== 'production' ? (
           <p className="flex items-start gap-2 rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">
             <FlaskConicalIcon className="mt-0.5 size-3.5 shrink-0" aria-hidden />
@@ -253,7 +254,6 @@ export function ZatcaOnboardingCard({
             </div>
           </form>
         )}
-      </CardContent>
-    </Card>
+    </FormSection>
   )
 }

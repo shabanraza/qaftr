@@ -21,6 +21,13 @@ describe('ClientB2bDetails', () => {
   })
 })
 
+describe('ClientB2bDetails defaultOpen', () => {
+  it('starts expanded when asked, for editing a client that has details', () => {
+    render(<ClientB2bDetails lang="en" values={{ city: 'Riyadh' }} onChange={vi.fn()} issues={[]} defaultOpen />)
+    expect((screen.getByLabelText('City') as HTMLInputElement).value).toBe('Riyadh')
+  })
+})
+
 describe('ClientB2bBadge', () => {
   it('says whether a saved client can receive a standard (B2B) tax invoice', () => {
     const { rerender } = render(<ClientB2bBadge lang="en" client={{ name: 'X' }} />)

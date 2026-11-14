@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { z } from 'zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceInvoiceEditor } from '#/components/workspace/WorkspaceInvoiceEditor'
@@ -10,7 +11,8 @@ import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 
 export const Route = createFileRoute('/workspace/new-invoice')({
-  validateSearch: marketingSearchSchema,
+  // client: preselect a customer, e.g. coming back from adding or editing them.
+  validateSearch: marketingSearchSchema.extend({ client: z.string().optional() }),
   loader: ({ context }) => {
     if (typeof window === 'undefined') return
     void Promise.all([
@@ -36,7 +38,7 @@ export const Route = createFileRoute('/workspace/new-invoice')({
 })
 
 function WorkspaceNewInvoicePage() {
-  const { lang: searchLang } = Route.useSearch()
+  const { lang: searchLang, client: initialClientId } = Route.useSearch()
   const lang = resolveLang({ lang: searchLang })
   const trpc = useTRPC()
   const queryClient = useQueryClient()
@@ -81,6 +83,7 @@ function WorkspaceNewInvoicePage() {
           nextSeq={nextSeq}
           zatcaConnected={Boolean(zatcaStatus?.unit && !zatcaStatus.gate)}
           onSave={handleSave}
+          initialClientId={initialClientId}
         />
       )}
     </WorkspaceShell>

@@ -12,8 +12,8 @@ const optionalText = z.string().max(200).nullish();
 const clientInput = z.object({
   name: z.string().min(1).max(200),
   vatNumber: optionalText,
-  email: z.string().email().optional(),
-  phone: z.string().optional(),
+  email: z.string().email().nullish(),
+  phone: z.string().nullish(),
   // Needed for standard (B2B) ZATCA invoices; all optional on save.
   country: optionalText,
   idScheme: optionalText,

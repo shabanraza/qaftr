@@ -133,7 +133,7 @@ function NewMenu({ lang }: { lang: MarketingLang }) {
             </Link>
           </DropdownMenuPrimitive.Item>
           <DropdownMenuPrimitive.Item asChild className={itemClass}>
-            <Link to="/workspace/clients" search={search} hash="create-client-form">
+            <Link to="/workspace/clients" search={search} hash="client-form">
               <UserPlus className="size-4 text-muted-foreground" />
               {copy.customer}
             </Link>
