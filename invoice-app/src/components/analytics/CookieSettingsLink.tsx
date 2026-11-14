@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { analyticsActive, openConsentSettings } from '#/lib/analytics/consent'
 import { getConsentCopy } from '#/lib/analytics/consent-copy'
 import type { MarketingLang } from '#/lib/marketing/lang'
+import { Button } from '#/components/ui/button'
+import { cn } from '#/lib/utils'
 
 /**
  * Footer "Cookie settings": reopens the consent banner so visitors can change
@@ -19,12 +21,15 @@ export function CookieSettingsLink({
   useEffect(() => setActive(analyticsActive()), [])
   if (!active) return null
   return (
-    <button
+    // Text-link look to sit with the other footer links (font-normal! beats
+    // the bold the marketing theme gives every [data-slot=button]).
+    <Button
       type="button"
+      variant="link"
       onClick={openConsentSettings}
-      className={`cursor-pointer bg-transparent p-0 ${className}`}
+      className={cn('h-auto p-0 text-sm text-inherit font-normal! hover:no-underline', className)}
     >
       {getConsentCopy(lang).settings}
-    </button>
+    </Button>
   )
 }

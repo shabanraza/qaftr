@@ -40,7 +40,10 @@ import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
+import { Checkbox } from '#/components/ui/checkbox'
 import { Field, FieldLabel } from '#/components/ui/field'
+import { Label } from '#/components/ui/label'
+import { NativeSelect, NativeSelectOption } from '#/components/ui/native-select'
 import { Separator } from '#/components/ui/separator'
 import { Spinner } from '#/components/ui/spinner'
 import { InvoicePreview, RadioCards, Section, TextField } from '#/components/invoice-kit/FormKit'
@@ -237,15 +240,17 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
             <Section legend={copy.recipientTitle} hint={full ? undefined : copy.recipientOptional}>
               <TextField id="ae-inv-recipient-name" label={copy.name} value={draft.recipient.name} onChange={(name) => updateRecipient({ name })} />
               <TextField id="ae-inv-recipient-address" label={copy.address} value={draft.recipient.address} onChange={(address) => updateRecipient({ address })} multiline />
-              <label className="flex cursor-pointer items-center gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  className="size-4 accent-[var(--qaftr-teal,currentColor)]"
+              <div className="flex items-center gap-3">
+                <Checkbox
+                  id="ae-inv-recipient-registered"
+                  className="size-5 border-muted-foreground data-[state=checked]:border-primary"
                   checked={draft.recipient.vatRegistered}
-                  onChange={(e) => updateRecipient({ vatRegistered: e.target.checked })}
+                  onCheckedChange={(checked) => updateRecipient({ vatRegistered: checked === true })}
                 />
-                {copy.recipientRegistered}
-              </label>
+                <Label htmlFor="ae-inv-recipient-registered" className="cursor-pointer font-normal leading-normal">
+                  {copy.recipientRegistered}
+                </Label>
+              </div>
               {draft.recipient.vatRegistered || draft.recipient.trn ? (
                 <TextField id="ae-inv-recipient-trn" label={copy.trn} hint={copy.trnHint} value={draft.recipient.trn} onChange={(trn) => updateRecipient({ trn })} ltr inputMode="numeric" />
               ) : null}
@@ -290,18 +295,17 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
                     </div>
                     <Field className="min-w-0 gap-1.5">
                       <FieldLabel htmlFor={`${id}-cat`}>{copy.vatCategory}</FieldLabel>
-                      <select
+                      <NativeSelect
                         id={`${id}-cat`}
                         value={line.vatCategory}
                         onChange={(e) => updateLine(index, { vatCategory: e.target.value as UaeVatCategory })}
-                        className="h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
                       >
                         {(['standard', 'zero', 'exempt'] as const).map((c) => (
-                          <option key={c} value={c}>
+                          <NativeSelectOption key={c} value={c}>
                             {copy.categories[c]}
-                          </option>
+                          </NativeSelectOption>
                         ))}
-                      </select>
+                      </NativeSelect>
                     </Field>
                   </fieldset>
                 )

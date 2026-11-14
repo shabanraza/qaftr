@@ -1,14 +1,16 @@
-import { useId, useRef } from "react";
-import type { KeyboardEvent } from "react";
+import { useId } from "react";
 import { SAUDI_INVOICE_TYPES } from "@zatca/shared";
 import type { SaudiInvoiceType } from "@zatca/shared";
 import { getInstantInvoiceCopy } from "#/lib/instant-invoice/copy";
+import { langDir } from "#/lib/marketing/lang";
 import type { MarketingLang } from "#/lib/marketing/lang";
-import { cn } from "#/lib/utils";
+import { Label } from "#/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "#/components/ui/radio-group";
 
 /**
  * ZATCA invoice type: «فاتورة ضريبية مبسطة» (B2C) or «فاتورة ضريبية» (B2B).
- * WAI-ARIA radio group: one tab stop, arrow keys move and select.
+ * shadcn RadioGroup (Radix): one tab stop, arrow keys move and select, and
+ * arrow direction follows the page direction. Each option is a card label.
  */
 export function InvoiceTypePicker({
   lang,
@@ -20,66 +22,44 @@ export function InvoiceTypePicker({
   onChange: (type: SaudiInvoiceType) => void;
 }) {
   const copy = getInstantInvoiceCopy(lang);
-  const labelId = useId();
-  const refs = useRef<Partial<Record<SaudiInvoiceType, HTMLButtonElement | null>>>({});
-
-  function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-    const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
-    if (!keys.includes(event.key)) return;
-    event.preventDefault();
-    const index = SAUDI_INVOICE_TYPES.indexOf(value);
-    const next = SAUDI_INVOICE_TYPES[(index + 1) % SAUDI_INVOICE_TYPES.length];
-    onChange(next);
-    refs.current[next]?.focus();
-  }
+  const baseId = useId();
+  const labelId = `${baseId}-label`;
 
   return (
     <div className="flex flex-col gap-2">
       <span id={labelId} className="text-sm font-semibold text-foreground">
         {copy.invoiceTypeLabel}
       </span>
-      <div role="radiogroup" aria-labelledby={labelId} className="grid gap-3 sm:grid-cols-2">
+      <RadioGroup
+        aria-labelledby={labelId}
+        dir={langDir(lang)}
+        value={value}
+        onValueChange={(next) => onChange(next as SaudiInvoiceType)}
+        className="gap-3 sm:grid-cols-2"
+      >
         {SAUDI_INVOICE_TYPES.map((type) => {
-          const checked = type === value;
           const option = copy.invoiceTypes[type];
+          const id = `${baseId}-${type}`;
           return (
-            <button
+            <Label
               key={type}
-              ref={(el) => {
-                refs.current[type] = el;
-              }}
-              type="button"
-              role="radio"
-              aria-checked={checked}
-              tabIndex={checked ? 0 : -1}
-              data-invoice-type={type}
-              onClick={() => onChange(type)}
-              onKeyDown={onKeyDown}
-              className={cn(
-                "group flex items-start gap-3 rounded-xl border bg-card p-4 text-start transition-colors outline-none",
-                "focus-visible:ring-[3px] focus-visible:ring-ring/50",
-                checked
-                  ? "border-primary bg-primary/[0.04] shadow-[inset_0_0_0_1px_var(--color-primary)]"
-                  : "border-border hover:border-primary/40",
-              )}
+              htmlFor={id}
+              className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-card p-4 text-start text-base font-normal leading-normal select-text transition-colors hover:border-primary/40 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/[0.04] has-[[data-state=checked]]:shadow-[inset_0_0_0_1px_var(--color-primary)] has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50"
             >
-              <span
-                aria-hidden
-                className={cn(
-                  "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border-2",
-                  checked ? "border-primary" : "border-muted-foreground",
-                )}
-              >
-                <span className={cn("size-2.5 rounded-full", checked ? "bg-primary" : "bg-transparent")} />
-              </span>
+              <RadioGroupItem
+                id={id}
+                value={type}
+                data-invoice-type={type}
+                className="mt-0.5 size-5 border-2 border-muted-foreground focus-visible:ring-0 data-[state=checked]:border-primary"
+              />
               <span className="flex min-w-0 flex-col gap-1">
                 <span className="font-semibold text-foreground">{option.title}</span>
                 <span className="text-xs leading-relaxed text-muted-foreground">{option.hint}</span>
               </span>
-            </button>
+            </Label>
           );
         })}
-      </div>
+      </RadioGroup>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { createEmptyCreditNoteDraft } from '#/lib/documents/draft'
 import type { CreditNoteDraft } from '#/lib/documents/draft'
 import { Section, TextField } from '#/components/invoice-kit/FormKit'
 import { Field, FieldLabel } from '#/components/ui/field'
+import { NativeSelect, NativeSelectOption } from '#/components/ui/native-select'
 import {
   DocumentShell,
   LinesEditor,
@@ -82,19 +83,18 @@ export function CreditNoteTool({ lang }: { lang: MarketingLang }) {
         </div>
         <Field className="min-w-0 gap-1.5">
           <FieldLabel htmlFor="cn-reason">{copy.reason}</FieldLabel>
-          <select
+          <NativeSelect
             id="cn-reason"
             value={draft.reason}
             onChange={(e) => update({ reason: e.target.value as CreditNoteDraft['reason'] })}
-            className="h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
           >
-            <option value="">{copy.reasonPlaceholder}</option>
+            <NativeSelectOption value="">{copy.reasonPlaceholder}</NativeSelectOption>
             {CREDIT_NOTE_REASONS.map((r) => (
-              <option key={r} value={r}>
+              <NativeSelectOption key={r} value={r}>
                 {copy.reasons[r]}
-              </option>
+              </NativeSelectOption>
             ))}
-          </select>
+          </NativeSelect>
         </Field>
         <TextField id="cn-reason-detail" label={copy.reasonDetail} hint={copy.reasonDetailHint} value={draft.reasonDetail} onChange={(reasonDetail) => update({ reasonDetail })} />
       </Section>

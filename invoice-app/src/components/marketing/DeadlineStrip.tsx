@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowLeft, CalendarClock, X } from 'lucide-react'
+import { Button } from '#/components/ui/button'
 import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang, MarketingRegion } from '#/lib/marketing/lang'
 import { getRegionCopy } from '#/lib/marketing/region-copy'
@@ -72,14 +73,16 @@ export function DeadlineStrip({
             <ArrowLeft aria-hidden className="size-3.5 ltr:rotate-180" />
           </Link>
         </p>
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon-sm"
           onClick={dismiss}
           aria-label={copy.dismiss}
-          className="-m-1 shrink-0 rounded-md p-1 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="-my-1.5 -me-2 text-muted-foreground hover:bg-secondary/20 hover:text-foreground"
         >
-          <X aria-hidden className="size-4" />
-        </button>
+          <X aria-hidden />
+        </Button>
       </div>
     </section>
   )
