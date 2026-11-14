@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   buildCreateInvoiceInput,
+  nextDocumentSeq,
   buildEditorPdfInvoice,
   computeEditorTotals,
   deriveInvoiceType,
@@ -174,5 +175,21 @@ describe('buildCreateInvoiceInput', () => {
     expect(input.clientId).toBeUndefined()
     expect(input.dueDate).toBeUndefined()
     expect(input.supplyDate).toBeUndefined()
+  })
+})
+
+describe('nextDocumentSeq', () => {
+  it('starts at 1 with no documents', () => {
+    expect(nextDocumentSeq([])).toBe(1)
+  })
+
+  it('continues after credit and debit notes, which share the sequence with invoices', () => {
+    expect(
+      nextDocumentSeq([
+        { seqNumber: 3, zatcaKind: null },
+        { seqNumber: 4, zatcaKind: 'credit-note' },
+        { seqNumber: 2, zatcaKind: 'invoice' },
+      ]),
+    ).toBe(5)
   })
 })

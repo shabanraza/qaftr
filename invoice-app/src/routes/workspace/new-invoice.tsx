@@ -5,6 +5,7 @@ import { WorkspaceInvoiceEditor } from '#/components/workspace/WorkspaceInvoiceE
 import type { CreateInvoiceInput } from '#/components/workspace/WorkspaceInvoiceEditor'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { Skeleton } from '#/components/ui/skeleton'
+import { nextDocumentSeq } from '#/lib/workspace/invoice-editor'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 
@@ -49,9 +50,7 @@ function WorkspaceNewInvoicePage() {
   const issueMutation = useMutation(trpc.zatca.issueInvoice.mutationOptions())
 
   const loading = businessQuery.isLoading || clientsQuery.isLoading
-  // Numbering is per business and covers invoices only (notes use CN-/DN-).
-  const nextSeq =
-    Math.max(0, ...(invoicesQuery.data ?? []).filter((i) => !i.zatcaKind || i.zatcaKind === 'invoice').map((i) => i.seqNumber)) + 1
+  const nextSeq = nextDocumentSeq(invoicesQuery.data ?? [])
 
   async function handleSave(input: CreateInvoiceInput, opts: { sendToZatca: boolean }) {
     const created = await createMutation.mutateAsync(input)

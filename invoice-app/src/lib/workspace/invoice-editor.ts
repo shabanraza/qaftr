@@ -167,3 +167,11 @@ export function buildCreateInvoiceInput(p: {
     })),
   }
 }
+
+/**
+ * The number the next saved invoice will get. Invoices, credit notes and debit
+ * notes share one sequence per business (the server takes max + 1 over all of them).
+ */
+export function nextDocumentSeq(docs: Array<{ seqNumber: number; zatcaKind?: string | null }>): number {
+  return docs.reduce((max, d) => Math.max(max, d.seqNumber), 0) + 1
+}

@@ -97,6 +97,7 @@ function WorkspaceInvoiceDetailPage() {
           markPaid: 'تعليم كمدفوعة',
           markUnpaid: 'إلغاء الدفع',
           taxInvoice: 'فاتورة ضريبية',
+          simplifiedTaxInvoice: 'فاتورة ضريبية مبسطة',
           items: 'البنود',
           subtotal: 'الإجمالي قبل الضريبة',
           vat: 'ضريبة 15٪',
@@ -114,6 +115,7 @@ function WorkspaceInvoiceDetailPage() {
           markPaid: 'Mark as paid',
           markUnpaid: 'Mark as unpaid',
           taxInvoice: 'Tax invoice',
+          simplifiedTaxInvoice: 'Simplified tax invoice',
           items: 'Line items',
           subtotal: 'Subtotal',
           vat: 'VAT 15%',
@@ -244,7 +246,9 @@ function WorkspaceInvoiceDetailPage() {
                         ? isArabic ? 'إشعار دائن' : 'Credit note'
                         : invoice.zatcaKind === 'debit-note'
                           ? isArabic ? 'إشعار مدين' : 'Debit note'
-                          : copy.taxInvoice}
+                          : invoice.zatcaSubtype === 'simplified'
+                            ? copy.simplifiedTaxInvoice
+                            : copy.taxInvoice}
                     </p>
                     {invoice.original ? (
                       <p className="mt-1 text-sm text-muted-foreground">
