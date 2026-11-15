@@ -271,3 +271,40 @@ describe('SEO titles and descriptions', () => {
     for (const id of Object.keys(ar)) expect(ar[id].title, id).not.toBe(en[id].title)
   })
 })
+
+describe('Phase 2 status: private beta with an early-access list', () => {
+  // Phase 2 runs on ZATCA's simulation environment with beta businesses only, so no
+  // page may say it is available, and none should still say "not yet" without the beta.
+  const PHASE2_Q = /Phase 2|المرحلة الثانية|الربط والتكامل/
+  const SUPPORT_Q = /Does Qaftr (support|cover)|هل (يدعم|يغطي) قافتر|هل قافتر يدعم|enough for ZATCA|يكفي قافتر/
+
+  function phase2Answers(lang: MarketingLang): string[] {
+    const qa = [
+      ...seoLandingSlugs.flatMap((slug) => getSeoLandingPage(slug, lang).faq),
+      ...getWaveCopy(lang).faq,
+      ...getWaveGuide(lang).faq,
+      ...getFatoraFaq(lang),
+      ...t(lang).support.faqs.map((f) => ({ question: f.q, answer: f.a })),
+    ]
+    return qa.filter((f) => SUPPORT_Q.test(f.question) && PHASE2_Q.test(f.answer + f.question)).map((f) => f.answer)
+  }
+
+  for (const lang of LANGS) {
+    it(`answers "does Qaftr support Phase 2" with the private beta and how to join [${lang}]`, () => {
+      const answers = phase2Answers(lang)
+      expect(answers.length).toBeGreaterThanOrEqual(5)
+      for (const a of answers) {
+        expect(a).toMatch(lang === 'en' ? /private beta/ : /تجريبية خاصة/)
+        expect(a).toContain('support@qaftr.com')
+        expect(a).not.toMatch(/^(Not yet|ليس بعد)/)
+      }
+    })
+
+    it(`invites wave checker users to the Phase 2 early-access list [${lang}]`, () => {
+      const w = getWaveCopy(lang)
+      expect(`${w.notifyTitle} ${w.notifyBody} ${w.notifyCta}`).toMatch(lang === 'en' ? /private beta/ : /تجريبية خاصة/)
+      expect(w.notifyCta).toMatch(lang === 'en' ? /early.access/i : /الوصول المبكر/)
+      expect(`${w.notifyTitle} ${w.notifyBody}`).not.toMatch(/in development|قيد التطوير/)
+    })
+  }
+})

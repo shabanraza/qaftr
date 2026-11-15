@@ -128,7 +128,7 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
           answer:
-            'Not yet. Phase 2 requires integrating your invoicing with the FATOORA portal. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If ZATCA has notified you, use an integrated solution and confirm with your accountant.',
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
         },
         {
           question: 'Can I export the invoice as PDF?',
@@ -172,7 +172,7 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
           answer:
-            'ليس بعد. تتطلب المرحلة الثانية ربط نظام الفوترة ببوابة فاتورة. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا أبلغتك زاتكا، فاستخدم حلاً مربوطاً وراجع محاسبك.',
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
         },
         {
           question: 'هل يمكن تصدير الفاتورة بصيغة PDF؟',
@@ -372,7 +372,7 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
           answer:
-            'Not yet. Phase 2 requires integrating your invoicing with the FATOORA portal. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If ZATCA has notified you, use an integrated solution and confirm with your accountant.',
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
         },
       ],
       related: [
@@ -416,7 +416,7 @@ const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
         {
           question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
           answer:
-            'ليس بعد. تتطلب المرحلة الثانية ربط نظام الفوترة ببوابة فاتورة. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا أبلغتك زاتكا، فاستخدم حلاً مربوطاً وراجع محاسبك.',
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
         },
       ],
       related: [
