@@ -7,6 +7,7 @@ import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { ZatcaInvoicePanel } from '#/components/workspace/ZatcaInvoicePanel'
+import type { NoteInput } from '#/components/workspace/ZatcaNoteForm'
 import { formatMoney, getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
 import { downloadInvoicePdf } from '#/lib/instant-invoice/invoice-pdf'
 import type { InvoiceForPdf } from '#/lib/instant-invoice/invoice-pdf'
@@ -330,7 +331,10 @@ function WorkspaceInvoiceDetailPage() {
                   onRetry={() => retryMutation.mutateAsync({ invoiceId: invoice.id })}
                   {...(isNote(invoice.zatcaKind)
                     ? {}
-                    : { onCreditNote: (reason: string) => noteMutation.mutateAsync({ invoiceId: invoice.id, kind: 'credit-note', reason }) })}
+                    : {
+                        onNote: (input: NoteInput) => noteMutation.mutateAsync({ invoiceId: invoice.id, ...input }),
+                        originalLines: invoice.lineItems.map((l) => ({ description: l.description, qty: l.qty, unitPrice: l.unitPrice })),
+                      })}
                 />
               </div>
 

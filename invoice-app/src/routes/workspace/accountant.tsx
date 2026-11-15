@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { documentNumber, amountSign } from '#/lib/zatca/document-kind'
+import { documentNumber } from '#/lib/zatca/document-kind'
+import { csvAmounts, documentBadge, groupByMonth, overallTotals as computeOverallTotals } from '#/lib/workspace/money-totals'
 import { useQuery } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -42,71 +43,9 @@ function WorkspaceAccountantPage() {
 
   const { data: invoices = [], isLoading } = useQuery(trpc.invoices.list.queryOptions())
 
-  // Group invoices by Month/Year
-  const monthlyGroups = useMemo(() => {
-    const groups: Record<string, typeof invoices> = {}
-    
-    invoices.forEach((inv) => {
-      const date = new Date(inv.issueDate)
-      const year = date.getFullYear()
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const key = `${year}-${month}`
-      if (!groups[key]) {
-        groups[key] = []
-      }
-      groups[key].push(inv)
-    })
-
-    return Object.entries(groups)
-      .map(([monthKey, items]) => {
-        let subtotal = 0
-        let vatAmount = 0
-        let total = 0
-        let paidTotal = 0
-        
-        items.forEach((item) => {
-          // Credit notes reduce sales and output VAT.
-          const sign = amountSign(item.zatcaKind)
-          const sub = sign * (parseFloat(item.subtotal) || 0)
-          const vat = sign * (parseFloat(item.vatAmount) || 0)
-          const tot = sign * (parseFloat(item.total) || 0)
-          
-          subtotal += sub
-          vatAmount += vat
-          total += tot
-          if (item.status === 'paid') {
-            paidTotal += tot
-          }
-        })
-
-        return {
-          monthKey,
-          invoices: items,
-          count: items.length,
-          subtotal: subtotal.toFixed(2),
-          vatAmount: vatAmount.toFixed(2),
-          total: total.toFixed(2),
-          paidTotal: paidTotal.toFixed(2),
-        }
-      })
-      .sort((a, b) => b.monthKey.localeCompare(a.monthKey))
-  }, [invoices])
-
-  // Overall sums
-  const overallTotals = useMemo(() => {
-    let salesCount = invoices.length
-    let totalVat = 0
-    let totalSales = 0
-    invoices.forEach((inv) => {
-      totalVat += parseFloat(inv.vatAmount) || 0
-      totalSales += parseFloat(inv.total) || 0
-    })
-    return {
-      salesCount,
-      totalVat: totalVat.toFixed(2),
-      totalSales: totalSales.toFixed(2),
-    }
-  }, [invoices])
+  // Credit notes count against sales and VAT (lib/workspace/money-totals).
+  const monthlyGroups = useMemo(() => groupByMonth(invoices), [invoices])
+  const overallTotals = useMemo(() => computeOverallTotals(invoices), [invoices])
 
   // CSV Export Action
   const handleExportCsv = (monthKey: string, monthInvoices: typeof invoices) => {
@@ -117,10 +56,8 @@ function WorkspaceAccountantPage() {
     const rows = monthInvoices.map((inv) => [
       documentNumber(inv.seqNumber, inv.zatcaKind),
       new Date(inv.issueDate).toLocaleDateString(isArabic ? 'ar-SA' : 'en-US'),
-      inv.subtotal,
-      inv.vatAmount,
-      inv.total,
-      inv.status,
+      ...csvAmounts(inv),
+      documentBadge(inv, lang).label,
     ])
 
     // Prepend UTF-8 BOM so Excel decodes Arabic text correctly
