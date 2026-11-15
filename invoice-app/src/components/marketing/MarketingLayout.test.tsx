@@ -55,6 +55,7 @@ describe('MarketingLayout header', () => {
       .map((a) => [a.textContent.trim(), a.getAttribute('href')])
     expect(links).toEqual([
       ['Free tools', '/tools?lang=en'],
+      ['Guides', '/guides?lang=en'],
       ['UAE', '/ae?lang=en'],
       ['Features', '/?lang=en#features'],
       ['Pricing', '/?lang=en#pricing'],

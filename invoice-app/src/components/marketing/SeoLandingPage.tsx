@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ComparisonTable } from '#/components/marketing/ComparisonTable'
 import { MarketingLayout } from '#/components/marketing/MarketingLayout'
 import { ToolFaqSection } from '#/components/tools/ToolFaqSection'
 import { Badge } from '#/components/ui/badge'
@@ -59,6 +60,12 @@ export function SeoLandingPage({ slug, lang }: SeoLandingPageProps) {
           </div>
         </div>
       </section>
+
+      {page.comparison ? (
+        <section dir={dir} lang={lang} className="mx-auto max-w-6xl px-5 pb-8 md:px-8">
+          <ComparisonTable lang={lang} showHeading={false} />
+        </section>
+      ) : null}
 
       <section
         dir={dir}

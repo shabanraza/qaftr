@@ -155,6 +155,86 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://qaftr.com/invoicing-software-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/invoicing-software-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/saudi-tax-invoice-requirements</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/tax-invoice-vs-simplified-invoice</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://qaftr.com/tools/vat-calculator</loc>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>

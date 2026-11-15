@@ -15,6 +15,7 @@ import { downloadBlob, htmlToPdfBlob } from '#/lib/invoice/pdf-render'
 import { InvoicePreview, RadioCards, Section, TextField } from '#/components/invoice-kit/FormKit'
 import { MobileInvoiceActionBar } from '#/components/instant-invoice/MobileInvoiceActionBar'
 import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
+import { authClient } from '#/lib/auth-client'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
@@ -307,12 +308,14 @@ export function DocumentShell({
   const c = all.common
   const page = all[kind]
   const [signupOpen, setSignupOpen] = useState(false)
+  const { data: session } = authClient.useSession()
   const sectionRef = useRef<HTMLElement>(null)
   const summaryRef = useRef<HTMLDivElement>(null)
   const search = lang === 'en' ? { lang: 'en' as const } : {}
   const afterResult = status === 'done'
 
-  const saveOffer = (
+  // The save box pitches a free account, so a signed-in user does not see it.
+  const saveOffer = session?.user ? null : (
     <div
       data-testid="doc-save"
       data-placement={afterResult ? 'after-result' : 'bottom'}
