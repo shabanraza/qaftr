@@ -12,6 +12,9 @@ import { getWaveGuide } from '#/lib/sa/wave-guide-content'
 import { getFatoraFaq } from '#/lib/tools/fatora-faq'
 import { getToolsCopy } from '#/lib/tools/copy'
 import { DOCUMENT_KINDS, getDocumentCopy } from '#/lib/documents/copy'
+import { GUIDE_SLUGS, getGuide, getGuidesHub } from '#/lib/guides/content'
+import { getComparison } from './comparison'
+import { getHomeContent } from './home-content'
 import { seoCopy, t } from './i18n'
 import type { MarketingLang } from './lang'
 import { getSeoLandingPage, seoLandingSlugs } from './seo-landing-pages'
@@ -48,7 +51,9 @@ function seoRegistry(lang: MarketingLang): Record<string, Seo> {
     'trn-checker': tools['trn-checker'],
     'zatca-wave-checker': getWaveCopy(lang).seo,
     'zatca-wave-25': getWaveGuide(lang).seo,
+    guides: getGuidesHub(lang).seo,
   }
+  for (const slug of GUIDE_SLUGS) reg[`guide-${slug}`] = getGuide(slug, lang).seo
   for (const [id, seo] of Object.entries(ae)) reg[`ae-${id}`] = seo
   for (const slug of seoLandingSlugs) reg[slug] = getSeoLandingPage(slug, lang)
   for (const kind of DOCUMENT_KINDS) reg[kind] = getDocumentCopy(lang)[kind].seo
@@ -142,6 +147,9 @@ describe('no inaccurate trust claims', () => {
         getAeInvoiceCopy(lang),
         getAeGuide(lang),
         getDocumentCopy(lang),
+        getHomeContent(lang),
+        getComparison(lang),
+        GUIDE_SLUGS.map((slug) => getGuide(slug, lang)),
       ])
       expect(all).not.toMatch(FORBIDDEN)
     })
@@ -285,6 +293,8 @@ describe('Phase 2 status: private beta with an early-access list', () => {
       ...getWaveGuide(lang).faq,
       ...getFatoraFaq(lang),
       ...t(lang).support.faqs.map((f) => ({ question: f.q, answer: f.a })),
+      ...getHomeContent(lang).faq,
+      ...GUIDE_SLUGS.flatMap((slug) => getGuide(slug, lang).faq),
     ]
     return qa.filter((f) => SUPPORT_Q.test(f.question) && PHASE2_Q.test(f.answer + f.question)).map((f) => f.answer)
   }
@@ -305,6 +315,23 @@ describe('Phase 2 status: private beta with an early-access list', () => {
       expect(`${w.notifyTitle} ${w.notifyBody} ${w.notifyCta}`).toMatch(lang === 'en' ? /private beta/ : /تجريبية خاصة/)
       expect(w.notifyCta).toMatch(lang === 'en' ? /early.access/i : /الوصول المبكر/)
       expect(`${w.notifyTitle} ${w.notifyBody}`).not.toMatch(/in development|قيد التطوير/)
+    })
+  }
+})
+
+describe('home sections below the hero', () => {
+  for (const lang of LANGS) {
+    it(`calls Phase 2 a private beta wherever the home page mentions it [${lang}]`, () => {
+      const c = getHomeContent(lang)
+      const tile = c.bento.find((b) => b.id === 'phase2')!
+      expect(`${tile.title} ${tile.body}`).toMatch(lang === 'en' ? /private beta/i : /تجريبية خاصة/)
+      expect(tile.body).toContain('support@qaftr.com')
+      const phase2Row = getComparison(lang).rows.find((r) => r.id === 'phase2')!
+      expect(phase2Row.cells[0].text).toMatch(lang === 'en' ? /private beta/i : /تجريبية خاصة/)
+    })
+
+    it(`speaks to businesses, not freelancers [${lang}]`, () => {
+      expect(text([getHomeContent(lang), getComparison(lang)])).not.toMatch(FREELANCER)
     })
   }
 })

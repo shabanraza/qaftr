@@ -1,39 +1,55 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import {
+  ArrowRight,
+  BookOpen,
   Check,
+  FileSpreadsheet,
   FileText,
+  Languages,
   MessageCircle,
+  Percent,
   QrCode,
-  Sparkles,
-  Users,
+  ReceiptText,
+  ShieldCheck,
+  Wrench,
 } from 'lucide-react'
 import { MarketingLayout } from '#/components/marketing/MarketingLayout'
+import { ComparisonTable } from '#/components/marketing/ComparisonTable'
+import { ToolFaqSection, buildFaqSchema } from '#/components/tools/ToolFaqSection'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
+import type { MarketingLang } from '#/lib/marketing/lang'
 import { t, seoCopy } from '#/lib/marketing/i18n'
-import { buildMarketingHead } from '#/lib/marketing/seo'
+import { getHomeContent } from '#/lib/marketing/home-content'
+import type { BentoTile, ResourceItem } from '#/lib/marketing/home-content'
+import { buildJsonLdScript, buildMarketingHead } from '#/lib/marketing/seo'
 import { InstantInvoiceTool } from '#/components/instant-invoice/InstantInvoiceTool'
 import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
 import { cn } from '#/lib/utils'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '#/components/ui/card'
-import { Separator } from '#/components/ui/separator'
+import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 
-const featureIcons = [QrCode, Users, MessageCircle, Sparkles, FileText, Check]
+const tileIcons: Record<string, typeof Check> = {
+  'qr-pdf-whatsapp': QrCode,
+  arabic: Languages,
+  vat: Percent,
+  notes: ReceiptText,
+  phase2: ShieldCheck,
+  accountant: FileSpreadsheet,
+  tools: Wrench,
+}
 
 export const Route = createFileRoute('/')({
   validateSearch: marketingSearchSchema,
   head: ({ match }) => {
     const lang = resolveLang(match.search)
     const seo = seoCopy(lang).home
-    return buildMarketingHead({ ...seo, path: '/', lang })
+    return {
+      ...buildMarketingHead({ ...seo, path: '/', lang }),
+      scripts: [buildJsonLdScript(buildFaqSchema(getHomeContent(lang).faq))],
+    }
   },
   component: HomePage,
 })
@@ -42,12 +58,15 @@ function HomePage() {
   const { lang: searchLang } = Route.useSearch()
   const lang = resolveLang({ lang: searchLang })
   const copy = t(lang).home
+  const home = getHomeContent(lang)
   const toolCopy = getInstantInvoiceCopy(lang)
+  const search = lang === 'en' ? { lang: 'en' as const } : {}
   const [signupOpen, setSignupOpen] = useState(false)
 
   return (
     <MarketingLayout lang={lang} deadline>
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-12 pt-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:px-8 md:pt-16 lg:gap-14">
+      {/* 1. Hero + live demo */}
+      <section className="mx-auto max-w-4xl px-5 pb-8 pt-10 text-center md:px-8 md:pt-16">
         <div className="qaftr-rise">
           <Badge
             variant="outline"
@@ -56,14 +75,26 @@ function HomePage() {
             <span className="size-1.5 rounded-full bg-secondary" />
             {copy.kicker}
           </Badge>
-          <h1 className="font-[family-name:var(--font-qaftr-display)] text-[2rem] font-bold leading-[1.25] tracking-tight text-balance text-foreground sm:text-4xl lg:text-[2.75rem] xl:text-5xl">
+          <h1 className="font-[family-name:var(--font-qaftr-display)] text-[2rem] font-bold leading-[1.25] tracking-tight text-balance text-foreground sm:text-4xl lg:text-5xl">
             {copy.title}
             <span className="mt-1 block text-primary">{copy.titleAccent}</span>
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             {copy.subtitle}
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg" className="qaftr-btn-primary shadow-md">
+              <Link to="/" search={search} hash="invoice-tool" data-cta="#invoice-tool">
+                {toolCopy.heroCta}
+                <ArrowRight className="size-4 rotate-90" aria-hidden />
+              </Link>
+            </Button>
+            <Button type="button" size="lg" variant="outline" data-cta="hero_signup" onClick={() => setSignupOpen(true)}>
+              {home.demo.secondaryCta}
+            </Button>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Badge variant="secondary" className="bg-primary/10 text-primary">
               {copy.badgeZatca}
             </Badge>
@@ -71,82 +102,78 @@ function HomePage() {
               {copy.badgeAudience}
             </Badge>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="qaftr-btn-primary shadow-md">
-              <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="#invoice-tool">
-                {toolCopy.heroCta}
-              </Link>
-            </Button>
+        </div>
+      </section>
+
+      <div className="qaftr-rise mx-auto max-w-6xl px-3 md:px-6" style={{ animationDelay: '120ms' }}>
+        <div className="overflow-hidden rounded-3xl border border-border bg-muted/30 shadow-xl">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-border bg-card px-5 py-3">
+            <span className="flex gap-1.5" aria-hidden>
+              <span className="size-2.5 rounded-full bg-border" />
+              <span className="size-2.5 rounded-full bg-border" />
+              <span className="size-2.5 rounded-full bg-border" />
+            </span>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-[var(--qaftr-gold)] opacity-60 motion-reduce:hidden" />
+                <span className="relative inline-flex size-2 rounded-full bg-[var(--qaftr-gold)]" />
+              </span>
+              {home.demo.label}
+            </span>
+            <span className="text-xs text-muted-foreground">{home.demo.hint}</span>
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>
+          <div className="pt-4">
+            <InstantInvoiceTool lang={lang} showIntro={false} />
+          </div>
         </div>
+      </div>
 
-        <div className="qaftr-rise hidden md:block" style={{ animationDelay: '120ms' }}>
-          <InvoicePreview lang={lang} />
-        </div>
-      </section>
-
-      <InstantInvoiceTool lang={lang} />
-
-      <section id="features" className="mx-auto max-w-6xl px-5 py-16 md:px-8">
-        <div className="mb-10 text-center md:text-start">
-          <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold text-foreground md:text-3xl">
-            {copy.featuresTitle}
-          </h2>
-          <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-secondary md:mx-0" />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {copy.features.map((feature, i) => {
-            const Icon = featureIcons[i] ?? Check
-            return (
-              <Card
-                key={feature.title}
-                className="qaftr-card gap-3 py-6 transition-transform hover:-translate-y-0.5"
-              >
-                <CardHeader className="px-6 pb-0">
-                  <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-accent text-primary">
-                    <Icon strokeWidth={1.75} aria-hidden />
-                  </div>
-                  <CardTitle className="text-lg text-primary">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="px-6">
-                  <p className="text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-8 md:px-8">
-        <h2 className="mb-10 text-center font-[family-name:var(--font-qaftr-display)] text-2xl font-bold md:text-3xl">
-          {copy.howTitle}
-        </h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          {copy.steps.map((step) => (
-            <Card key={step.title} className="gap-3 py-6 text-start">
-              <CardHeader className="items-start px-6 pb-0">
-                <span className="mb-1 inline-flex size-10 items-center justify-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
-                  {step.num}
-                </span>
-                <CardTitle className="text-lg text-primary">{step.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="px-6">
-                <p className="text-sm text-muted-foreground">{step.body}</p>
-              </CardContent>
-            </Card>
+      {/* 2. Bento grid */}
+      <section id="features" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-20 md:px-8">
+        <SectionHeading title={home.bentoTitle} subtitle={home.bentoSubtitle} />
+        <div className="grid gap-4 md:grid-cols-4 md:grid-rows-[auto_auto_auto]">
+          {home.bento.map((tile) => (
+            <BentoCard key={tile.id} tile={tile} lang={lang} />
           ))}
         </div>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-6xl px-5 py-16 md:px-8">
+      {/* 3. How it works */}
+      <section className="mx-auto max-w-6xl px-5 pt-20 md:px-8">
+        <SectionHeading title={copy.howTitle} />
+        <ol className="grid gap-6 md:grid-cols-3">
+          {copy.steps.map((step) => (
+            <li key={step.title} className="relative rounded-2xl border border-border bg-card p-6">
+              <span className="mb-3 inline-flex size-10 items-center justify-center rounded-full bg-secondary text-lg font-bold text-secondary-foreground">
+                {step.num}
+              </span>
+              <p className="text-lg font-semibold text-primary">{step.title}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* 4. Comparison */}
+      <section id="compare" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-20 md:px-8">
+        <ComparisonTable lang={lang} />
+        <Link
+          to="/e-invoicing-software-comparison-saudi-arabia"
+          search={search}
+          className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary no-underline hover:underline"
+        >
+          {home.comparisonCta}
+          <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
+        </Link>
+      </section>
+
+      {/* 5. Pricing */}
+      <section id="pricing" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-20 md:px-8">
         <div className="mb-10 text-center">
           <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold md:text-3xl">
             {copy.pricingTitle}
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            {copy.pricingSubtitle}
-          </p>
+          <p className="mt-3 text-muted-foreground">{copy.pricingSubtitle}</p>
         </div>
         <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
           <PricingCard
@@ -157,7 +184,7 @@ function HomePage() {
             highlighted={false}
             cta={
               <Button asChild size="lg" variant="outline" className="w-full">
-                <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="pricing_free">
+                <Link to="/" search={search} hash="invoice-tool" data-cta="pricing_free">
                   {toolCopy.heroCta}
                 </Link>
               </Button>
@@ -187,7 +214,29 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:px-8">
+      {/* 6. Guides and tools */}
+      <section id="resources" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-20 md:px-8">
+        <SectionHeading title={home.resources.title} subtitle={home.resources.subtitle} />
+        <div className="grid gap-4 md:grid-cols-3">
+          {(['guides', 'solutions', 'tools'] as const).map((group) => (
+            <ResourceColumn
+              key={group}
+              title={home.groups[group]}
+              icon={group === 'guides' ? BookOpen : group === 'tools' ? Wrench : FileText}
+              items={home.resources.items.filter((i) => i.group === group)}
+              lang={lang}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 7. FAQ (FAQPage JSON-LD in head) */}
+      <div className="pt-8">
+        <ToolFaqSection title={home.faqTitle} items={home.faq} />
+      </div>
+
+      {/* 8. Final CTA */}
+      <section className="mx-auto max-w-6xl px-5 pb-4 md:px-8">
         <Card className="rounded-3xl border-primary bg-primary px-8 py-12 text-center text-primary-foreground md:px-12">
           <CardHeader className="px-0">
             <CardTitle className="font-[family-name:var(--font-qaftr-display)] text-2xl md:text-3xl">
@@ -196,13 +245,8 @@ function HomePage() {
           </CardHeader>
           <CardContent className="px-0">
             <p className="mx-auto max-w-md text-primary-foreground/70">{copy.ctaBody}</p>
-            <Button
-              asChild
-              size="lg"
-              variant="secondary"
-              className="mt-8 px-8 text-primary"
-            >
-              <Link to="/" search={lang === 'en' ? { lang: 'en' } : {}} hash="invoice-tool" data-cta="#invoice-tool">
+            <Button asChild size="lg" variant="secondary" className="mt-8 px-8 text-primary">
+              <Link to="/" search={search} hash="invoice-tool" data-cta="#invoice-tool">
                 {t(lang).cta.createInvoice}
               </Link>
             </Button>
@@ -219,6 +263,125 @@ function HomePage() {
         context="general"
       />
     </MarketingLayout>
+  )
+}
+
+function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="mb-10 max-w-2xl">
+      <h2 className="font-[family-name:var(--font-qaftr-display)] text-2xl font-bold text-foreground md:text-3xl">
+        {title}
+      </h2>
+      <div className="mt-3 h-1 w-16 rounded-full bg-secondary" />
+      {subtitle ? <p className="mt-4 text-muted-foreground">{subtitle}</p> : null}
+    </div>
+  )
+}
+
+const tileSpan: Record<BentoTile['size'], string> = {
+  lg: 'md:col-span-2 md:row-span-2',
+  md: 'md:col-span-1',
+  sm: 'md:col-span-2',
+}
+
+function BentoCard({ tile, lang }: { tile: BentoTile; lang: MarketingLang }) {
+  const Icon = tileIcons[tile.id] ?? Check
+  const isLarge = tile.size === 'lg'
+  const isBeta = tile.id === 'phase2'
+  return (
+    <div
+      className={cn(
+        'group relative flex flex-col overflow-hidden rounded-2xl border p-6 transition-transform hover:-translate-y-0.5',
+        tileSpan[tile.size],
+        isLarge ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card',
+        isBeta && 'border-[var(--qaftr-gold)]/50 bg-[var(--qaftr-gold)]/10',
+      )}
+    >
+      <div
+        className={cn(
+          'mb-4 flex size-11 items-center justify-center rounded-xl',
+          isLarge ? 'bg-primary-foreground/10 text-secondary' : 'bg-accent text-primary',
+        )}
+      >
+        <Icon strokeWidth={1.75} aria-hidden />
+      </div>
+      <h3 className={cn('font-semibold', isLarge ? 'text-2xl font-[family-name:var(--font-qaftr-display)]' : 'text-lg text-primary')}>
+        {tile.title}
+      </h3>
+      <p className={cn('mt-2 text-sm leading-relaxed', isLarge ? 'text-primary-foreground/80 md:text-base' : 'text-muted-foreground')}>
+        {tile.body}
+      </p>
+      {isLarge ? <InvoiceArtifacts lang={lang} /> : null}
+      {tile.href ? (
+        <Link
+          to={tile.href as '/tools'}
+          search={lang === 'en' ? { lang: 'en' } : {}}
+          className={cn(
+            'mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold no-underline hover:underline',
+            isLarge ? 'text-secondary' : 'text-primary',
+          )}
+        >
+          {tile.linkLabel}
+          <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
+        </Link>
+      ) : null}
+    </div>
+  )
+}
+
+/** Three output chips on the large tile: what the user walks away with. */
+function InvoiceArtifacts({ lang }: { lang: MarketingLang }) {
+  const items = [
+    { icon: QrCode, label: lang === 'ar' ? 'رمز QR' : 'QR code' },
+    { icon: FileText, label: 'PDF' },
+    { icon: MessageCircle, label: lang === 'ar' ? 'واتساب' : 'WhatsApp' },
+  ]
+  return (
+    <ul className="mt-6 grid grid-cols-3 gap-3" aria-hidden>
+      {items.map(({ icon: ItemIcon, label }) => (
+        <li
+          key={label}
+          className="flex flex-col items-center gap-2 rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 px-2 py-4 text-xs font-semibold"
+        >
+          <ItemIcon className="size-7 text-secondary" strokeWidth={1.5} />
+          {label}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function ResourceColumn({
+  title,
+  icon: Icon,
+  items,
+  lang,
+}: {
+  title: string
+  icon: typeof Check
+  items: ResourceItem[]
+  lang: MarketingLang
+}) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <p className="mb-4 flex items-center gap-2 font-semibold text-foreground">
+        <Icon className="size-5 text-primary" strokeWidth={1.75} aria-hidden />
+        {title}
+      </p>
+      <ul className="flex flex-col gap-2.5 text-sm">
+        {items.map((item) => (
+          <li key={item.href}>
+            <Link
+              to={item.href as '/tools'}
+              search={lang === 'en' ? { lang: 'en' } : {}}
+              className="text-muted-foreground no-underline hover:text-primary hover:underline"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -272,10 +435,7 @@ function PricingCard({
           {features.map((f) => (
             <li key={f} className="flex items-start gap-2 text-sm">
               <Check
-                className={cn(
-                  'mt-0.5 shrink-0',
-                  highlighted ? 'text-secondary' : 'text-primary',
-                )}
+                className={cn('mt-0.5 shrink-0', highlighted ? 'text-secondary' : 'text-primary')}
                 aria-hidden
               />
               <span className={highlighted ? 'text-primary-foreground/90' : 'text-muted-foreground'}>
@@ -286,54 +446,6 @@ function PricingCard({
         </ul>
       </CardContent>
       <div className="mt-auto px-8">{cta}</div>
-    </Card>
-  )
-}
-
-function InvoicePreview({ lang }: { lang: 'ar' | 'en' }) {
-  const isAr = lang === 'ar'
-  return (
-    <Card
-      className="relative mx-auto max-w-sm rotate-1 py-6 shadow-2xl transition-transform hover:rotate-0 md:max-w-md"
-      aria-hidden
-    >
-      <CardHeader className="px-6 pb-0">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground">
-              {isAr ? 'فاتورة ضريبية' : 'Tax Invoice'}
-            </p>
-            <CardTitle className="text-base text-primary">
-              {isAr ? 'مؤسسة قافتر التجارية' : 'Qaftr Trading Est.'}
-            </CardTitle>
-          </div>
-          <div className="flex size-12 items-center justify-center rounded-lg border border-border bg-white text-primary">
-            <QrCode className="size-9" strokeWidth={1.5} aria-hidden />
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2 px-6 text-sm">
-        <p className="text-xs text-muted-foreground">
-          {isAr ? 'المشتري: شركة الأفق للمقاولات' : 'Buyer: Horizon Contracting Co.'}
-        </p>
-        <Separator />
-        <div className="flex justify-between text-muted-foreground">
-          <span>{isAr ? 'توريد وتركيب' : 'Supply & installation'}</span>
-          <span className="font-semibold text-foreground">{isAr ? '١٬٥٠٠' : '1,500'}</span>
-        </div>
-        <div className="flex justify-between text-muted-foreground">
-          <span>{isAr ? 'ضريبة القيمة المضافة ١٥٪' : 'VAT 15%'}</span>
-          <span className="font-semibold text-foreground">{isAr ? '٢٢٥' : '225'}</span>
-        </div>
-        <Separator />
-        <div className="flex justify-between pt-1 font-bold text-primary">
-          <span>{isAr ? 'الإجمالي شامل الضريبة' : 'Total incl. VAT'}</span>
-          <span>{isAr ? '١٬٧٢٥ ر.س' : '1,725 SAR'}</span>
-        </div>
-      </CardContent>
-      <Badge variant="secondary" className="absolute -bottom-3 -end-3 shadow-lg">
-        {t(lang).home.badgeZatca}
-      </Badge>
     </Card>
   )
 }

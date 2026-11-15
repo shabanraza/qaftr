@@ -32,6 +32,12 @@ const SAUDI_FILES = [
   'src/routes/tools/zatca-qr.tsx',
   'src/routes/tools/zatca-xml-validator.tsx',
   'src/components/documents/DocumentShell.tsx',
+  'src/lib/guides/content.ts',
+  'src/lib/marketing/comparison.ts',
+  'src/lib/marketing/home-content.ts',
+  'src/components/marketing/ComparisonTable.tsx',
+  'src/components/marketing/GuideArticle.tsx',
+  'src/routes/guides/index.tsx',
 ]
 // Allowed Latin digits in Saudi Arabic strings: typed-input examples only.
 const ALLOWED = [/amountPlaceholder/]
@@ -61,14 +67,6 @@ function collect(v: unknown, out: string[]) {
 }
 
 describe('digit conventions', () => {
-  it('uses Arabic-Indic digits in the Arabic home hero invoice mockup', () => {
-    const src = readFileSync(resolve(process.cwd(), 'src/routes/index.tsx'), 'utf-8')
-    // mock amounts are chosen per language, never hard-coded Latin for both
-    expect(src).not.toMatch(/>1,500</)
-    expect(src).not.toMatch(/>225</)
-    expect(src).toContain('١٬٧٢٥ ر.س')
-  })
-
   it('uses Arabic-Indic digits in Saudi Arabic copy', () => {
     expect(SAUDI_FILES.flatMap(arabicStringsWithLatinDigits)).toEqual([])
   })

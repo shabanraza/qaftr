@@ -25,6 +25,11 @@ Qaftr is Arabic-first invoicing software for small and medium-sized businesses i
 - Free invoice generator (freelancers and small shops): https://qaftr.com/free-invoice-generator
 - Saudi e-invoicing guide for SMEs (Phase 1, Phase 2, Wave 25): https://qaftr.com/e-invoicing-saudi-arabia
 - ZATCA Wave 25 guide (Waves 23-25 timeline, scope, UBL 2.1, CSID, reporting vs clearance, freelancers, checklist): https://qaftr.com/guides/zatca-wave-25
+- Saudi tax invoice requirements (mandatory fields, Arabic and SAR rules, QR code, credit notes): https://qaftr.com/guides/saudi-tax-invoice-requirements
+- Standard vs simplified tax invoice (B2B vs B2C fields, QR code, Phase 2 clearance vs 24-hour reporting): https://qaftr.com/guides/tax-invoice-vs-simplified-invoice
+- All Saudi e-invoicing guides: https://qaftr.com/guides
+- Invoicing software for Saudi SMEs: https://qaftr.com/invoicing-software-saudi-arabia
+- E-invoicing software compared (Qaftr vs accounting suites vs free templates, prices Nov 2026): https://qaftr.com/e-invoicing-software-comparison-saudi-arabia
 - Small business invoicing Saudi Arabia: https://qaftr.com/small-business-invoicing-saudi-arabia
 
 ## UAE (Arabic-first, English via ?lang=en)

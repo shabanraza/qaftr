@@ -15,13 +15,16 @@ import { Route as VatInvoiceGeneratorSaudiArabiaRouteImport } from './routes/vat
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SmallBusinessInvoicingSaudiArabiaRouteImport } from './routes/small-business-invoicing-saudi-arabia'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as InvoicingSoftwareSaudiArabiaRouteImport } from './routes/invoicing-software-saudi-arabia'
 import { Route as InvoiceGeneratorSaudiArabiaRouteImport } from './routes/invoice-generator-saudi-arabia'
 import { Route as FreeInvoiceGeneratorRouteImport } from './routes/free-invoice-generator'
+import { Route as EInvoicingSoftwareComparisonSaudiArabiaRouteImport } from './routes/e-invoicing-software-comparison-saudi-arabia'
 import { Route as EInvoicingSaudiArabiaRouteImport } from './routes/e-invoicing-saudi-arabia'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as InvoicesIndexRouteImport } from './routes/invoices/index'
+import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as AeIndexRouteImport } from './routes/ae/index'
 import { Route as WorkspaceWhatsappRouteImport } from './routes/workspace/whatsapp'
 import { Route as WorkspaceQuotesRouteImport } from './routes/workspace/quotes'
@@ -42,6 +45,8 @@ import { Route as ToolsFatoraRouteImport } from './routes/tools/fatora'
 import { Route as ToolsCreditNoteRouteImport } from './routes/tools/credit-note'
 import { Route as InvoicesIdRouteImport } from './routes/invoices/$id'
 import { Route as GuidesZatcaWave25RouteImport } from './routes/guides/zatca-wave-25'
+import { Route as GuidesTaxInvoiceVsSimplifiedInvoiceRouteImport } from './routes/guides/tax-invoice-vs-simplified-invoice'
+import { Route as GuidesSaudiTaxInvoiceRequirementsRouteImport } from './routes/guides/saudi-tax-invoice-requirements'
 import { Route as WorkspaceQuotesIndexRouteImport } from './routes/workspace/quotes/index'
 import { Route as WorkspaceInvoicesIndexRouteImport } from './routes/workspace/invoices/index'
 import { Route as WorkspaceQuotesNewRouteImport } from './routes/workspace/quotes/new'
@@ -88,6 +93,12 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvoicingSoftwareSaudiArabiaRoute =
+  InvoicingSoftwareSaudiArabiaRouteImport.update({
+    id: '/invoicing-software-saudi-arabia',
+    path: '/invoicing-software-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const InvoiceGeneratorSaudiArabiaRoute =
   InvoiceGeneratorSaudiArabiaRouteImport.update({
     id: '/invoice-generator-saudi-arabia',
@@ -99,6 +110,12 @@ const FreeInvoiceGeneratorRoute = FreeInvoiceGeneratorRouteImport.update({
   path: '/free-invoice-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EInvoicingSoftwareComparisonSaudiArabiaRoute =
+  EInvoicingSoftwareComparisonSaudiArabiaRouteImport.update({
+    id: '/e-invoicing-software-comparison-saudi-arabia',
+    path: '/e-invoicing-software-comparison-saudi-arabia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EInvoicingSaudiArabiaRoute = EInvoicingSaudiArabiaRouteImport.update({
   id: '/e-invoicing-saudi-arabia',
   path: '/e-invoicing-saudi-arabia',
@@ -122,6 +139,11 @@ const ToolsIndexRoute = ToolsIndexRouteImport.update({
 const InvoicesIndexRoute = InvoicesIndexRouteImport.update({
   id: '/invoices/',
   path: '/invoices/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AeIndexRoute = AeIndexRouteImport.update({
@@ -224,6 +246,18 @@ const GuidesZatcaWave25Route = GuidesZatcaWave25RouteImport.update({
   path: '/guides/zatca-wave-25',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesTaxInvoiceVsSimplifiedInvoiceRoute =
+  GuidesTaxInvoiceVsSimplifiedInvoiceRouteImport.update({
+    id: '/guides/tax-invoice-vs-simplified-invoice',
+    path: '/guides/tax-invoice-vs-simplified-invoice',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesSaudiTaxInvoiceRequirementsRoute =
+  GuidesSaudiTaxInvoiceRequirementsRouteImport.update({
+    id: '/guides/saudi-tax-invoice-requirements',
+    path: '/guides/saudi-tax-invoice-requirements',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const WorkspaceQuotesIndexRoute = WorkspaceQuotesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -295,14 +329,18 @@ const AeGuidesUaeEInvoicing2027Route =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
+  '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/saudi-tax-invoice-requirements': typeof GuidesSaudiTaxInvoiceRequirementsRoute
+  '/guides/tax-invoice-vs-simplified-invoice': typeof GuidesTaxInvoiceVsSimplifiedInvoiceRoute
   '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
@@ -323,6 +361,7 @@ export interface FileRoutesByFullPath {
   '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
   '/ae/': typeof AeIndexRoute
+  '/guides/': typeof GuidesIndexRoute
   '/invoices/': typeof InvoicesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
@@ -343,13 +382,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
+  '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/saudi-tax-invoice-requirements': typeof GuidesSaudiTaxInvoiceRequirementsRoute
+  '/guides/tax-invoice-vs-simplified-invoice': typeof GuidesTaxInvoiceVsSimplifiedInvoiceRoute
   '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
@@ -368,6 +411,7 @@ export interface FileRoutesByTo {
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
   '/ae': typeof AeIndexRoute
+  '/guides': typeof GuidesIndexRoute
   '/invoices': typeof InvoicesIndexRoute
   '/tools': typeof ToolsIndexRoute
   '/workspace': typeof WorkspaceIndexRoute
@@ -389,14 +433,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
+  '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
+  '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
+  '/guides/saudi-tax-invoice-requirements': typeof GuidesSaudiTaxInvoiceRequirementsRoute
+  '/guides/tax-invoice-vs-simplified-invoice': typeof GuidesTaxInvoiceVsSimplifiedInvoiceRoute
   '/guides/zatca-wave-25': typeof GuidesZatcaWave25Route
   '/invoices/$id': typeof InvoicesIdRoute
   '/tools/credit-note': typeof ToolsCreditNoteRoute
@@ -417,6 +465,7 @@ export interface FileRoutesById {
   '/workspace/quotes': typeof WorkspaceQuotesRouteWithChildren
   '/workspace/whatsapp': typeof WorkspaceWhatsappRoute
   '/ae/': typeof AeIndexRoute
+  '/guides/': typeof GuidesIndexRoute
   '/invoices/': typeof InvoicesIndexRoute
   '/tools/': typeof ToolsIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
@@ -439,14 +488,18 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/e-invoicing-saudi-arabia'
+    | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
     | '/invoice-generator-saudi-arabia'
+    | '/invoicing-software-saudi-arabia'
     | '/privacy'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
+    | '/guides/saudi-tax-invoice-requirements'
+    | '/guides/tax-invoice-vs-simplified-invoice'
     | '/guides/zatca-wave-25'
     | '/invoices/$id'
     | '/tools/credit-note'
@@ -467,6 +520,7 @@ export interface FileRouteTypes {
     | '/workspace/quotes'
     | '/workspace/whatsapp'
     | '/ae/'
+    | '/guides/'
     | '/invoices/'
     | '/tools/'
     | '/workspace/'
@@ -487,13 +541,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/e-invoicing-saudi-arabia'
+    | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
     | '/invoice-generator-saudi-arabia'
+    | '/invoicing-software-saudi-arabia'
     | '/privacy'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
     | '/vat-invoice-generator-saudi-arabia'
     | '/zatca-invoice-generator'
+    | '/guides/saudi-tax-invoice-requirements'
+    | '/guides/tax-invoice-vs-simplified-invoice'
     | '/guides/zatca-wave-25'
     | '/invoices/$id'
     | '/tools/credit-note'
@@ -512,6 +570,7 @@ export interface FileRouteTypes {
     | '/workspace/new-invoice'
     | '/workspace/whatsapp'
     | '/ae'
+    | '/guides'
     | '/invoices'
     | '/tools'
     | '/workspace'
@@ -532,14 +591,18 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/e-invoicing-saudi-arabia'
+    | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
     | '/invoice-generator-saudi-arabia'
+    | '/invoicing-software-saudi-arabia'
     | '/privacy'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
+    | '/guides/saudi-tax-invoice-requirements'
+    | '/guides/tax-invoice-vs-simplified-invoice'
     | '/guides/zatca-wave-25'
     | '/invoices/$id'
     | '/tools/credit-note'
@@ -560,6 +623,7 @@ export interface FileRouteTypes {
     | '/workspace/quotes'
     | '/workspace/whatsapp'
     | '/ae/'
+    | '/guides/'
     | '/invoices/'
     | '/tools/'
     | '/workspace/'
@@ -581,14 +645,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EInvoicingSaudiArabiaRoute: typeof EInvoicingSaudiArabiaRoute
+  EInvoicingSoftwareComparisonSaudiArabiaRoute: typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   FreeInvoiceGeneratorRoute: typeof FreeInvoiceGeneratorRoute
   InvoiceGeneratorSaudiArabiaRoute: typeof InvoiceGeneratorSaudiArabiaRoute
+  InvoicingSoftwareSaudiArabiaRoute: typeof InvoicingSoftwareSaudiArabiaRoute
   PrivacyRoute: typeof PrivacyRoute
   SmallBusinessInvoicingSaudiArabiaRoute: typeof SmallBusinessInvoicingSaudiArabiaRoute
   SupportRoute: typeof SupportRoute
   VatInvoiceGeneratorSaudiArabiaRoute: typeof VatInvoiceGeneratorSaudiArabiaRoute
   WorkspaceRoute: typeof WorkspaceRouteWithChildren
   ZatcaInvoiceGeneratorRoute: typeof ZatcaInvoiceGeneratorRoute
+  GuidesSaudiTaxInvoiceRequirementsRoute: typeof GuidesSaudiTaxInvoiceRequirementsRoute
+  GuidesTaxInvoiceVsSimplifiedInvoiceRoute: typeof GuidesTaxInvoiceVsSimplifiedInvoiceRoute
   GuidesZatcaWave25Route: typeof GuidesZatcaWave25Route
   InvoicesIdRoute: typeof InvoicesIdRoute
   ToolsCreditNoteRoute: typeof ToolsCreditNoteRoute
@@ -602,6 +670,7 @@ export interface RootRouteChildren {
   ToolsZatcaWaveCheckerRoute: typeof ToolsZatcaWaveCheckerRoute
   ToolsZatcaXmlValidatorRoute: typeof ToolsZatcaXmlValidatorRoute
   AeIndexRoute: typeof AeIndexRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   InvoicesIndexRoute: typeof InvoicesIndexRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
   AeGuidesUaeEInvoicing2027Route: typeof AeGuidesUaeEInvoicing2027Route
@@ -658,6 +727,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invoicing-software-saudi-arabia': {
+      id: '/invoicing-software-saudi-arabia'
+      path: '/invoicing-software-saudi-arabia'
+      fullPath: '/invoicing-software-saudi-arabia'
+      preLoaderRoute: typeof InvoicingSoftwareSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/invoice-generator-saudi-arabia': {
       id: '/invoice-generator-saudi-arabia'
       path: '/invoice-generator-saudi-arabia'
@@ -670,6 +746,13 @@ declare module '@tanstack/react-router' {
       path: '/free-invoice-generator'
       fullPath: '/free-invoice-generator'
       preLoaderRoute: typeof FreeInvoiceGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/e-invoicing-software-comparison-saudi-arabia': {
+      id: '/e-invoicing-software-comparison-saudi-arabia'
+      path: '/e-invoicing-software-comparison-saudi-arabia'
+      fullPath: '/e-invoicing-software-comparison-saudi-arabia'
+      preLoaderRoute: typeof EInvoicingSoftwareComparisonSaudiArabiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/e-invoicing-saudi-arabia': {
@@ -705,6 +788,13 @@ declare module '@tanstack/react-router' {
       path: '/invoices'
       fullPath: '/invoices/'
       preLoaderRoute: typeof InvoicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ae/': {
@@ -845,6 +935,20 @@ declare module '@tanstack/react-router' {
       path: '/guides/zatca-wave-25'
       fullPath: '/guides/zatca-wave-25'
       preLoaderRoute: typeof GuidesZatcaWave25RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/tax-invoice-vs-simplified-invoice': {
+      id: '/guides/tax-invoice-vs-simplified-invoice'
+      path: '/guides/tax-invoice-vs-simplified-invoice'
+      fullPath: '/guides/tax-invoice-vs-simplified-invoice'
+      preLoaderRoute: typeof GuidesTaxInvoiceVsSimplifiedInvoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/saudi-tax-invoice-requirements': {
+      id: '/guides/saudi-tax-invoice-requirements'
+      path: '/guides/saudi-tax-invoice-requirements'
+      fullPath: '/guides/saudi-tax-invoice-requirements'
+      preLoaderRoute: typeof GuidesSaudiTaxInvoiceRequirementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/workspace/quotes/': {
@@ -999,8 +1103,11 @@ const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EInvoicingSaudiArabiaRoute: EInvoicingSaudiArabiaRoute,
+  EInvoicingSoftwareComparisonSaudiArabiaRoute:
+    EInvoicingSoftwareComparisonSaudiArabiaRoute,
   FreeInvoiceGeneratorRoute: FreeInvoiceGeneratorRoute,
   InvoiceGeneratorSaudiArabiaRoute: InvoiceGeneratorSaudiArabiaRoute,
+  InvoicingSoftwareSaudiArabiaRoute: InvoicingSoftwareSaudiArabiaRoute,
   PrivacyRoute: PrivacyRoute,
   SmallBusinessInvoicingSaudiArabiaRoute:
     SmallBusinessInvoicingSaudiArabiaRoute,
@@ -1008,6 +1115,10 @@ const rootRouteChildren: RootRouteChildren = {
   VatInvoiceGeneratorSaudiArabiaRoute: VatInvoiceGeneratorSaudiArabiaRoute,
   WorkspaceRoute: WorkspaceRouteWithChildren,
   ZatcaInvoiceGeneratorRoute: ZatcaInvoiceGeneratorRoute,
+  GuidesSaudiTaxInvoiceRequirementsRoute:
+    GuidesSaudiTaxInvoiceRequirementsRoute,
+  GuidesTaxInvoiceVsSimplifiedInvoiceRoute:
+    GuidesTaxInvoiceVsSimplifiedInvoiceRoute,
   GuidesZatcaWave25Route: GuidesZatcaWave25Route,
   InvoicesIdRoute: InvoicesIdRoute,
   ToolsCreditNoteRoute: ToolsCreditNoteRoute,
@@ -1021,6 +1132,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsZatcaWaveCheckerRoute: ToolsZatcaWaveCheckerRoute,
   ToolsZatcaXmlValidatorRoute: ToolsZatcaXmlValidatorRoute,
   AeIndexRoute: AeIndexRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   InvoicesIndexRoute: InvoicesIndexRoute,
   ToolsIndexRoute: ToolsIndexRoute,
   AeGuidesUaeEInvoicing2027Route: AeGuidesUaeEInvoicing2027Route,

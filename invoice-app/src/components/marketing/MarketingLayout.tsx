@@ -15,6 +15,7 @@ import {
   RegionSuggestionBanner,
 } from '#/components/marketing/RegionSwitcher'
 import { getMarketingNavItems } from '#/components/marketing/marketing-nav'
+import { getFooterColumns } from '#/lib/marketing/home-content'
 import { DeadlineStrip } from '#/components/marketing/DeadlineStrip'
 import { CookieSettingsLink } from '#/components/analytics/CookieSettingsLink'
 
@@ -186,6 +187,31 @@ export function MarketingLayout({ lang, children, deadline = false }: MarketingL
       ) : null}
 
       <footer className="relative z-10 mt-20 border-t border-border bg-card/50">
+        {region === 'sa' ? (
+          <nav
+            aria-label={lang === 'ar' ? 'روابط الموقع' : 'Site links'}
+            className="mx-auto grid max-w-6xl gap-8 border-b border-border px-5 py-10 sm:grid-cols-3 md:px-8"
+          >
+            {getFooterColumns(lang).map((col) => (
+              <div key={col.title}>
+                <p className="mb-3 text-sm font-semibold text-foreground">{col.title}</p>
+                <ul className="flex flex-col gap-2 text-sm">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        to={link.href as '/tools'}
+                        search={homeSearch}
+                        className="text-muted-foreground no-underline hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        ) : null}
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-10 text-center md:flex-row md:justify-between md:text-start">
           <div>
             <p className="text-lg font-bold text-primary">

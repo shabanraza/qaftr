@@ -1,6 +1,8 @@
 import type { MarketingLang } from './lang'
 
 export type SeoLandingSlug =
+  | 'invoicing-software-saudi-arabia'
+  | 'e-invoicing-software-comparison-saudi-arabia'
   | 'invoice-generator-saudi-arabia'
   | 'zatca-invoice-generator'
   | 'vat-invoice-generator-saudi-arabia'
@@ -10,6 +12,8 @@ export type SeoLandingSlug =
 
 type SeoLandingPage = {
   slug: SeoLandingSlug
+  /** Renders the Qaftr vs alternatives table (lib/marketing/comparison.ts). */
+  comparison?: boolean
   title: string
   description: string
   eyebrow: string
@@ -22,6 +26,216 @@ type SeoLandingPage = {
 }
 
 const pages: Record<SeoLandingSlug, Record<MarketingLang, SeoLandingPage>> = {
+  'invoicing-software-saudi-arabia': {
+    en: {
+      slug: 'invoicing-software-saudi-arabia',
+      title: 'Invoicing Software for Saudi SMEs: VAT, QR & PDF | Qaftr',
+      description:
+        'Online invoicing software for Saudi businesses that sell B2B and B2C: standard and simplified tax invoices, 15% VAT, ZATCA Phase 1 QR, PDF and WhatsApp.',
+      eyebrow: 'Invoicing software Saudi Arabia',
+      heading: 'Invoicing software for Saudi SMEs, without the accounting suite',
+      intro:
+        'Qaftr is online invoicing software for small and medium businesses in Saudi Arabia. Issue standard tax invoices to companies and simplified tax invoices to consumers, with 15% VAT, the ZATCA Phase 1 QR code and a PDF you can send on WhatsApp. Try it free without signing up.',
+      cta: 'Create your first invoice free',
+      sections: [
+        {
+          heading: 'Standard and simplified tax invoices',
+          body: 'Choose the invoice type at the top of the form. A standard tax invoice asks for the buyer’s name and VAT number; a simplified tax invoice carries the ZATCA Phase 1 QR code.',
+        },
+        {
+          heading: 'Customers, history and corrections',
+          body: 'A free account saves your customers and invoices. Correct an issued invoice with a credit or debit note that cites the original number, as ZATCA requires.',
+        },
+        {
+          heading: 'Invoicing only, so it stays simple',
+          body: 'Qaftr is not an accounting suite. It does invoicing well and gives your accountant monthly totals and a CSV export, so you do not pay for ledgers and payroll you do not use.',
+        },
+        {
+          heading: 'Free to start, SAR 39 a month for Pro',
+          body: 'The free plan saves 3 invoices a month. Pro removes the limit and adds all templates and payment reminders for SAR 39 a month or SAR 349 a year.',
+        },
+      ],
+      faq: [
+        {
+          question: 'What is the best invoicing software for a small business in Saudi Arabia?',
+          answer:
+            'It depends on what you need. If you only need compliant invoices, credit notes and a list of customers, a light invoicing tool like Qaftr costs less and takes minutes to learn. If you also need ledgers, inventory and payroll, a full accounting suite fits better. Our comparison page sets out the differences.',
+        },
+        {
+          question: 'Does Qaftr support ZATCA Phase 2?',
+          answer:
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
+        },
+        {
+          question: 'Can I use Qaftr on my phone?',
+          answer: 'Yes. Qaftr runs in the browser on phones, tablets and computers, with an Arabic right-to-left interface.',
+        },
+      ],
+      related: [
+        { label: 'E-invoicing software compared', href: '/e-invoicing-software-comparison-saudi-arabia' },
+        { label: 'Tax invoice requirements', href: '/guides/saudi-tax-invoice-requirements' },
+        { label: 'Free tax invoice tool', href: '/tools/fatora' },
+        { label: 'ZATCA Wave 25 guide', href: '/guides/zatca-wave-25' },
+      ],
+    },
+    ar: {
+      slug: 'invoicing-software-saudi-arabia',
+      title: 'برنامج فواتير إلكترونية للمنشآت في السعودية | قافتر',
+      description:
+        'برنامج فواتير أون لاين للمنشآت التي تبيع للشركات والأفراد: فاتورة ضريبية ومبسطة، وضريبة ١٥٪، ورمز QR للمرحلة الأولى من زاتكا، وPDF وواتساب.',
+      eyebrow: 'برنامج فواتير السعودية',
+      heading: 'برنامج فواتير للمنشآت الصغيرة والمتوسطة، بلا تعقيد برامج المحاسبة',
+      intro:
+        'قافتر برنامج فواتير إلكترونية أون لاين للمنشآت الصغيرة والمتوسطة في السعودية. أصدر الفاتورة الضريبية للشركات والفاتورة المبسطة للأفراد، مع ضريبة ١٥٪ ورمز QR للمرحلة الأولى من زاتكا وملف PDF ترسله عبر واتساب. جرّبه مجاناً بدون تسجيل.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
+      sections: [
+        {
+          heading: 'الفاتورة الضريبية والمبسطة',
+          body: 'اختر نوع الفاتورة أعلى النموذج؛ تطلب الفاتورة الضريبية اسم المشتري ورقمه الضريبي، وتحمل الفاتورة المبسطة رمز QR للمرحلة الأولى من زاتكا.',
+        },
+        {
+          heading: 'العملاء والسجل والتصحيح',
+          body: 'يحفظ الحساب المجاني عملاءك وفواتيرك. وصحّح الفاتورة الصادرة بإشعار دائن أو مدين يذكر رقمها الأصلي كما تطلب زاتكا.',
+        },
+        {
+          heading: 'فوترة فقط، لتبقى بسيطة',
+          body: 'قافتر ليس برنامج محاسبة متكاملاً؛ يتقن الفوترة ويمنح محاسبك إجماليات شهرية وملف CSV، فلا تدفع مقابل دفاتر ورواتب لا تستخدمها.',
+        },
+        {
+          heading: 'ابدأ مجاناً، وبرو بـ ٣٩ ريالاً شهرياً',
+          body: 'تحفظ الخطة المجانية ٣ فواتير شهرياً، وتلغي خطة برو هذا الحد وتضيف جميع القوالب وتذكير العملاء بـ ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً.',
+        },
+      ],
+      faq: [
+        {
+          question: 'ما أفضل برنامج فواتير لمنشأة صغيرة في السعودية؟',
+          answer:
+            'يعتمد على حاجتك. إذا كنت تحتاج فواتير نظامية وإشعارات دائنة وقائمة عملاء فقط، فأداة فوترة خفيفة مثل قافتر أقل تكلفة وتتعلمها في دقائق. وإذا كنت تحتاج دفاتر ومخزوناً ورواتب، فبرنامج المحاسبة المتكامل أنسب. وتوضح صفحة المقارنة الفروق.',
+        },
+        {
+          question: 'هل يدعم قافتر المرحلة الثانية من زاتكا؟',
+          answer:
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
+        },
+        {
+          question: 'هل يعمل قافتر على الجوال؟',
+          answer: 'نعم. يعمل قافتر من المتصفح على الجوال والجهاز اللوحي والحاسب، بواجهة عربية من اليمين إلى اليسار.',
+        },
+      ],
+      related: [
+        { label: 'مقارنة برامج الفوترة الإلكترونية', href: '/e-invoicing-software-comparison-saudi-arabia' },
+        { label: 'متطلبات الفاتورة الضريبية', href: '/guides/saudi-tax-invoice-requirements' },
+        { label: 'أداة الفاتورة الضريبية المجانية', href: '/tools/fatora' },
+        { label: 'دليل الموجة ٢٥', href: '/guides/zatca-wave-25' },
+      ],
+    },
+  },
+  'e-invoicing-software-comparison-saudi-arabia': {
+    en: {
+      slug: 'e-invoicing-software-comparison-saudi-arabia',
+      comparison: true,
+      title: 'E-Invoicing Software in Saudi Arabia Compared (2026) | Qaftr',
+      description:
+        'Compare e-invoicing options for Saudi SMEs: a light invoicing tool, accounting suites and free templates. Prices, Phase 1 QR, Phase 2 and Arabic support.',
+      eyebrow: 'E-invoicing software comparison',
+      heading: 'E-invoicing software in Saudi Arabia: how the options compare',
+      intro:
+        'Saudi SMEs usually choose between three kinds of tool: a full accounting suite, a free invoice template, or a light invoicing tool like Qaftr. The table below compares them on price, ZATCA requirements and day-to-day use, so you can pick what fits your business.',
+      cta: 'Try Qaftr free',
+      sections: [
+        {
+          heading: 'Choose a full accounting suite if…',
+          body: 'you need ledgers, inventory, payroll or several users with approvals, and you are already in a ZATCA Phase 2 wave. Expect a monthly subscription on entry plans and a setup period.',
+        },
+        {
+          heading: 'Choose a free template if…',
+          body: 'you are not registered for VAT and send a few invoices a year. Remember that a VAT-registered business must issue tax invoices with the required fields and, for simplified invoices, the QR code.',
+        },
+        {
+          heading: 'Choose Qaftr if…',
+          body: 'you are VAT-registered, sell to companies and consumers, and want Phase 1 tax invoices, credit notes and saved customers without paying for an accounting suite.',
+        },
+        {
+          heading: 'Questions to ask any provider',
+          body: 'Can I try it without a card? Does it issue standard and simplified tax invoices? How does it handle credit notes? When will it support Phase 2 for my wave, and how do I export my data?',
+        },
+      ],
+      faq: [
+        {
+          question: 'How much does e-invoicing software cost in Saudi Arabia?',
+          answer:
+            'Entry plans of full accounting suites published by Saudi vendors cost about SAR 99–199 a month (checked November 2026). Qaftr has a free plan and costs SAR 39 a month for Pro. Free templates cost nothing but do not calculate VAT or keep records.',
+        },
+        {
+          question: 'Does Qaftr support ZATCA Phase 2?',
+          answer:
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
+        },
+        {
+          question: 'Can I switch later?',
+          answer: 'Yes. Your invoices stay available as PDFs, and the CSV export gives your accountant or your next system the totals.',
+        },
+      ],
+      related: [
+        { label: 'Invoicing software for Saudi SMEs', href: '/invoicing-software-saudi-arabia' },
+        { label: 'Standard vs simplified tax invoice', href: '/guides/tax-invoice-vs-simplified-invoice' },
+        { label: 'Is your business in Wave 25?', href: '/tools/zatca-wave-checker' },
+        { label: 'E-invoicing in Saudi Arabia', href: '/e-invoicing-saudi-arabia' },
+      ],
+    },
+    ar: {
+      slug: 'e-invoicing-software-comparison-saudi-arabia',
+      comparison: true,
+      title: 'مقارنة برامج الفوترة الإلكترونية في السعودية ٢٠٢٦ | قافتر',
+      description:
+        'قارن خيارات الفوترة الإلكترونية للمنشآت: أداة فوترة خفيفة، أو برنامج محاسبة متكامل، أو قوالب مجانية. الأسعار، ورمز QR، والمرحلة الثانية، والدعم العربي.',
+      eyebrow: 'مقارنة برامج الفوترة الإلكترونية',
+      heading: 'مقارنة برامج الفوترة الإلكترونية في السعودية',
+      intro:
+        'تختار المنشآت الصغيرة والمتوسطة في السعودية عادةً بين ثلاثة أنواع: برنامج محاسبة متكامل، أو قالب فاتورة مجاني، أو أداة فوترة خفيفة مثل قافتر. يقارن الجدول أدناه بينها في السعر ومتطلبات زاتكا والاستخدام اليومي، لتختار ما يناسب منشأتك.',
+      cta: 'جرّب قافتر مجاناً',
+      sections: [
+        {
+          heading: 'اختر برنامج محاسبة متكاملاً إذا…',
+          body: 'كنت تحتاج دفاتر ومخزوناً ورواتب أو عدة مستخدمين مع صلاحيات، ومنشأتك ضمن موجة من المرحلة الثانية. وتوقّع اشتراكاً شهرياً في الخطط الأولى وفترة إعداد.',
+        },
+        {
+          heading: 'اختر قالباً مجانياً إذا…',
+          body: 'كنت غير مسجّل في الضريبة وتُصدر فواتير قليلة في السنة. وتذكّر أن المسجّل في الضريبة يجب أن يُصدر فواتير ضريبية بالحقول المطلوبة، ورمز QR في الفاتورة المبسطة.',
+        },
+        {
+          heading: 'اختر قافتر إذا…',
+          body: 'كنت مسجّلاً في الضريبة، وتبيع للشركات والأفراد، وتريد فواتير ضريبية وفق المرحلة الأولى وإشعارات دائنة وحفظ العملاء دون دفع ثمن برنامج محاسبة متكامل.',
+        },
+        {
+          heading: 'أسئلة تطرحها على أي مزود',
+          body: 'هل أجرّب بدون بطاقة؟ هل يُصدر الفاتورة الضريبية والمبسطة؟ كيف يتعامل مع الإشعارات الدائنة؟ متى يدعم المرحلة الثانية لموجتي، وكيف أصدّر بياناتي؟',
+        },
+      ],
+      faq: [
+        {
+          question: 'كم تكلفة برنامج الفوترة الإلكترونية في السعودية؟',
+          answer:
+            'تتراوح الخطط الأولى لبرامج المحاسبة المتكاملة المنشورة لدى المزودين في السعودية بين نحو ٩٩ و١٩٩ ريالاً شهرياً (رُوجعت في نوفمبر ٢٠٢٦). ولدى قافتر خطة مجانية، وخطة برو بـ ٣٩ ريالاً شهرياً. أما القوالب المجانية فلا تكلف شيئاً لكنها لا تحسب الضريبة ولا تحفظ السجلات.',
+        },
+        {
+          question: 'هل يدعم قافتر المرحلة الثانية من زاتكا؟',
+          answer:
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
+        },
+        {
+          question: 'هل يمكنني الانتقال لاحقاً؟',
+          answer: 'نعم. تبقى فواتيرك متاحة بصيغة PDF، ويمنح ملف CSV محاسبك أو نظامك القادم الإجماليات.',
+        },
+      ],
+      related: [
+        { label: 'برنامج فواتير للمنشآت في السعودية', href: '/invoicing-software-saudi-arabia' },
+        { label: 'الفرق بين الفاتورة الضريبية والمبسطة', href: '/guides/tax-invoice-vs-simplified-invoice' },
+        { label: 'هل منشأتك ضمن الموجة ٢٥؟', href: '/tools/zatca-wave-checker' },
+        { label: 'الفوترة الإلكترونية في السعودية', href: '/e-invoicing-saudi-arabia' },
+      ],
+    },
+  },
   'invoice-generator-saudi-arabia': {
     en: {
       slug: 'invoice-generator-saudi-arabia',
