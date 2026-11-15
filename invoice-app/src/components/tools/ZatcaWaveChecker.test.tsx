@@ -117,7 +117,7 @@ describe('ZatcaWaveChecker', () => {
     pick('wave-vat', 'yes')
     revenue(2024, '200000')
     submit()
-    const mail = screen.getByRole('link', { name: 'Get notified when Qaftr Phase 2 launches' })
+    const mail = screen.getByRole('link', { name: 'Join the Phase 2 early-access list' })
     const href = mail.getAttribute('href')!
     expect(href.startsWith('mailto:support@qaftr.com?subject=')).toBe(true)
     expect(href).not.toMatch(/200|body=/)

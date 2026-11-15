@@ -183,7 +183,7 @@ const guideEn: WaveGuide = {
     {
       question: 'Does Qaftr support Phase 2?',
       answer:
-        'Not yet. Qaftr issues Phase 1 (Generation) invoices with the QR code. If you are in a Phase 2 wave you need a solution integrated with FATOORA before your deadline.',
+        "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. If you are in a Phase 2 wave, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 (Generation) invoices, and you need a solution integrated with FATOORA before your deadline.",
     },
   ],
 }
@@ -323,7 +323,7 @@ const guideAr: WaveGuide = {
     {
       question: 'هل يدعم قافتر المرحلة الثانية؟',
       answer:
-        'ليس بعد. يُصدر قافتر فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ) مع رمز QR. إذا كانت منشأتك ضمن موجة في المرحلة الثانية فستحتاج حلاً مربوطاً بمنصة فاتورة قبل موعدك.',
+        'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. إذا كانت منشأتك ضمن موجة في المرحلة الثانية فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ)، وستحتاج حلاً مربوطاً بمنصة فاتورة قبل موعدك.',
     },
   ],
 }

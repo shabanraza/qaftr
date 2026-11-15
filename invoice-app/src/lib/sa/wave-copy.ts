@@ -82,11 +82,11 @@ const ar = {
       'الموجة {wave} من زاتكا: موعد الربط المتوقع في المرحلة الثانية هو {date} (متبقٍ {days} يوماً). تحقّق منه عبر أداة قافتر: {url}',
   },
   guideLink: 'اقرأ دليل الموجة ٢٥ الكامل',
-  notifyTitle: 'دعم المرحلة الثانية في قافتر قيد التطوير',
+  notifyTitle: 'دعم المرحلة الثانية في قافتر في مرحلة تجريبية خاصة',
   notifyBody:
-    'يُصدر قافتر اليوم فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ)، ونعمل على دعم المرحلة الثانية. راسلنا وسنُبلغك فور إطلاقه.',
-  notifyCta: 'بلّغني عند إطلاق المرحلة الثانية',
-  notifySubject: 'بلّغني عند إطلاق المرحلة الثانية من قافتر',
+    'يُصدر قافتر اليوم فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ) للجميع، ونختبر المرحلة الثانية مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا. راسلنا للانضمام إلى قائمة الوصول المبكر.',
+  notifyCta: 'انضم إلى قائمة الوصول المبكر للمرحلة الثانية',
+  notifySubject: 'الوصول المبكر للمرحلة الثانية في قافتر',
   disclaimer:
     'تقدير مبني على الحدود والمواعيد المعلنة من زاتكا للموجات ٢٣–٢٥ — تحقّق من زاتكا قبل الاعتماد عليه. قافتر غير تابع لزاتكا، والمعلومات إرشادية وليست استشارة ضريبية.',
   faqTitle: 'أسئلة شائعة عن الموجة ٢٥',
@@ -113,7 +113,7 @@ const ar = {
     {
       question: 'هل قافتر يدعم المرحلة الثانية؟',
       answer:
-        'ليس بعد. يُصدر قافتر فواتير وفق المرحلة الأولى. إذا كانت منشأتك ضمن موجة، فستحتاج حلاً مربوطاً بمنصة فاتورة قبل موعدك.',
+        'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يُصدر قافتر اليوم فواتير وفق المرحلة الأولى للجميع، ونختبر المرحلة الثانية (التوقيع والاعتماد أو الإبلاغ لدى زاتكا ورمز QR للمرحلة الثانية) مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا. إذا كانت منشأتك ضمن موجة فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وتأكد من وجود حل مربوط بمنصة فاتورة قبل موعدك.',
     },
   ],
 }
@@ -199,11 +199,11 @@ const en: WaveCopy = {
       'ZATCA Wave {wave}: our estimated Phase 2 integration deadline is {date} ({days} days left). Checked with the Qaftr wave checker: {url}',
   },
   guideLink: 'Read the full Wave 25 guide',
-  notifyTitle: 'Phase 2 support in Qaftr is in development',
+  notifyTitle: 'Phase 2 support in Qaftr is in private beta',
   notifyBody:
-    'Today Qaftr issues Phase 1 (Generation) invoices. We are working on Phase 2 support — email us and we will let you know when it launches.',
-  notifyCta: 'Get notified when Qaftr Phase 2 launches',
-  notifySubject: 'Notify me when Qaftr Phase 2 launches',
+    "Today Qaftr issues Phase 1 (Generation) invoices for everyone. Phase 2 is being tested with a small group of businesses on ZATCA's simulation environment — email us to join the early-access list.",
+  notifyCta: 'Join the Phase 2 early-access list',
+  notifySubject: 'Qaftr Phase 2 early access',
   disclaimer:
     'An estimate based on the thresholds and dates ZATCA announced for Waves 23–25 — verify with ZATCA before relying on it. Qaftr is not affiliated with ZATCA; this is general guidance, not tax advice.',
   faqTitle: 'ZATCA Wave 25 FAQ',
@@ -231,7 +231,7 @@ const en: WaveCopy = {
     {
       question: 'Does Qaftr support Phase 2?',
       answer:
-        'Not yet. Qaftr issues Phase 1 (Generation) invoices. If you are in a wave, you will need a solution integrated with FATOORA before your deadline.',
+        "Phase 2 support is in private beta. Today Qaftr issues Phase 1 (Generation) invoices for everyone, and Phase 2 (signing, clearance or reporting with ZATCA, and the Phase 2 QR code) is being tested with a small group of businesses on ZATCA's simulation environment. If you are in a wave, email support@qaftr.com to join the early-access list, and make sure you have a solution integrated with FATOORA before your deadline.",
     },
   ],
 }

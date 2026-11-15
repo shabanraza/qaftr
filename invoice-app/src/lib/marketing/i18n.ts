@@ -186,7 +186,7 @@ const ar: Copy = {
     faqs: [
       {
         q: 'هل يكفي قافتر للامتثال لمتطلبات زاتكا؟',
-        a: 'يُصدر قافتر فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ) مع رمز QR للفاتورة الضريبية. إذا أبلغتك زاتكا بموعد ربطك في المرحلة الثانية (مرحلة الربط والتكامل) — والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال، وموعدها ١ فبراير ٢٠٢٧ — فستحتاج حلاً مربوطاً ببوابة فاتورة. قافتر ليس تطبيقاً رسمياً تابعاً لزاتكا.',
+        a: 'يُصدر قافتر فواتير وفق المرحلة الأولى (مرحلة الإصدار والحفظ) مع رمز QR للفاتورة الضريبية. إذا أبلغتك زاتكا بموعد ربطك في المرحلة الثانية (مرحلة الربط والتكامل) — والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال، وموعدها ١ فبراير ٢٠٢٧ — فستحتاج حلاً مربوطاً ببوابة فاتورة. ودعم المرحلة الثانية في قافتر في مرحلة تجريبية خاصة مع عدد محدود من المنشآت؛ راسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر. قافتر ليس تطبيقاً رسمياً تابعاً لزاتكا.',
       },
       {
         q: 'كم فاتورة في الخطة المجانية؟',
@@ -327,7 +327,7 @@ const en: Copy = {
     faqs: [
       {
         q: 'Is Qaftr enough for ZATCA compliance?',
-        a: 'Qaftr issues Phase 1 (Generation) invoices with the tax invoice QR code. If ZATCA has notified you of a Phase 2 (Integration) date — Wave 25 covers VAT-subject revenue above SAR 187,500, due 1 February 2027 — you need a solution integrated with the FATOORA portal. Qaftr is not an official ZATCA application.',
+        a: 'Qaftr issues Phase 1 (Generation) invoices with the tax invoice QR code. If ZATCA has notified you of a Phase 2 (Integration) date — Wave 25 covers VAT-subject revenue above SAR 187,500, due 1 February 2027 — you need a solution integrated with the FATOORA portal. Phase 2 support in Qaftr is in private beta with a small group of businesses; email support@qaftr.com to join the early-access list. Qaftr is not an official ZATCA application.',
       },
       {
         q: 'How many invoices are on the free plan?',
