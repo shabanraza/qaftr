@@ -44,7 +44,16 @@ type InstantInvoiceCopy = {
   };
   invoiceTypes: Record<SaudiInvoiceType, { title: string; hint: string }>;
   suggestStandard: { body: string; action: string };
-  result: { title: string; body: string; cta: string; noCard: string; dismiss: string };
+  result: {
+    title: string;
+    body: string;
+    cta: string;
+    noCard: string;
+    dismiss: string;
+    /** Shown instead of the sign-up pitch when the user is signed in. */
+    signedInBody: string;
+    signedInCta: string;
+  };
   actionsBarLabel: string;
   totalShort: string;
   itemsTitle: string;
@@ -152,6 +161,8 @@ const ar: InstantInvoiceCopy = {
     title: "تم تنزيل الفاتورة",
     body: "احفظ عملاءك وأصدر فواتير متتالية من مكان واحد — أنشئ حساباً مجاناً.",
     cta: "أنشئ حساباً مجاناً",
+    signedInBody: "احفظها في فواتيرك لتبقى مع عملائك وتُصدر الفاتورة التالية بالتسلسل.",
+    signedInCta: "احفظ في فواتيري",
     noCard: "بدون بطاقة ائتمان",
     dismiss: "إخفاء",
   },
@@ -293,6 +304,8 @@ const en: InstantInvoiceCopy = {
     title: "Invoice downloaded",
     body: "Save your customers and issue invoices in sequence from one place — create a free account.",
     cta: "Create a free account",
+    signedInBody: "Save it to your invoices to keep it with your customers and issue the next one in sequence.",
+    signedInCta: "Save to my invoices",
     noCard: "No credit card",
     dismiss: "Dismiss",
   },

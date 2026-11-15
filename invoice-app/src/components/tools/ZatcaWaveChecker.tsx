@@ -20,6 +20,7 @@ import { getWaveCopy } from '#/lib/sa/wave-copy'
 import { buildWaveReminder } from '#/lib/sa/wave-reminder'
 import { downloadBlob } from '#/lib/invoice/pdf-render'
 import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
+import { authClient } from '#/lib/auth-client'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { FieldError } from '#/components/ui/field'
@@ -107,6 +108,7 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
   const resultRef = useRef<HTMLElement>(null)
   const [scrollToken, setScrollToken] = useState(0)
   const [signupOpen, setSignupOpen] = useState(false)
+  const { data: session } = authClient.useSession()
 
   useEffect(() => {
     if (!scrollToken || !resultRef.current) return
@@ -388,16 +390,18 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
                     </Button>
                   </div>
                   <p className="mt-3 text-xs text-muted-foreground">{copy.reminder.privacy}</p>
-                  <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border/60 pt-3 text-sm text-muted-foreground">
-                    <span>{copy.reminder.signupBody}</span>
-                    <button
-                      type="button"
-                      className="font-medium text-primary underline-offset-4 hover:underline"
-                      onClick={() => setSignupOpen(true)}
-                    >
-                      {copy.reminder.signupCta}
-                    </button>
-                  </p>
+                  {session?.user ? null : (
+                    <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border/60 pt-3 text-sm text-muted-foreground">
+                      <span>{copy.reminder.signupBody}</span>
+                      <button
+                        type="button"
+                        className="font-medium text-primary underline-offset-4 hover:underline"
+                        onClick={() => setSignupOpen(true)}
+                      >
+                        {copy.reminder.signupCta}
+                      </button>
+                    </p>
+                  )}
                 </section>
               ) : null}
 

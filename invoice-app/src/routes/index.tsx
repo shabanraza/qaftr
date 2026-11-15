@@ -15,6 +15,7 @@ import {
   Wrench,
 } from 'lucide-react'
 import { MarketingLayout } from '#/components/marketing/MarketingLayout'
+import { AccountCta } from '#/components/marketing/AccountCta'
 import { ComparisonTable } from '#/components/marketing/ComparisonTable'
 import { ToolFaqSection, buildFaqSchema } from '#/components/tools/ToolFaqSection'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
@@ -27,6 +28,7 @@ import { InstantInvoiceTool } from '#/components/instant-invoice/InstantInvoiceT
 import { AuthGateDialog } from '#/components/instant-invoice/AuthGateDialog'
 import { getInstantInvoiceCopy } from '#/lib/instant-invoice/copy'
 import { cn } from '#/lib/utils'
+import { authClient } from '#/lib/auth-client'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
@@ -62,6 +64,8 @@ function HomePage() {
   const toolCopy = getInstantInvoiceCopy(lang)
   const search = lang === 'en' ? { lang: 'en' as const } : {}
   const [signupOpen, setSignupOpen] = useState(false)
+  // Account pitches (no-account notes, demo hint) are for signed-out visitors only.
+  const signedIn = Boolean(authClient.useSession().data?.user)
 
   return (
     <MarketingLayout lang={lang} deadline>
@@ -89,11 +93,16 @@ function HomePage() {
                 <ArrowRight className="size-4 rotate-90" aria-hidden />
               </Link>
             </Button>
-            <Button type="button" size="lg" variant="outline" data-cta="hero_signup" onClick={() => setSignupOpen(true)}>
-              {home.demo.secondaryCta}
-            </Button>
+            <AccountCta
+              lang={lang}
+              label={home.demo.secondaryCta}
+              onSignUp={() => setSignupOpen(true)}
+              size="lg"
+              variant="outline"
+              data-cta="hero_signup"
+            />
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>
+          {signedIn ? null : <p className="mt-3 text-sm text-muted-foreground">{t(lang).cta.noCardNote}</p>}
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Badge variant="secondary" className="bg-primary/10 text-primary">
               {copy.badgeZatca}
@@ -118,9 +127,9 @@ function HomePage() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-[var(--qaftr-gold)] opacity-60 motion-reduce:hidden" />
                 <span className="relative inline-flex size-2 rounded-full bg-[var(--qaftr-gold)]" />
               </span>
-              {home.demo.label}
+              {signedIn ? home.demo.signedInLabel : home.demo.label}
             </span>
-            <span className="text-xs text-muted-foreground">{home.demo.hint}</span>
+            <span className="text-xs text-muted-foreground">{signedIn ? home.demo.signedInHint : home.demo.hint}</span>
           </div>
           <div className="pt-4">
             <InstantInvoiceTool lang={lang} showIntro={false} />
@@ -199,16 +208,15 @@ function HomePage() {
             features={copy.pro.features}
             highlighted
             cta={
-              <Button
-                type="button"
+              <AccountCta
+                lang={lang}
+                label={lang === 'ar' ? 'إنشاء حساب' : 'Create account'}
+                onSignUp={() => setSignupOpen(true)}
                 size="lg"
                 variant="secondary"
                 className="w-full text-primary"
                 data-cta="pricing_pro"
-                onClick={() => setSignupOpen(true)}
-              >
-                {lang === 'ar' ? 'إنشاء حساب' : 'Create account'}
-              </Button>
+              />
             }
           />
         </div>
@@ -250,7 +258,7 @@ function HomePage() {
                 {t(lang).cta.createInvoice}
               </Link>
             </Button>
-            <p className="mt-3 text-sm text-primary-foreground/70">{t(lang).cta.noCard}</p>
+            {signedIn ? null : <p className="mt-3 text-sm text-primary-foreground/70">{t(lang).cta.noCard}</p>}
           </CardContent>
         </Card>
       </section>

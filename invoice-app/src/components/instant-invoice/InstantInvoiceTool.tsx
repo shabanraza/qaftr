@@ -327,7 +327,10 @@ export function InstantInvoiceTool({
   }
 
   function handleResultCta() {
-    track("cta_click", { cta: "sign_up_after_download", cta_location: "invoice_result" });
+    track("cta_click", {
+      cta: session?.user ? "save_after_download" : "sign_up_after_download",
+      cta_location: "invoice_result",
+    });
     void handleSave();
   }
 
@@ -760,7 +763,9 @@ export function InstantInvoiceTool({
                     <CircleCheck aria-hidden className="size-5 text-secondary" />
                     {copy.result.title}
                   </h3>
-                  <p className="mt-2 text-sm text-primary-foreground/85">{copy.result.body}</p>
+                  <p className="mt-2 text-sm text-primary-foreground/85">
+                    {session?.user ? copy.result.signedInBody : copy.result.body}
+                  </p>
                   <div className="mt-4 flex flex-wrap items-center gap-3">
                     <Button
                       type="button"
@@ -768,9 +773,11 @@ export function InstantInvoiceTool({
                       className="text-primary"
                       onClick={handleResultCta}
                     >
-                      {copy.result.cta}
+                      {session?.user ? copy.result.signedInCta : copy.result.cta}
                     </Button>
-                    <span className="text-xs text-primary-foreground/80">{copy.result.noCard}</span>
+                    {session?.user ? null : (
+                      <span className="text-xs text-primary-foreground/80">{copy.result.noCard}</span>
+                    )}
                   </div>
                 </section>
               ) : null}
