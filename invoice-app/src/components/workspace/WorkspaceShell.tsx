@@ -2,7 +2,8 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui'
 import { FileText, LogOut, Plus, ReceiptText, UserPlus } from 'lucide-react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useTRPC } from '#/integrations/trpc/react'
 import { authClient } from '#/lib/auth-client'
 import { clearCachedSession } from '#/lib/session-cache'
 import type { MarketingLang } from '#/lib/marketing/lang'
@@ -24,7 +25,9 @@ export function WorkspaceLayout({ lang, children }: { lang: MarketingLang; child
   const isArabic = lang === 'ar'
   const search = lang === 'en' ? { lang: 'en' as const } : {}
   const active = workspaceSectionForPath(pathname)
-  const nav = getWorkspaceNav(lang)
+  const trpc = useTRPC()
+  const { data: firmClients } = useQuery(trpc.seat.clients.queryOptions())
+  const nav = getWorkspaceNav(lang, { firm: Boolean(firmClients?.length) })
   const copy = isArabic
     ? { brand: 'قافتر', signOut: 'خروج', home: 'قافتر — الرئيسية', menu: 'القائمة' }
     : { brand: 'Qaftr', signOut: 'Sign out', home: 'Qaftr — Home', menu: 'Menu' }

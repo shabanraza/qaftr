@@ -6,6 +6,7 @@ import { billingRouter } from "./routers/billing";
 import { instantInvoiceRouter } from "./routers/instant-invoice";
 import { quotesRouter } from "./routers/quotes";
 import { zatcaRouter } from "./routers/zatca";
+import { seatRouter } from "./routers/seat";
 
 export const trpcRouter = createTRPCRouter({
   business: businessRouter,
@@ -15,6 +16,7 @@ export const trpcRouter = createTRPCRouter({
   instantInvoice: instantInvoiceRouter,
   quotes: quotesRouter,
   zatca: zatcaRouter,
+  seat: seatRouter,
 });
 
 export type TRPCRouter = typeof trpcRouter;

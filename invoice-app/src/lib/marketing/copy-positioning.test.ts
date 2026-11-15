@@ -13,6 +13,7 @@ import { getFatoraFaq } from '#/lib/tools/fatora-faq'
 import { getToolsCopy } from '#/lib/tools/copy'
 import { DOCUMENT_KINDS, getDocumentCopy } from '#/lib/documents/copy'
 import { GUIDE_SLUGS, getGuide, getGuidesHub } from '#/lib/guides/content'
+import { getSeatCopy } from '#/lib/accountant/copy'
 import { getComparison } from './comparison'
 import { getHomeContent } from './home-content'
 import { seoCopy, t } from './i18n'
@@ -149,6 +150,7 @@ describe('no inaccurate trust claims', () => {
         getDocumentCopy(lang),
         getHomeContent(lang),
         getComparison(lang),
+        { owner: { ...getSeatCopy(lang).owner, whatsappText: getSeatCopy(lang).owner.whatsappText('x') }, accept: getSeatCopy(lang).accept.intro, firm: getSeatCopy(lang).firm.phase2 },
         GUIDE_SLUGS.map((slug) => getGuide(slug, lang)),
       ])
       expect(all).not.toMatch(FORBIDDEN)

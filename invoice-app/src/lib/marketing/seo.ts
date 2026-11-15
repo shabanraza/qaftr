@@ -40,7 +40,7 @@ const REGION_LOCALES: Record<
   },
 }
 
-const PRIVATE_PATH_PREFIXES = ['/workspace', '/invoices'] as const
+const PRIVATE_PATH_PREFIXES = ['/workspace', '/invoices', '/accept-invite'] as const
 
 export function isPrivatePath(path: string) {
   return PRIVATE_PATH_PREFIXES.some(

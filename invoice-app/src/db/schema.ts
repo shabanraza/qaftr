@@ -1,6 +1,7 @@
 import {
   boolean,
   date,
+  index,
   integer,
   jsonb,
   numeric,
@@ -407,3 +408,33 @@ export const invoiceEvents = pgTable("invoice_events", {
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+// ---------------------------------------------------------------------------
+// Accountant seat: an accountant gets read-only access to client businesses.
+// The invite link carries a random token; only its SHA-256 is stored.
+// ---------------------------------------------------------------------------
+
+export const businessMembers = pgTable(
+  "business_members",
+  {
+    id: text().primaryKey(),
+    businessId: text("business_id")
+      .notNull()
+      .references(() => businesses.id, { onDelete: "cascade" }),
+    // Set when the accountant accepts the invite.
+    accountantUserId: text("accountant_user_id").references(() => user.id, { onDelete: "cascade" }),
+    // Who the owner meant to invite (display only, never used to grant access).
+    email: text(),
+    status: text().$type<"pending" | "active" | "revoked">().notNull().default("pending"),
+    tokenHash: text("token_hash").notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    acceptedAt: timestamp("accepted_at"),
+    revokedAt: timestamp("revoked_at"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("business_members_token_hash_unique").on(t.tokenHash),
+    index("business_members_business_idx").on(t.businessId),
+    index("business_members_accountant_idx").on(t.accountantUserId),
+  ],
+);
