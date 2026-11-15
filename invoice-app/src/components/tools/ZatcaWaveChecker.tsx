@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { ZATCA_REVENUE_YEARS, getZatcaWaveStatus } from '@zatca/shared'
 import type { ZatcaRevenueYear, ZatcaWaveStatus } from '@zatca/shared'
+import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { SUPPORT_EMAIL } from '#/lib/marketing/constants'
 import { parseAmountInput } from '#/lib/ae/format'
@@ -23,6 +24,8 @@ import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { FieldError } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
+import { Label } from '#/components/ui/label'
+import { RadioGroup as RadioGroupRoot, RadioGroupItem } from '#/components/ui/radio-group'
 import { cn } from '#/lib/utils'
 
 type Answer = 'yes' | 'no' | 'unsure'
@@ -44,6 +47,7 @@ function RadioGroup({
   value,
   onChange,
   error,
+  dir,
 }: {
   name: string
   legend: string
@@ -51,35 +55,34 @@ function RadioGroup({
   value: Answer | null
   onChange: (value: Answer) => void
   error?: string
+  dir: 'ltr' | 'rtl'
 }) {
   const id = useId()
   return (
-    <div
-      role="radiogroup"
-      aria-labelledby={`${id}-legend`}
-      aria-describedby={error ? `${id}-error` : undefined}
-      className="flex min-w-0 flex-col gap-3"
-    >
+    <div className="flex min-w-0 flex-col gap-3">
       <p id={`${id}-legend`} className="text-sm font-medium text-foreground">
         {legend}
       </p>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(6.5rem,1fr))] gap-2">
+      <RadioGroupRoot
+        name={name}
+        aria-labelledby={`${id}-legend`}
+        aria-describedby={error ? `${id}-error` : undefined}
+        dir={dir}
+        value={value ?? ''}
+        onValueChange={(next) => onChange(next as Answer)}
+        className="grid-cols-[repeat(auto-fit,minmax(6.5rem,1fr))] gap-2"
+      >
         {options.map(([optionValue, label]) => (
-          <label key={optionValue} className="relative block min-w-0 cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={optionValue}
-              checked={value === optionValue}
-              onChange={() => onChange(optionValue)}
-              className="peer sr-only"
-            />
-            <span className="block rounded-xl border border-border bg-background px-4 py-3 text-center text-sm font-medium transition-colors hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2">
-              {label}
-            </span>
-          </label>
+          <Label
+            key={optionValue}
+            htmlFor={`${id}-${optionValue}`}
+            className="block min-w-0 cursor-pointer rounded-xl border border-border bg-background px-4 py-3 text-center text-sm font-medium leading-normal transition-colors hover:border-primary/50 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2"
+          >
+            <RadioGroupItem id={`${id}-${optionValue}`} value={optionValue} className="sr-only" />
+            {label}
+          </Label>
         ))}
-      </div>
+      </RadioGroupRoot>
       {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : null}
     </div>
   )
@@ -183,6 +186,7 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
           <CardContent className="px-5 py-6">
             <form noValidate onSubmit={handleSubmit} className="flex flex-col gap-7">
               <RadioGroup
+                dir={langDir(lang)}
                 name="wave-vat"
                 legend={copy.vatQuestion}
                 options={[
@@ -228,6 +232,7 @@ export function ZatcaWaveChecker({ lang, today }: ZatcaWaveCheckerProps) {
               </fieldset>
 
               <RadioGroup
+                dir={langDir(lang)}
                 name="wave-notified"
                 legend={copy.notifiedQuestion}
                 options={[

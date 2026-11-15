@@ -8,9 +8,11 @@ const TODAY = '2026-11-08'
 async function setup(lang: 'ar' | 'en' = 'en') {
   renderWithRouter(<ZatcaWaveChecker lang={lang} today={TODAY} />)
   await screen.findByRole('heading', { name: /Quick questions|أسئلة سريعة/ })
+  // Radix radios: one radiogroup per question, in form order.
+  const groupIndex: Record<string, number> = { 'wave-vat': 0, 'wave-notified': 1 }
   const pick = (name: string, value: string) =>
     fireEvent.click(
-      document.querySelector(`input[type="radio"][name="${name}"][value="${value}"]`)!,
+      screen.getAllByRole('radiogroup')[groupIndex[name]]!.querySelector(`[role="radio"][value="${value}"]`)!,
     )
   const revenue = (year: number, value: string) =>
     fireEvent.change(document.getElementById(`wave-revenue-${year}`)!, { target: { value } })
@@ -98,13 +100,16 @@ describe('ZatcaWaveChecker', () => {
     expect(screen.queryByRole('region', { name: /Your result/ })).toBeNull()
   })
 
-  it('uses native radio inputs with accessible group names', async () => {
-    await setup()
+  it('uses radio groups with accessible group and option names', async () => {
+    const { pick } = await setup()
     const groups = screen.getAllByRole('radiogroup')
     expect(groups).toHaveLength(2)
-    expect(groups[0].getAttribute('aria-labelledby')).toBeTruthy()
-    const radios = screen.getAllByRole<HTMLInputElement>('radio')
-    expect(radios.every((r) => r.type === 'radio')).toBe(true)
+    const legend = document.getElementById(groups[0].getAttribute('aria-labelledby')!)
+    expect(legend?.textContent).toMatch(/VAT/)
+    const yes = within(groups[0]).getByRole('radio', { name: 'Yes' })
+    expect(yes.getAttribute('aria-checked')).toBe('false')
+    pick('wave-vat', 'yes')
+    expect(yes.getAttribute('aria-checked')).toBe('true')
   })
 
   it('links a privacy-safe mailto (no personal data) and the guide', async () => {

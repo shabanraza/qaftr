@@ -104,13 +104,15 @@ describe('UaeInvoiceGenerator', () => {
     expect(pdf.htmlToPdfBlob).not.toHaveBeenCalled()
   })
 
-  it('uses native radios for invoice type and output language', async () => {
+  it('uses named radio groups for invoice type and output language', async () => {
     await setup()
-    const radios = screen.getAllByRole<HTMLInputElement>('radio')
-    expect(radios.every((r) => r.tagName === 'INPUT' && r.type === 'radio')).toBe(true)
-    expect(radios.map((r) => r.name)).toEqual(
-      expect.arrayContaining(['ae-invoice-type', 'ae-invoice-output']),
-    )
+    const groups = screen.getAllByRole('radiogroup')
+    const names = groups.map((g) => document.getElementById(g.getAttribute('aria-labelledby')!)?.textContent)
+    expect(names).toHaveLength(2)
+    const output = groups[1]!
+    const bilingual = within(output).getByRole('radio', { name: 'عربي + English' })
+    fireEvent.click(bilingual)
+    expect(bilingual.getAttribute('aria-checked')).toBe('true')
   })
 
   it('switches the preview to bilingual output', async () => {

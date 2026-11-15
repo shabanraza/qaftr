@@ -12,6 +12,7 @@ import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '#/components/ui/card'
 import { Field, FieldDescription, FieldLabel } from '#/components/ui/field'
+import { Input } from '#/components/ui/input'
 import { Spinner } from '#/components/ui/spinner'
 import { Textarea } from '#/components/ui/textarea'
 import { cn } from '#/lib/utils'
@@ -107,7 +108,7 @@ export function ZatcaQrDecoder({ lang }: { lang: MarketingLang }) {
               <FieldDescription>{copy.inputHint}</FieldDescription>
             </Field>
             <div className="flex flex-wrap gap-2">
-              <input
+              <Input
                 ref={fileRef}
                 id={fileId}
                 type="file"

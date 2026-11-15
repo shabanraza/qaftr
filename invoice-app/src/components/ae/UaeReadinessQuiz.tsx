@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { getUaeEInvoicingReadiness } from '@zatca/shared'
 import type { UaeEInvoicingReadiness } from '@zatca/shared'
+import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { SUPPORT_EMAIL } from '#/lib/marketing/constants'
 import { getAeCopy } from '#/lib/ae/copy'
@@ -31,6 +32,8 @@ import {
   FieldLabel,
 } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
+import { Label } from '#/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '#/components/ui/radio-group'
 import { cn } from '#/lib/utils'
 
 type Customers = 'b2b' | 'mixed' | 'b2c'
@@ -51,6 +54,7 @@ function ChoiceGroup<T extends string>({
   error,
   errorTestId,
   columns = '',
+  dir,
 }: {
   name: string
   legend: string
@@ -60,41 +64,45 @@ function ChoiceGroup<T extends string>({
   error?: string
   errorTestId: string
   columns?: string
+  dir: 'ltr' | 'rtl'
 }) {
   const errorId = `${name}-error`
   return (
-    <fieldset
-      data-testid="readiness-question"
-      className="flex min-w-0 flex-col gap-3"
-      aria-describedby={error ? errorId : undefined}
-    >
-      <legend className="mb-3 text-sm font-medium text-foreground">
+    <div data-testid="readiness-question" className="flex min-w-0 flex-col gap-3">
+      <span id={`${name}-legend`} className="mb-3 text-sm font-medium text-foreground">
         {legend}
-      </legend>
-      <div className={cn('grid gap-2', columns)}>
+      </span>
+      <RadioGroup
+        name={name}
+        aria-labelledby={`${name}-legend`}
+        aria-describedby={error ? errorId : undefined}
+        dir={dir}
+        value={value ?? ''}
+        onValueChange={(next) => onChange(next as T)}
+        className={cn('gap-2', columns)}
+      >
         {options.map(([optionValue, label]) => (
-          <label key={optionValue} className="relative block cursor-pointer">
-            <input
-              type="radio"
-              name={name}
+          <Label
+            key={optionValue}
+            htmlFor={`${name}-${optionValue}`}
+            className="block cursor-pointer rounded-xl border border-border bg-background px-4 py-3 text-start text-sm font-medium leading-normal transition-colors hover:border-primary/50 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground has-[[data-state=checked]]:shadow-sm has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2"
+          >
+            <RadioGroupItem
+              id={`${name}-${optionValue}`}
               value={optionValue}
-              checked={value === optionValue}
-              onChange={() => onChange(optionValue)}
               data-testid={`${name}-${optionValue}`}
-              className="peer sr-only"
+              className="sr-only"
             />
-            <span className="block rounded-xl border border-border bg-background px-4 py-3 text-start text-sm font-medium transition-colors hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-checked:shadow-sm peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2">
-              {label}
-            </span>
-          </label>
+            {label}
+          </Label>
         ))}
-      </div>
+      </RadioGroup>
       {error ? (
         <FieldError id={errorId} data-testid={errorTestId}>
           {error}
         </FieldError>
       ) : null}
-    </fieldset>
+    </div>
   )
 }
 
@@ -191,6 +199,7 @@ export function UaeReadinessQuiz({ lang, today }: UaeReadinessQuizProps) {
               className="flex flex-col gap-7"
             >
               <ChoiceGroup
+                dir={langDir(lang)}
                 name="gov"
                 legend={`${questionNumber('government')}. ${q.govQuestion}`}
                 options={[
@@ -206,6 +215,7 @@ export function UaeReadinessQuiz({ lang, today }: UaeReadinessQuizProps) {
 
               {!isGov ? (
                 <ChoiceGroup
+                  dir={langDir(lang)}
                   name="customers"
                   legend={`${questionNumber('customers')}. ${q.customersQuestion}`}
                   options={[

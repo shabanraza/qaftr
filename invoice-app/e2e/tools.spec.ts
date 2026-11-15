@@ -157,7 +157,7 @@ test.describe('UAE e-invoicing readiness quiz', () => {
   })
 
   const radio = (page: Page, name: string) => page.getByRole('radio', { name, exact: true })
-  // The inputs are visually hidden (sr-only) inside a styled <label>; users
+  // The radios are visually hidden (sr-only) inside a styled <label>; users
   // click the label, so do the same.
   const choose = async (page: Page, name: string) => {
     await page.locator('label').filter({ has: radio(page, name) }).click()
@@ -184,7 +184,7 @@ test.describe('UAE e-invoicing readiness quiz', () => {
 
   test('government entity → 327 days, no customer/revenue questions', async ({ page }) => {
     await choose(page, 'Yes')
-    await expect(page.getByRole('group', { name: /Who do you sell to/ })).toHaveCount(0)
+    await expect(page.getByRole('radiogroup', { name: /Who do you sell to/ })).toHaveCount(0)
     await expect(page.getByLabel(/Approximate annual revenue/)).toHaveCount(0)
     await submit(page)
     await expect(page.getByTestId('readiness-days')).toHaveText('327')
@@ -200,19 +200,26 @@ test.describe('UAE e-invoicing readiness quiz', () => {
   })
 
   test('radios work with keyboard arrows', async ({ page }) => {
+    // Radix radio groups select on arrow keys while the key is held as focus
+    // moves (as with a real key press); Playwright's press() releases at once.
+    const arrowDown = async () => {
+      await page.keyboard.down('ArrowDown')
+      await page.waitForTimeout(60)
+      await page.keyboard.up('ArrowDown')
+    }
     await radio(page, 'Yes').focus()
     await page.keyboard.press('Space')
     await expect(radio(page, 'Yes')).toBeChecked()
-    await page.keyboard.press('ArrowDown')
+    await arrowDown()
     await expect(radio(page, 'No')).toBeChecked()
     await expect(radio(page, 'No')).toBeFocused()
 
     // The customers group appears once "No" is chosen.
     await radio(page, 'Businesses or government (B2B / B2G)').focus()
     await page.keyboard.press('Space')
-    await page.keyboard.press('ArrowDown')
+    await arrowDown()
     await expect(radio(page, 'Both businesses and consumers')).toBeChecked()
-    await page.keyboard.press('ArrowDown')
+    await arrowDown()
     await expect(radio(page, 'Consumers only (B2C)')).toBeChecked()
     await expect(page.getByLabel(/Approximate annual revenue/)).toHaveCount(0)
   })

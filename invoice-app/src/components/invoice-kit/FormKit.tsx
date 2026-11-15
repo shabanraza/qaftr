@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Field, FieldDescription, FieldLabel } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
+import { Label } from '#/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '#/components/ui/radio-group'
 import { Textarea } from '#/components/ui/textarea'
 import { cn } from '#/lib/utils'
 
@@ -17,34 +19,42 @@ export function RadioCards<T extends string>({
   options,
   value,
   onChange,
+  dir,
 }: {
   name: string
   legend: string
   options: ReadonlyArray<readonly [T, string]>
   value: T
   onChange: (value: T) => void
+  /** Page direction, so arrow keys move the way the cards are laid out. */
+  dir?: 'ltr' | 'rtl'
 }) {
+  const id = useId()
   return (
-    <fieldset className="flex min-w-0 flex-col">
-      <legend className="mb-2 text-sm font-medium text-foreground">{legend}</legend>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(5.5rem,1fr))] gap-2">
+    <div className="flex min-w-0 flex-col">
+      <span id={`${id}-legend`} className="mb-2 text-sm font-medium text-foreground">
+        {legend}
+      </span>
+      <RadioGroup
+        name={name}
+        aria-labelledby={`${id}-legend`}
+        dir={dir}
+        value={value}
+        onValueChange={(next) => onChange(next as T)}
+        className="grid-cols-[repeat(auto-fit,minmax(5.5rem,1fr))] gap-2"
+      >
         {options.map(([optionValue, label]) => (
-          <label key={optionValue} className="relative block min-w-0 cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={optionValue}
-              checked={value === optionValue}
-              onChange={() => onChange(optionValue)}
-              className="peer sr-only"
-            />
-            <span className="flex h-full items-center justify-center rounded-xl border border-border bg-background px-3 py-2.5 text-center text-sm font-medium transition-colors hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2">
-              {label}
-            </span>
-          </label>
+          <Label
+            key={optionValue}
+            htmlFor={`${id}-${optionValue}`}
+            className="flex h-full min-w-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-background px-3 py-2.5 text-center text-sm font-medium leading-normal transition-colors hover:border-primary/50 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2"
+          >
+            <RadioGroupItem id={`${id}-${optionValue}`} value={optionValue} className="sr-only" />
+            {label}
+          </Label>
         ))}
-      </div>
-    </fieldset>
+      </RadioGroup>
+    </div>
   )
 }
 
