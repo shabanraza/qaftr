@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { CircleCheck, Download, Lightbulb, Plus, Trash2, X } from "lucide-react";
@@ -20,7 +20,7 @@ import {
   clearPendingSave,
   consumePendingSave,
   getNextExportSeqNumber,
-  loadDraft,
+  restoreDraft,
   markPendingSave,
   peekExportSeqNumber,
   saveDraft,
@@ -107,8 +107,14 @@ export function InstantInvoiceTool({
   const isStandard = invoiceType === "standard";
   const suggestStandard = shouldSuggestStandardInvoice(draft);
 
-  useEffect(() => {
-    setDraft(loadDraft());
+  // Restore in a layout effect: its update commits synchronously, before the
+  // browser can deliver input. From a passive effect after hydration the
+  // restore is a low-priority update that typing keeps pre-empting (seconds on
+  // a slow iPhone); React then replays the typed edits on top of it.
+  // restoreDraft keeps the line ids when nothing is stored so those edits
+  // still find their row.
+  useLayoutEffect(() => {
+    setDraft(restoreDraft);
     setPreviewSeq(peekExportSeqNumber());
     setHasHydrated(true);
   }, []);
