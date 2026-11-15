@@ -21,6 +21,7 @@ import type {
   UaeInvoiceType,
   UaeVatCategory,
 } from '@zatca/shared'
+import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { formatAed, langSearch, todayInUae } from '#/lib/ae/format'
 import { getAeInvoiceCopy } from '#/lib/ae/invoice-copy'
@@ -203,6 +204,7 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
           <CardContent className="qaftr-form-sections flex flex-col gap-7 px-5 py-6">
             <Section legend={copy.settingsTitle}>
               <RadioCards<UaeInvoiceType>
+                dir={langDir(lang)}
                 name="ae-invoice-type"
                 legend={copy.typeLabel}
                 options={[
@@ -219,6 +221,7 @@ export function UaeInvoiceGenerator({ lang }: UaeInvoiceGeneratorProps) {
                 </p>
               ) : null}
               <RadioCards<UaeInvoiceOutputLang>
+                dir={langDir(lang)}
                 name="ae-invoice-output"
                 legend={copy.outputLangLabel}
                 options={[

@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { ArrowUpRightIcon, DownloadIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import type { DocumentLineInput, DocumentParty } from '@zatca/shared'
 import { track } from '#/lib/analytics/track'
+import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { toArabicIndic, todayInSaudi } from '#/lib/sa/format'
 import { getDocumentCopy } from '#/lib/documents/copy'
@@ -115,6 +116,7 @@ export function OutputLangPicker({
   return (
     <Section legend={c.settingsTitle}>
       <RadioCards<DocumentOutputLang>
+        dir={langDir(lang)}
         name={name}
         legend={c.outputLangLabel}
         options={[

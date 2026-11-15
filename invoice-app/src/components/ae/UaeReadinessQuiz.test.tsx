@@ -145,17 +145,18 @@ describe('UaeReadinessQuiz', () => {
     )
   })
 
-  it('uses native radio inputs grouped in fieldsets (keyboard accessible)', async () => {
+  it('uses named radio groups (keyboard accessible)', async () => {
     renderWithRouter(<UaeReadinessQuiz lang="en" today="2026-11-08" />)
     await screen.findByTestId('readiness-form')
     const gov = [screen.getByTestId('gov-yes'), screen.getByTestId('gov-no')]
-    for (const el of gov) {
-      expect(el.tagName).toBe('INPUT')
-      expect(el.getAttribute('type')).toBe('radio')
-    }
-    expect(gov[0].getAttribute('name')).toBe(gov[1].getAttribute('name'))
-    expect(screen.getAllByRole('group').length).toBeGreaterThanOrEqual(2)
+    for (const el of gov) expect(el.getAttribute('role')).toBe('radio')
+    const groups = screen.getAllByRole('radiogroup')
+    expect(groups.length).toBeGreaterThanOrEqual(2)
+    expect(gov[0].closest('[role="radiogroup"]')).toBe(gov[1].closest('[role="radiogroup"]'))
+    expect(screen.getByRole('radiogroup', { name: /government/i })).toBe(groups[0])
     expect(screen.getByRole('radio', { name: 'No' })).toBe(gov[1])
+    fireEvent.click(gov[1]!)
+    expect(gov[1]!.getAttribute('aria-checked')).toBe('true')
   })
 
   it('has as many question groups as the quiz definition, and the hub says so', async () => {

@@ -2,6 +2,7 @@ import { useDeferredValue, useMemo } from 'react'
 import { amountInArabicWords, amountInEnglishWords, parseLocaleDecimal, validateReceiptVoucher } from '@zatca/shared'
 import type { ReceiptPaymentMethod } from '@zatca/shared'
 import { track } from '#/lib/analytics/track'
+import { langDir } from '#/lib/marketing/lang'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { todayInSaudi } from '#/lib/sa/format'
 import { getDocumentCopy } from '#/lib/documents/copy'
@@ -75,6 +76,7 @@ export function ReceiptVoucherTool({ lang }: { lang: MarketingLang }) {
         <TextField id="rv-from" label={copy.receivedFrom} value={draft.receivedFrom} onChange={(receivedFrom) => update({ receivedFrom })} />
         <TextField id="rv-amount" label={copy.amount} hint={copy.amountHint} value={draft.amount} onChange={(amount) => update({ amount })} ltr inputMode="decimal" />
         <RadioCards<ReceiptPaymentMethod>
+          dir={langDir(lang)}
           name="rv-method"
           legend={copy.paymentMethod}
           options={methods}
