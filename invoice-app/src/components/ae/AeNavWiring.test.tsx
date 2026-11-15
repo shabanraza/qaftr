@@ -22,7 +22,7 @@ const { MarketingLayout } =
 const { AeCrossLinkCard } = await import('./AeCrossLinkCard')
 
 describe('UAE wiring', () => {
-  it('adds a UAE link to the marketing nav and footer (Arabic)', async () => {
+  it('links to UAE from the footer only; the header has the region picker (Arabic)', async () => {
     renderWithRouter(
       <MarketingLayout lang="ar">
         <p>body</p>
@@ -30,7 +30,8 @@ describe('UAE wiring', () => {
     )
     await screen.findByText('body')
     const links = screen.getAllByRole('link', { name: /^الإمارات$/ })
-    expect(links.length).toBe(2)
+    expect(links.length).toBe(1)
+    expect(links[0]!.closest('footer')).not.toBeNull()
     for (const link of links) expect(link.getAttribute('href')).toBe('/ae')
   })
 
@@ -43,7 +44,6 @@ describe('UAE wiring', () => {
     await screen.findByText('body')
     const links = screen.getAllByRole('link', { name: /^UAE$/ })
     expect(links.map((l) => l.getAttribute('href'))).toEqual([
-      '/ae?lang=en',
       '/ae?lang=en',
     ])
   })
