@@ -83,7 +83,35 @@ export function ClientB2bDetails({
   )
 }
 
-export function ClientB2bBadge({ lang, client }: { lang: MarketingLang; client: PartyProfileInput }) {
-  const ready = buyerStandardReadiness(client).ready
-  return <Badge variant={ready ? 'secondary' : 'outline'}>{ready ? TEXT[lang].ready : TEXT[lang].missing}</Badge>
+/**
+ * Whether a saved client can receive a standard (B2B) tax invoice. When details
+ * are missing it names them and, given onFix, opens the client for editing.
+ */
+export function ClientB2bBadge({
+  lang,
+  client,
+  onFix,
+}: {
+  lang: MarketingLang
+  client: PartyProfileInput
+  onFix?: () => void
+}) {
+  const { ready, issues } = buyerStandardReadiness(client)
+  if (ready) return <Badge variant="secondary">{TEXT[lang].ready}</Badge>
+  const labels = getPartyCopy(lang).fields
+  const missing = [...new Set(issues.map((i) => i.field))].map((f) => labels[f]?.label ?? f).join(lang === 'ar' ? '، ' : ', ')
+  const content = (
+    <>
+      <Badge variant="outline" className="border-amber-500/50 text-amber-700 dark:text-amber-400">
+        {TEXT[lang].missing}
+      </Badge>
+      <span className="mt-1 block text-xs text-muted-foreground">{missing}</span>
+    </>
+  )
+  if (!onFix) return <div className="text-start">{content}</div>
+  return (
+    <button type="button" onClick={onFix} className="rounded-md text-start hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring">
+      {content}
+    </button>
+  )
 }

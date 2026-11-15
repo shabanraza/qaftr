@@ -41,3 +41,28 @@ describe('ClientB2bBadge', () => {
     expect(screen.getByText('Ready for B2B invoices')).toBeTruthy()
   })
 })
+
+describe('ClientB2bBadge when details are missing', () => {
+  it('names the missing fields and opens the client for editing when clicked', () => {
+    const onFix = vi.fn()
+    render(<ClientB2bBadge lang="en" client={{ name: 'X', vatNumber: '123', city: 'Riyadh' }} onFix={onFix} />)
+    const button = screen.getByRole('button', { name: /B2B details missing/ })
+    expect(button.textContent).toContain('VAT number')
+    expect(button.textContent).toContain('Building number')
+    expect(button.textContent).not.toContain('City')
+    fireEvent.click(button)
+    expect(onFix).toHaveBeenCalledOnce()
+  })
+
+  it('stays a plain label when the client is ready', () => {
+    render(
+      <ClientB2bBadge
+        lang="ar"
+        onFix={vi.fn()}
+        client={{ name: 'X', vatNumber: '310000000000003', street: 'S', buildingNumber: '2222', district: 'D', city: 'C', postalCode: '12245' }}
+      />,
+    )
+    expect(screen.getByText('جاهز لفواتير الشركات')).toBeTruthy()
+    expect(screen.queryByRole('button')).toBeNull()
+  })
+})

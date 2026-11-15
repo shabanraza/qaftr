@@ -12,10 +12,11 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '#/components/u
 import { Field, FieldGroup, FieldLabel } from '#/components/ui/field'
 import { Input } from '#/components/ui/input'
 import { Skeleton } from '#/components/ui/skeleton'
-import { checkBuyerFormat, normalizePartyInput } from '@zatca/shared'
+import { buyerStandardReadiness, checkBuyerFormat, normalizePartyInput } from '@zatca/shared'
 import type { PartyIssue } from '@zatca/shared'
 import { ClientB2bBadge, ClientB2bDetails, CLIENT_B2B_KEYS } from '#/components/workspace/ClientB2bDetails'
 import { parseProfileError } from '#/lib/zatca/party-input'
+import { getPartyCopy } from '#/lib/zatca/party-copy'
 import { buildClientPayload, clientToForm, emptyClientForm } from '#/lib/workspace/client-form'
 import type { ClientForm } from '#/lib/workspace/client-form'
 
@@ -134,12 +135,13 @@ function WorkspaceClientsPage() {
   const saving = createClientMutation.isPending || updateClientMutation.isPending
   const editing = editingId ? clients?.find((c) => c.id === editingId) : undefined
 
-  function startEdit(id: string) {
+  /** Open a client in the form; showMissing marks what blocks a B2B invoice. */
+  function startEdit(id: string, showMissing = false) {
     const client = clients?.find((c) => c.id === id)
     if (!client) return
     setEditingId(id)
     setForm(clientToForm(client))
-    setIssues([])
+    setIssues(showMissing ? buyerStandardReadiness(client).issues : [])
     setFormError(null)
     setNotice(null)
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -157,7 +159,7 @@ function WorkspaceClientsPage() {
   useEffect(() => {
     if (appliedEditParam.current || !search.edit || !clients) return
     appliedEditParam.current = true
-    startEdit(search.edit)
+    startEdit(search.edit, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search.edit, clients])
 
@@ -209,7 +211,8 @@ function WorkspaceClientsPage() {
     }
   }
 
-  const vatInvalid = issues.some((i) => i.field === 'vatNumber')
+  const vatIssue = issues.find((i) => i.field === 'vatNumber')
+  const vatInvalid = Boolean(vatIssue)
 
   return (
     <WorkspaceShell
@@ -261,7 +264,11 @@ function WorkspaceClientsPage() {
                   setIssues((list) => list.filter((i) => i.field !== 'vatNumber'))
                 }}
               />
-              {vatInvalid ? <p className="text-sm text-destructive">{copy.vatRule}</p> : null}
+              {vatIssue ? (
+                <p className="text-sm text-destructive">
+                  {vatIssue.code === 'VAT_OR_ID_REQUIRED' ? getPartyCopy(lang).issues.VAT_OR_ID_REQUIRED : copy.vatRule}
+                </p>
+              ) : null}
             </Field>
             <Field>
               <FieldLabel htmlFor="client-email">{copy.email}</FieldLabel>
@@ -354,7 +361,7 @@ function WorkspaceClientsPage() {
                     <span dir="ltr">{client.phone || '—'}</span>
                   </td>
                   <td className="px-5 py-3">
-                    <ClientB2bBadge lang={lang} client={client} />
+                    <ClientB2bBadge lang={lang} client={client} onFix={() => startEdit(client.id, true)} />
                   </td>
                   <td className="px-5 py-3 text-end">
                     <Button
