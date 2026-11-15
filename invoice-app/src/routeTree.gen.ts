@@ -20,6 +20,7 @@ import { Route as InvoiceGeneratorSaudiArabiaRouteImport } from './routes/invoic
 import { Route as FreeInvoiceGeneratorRouteImport } from './routes/free-invoice-generator'
 import { Route as EInvoicingSoftwareComparisonSaudiArabiaRouteImport } from './routes/e-invoicing-software-comparison-saudi-arabia'
 import { Route as EInvoicingSaudiArabiaRouteImport } from './routes/e-invoicing-saudi-arabia'
+import { Route as AcceptInviteRouteImport } from './routes/accept-invite'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
@@ -49,9 +50,11 @@ import { Route as GuidesTaxInvoiceVsSimplifiedInvoiceRouteImport } from './route
 import { Route as GuidesSaudiTaxInvoiceRequirementsRouteImport } from './routes/guides/saudi-tax-invoice-requirements'
 import { Route as WorkspaceQuotesIndexRouteImport } from './routes/workspace/quotes/index'
 import { Route as WorkspaceInvoicesIndexRouteImport } from './routes/workspace/invoices/index'
+import { Route as WorkspaceFirmIndexRouteImport } from './routes/workspace/firm/index'
 import { Route as WorkspaceQuotesNewRouteImport } from './routes/workspace/quotes/new'
 import { Route as WorkspaceQuotesIdRouteImport } from './routes/workspace/quotes/$id'
 import { Route as WorkspaceInvoicesIdRouteImport } from './routes/workspace/invoices/$id'
+import { Route as WorkspaceFirmBusinessIdRouteImport } from './routes/workspace/firm/$businessId'
 import { Route as ApiWebhooksRevenuecatRouteImport } from './routes/api/webhooks/revenuecat'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -119,6 +122,11 @@ const EInvoicingSoftwareComparisonSaudiArabiaRoute =
 const EInvoicingSaudiArabiaRoute = EInvoicingSaudiArabiaRouteImport.update({
   id: '/e-invoicing-saudi-arabia',
   path: '/e-invoicing-saudi-arabia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcceptInviteRoute = AcceptInviteRouteImport.update({
+  id: '/accept-invite',
+  path: '/accept-invite',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -268,6 +276,11 @@ const WorkspaceInvoicesIndexRoute = WorkspaceInvoicesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => WorkspaceInvoicesRoute,
 } as any)
+const WorkspaceFirmIndexRoute = WorkspaceFirmIndexRouteImport.update({
+  id: '/firm/',
+  path: '/firm/',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
 const WorkspaceQuotesNewRoute = WorkspaceQuotesNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -282,6 +295,11 @@ const WorkspaceInvoicesIdRoute = WorkspaceInvoicesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => WorkspaceInvoicesRoute,
+} as any)
+const WorkspaceFirmBusinessIdRoute = WorkspaceFirmBusinessIdRouteImport.update({
+  id: '/firm/$businessId',
+  path: '/firm/$businessId',
+  getParentRoute: () => WorkspaceRoute,
 } as any)
 const ApiWebhooksRevenuecatRoute = ApiWebhooksRevenuecatRouteImport.update({
   id: '/api/webhooks/revenuecat',
@@ -328,6 +346,7 @@ const AeGuidesUaeEInvoicing2027Route =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accept-invite': typeof AcceptInviteRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
   '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
@@ -373,14 +392,17 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
   '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
   '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/firm/': typeof WorkspaceFirmIndexRoute
   '/workspace/invoices/': typeof WorkspaceInvoicesIndexRoute
   '/workspace/quotes/': typeof WorkspaceQuotesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accept-invite': typeof AcceptInviteRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
   '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
@@ -423,15 +445,18 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
   '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
   '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/firm': typeof WorkspaceFirmIndexRoute
   '/workspace/invoices': typeof WorkspaceInvoicesIndexRoute
   '/workspace/quotes': typeof WorkspaceQuotesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accept-invite': typeof AcceptInviteRoute
   '/e-invoicing-saudi-arabia': typeof EInvoicingSaudiArabiaRoute
   '/e-invoicing-software-comparison-saudi-arabia': typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   '/free-invoice-generator': typeof FreeInvoiceGeneratorRoute
@@ -477,9 +502,11 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
+  '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
   '/workspace/quotes/$id': typeof WorkspaceQuotesIdRoute
   '/workspace/quotes/new': typeof WorkspaceQuotesNewRoute
+  '/workspace/firm/': typeof WorkspaceFirmIndexRoute
   '/workspace/invoices/': typeof WorkspaceInvoicesIndexRoute
   '/workspace/quotes/': typeof WorkspaceQuotesIndexRoute
 }
@@ -487,6 +514,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/accept-invite'
     | '/e-invoicing-saudi-arabia'
     | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
@@ -532,14 +560,17 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
     | '/workspace/quotes/$id'
     | '/workspace/quotes/new'
+    | '/workspace/firm/'
     | '/workspace/invoices/'
     | '/workspace/quotes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/accept-invite'
     | '/e-invoicing-saudi-arabia'
     | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
@@ -582,14 +613,17 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
     | '/workspace/quotes/$id'
     | '/workspace/quotes/new'
+    | '/workspace/firm'
     | '/workspace/invoices'
     | '/workspace/quotes'
   id:
     | '__root__'
     | '/'
+    | '/accept-invite'
     | '/e-invoicing-saudi-arabia'
     | '/e-invoicing-software-comparison-saudi-arabia'
     | '/free-invoice-generator'
@@ -635,15 +669,18 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/trpc/$'
     | '/api/webhooks/revenuecat'
+    | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
     | '/workspace/quotes/$id'
     | '/workspace/quotes/new'
+    | '/workspace/firm/'
     | '/workspace/invoices/'
     | '/workspace/quotes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcceptInviteRoute: typeof AcceptInviteRoute
   EInvoicingSaudiArabiaRoute: typeof EInvoicingSaudiArabiaRoute
   EInvoicingSoftwareComparisonSaudiArabiaRoute: typeof EInvoicingSoftwareComparisonSaudiArabiaRoute
   FreeInvoiceGeneratorRoute: typeof FreeInvoiceGeneratorRoute
@@ -760,6 +797,13 @@ declare module '@tanstack/react-router' {
       path: '/e-invoicing-saudi-arabia'
       fullPath: '/e-invoicing-saudi-arabia'
       preLoaderRoute: typeof EInvoicingSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accept-invite': {
+      id: '/accept-invite'
+      path: '/accept-invite'
+      fullPath: '/accept-invite'
+      preLoaderRoute: typeof AcceptInviteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -965,6 +1009,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceInvoicesIndexRouteImport
       parentRoute: typeof WorkspaceInvoicesRoute
     }
+    '/workspace/firm/': {
+      id: '/workspace/firm/'
+      path: '/firm'
+      fullPath: '/workspace/firm/'
+      preLoaderRoute: typeof WorkspaceFirmIndexRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
     '/workspace/quotes/new': {
       id: '/workspace/quotes/new'
       path: '/new'
@@ -985,6 +1036,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/workspace/invoices/$id'
       preLoaderRoute: typeof WorkspaceInvoicesIdRouteImport
       parentRoute: typeof WorkspaceInvoicesRoute
+    }
+    '/workspace/firm/$businessId': {
+      id: '/workspace/firm/$businessId'
+      path: '/firm/$businessId'
+      fullPath: '/workspace/firm/$businessId'
+      preLoaderRoute: typeof WorkspaceFirmBusinessIdRouteImport
+      parentRoute: typeof WorkspaceRoute
     }
     '/api/webhooks/revenuecat': {
       id: '/api/webhooks/revenuecat'
@@ -1083,6 +1141,8 @@ interface WorkspaceRouteChildren {
   WorkspaceQuotesRoute: typeof WorkspaceQuotesRouteWithChildren
   WorkspaceWhatsappRoute: typeof WorkspaceWhatsappRoute
   WorkspaceIndexRoute: typeof WorkspaceIndexRoute
+  WorkspaceFirmBusinessIdRoute: typeof WorkspaceFirmBusinessIdRoute
+  WorkspaceFirmIndexRoute: typeof WorkspaceFirmIndexRoute
 }
 
 const WorkspaceRouteChildren: WorkspaceRouteChildren = {
@@ -1094,6 +1154,8 @@ const WorkspaceRouteChildren: WorkspaceRouteChildren = {
   WorkspaceQuotesRoute: WorkspaceQuotesRouteWithChildren,
   WorkspaceWhatsappRoute: WorkspaceWhatsappRoute,
   WorkspaceIndexRoute: WorkspaceIndexRoute,
+  WorkspaceFirmBusinessIdRoute: WorkspaceFirmBusinessIdRoute,
+  WorkspaceFirmIndexRoute: WorkspaceFirmIndexRoute,
 }
 
 const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
@@ -1102,6 +1164,7 @@ const WorkspaceRouteWithChildren = WorkspaceRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcceptInviteRoute: AcceptInviteRoute,
   EInvoicingSaudiArabiaRoute: EInvoicingSaudiArabiaRoute,
   EInvoicingSoftwareComparisonSaudiArabiaRoute:
     EInvoicingSoftwareComparisonSaudiArabiaRoute,

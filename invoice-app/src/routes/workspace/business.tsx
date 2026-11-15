@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { BusinessProfileForm } from '#/components/workspace/BusinessProfileForm'
 import { ZatcaOnboardingCard } from '#/components/workspace/ZatcaOnboardingCard'
+import { AccountantAccessCard } from '#/components/workspace/AccountantAccessCard'
 import { Skeleton } from '#/components/ui/skeleton'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
@@ -43,6 +45,20 @@ function WorkspaceBusinessPage() {
     },
   })
   const { data: zatcaStatus } = useQuery(trpc.zatca.status.queryOptions())
+  const { data: members = [] } = useQuery({ ...trpc.seat.members.queryOptions(), enabled: Boolean(business) })
+  const [inviteLink, setInviteLink] = useState<string | null>(null)
+  const invite = useMutation({
+    ...trpc.seat.invite.mutationOptions(),
+    onSuccess: ({ token }) => {
+      const query = new URLSearchParams({ token, ...(lang === 'en' ? { lang: 'en' } : {}) })
+      setInviteLink(`${window.location.origin}/accept-invite?${query.toString()}`)
+      void queryClient.invalidateQueries(trpc.seat.members.queryFilter())
+    },
+  })
+  const revoke = useMutation({
+    ...trpc.seat.revoke.mutationOptions(),
+    onSuccess: () => void queryClient.invalidateQueries(trpc.seat.members.queryFilter()),
+  })
   const onboard = useMutation({
     ...trpc.zatca.onboard.mutationOptions(),
     onSuccess: () => void queryClient.invalidateQueries(trpc.zatca.status.queryFilter()),
@@ -79,6 +95,20 @@ function WorkspaceBusinessPage() {
         {zatcaStatus ? (
           <div className="mt-8 max-w-4xl border-t border-border pt-6">
             <ZatcaOnboardingCard lang={lang} status={zatcaStatus} onOnboard={(values) => onboard.mutateAsync(values)} />
+          </div>
+        ) : null}
+        {business ? (
+          <div className="mt-8 max-w-4xl border-t border-border pt-6">
+            <AccountantAccessCard
+              lang={lang}
+              members={members}
+              inviteLink={inviteLink}
+              creating={invite.isPending}
+              error={invite.error?.message ?? revoke.error?.message ?? null}
+              onInvite={(email) => invite.mutate({ email })}
+              onRevoke={(id) => revoke.mutate({ id })}
+              onDismissLink={() => setInviteLink(null)}
+            />
           </div>
         ) : null}
       </div>

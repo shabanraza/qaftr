@@ -3,30 +3,35 @@ User-agent: *
 Allow: /
 Disallow: /workspace
 Disallow: /invoices
+Disallow: /accept-invite
 Disallow: /api/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /workspace
 Disallow: /invoices
+Disallow: /accept-invite
 Disallow: /api/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /workspace
 Disallow: /invoices
+Disallow: /accept-invite
 Disallow: /api/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /workspace
 Disallow: /invoices
+Disallow: /accept-invite
 Disallow: /api/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /workspace
 Disallow: /invoices
+Disallow: /accept-invite
 Disallow: /api/
 
 Sitemap: https://qaftr.com/sitemap.xml
