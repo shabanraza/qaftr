@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { documentNumber, amountSign } from '#/lib/zatca/document-kind'
+import { documentNumber } from '#/lib/zatca/document-kind'
 import {
   ArrowUpRight,
   Clock3,
@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import type { MarketingLang } from '#/lib/marketing/lang'
 import { formatMoney } from '#/lib/instant-invoice/copy'
-import { invoiceStatusTone, renderInvoiceStatus } from '#/lib/workspace/invoice-status'
+import { documentBadge, monthSalesTotal } from '#/lib/workspace/money-totals'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -88,7 +88,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
     .slice(0, 5)
 
   // Credit notes reduce the month's sales.
-  const monthTotal = sumAmounts(monthInvoices.map((invoice) => String(amountSign(invoice.zatcaKind) * Number(invoice.total))))
+  const monthTotal = monthSalesTotal(invoices, now)
   const unpaidTotal = sumAmounts(
     invoices
       .filter((invoice) => invoice.status === 'unpaid' || invoice.status === 'overdue')
@@ -231,8 +231,8 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
                             {formatMoney(invoice.total, lang)}
                           </td>
                           <td className="px-5 py-4">
-                            <Badge className={cn('border', invoiceStatusTone[invoice.status])} variant="outline">
-                              {renderInvoiceStatus(invoice.status, lang)}
+                            <Badge className={cn('border', documentBadge(invoice, lang).tone)} variant="outline">
+                              {documentBadge(invoice, lang).label}
                             </Badge>
                           </td>
                           <td className="px-5 py-4">
@@ -294,8 +294,8 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
                                   {formatMoney(invoice.total, lang)}
                                 </td>
                                 <td className="px-5 py-4">
-                                  <Badge className={cn('border', invoiceStatusTone[invoice.status])} variant="outline">
-                                    {renderInvoiceStatus(invoice.status, lang)}
+                                  <Badge className={cn('border', documentBadge(invoice, lang).tone)} variant="outline">
+                                    {documentBadge(invoice, lang).label}
                                   </Badge>
                                 </td>
                                 <td className="px-5 py-4">

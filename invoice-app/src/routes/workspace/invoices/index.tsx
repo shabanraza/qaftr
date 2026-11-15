@@ -9,7 +9,7 @@ import { Button } from '#/components/ui/button'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from '#/components/ui/empty'
 import { Skeleton } from '#/components/ui/skeleton'
 import { cn } from '#/lib/utils'
-import { invoiceStatusTone, renderInvoiceStatus } from '#/lib/workspace/invoice-status'
+import { documentBadge } from '#/lib/workspace/money-totals'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 
@@ -150,11 +150,8 @@ function WorkspaceInvoicesPage() {
                     {formatMoney(invoice.total, lang)}
                   </td>
                   <td className="px-5 py-4">
-                    <Badge
-                      className={cn('border', invoiceStatusTone[invoice.status as keyof typeof invoiceStatusTone])}
-                      variant="outline"
-                    >
-                      {renderInvoiceStatus(invoice.status, lang)}
+                    <Badge className={cn('border', documentBadge(invoice, lang).tone)} variant="outline">
+                      {documentBadge(invoice, lang).label}
                     </Badge>
                   </td>
                   <td className="px-5 py-4">
@@ -168,15 +165,18 @@ function WorkspaceInvoicesPage() {
                           {copy.view}
                         </Link>
                       </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="xs"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => deleteMutation.mutate({ id: invoice.id })}
-                      >
-                        {copy.delete}
-                      </Button>
+                      {/* Documents sent to ZATCA are locked; they are corrected with a note. */}
+                      {invoice.zatcaStatus === 'not_required' || invoice.zatcaStatus === 'draft' ? (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="xs"
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => deleteMutation.mutate({ id: invoice.id })}
+                        >
+                          {copy.delete}
+                        </Button>
+                      ) : null}
                     </div>
                   </td>
                 </tr>

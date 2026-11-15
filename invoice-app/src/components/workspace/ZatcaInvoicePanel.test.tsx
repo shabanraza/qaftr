@@ -68,35 +68,34 @@ describe('ZatcaInvoicePanel', () => {
   })
 })
 
-describe('ZatcaInvoicePanel credit notes', () => {
+describe('ZatcaInvoicePanel credit and debit notes', () => {
   const cleared = { zatcaStatus: 'cleared', icv: 7, zatcaSubtype: 'standard' as const, zatcaLastError: null }
+  const originalLines = [{ description: 'Consulting', qty: '2', unitPrice: '100' }]
 
-  it('issues a full credit note with a reason', async () => {
-    const onCreditNote = vi.fn(async (_reason: string) => undefined)
-    render(<ZatcaInvoicePanel lang="en" invoice={cleared} connected onIssue={vi.fn()} onRetry={vi.fn()} onCreditNote={onCreditNote} />)
-    fireEvent.click(screen.getByRole('button', { name: /Issue credit note/ }))
-    fireEvent.click(screen.getByRole('button', { name: /Credit the full invoice/ }))
-    expect(await screen.findByText(/Enter a reason/)).toBeTruthy()
+  it('opens the note form and issues a full credit note with a reason', async () => {
+    const onNote = vi.fn(async () => undefined)
+    render(<ZatcaInvoicePanel lang="en" invoice={cleared} connected onIssue={vi.fn()} onRetry={vi.fn()} onNote={onNote} originalLines={originalLines} />)
+    fireEvent.click(screen.getByRole('button', { name: /Issue credit or debit note/ }))
     fireEvent.change(screen.getByLabelText(/Reason/), { target: { value: 'Goods returned' } })
-    fireEvent.click(screen.getByRole('button', { name: /Credit the full invoice/ }))
-    await waitFor(() => expect(onCreditNote).toHaveBeenCalledWith('Goods returned'))
+    fireEvent.click(screen.getByRole('button', { name: /^Issue credit note$/ }))
+    await waitFor(() => expect(onNote).toHaveBeenCalledWith({ kind: 'credit-note', reason: 'Goods returned' }))
   })
 
-  it('does not offer a credit note on a note or an unsent invoice', () => {
-    const { rerender } = render(<ZatcaInvoicePanel lang="en" invoice={unsigned} connected onIssue={vi.fn()} onRetry={vi.fn()} onCreditNote={vi.fn()} />)
-    expect(screen.queryByRole('button', { name: /Issue credit note/ })).toBeNull()
+  it('does not offer a note on a note or an unsent invoice', () => {
+    const { rerender } = render(<ZatcaInvoicePanel lang="en" invoice={unsigned} connected onIssue={vi.fn()} onRetry={vi.fn()} onNote={vi.fn()} />)
+    expect(screen.queryByRole('button', { name: /credit or debit note/ })).toBeNull()
     rerender(<ZatcaInvoicePanel lang="en" invoice={cleared} connected onIssue={vi.fn()} onRetry={vi.fn()} />)
-    expect(screen.queryByRole('button', { name: /Issue credit note/ })).toBeNull()
+    expect(screen.queryByRole('button', { name: /credit or debit note/ })).toBeNull()
   })
 
   it('explains when the invoice is already fully credited', async () => {
-    const onCreditNote = vi.fn(async () => {
+    const onNote = vi.fn(async () => {
       throw new Error('CREDIT_EXCEEDS_INVOICE')
     })
-    render(<ZatcaInvoicePanel lang="ar" invoice={cleared} connected onIssue={vi.fn()} onRetry={vi.fn()} onCreditNote={onCreditNote} />)
-    fireEvent.click(screen.getByRole('button', { name: /إصدار إشعار دائن/ }))
+    render(<ZatcaInvoicePanel lang="ar" invoice={cleared} connected onIssue={vi.fn()} onRetry={vi.fn()} onNote={onNote} originalLines={originalLines} />)
+    fireEvent.click(screen.getByRole('button', { name: /إصدار إشعار دائن أو مدين/ }))
     fireEvent.change(screen.getByLabelText(/سبب/), { target: { value: 'مرتجع' } })
-    fireEvent.click(screen.getByRole('button', { name: /إشعار دائن بكامل الفاتورة/ }))
+    fireEvent.click(screen.getByRole('button', { name: /^إصدار إشعار دائن$/ }))
     expect((await screen.findByRole('alert')).textContent).toMatch(/تتجاوز/)
   })
 })
