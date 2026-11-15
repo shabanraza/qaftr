@@ -45,6 +45,27 @@ export function loadDraft(): InstantInvoiceDraft {
   }
 }
 
+/**
+ * The draft to show after hydration, given the one rendered on the server.
+ *
+ * With nothing stored it keeps `current` (same line ids) and only applies the
+ * remembered invoice type. Line edits find their row by id, and React can
+ * replay edits typed before the restore commits on top of its result; a fresh
+ * `createEmptyDraft()` id there would silently drop them.
+ */
+export function restoreDraft(current: InstantInvoiceDraft): InstantInvoiceDraft {
+  if (typeof window === "undefined") return current;
+  let raw: string | null = null;
+  try {
+    raw = sessionStorage.getItem(INSTANT_INVOICE_DRAFT_KEY);
+  } catch {
+    // storage blocked: fall through to the current draft
+  }
+  if (raw) return loadDraft();
+  const preferred = loadInvoiceTypePreference();
+  return current.invoiceType === preferred ? current : { ...current, invoiceType: preferred };
+}
+
 export function saveDraft(draft: InstantInvoiceDraft): void {
   if (typeof window === "undefined") return;
   try {
