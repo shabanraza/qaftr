@@ -20,7 +20,7 @@ function Block({ block }: { block: ContentBlock }) {
     )
   }
   return (
-    <div className="mt-5 overflow-x-auto rounded-xl border border-border/80">
+    <div className="relative mt-5 overflow-x-auto rounded-xl border border-border/80">
       <table className="w-full min-w-[24rem] border-collapse text-sm">
         <caption className="px-4 py-3 text-start text-xs text-muted-foreground">{block.caption}</caption>
         <thead className="bg-muted/40">

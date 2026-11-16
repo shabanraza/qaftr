@@ -24,7 +24,7 @@ export function ComparisonTable({ lang, showHeading = true }: { lang: MarketingL
           <p className="mt-3 text-muted-foreground">{c.subtitle}</p>
         </div>
       ) : null}
-      <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <div className="relative overflow-x-auto rounded-2xl border border-border bg-card">
         <table className="w-full min-w-[40rem] border-collapse text-sm">
           <caption className="sr-only">{c.title}</caption>
           <thead>
