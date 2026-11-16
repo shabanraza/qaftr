@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import { useTRPC } from '#/integrations/trpc/react'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -23,8 +23,8 @@ export const Route = createFileRoute('/workspace/billing')({
   component: WorkspaceBillingPage,
 })
 
-/** Stop polling for the webhook after about a minute. */
-const MAX_POLLS = 30
+/** How long to poll for the webhook after checkout. */
+const WAIT_MS = 60_000
 
 function WorkspaceBillingPage() {
   const { lang: searchLang, checkout } = Route.useSearch()
@@ -33,11 +33,19 @@ function WorkspaceBillingPage() {
   const trpc = useTRPC()
   const justPaid = checkout === 'success'
 
+  // Stop waiting for Polar's webhook after about a minute.
+  const [timedOut, setTimedOut] = useState(false)
+  useEffect(() => {
+    if (!justPaid) return
+    const timer = setTimeout(() => setTimedOut(true), WAIT_MS)
+    return () => clearTimeout(timer)
+  }, [justPaid])
+
   const { data: usage, isLoading } = useQuery({
     ...trpc.billing.getUsage.queryOptions(),
     // After checkout, Pro turns on when Polar's webhook arrives: poll briefly.
     refetchInterval: (query) => {
-      if (!justPaid || query.state.data?.plan === 'pro' || query.state.dataUpdateCount >= MAX_POLLS) return false
+      if (!justPaid || query.state.data?.plan === 'pro' || timedOut) return false
       return 2000
     },
   })
@@ -57,7 +65,23 @@ function WorkspaceBillingPage() {
     },
   })
 
+  const { reset: resetCheckout } = checkoutMutation
+  const { reset: resetPortal } = portal
+  // Coming back with the browser's Back button restores the page from cache: re-enable the buttons.
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        resetCheckout()
+        resetPortal()
+        setPendingInterval(null)
+      }
+    }
+    window.addEventListener('pageshow', onShow)
+    return () => window.removeEventListener('pageshow', onShow)
+  }, [resetCheckout, resetPortal])
+
   const pending = portal.isPending ? 'portal' : checkoutMutation.isPending || checkoutMutation.isSuccess ? pendingInterval : null
+  const stillProcessing = justPaid && usage?.plan !== 'pro' && timedOut
 
   return (
     <WorkspaceShell lang={lang} active="business" title={c.title} subtitle={c.subtitle}>
@@ -69,6 +93,7 @@ function WorkspaceBillingPage() {
           pending={pending}
           error={checkoutMutation.error?.message ?? portal.error?.message ?? null}
           justPaid={justPaid}
+          stillProcessing={stillProcessing}
           onUpgrade={(interval) => {
             setPendingInterval(interval)
             checkoutMutation.mutate({ interval, lang })

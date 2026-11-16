@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm'
 import { db } from '#/db'
 import { entitlements } from '#/db/schema'
 import {
@@ -10,19 +11,17 @@ export type { RevenueCatWebhookEvent } from '#/lib/revenuecat-entitlements'
 export { resolveEntitlementUpdate } from '#/lib/revenuecat-entitlements'
 
 async function upsertEntitlement(userId: string, update: EntitlementUpdate) {
+  const storePro = update.plan === 'pro'
+  // Plan stays Pro while a web (Polar) subscription is active, even if the store one ends.
   await db
     .insert(entitlements)
-    .values({
-      ownerId: userId,
-      plan: update.plan,
-      status: update.status,
-      updatedAt: new Date(),
-    })
+    .values({ ownerId: userId, storePro, plan: update.plan, status: update.status, updatedAt: new Date() })
     .onConflictDoUpdate({
       target: entitlements.ownerId,
       set: {
-        plan: update.plan,
-        status: update.status,
+        storePro,
+        plan: sql`case when excluded.store_pro or ${entitlements.polarPro} then 'pro'::plan else 'free'::plan end`,
+        status: sql`case when excluded.store_pro or ${entitlements.polarPro} then 'active'::entitlement_status else excluded.status end`,
         updatedAt: new Date(),
       },
     })

@@ -1,5 +1,5 @@
 {
-  "id": "4d5e56b3-b5ba-4a2e-a3fc-cf9d76e732ca",
+  "id": "53edeed4-a576-4e43-9b61-c6d0e95281ad",
   "prevId": "d2a1e5c1-6811-4a4a-87d0-9529fe2f01fb",
   "version": "7",
   "dialect": "postgresql",
@@ -711,6 +711,20 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "store_pro": {
+          "name": "store_pro",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "polar_pro": {
+          "name": "polar_pro",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         },
         "polar_customer_id": {
           "name": "polar_customer_id",

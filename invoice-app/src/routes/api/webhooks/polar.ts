@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { resolvePolarEntitlement, verifyPolarWebhook } from '#/lib/billing/polar'
-import { applyPolarEntitlement } from '#/lib/billing/polar-server'
+import { applyPolarEntitlement, polarProductIds } from '#/lib/billing/polar-server'
 
 /** Polar.sh subscription webhooks → entitlements. Signed with Standard Webhooks. */
 export const Route = createFileRoute('/api/webhooks/polar')({
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/api/webhooks/polar')({
           return new Response('Invalid JSON', { status: 400 })
         }
 
-        const change = resolvePolarEntitlement(event)
+        const change = resolvePolarEntitlement(event, polarProductIds())
         const applied = change ? await applyPolarEntitlement(change) : false
         return Response.json({ ok: true, applied })
       },

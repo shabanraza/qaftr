@@ -1,7 +1,7 @@
-import { eq } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { db } from '#/db'
 import { entitlements } from '#/db/schema'
-import { buildCheckoutBody, polarApiBase, shouldApplyPolarChange } from './polar'
+import { buildCheckoutBody, combinedPlan, polarApiBase } from './polar'
 import type { CheckoutInput, PolarEntitlement } from './polar'
 
 export type BillingInterval = 'monthly' | 'yearly'
@@ -10,6 +10,11 @@ export type PolarConfig = {
   apiBase: string
   accessToken: string
   products: Record<BillingInterval, string>
+}
+
+/** The configured Pro product ids (webhooks for other products are ignored). */
+export function polarProductIds(env: Record<string, string | undefined> = process.env): string[] {
+  return [env.POLAR_PRODUCT_PRO_MONTHLY, env.POLAR_PRODUCT_PRO_YEARLY].filter((v): v is string => Boolean(v))
 }
 
 /** Reads Polar settings from the environment, or null when billing is not configured. */
@@ -47,27 +52,55 @@ export async function createPolarPortalUrl(config: PolarConfig, userId: string) 
   return session.customer_portal_url
 }
 
-/** Writes a Polar subscription change onto the user's entitlement row. */
-export async function applyPolarEntitlement(change: PolarEntitlement): Promise<boolean> {
-  const [row] = await db
-    .select({ polarSubscriptionId: entitlements.polarSubscriptionId, polarChangedAt: entitlements.polarChangedAt })
-    .from(entitlements)
-    .where(eq(entitlements.ownerId, change.userId))
-    .limit(1)
-  if (!shouldApplyPolarChange(row ?? null, change)) return false
+/** Plan/status from both per-source flags, evaluated in SQL on conflict. */
+const COMBINED_PLAN = sql`case when excluded.polar_pro or ${entitlements.storePro} then 'pro'::plan else 'free'::plan end`
+const COMBINED_STATUS = sql`case when excluded.polar_pro or ${entitlements.storePro} then 'active'::entitlement_status else 'expired'::entitlement_status end`
 
+/**
+ * Writes a Polar subscription change onto the user's entitlement row. The
+ * stale/out-of-order guard (see shouldApplyPolarChange) runs inside the upsert,
+ * so two webhooks arriving together cannot apply in the wrong order.
+ * @returns false when the event was ignored or the user no longer exists.
+ */
+export async function applyPolarEntitlement(change: PolarEntitlement): Promise<boolean> {
+  const polarPro = change.plan === 'pro'
   const values = {
-    plan: change.plan,
-    status: change.status,
+    polarPro,
     polarCustomerId: change.customerId,
     polarSubscriptionId: change.subscriptionId,
     currentPeriodEnd: change.currentPeriodEnd,
     polarChangedAt: change.changedAt,
     updatedAt: new Date(),
   }
-  await db
-    .insert(entitlements)
-    .values({ ownerId: change.userId, ...values })
-    .onConflictDoUpdate({ target: entitlements.ownerId, set: values })
-  return true
+  const t = entitlements
+  try {
+    const rows = await db
+      .insert(t)
+      .values({ ownerId: change.userId, ...values, ...combinedPlan({ polarPro, storePro: false }) })
+      .onConflictDoUpdate({
+        target: t.ownerId,
+        set: { ...values, plan: COMBINED_PLAN, status: COMBINED_STATUS },
+        setWhere: sql`not (
+            excluded.polar_pro = false
+            and ${t.polarSubscriptionId} is not null
+            and ${t.polarSubscriptionId} <> excluded.polar_subscription_id
+          )
+          and not (
+            ${t.polarSubscriptionId} = excluded.polar_subscription_id
+            and ${t.polarChangedAt} is not null
+            and excluded.polar_changed_at is not null
+            and excluded.polar_changed_at < ${t.polarChangedAt}
+          )`,
+      })
+      .returning({ ownerId: t.ownerId })
+    return rows.length > 0
+  } catch (err) {
+    // Unknown user (deleted account, or a sandbox customer): acknowledge so Polar stops retrying.
+    const e = err as { code?: string; cause?: { code?: string } }
+    if (e?.code === '23503' || e?.cause?.code === '23503') {
+      console.warn('[polar] webhook for unknown user ignored')
+      return false
+    }
+    throw err
+  }
 }

@@ -63,6 +63,13 @@ describe('BillingPlanCard', () => {
     expect(screen.getByText(/activating pro/i)).toBeTruthy()
   })
 
+  it('if Pro is still not active after waiting, says so and points to support', async () => {
+    renderWithRouter(<BillingPlanCard {...base} justPaid stillProcessing />)
+    expect(await screen.findByText(/still processing/i)).toBeTruthy()
+    expect(screen.getByText(/support@qaftr.com/i)).toBeTruthy()
+    expect(screen.queryByText(/activating pro/i)).toBeNull()
+  })
+
   it('shows a clear message for billing errors and when checkout is off', async () => {
     renderWithRouter(<BillingPlanCard {...base} error="BILLING_FAILED" />)
     expect(await screen.findByRole('alert')).toBeTruthy()
@@ -80,6 +87,14 @@ describe('BillingPlanCard', () => {
     renderWithRouter(<BillingPlanCard {...base} lang="ar" />)
     expect(await screen.findByRole('button', { name: /٣٩/ })).toBeTruthy()
     expect(screen.getByRole('button', { name: /٣٤٩/ })).toBeTruthy()
+  })
+})
+
+describe('billing copy', () => {
+  it('never shows a lone Arabic zero (it reads as a dot)', () => {
+    expect(getBillingCopy('ar').usage(0, 3)).not.toMatch(/(^|[^٠-٩])٠([^٠-٩]|$)/)
+    expect(getBillingCopy('ar').usage(0, 3)).toMatch(/٣/)
+    expect(getBillingCopy('en').usage(0, 3)).toBe('0 of 3 invoices this month')
   })
 })
 

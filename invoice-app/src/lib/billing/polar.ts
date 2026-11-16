@@ -95,12 +95,19 @@ function date(v: unknown): Date | null {
   return Number.isNaN(d.getTime()) ? null : d
 }
 
-/** Maps a Polar webhook event to an entitlement change, or null to ignore it. */
-export function resolvePolarEntitlement(event: PolarEvent): PolarEntitlement | null {
+/**
+ * Maps a Polar webhook event to an entitlement change, or null to ignore it.
+ * When `allowedProductIds` is given, subscriptions to any other product are ignored.
+ */
+export function resolvePolarEntitlement(event: PolarEvent, allowedProductIds?: readonly string[]): PolarEntitlement | null {
   if (!event.type || !SUBSCRIPTION_EVENTS.has(event.type) || !event.data) return null
   const data = event.data
   const subscriptionId = str(data.id)
   if (!subscriptionId) return null
+  if (allowedProductIds) {
+    const productId = str(data.product_id)
+    if (!productId || !allowedProductIds.includes(productId)) return null
+  }
 
   const customer = (data.customer ?? {}) as Record<string, unknown>
   const metadata = (data.metadata ?? {}) as Record<string, unknown>
@@ -161,4 +168,15 @@ export function shouldApplyPolarChange(
   if (change.plan === 'free' && row.polarSubscriptionId && !sameSubscription) return false
   if (sameSubscription && row.polarChangedAt && change.changedAt && change.changedAt < row.polarChangedAt) return false
   return true
+}
+
+/**
+ * Pro can come from the web (Polar) or the app stores (RevenueCat). Each source
+ * keeps its own flag on the row; the plan is Pro while either one is active, so
+ * one source ending never removes Pro the other is still paying for.
+ */
+export function combinedPlan(sources: { polarPro: boolean; storePro: boolean }) {
+  return sources.polarPro || sources.storePro
+    ? ({ plan: 'pro', status: 'active' } as const)
+    : ({ plan: 'free', status: 'expired' } as const)
 }

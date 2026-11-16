@@ -28,11 +28,13 @@ type Props = {
   error: string | null
   /** Back from a successful checkout and Pro is not active yet. */
   justPaid: boolean
+  /** Waited about a minute after checkout and Pro is still not active. */
+  stillProcessing?: boolean
   onUpgrade: (interval: 'monthly' | 'yearly') => void
   onManage: () => void
 }
 
-export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPaid, onUpgrade, onManage }: Props) {
+export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPaid, stillProcessing = false, onUpgrade, onManage }: Props) {
   const c = getBillingCopy(lang)
   if (isLoading || !usage) {
     return <Skeleton className="h-64 w-full max-w-2xl" />
@@ -48,8 +50,8 @@ export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPa
     <div dir={langDir(lang)} lang={lang} className="flex max-w-2xl flex-col gap-4">
       {justPaid && !isPro ? (
         <Alert role="status">
-          <Loader2 className="size-4 animate-spin" aria-hidden />
-          <AlertDescription>{c.activating}</AlertDescription>
+          {stillProcessing ? null : <Loader2 className="size-4 animate-spin" aria-hidden />}
+          <AlertDescription>{stillProcessing ? c.stillProcessing : c.activating}</AlertDescription>
         </Alert>
       ) : null}
       {justPaid && isPro ? (

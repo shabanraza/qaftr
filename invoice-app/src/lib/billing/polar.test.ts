@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   POLAR_API_BASE,
   buildCheckoutBody,
+  combinedPlan,
   polarApiBase,
   shouldApplyPolarChange,
   resolvePolarEntitlement,
@@ -71,6 +72,27 @@ function subEvent(type: string, data: Record<string, unknown>) {
     },
   }
 }
+
+describe('resolvePolarEntitlement product filter', () => {
+  it('only grants Pro for the configured Pro products', () => {
+    const allowed = ['prod_m', 'prod_y']
+    expect(resolvePolarEntitlement(subEvent('subscription.active', { product_id: 'prod_m' }), allowed)).toMatchObject({ plan: 'pro' })
+    expect(resolvePolarEntitlement(subEvent('subscription.active', { product_id: 'prod_other' }), allowed)).toBeNull()
+    expect(resolvePolarEntitlement(subEvent('subscription.active', {}), allowed)).toBeNull()
+  })
+})
+
+describe('combinedPlan (web and app store subscriptions on one row)', () => {
+  it('is Pro while either source is active', () => {
+    expect(combinedPlan({ polarPro: true, storePro: false })).toEqual({ plan: 'pro', status: 'active' })
+    expect(combinedPlan({ polarPro: false, storePro: true })).toEqual({ plan: 'pro', status: 'active' })
+    expect(combinedPlan({ polarPro: true, storePro: true })).toEqual({ plan: 'pro', status: 'active' })
+  })
+
+  it('is Free only when both have ended', () => {
+    expect(combinedPlan({ polarPro: false, storePro: false })).toEqual({ plan: 'free', status: 'expired' })
+  })
+})
 
 describe('resolvePolarEntitlement', () => {
   it('grants Pro on an active subscription, keyed by our user id', () => {

@@ -12,7 +12,9 @@ export function getBillingCopy(lang: MarketingLang) {
       subtitle: 'خطتك الحالية، واستخدامك هذا الشهر، والترقية إلى برو.',
       freeName: 'الخطة المجانية',
       proName: 'برو',
-      usage: (used: number, limit: number) => `${n(used)} من ${n(limit)} فواتير هذا الشهر`,
+      // A lone Arabic-Indic zero (٠) reads as a dot, so spell out "none yet".
+      usage: (used: number, limit: number) =>
+        used === 0 ? `لم تحفظ أي فاتورة هذا الشهر (الحد ${n(limit)} فواتير)` : `${n(used)} من ${n(limit)} فواتير هذا الشهر`,
       freeBody: 'تحفظ ٣ فواتير شهرياً مجاناً. برو يفتح الفواتير بلا حد.',
       proBody: 'فواتير بلا حد، وكل القوالب، وتذكيرات الدفع، ودعم ذو أولوية.',
       upgradeTitle: 'رقِّ إلى برو',
@@ -28,6 +30,7 @@ export function getBillingCopy(lang: MarketingLang) {
       storeManaged: 'اشتركت في برو عبر App Store أو Google Play، فتُدار من إعدادات المتجر في جوالك.',
       activating: 'تم الدفع. جارٍ تفعيل برو… قد يستغرق ذلك دقيقة.',
       activated: 'تم تفعيل برو. شكراً لك!',
+      stillProcessing: 'ما زلنا نعالج الدفع. حدّث الصفحة بعد قليل، وإن لم تُفعَّل برو راسلنا على support@qaftr.com.',
       unavailable: 'الدفع عبر الموقع غير متاح الآن. راسلنا على support@qaftr.com للترقية.',
       errors: {
         BILLING_FAILED: 'تعذّر فتح صفحة الدفع. حاول مرة أخرى بعد قليل.',
@@ -60,6 +63,7 @@ export function getBillingCopy(lang: MarketingLang) {
     storeManaged: 'You subscribed to Pro through the App Store or Google Play, so it is managed in your phone’s store settings.',
     activating: 'Payment received. Activating Pro… this can take a minute.',
     activated: 'Pro is active. Thank you!',
+    stillProcessing: 'We are still processing your payment. Refresh in a moment; if Pro is not on, email support@qaftr.com.',
     unavailable: 'Web checkout is not available right now. Email support@qaftr.com to upgrade.',
     errors: {
       BILLING_FAILED: 'Could not open checkout. Please try again in a moment.',

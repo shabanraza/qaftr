@@ -53,7 +53,7 @@ export const billingRouter = createTRPCRouter({
       limit,
       remaining: limit === null ? null : Math.max(0, limit - used),
       /** Pro bought on the web through Polar (can be managed in the Polar portal). */
-      webSubscription: Boolean(row?.polarSubscriptionId) && plan === "pro",
+      webSubscription: Boolean(row?.polarPro),
       currentPeriodEnd: row?.currentPeriodEnd ?? null,
       checkoutAvailable: getPolarConfig() !== null,
     };
