@@ -29,6 +29,13 @@
       "when": 1794756310770,
       "tag": "0003_accountant_seat",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794859214496,
+      "tag": "0004_polar_billing",
+      "breakpoints": true
     }
   ]
 }

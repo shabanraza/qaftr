@@ -15,6 +15,12 @@ describe('sanitizeClientMessage', () => {
     }
   })
 
+  it('lets the billing screens tell the user what went wrong', () => {
+    for (const code of ['BILLING_UNAVAILABLE', 'BILLING_FAILED', 'ALREADY_PRO']) {
+      expect(sanitizeClientMessage(code)).toBe(code)
+    }
+  })
+
   it('passes structured profile field errors so forms can highlight fields', () => {
     expect(sanitizeClientMessage('INVALID_PROFILE:crNumber:INVALID_CR,postalCode:INVALID_POSTAL')).toBe(
       'INVALID_PROFILE:crNumber:INVALID_CR,postalCode:INVALID_POSTAL',

@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { CreditCard } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useTRPC } from '#/integrations/trpc/react'
@@ -6,6 +7,7 @@ import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
 import { BusinessProfileForm } from '#/components/workspace/BusinessProfileForm'
 import { ZatcaOnboardingCard } from '#/components/workspace/ZatcaOnboardingCard'
 import { AccountantAccessCard } from '#/components/workspace/AccountantAccessCard'
+import { getBillingCopy } from '#/lib/billing/copy'
 import { Skeleton } from '#/components/ui/skeleton'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
@@ -97,6 +99,16 @@ function WorkspaceBusinessPage() {
             <ZatcaOnboardingCard lang={lang} status={zatcaStatus} onOnboard={(values) => onboard.mutateAsync(values)} />
           </div>
         ) : null}
+        <div className="mt-8 max-w-4xl border-t border-border pt-6">
+          <Link
+            to="/workspace/billing"
+            search={lang === 'en' ? { lang: 'en' as const } : {}}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary no-underline hover:underline"
+          >
+            <CreditCard className="size-4" aria-hidden />
+            {getBillingCopy(lang).settingsLink}
+          </Link>
+        </div>
         {business ? (
           <div className="mt-8 max-w-4xl border-t border-border pt-6">
             <AccountantAccessCard

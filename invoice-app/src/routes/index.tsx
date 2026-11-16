@@ -216,6 +216,7 @@ function HomePage() {
                 variant="secondary"
                 className="w-full text-primary"
                 data-cta="pricing_pro"
+                signedIn={{ to: '/workspace/billing', label: { ar: 'رقِّ إلى برو', en: 'Upgrade to Pro' } }}
               />
             }
           />

@@ -33,6 +33,7 @@ import { Route as WorkspaceNewInvoiceRouteImport } from './routes/workspace/new-
 import { Route as WorkspaceInvoicesRouteImport } from './routes/workspace/invoices'
 import { Route as WorkspaceClientsRouteImport } from './routes/workspace/clients'
 import { Route as WorkspaceBusinessRouteImport } from './routes/workspace/business'
+import { Route as WorkspaceBillingRouteImport } from './routes/workspace/billing'
 import { Route as WorkspaceAccountantRouteImport } from './routes/workspace/accountant'
 import { Route as ToolsZatcaXmlValidatorRouteImport } from './routes/tools/zatca-xml-validator'
 import { Route as ToolsZatcaWaveCheckerRouteImport } from './routes/tools/zatca-wave-checker'
@@ -56,6 +57,7 @@ import { Route as WorkspaceQuotesIdRouteImport } from './routes/workspace/quotes
 import { Route as WorkspaceInvoicesIdRouteImport } from './routes/workspace/invoices/$id'
 import { Route as WorkspaceFirmBusinessIdRouteImport } from './routes/workspace/firm/$businessId'
 import { Route as ApiWebhooksRevenuecatRouteImport } from './routes/api/webhooks/revenuecat'
+import { Route as ApiWebhooksPolarRouteImport } from './routes/api/webhooks/polar'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AeToolsVatCalculatorRouteImport } from './routes/ae/tools/vat-calculator'
@@ -189,6 +191,11 @@ const WorkspaceBusinessRoute = WorkspaceBusinessRouteImport.update({
   path: '/business',
   getParentRoute: () => WorkspaceRoute,
 } as any)
+const WorkspaceBillingRoute = WorkspaceBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => WorkspaceRoute,
+} as any)
 const WorkspaceAccountantRoute = WorkspaceAccountantRouteImport.update({
   id: '/accountant',
   path: '/accountant',
@@ -306,6 +313,11 @@ const ApiWebhooksRevenuecatRoute = ApiWebhooksRevenuecatRouteImport.update({
   path: '/api/webhooks/revenuecat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksPolarRoute = ApiWebhooksPolarRouteImport.update({
+  id: '/api/webhooks/polar',
+  path: '/api/webhooks/polar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
@@ -373,6 +385,7 @@ export interface FileRoutesByFullPath {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/billing': typeof WorkspaceBillingRoute
   '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
@@ -391,6 +404,7 @@ export interface FileRoutesByFullPath {
   '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/webhooks/polar': typeof ApiWebhooksPolarRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
   '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
@@ -428,6 +442,7 @@ export interface FileRoutesByTo {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/billing': typeof WorkspaceBillingRoute
   '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/new-invoice': typeof WorkspaceNewInvoiceRoute
@@ -444,6 +459,7 @@ export interface FileRoutesByTo {
   '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/webhooks/polar': typeof ApiWebhooksPolarRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
   '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
@@ -483,6 +499,7 @@ export interface FileRoutesById {
   '/tools/zatca-wave-checker': typeof ToolsZatcaWaveCheckerRoute
   '/tools/zatca-xml-validator': typeof ToolsZatcaXmlValidatorRoute
   '/workspace/accountant': typeof WorkspaceAccountantRoute
+  '/workspace/billing': typeof WorkspaceBillingRoute
   '/workspace/business': typeof WorkspaceBusinessRoute
   '/workspace/clients': typeof WorkspaceClientsRoute
   '/workspace/invoices': typeof WorkspaceInvoicesRouteWithChildren
@@ -501,6 +518,7 @@ export interface FileRoutesById {
   '/ae/tools/vat-calculator': typeof AeToolsVatCalculatorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/webhooks/polar': typeof ApiWebhooksPolarRoute
   '/api/webhooks/revenuecat': typeof ApiWebhooksRevenuecatRoute
   '/workspace/firm/$businessId': typeof WorkspaceFirmBusinessIdRoute
   '/workspace/invoices/$id': typeof WorkspaceInvoicesIdRoute
@@ -541,6 +559,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/billing'
     | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/invoices'
@@ -559,6 +578,7 @@ export interface FileRouteTypes {
     | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
+    | '/api/webhooks/polar'
     | '/api/webhooks/revenuecat'
     | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
@@ -596,6 +616,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/billing'
     | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/new-invoice'
@@ -612,6 +633,7 @@ export interface FileRouteTypes {
     | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
+    | '/api/webhooks/polar'
     | '/api/webhooks/revenuecat'
     | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
@@ -650,6 +672,7 @@ export interface FileRouteTypes {
     | '/tools/zatca-wave-checker'
     | '/tools/zatca-xml-validator'
     | '/workspace/accountant'
+    | '/workspace/billing'
     | '/workspace/business'
     | '/workspace/clients'
     | '/workspace/invoices'
@@ -668,6 +691,7 @@ export interface FileRouteTypes {
     | '/ae/tools/vat-calculator'
     | '/api/auth/$'
     | '/api/trpc/$'
+    | '/api/webhooks/polar'
     | '/api/webhooks/revenuecat'
     | '/workspace/firm/$businessId'
     | '/workspace/invoices/$id'
@@ -717,6 +741,7 @@ export interface RootRouteChildren {
   AeToolsVatCalculatorRoute: typeof AeToolsVatCalculatorRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
+  ApiWebhooksPolarRoute: typeof ApiWebhooksPolarRoute
   ApiWebhooksRevenuecatRoute: typeof ApiWebhooksRevenuecatRoute
 }
 
@@ -890,6 +915,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceBusinessRouteImport
       parentRoute: typeof WorkspaceRoute
     }
+    '/workspace/billing': {
+      id: '/workspace/billing'
+      path: '/billing'
+      fullPath: '/workspace/billing'
+      preLoaderRoute: typeof WorkspaceBillingRouteImport
+      parentRoute: typeof WorkspaceRoute
+    }
     '/workspace/accountant': {
       id: '/workspace/accountant'
       path: '/accountant'
@@ -1051,6 +1083,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebhooksRevenuecatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks/polar': {
+      id: '/api/webhooks/polar'
+      path: '/api/webhooks/polar'
+      fullPath: '/api/webhooks/polar'
+      preLoaderRoute: typeof ApiWebhooksPolarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/trpc/$': {
       id: '/api/trpc/$'
       path: '/api/trpc/$'
@@ -1134,6 +1173,7 @@ const WorkspaceQuotesRouteWithChildren = WorkspaceQuotesRoute._addFileChildren(
 
 interface WorkspaceRouteChildren {
   WorkspaceAccountantRoute: typeof WorkspaceAccountantRoute
+  WorkspaceBillingRoute: typeof WorkspaceBillingRoute
   WorkspaceBusinessRoute: typeof WorkspaceBusinessRoute
   WorkspaceClientsRoute: typeof WorkspaceClientsRoute
   WorkspaceInvoicesRoute: typeof WorkspaceInvoicesRouteWithChildren
@@ -1147,6 +1187,7 @@ interface WorkspaceRouteChildren {
 
 const WorkspaceRouteChildren: WorkspaceRouteChildren = {
   WorkspaceAccountantRoute: WorkspaceAccountantRoute,
+  WorkspaceBillingRoute: WorkspaceBillingRoute,
   WorkspaceBusinessRoute: WorkspaceBusinessRoute,
   WorkspaceClientsRoute: WorkspaceClientsRoute,
   WorkspaceInvoicesRoute: WorkspaceInvoicesRouteWithChildren,
@@ -1205,6 +1246,7 @@ const rootRouteChildren: RootRouteChildren = {
   AeToolsVatCalculatorRoute: AeToolsVatCalculatorRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
+  ApiWebhooksPolarRoute: ApiWebhooksPolarRoute,
   ApiWebhooksRevenuecatRoute: ApiWebhooksRevenuecatRoute,
 }
 export const routeTree = rootRouteImport

@@ -66,6 +66,15 @@ describe('AccountCta (home hero and Pro pricing card)', () => {
     expect(link.getAttribute('href')).toBe('/workspace')
     expect(screen.queryByText(SIGNUP)).toBeNull()
   })
+
+  it('sends a signed-in user on the Pro card to Plan & billing to upgrade', async () => {
+    session.current = SIGNED_IN
+    renderWithRouter(
+      <AccountCta lang="en" label="Create account" onSignUp={vi.fn()} signedIn={{ to: '/workspace/billing', label: { ar: 'رقِّ إلى برو', en: 'Upgrade to Pro' } }} />,
+    )
+    const link = await screen.findByRole('link', { name: 'Upgrade to Pro' })
+    expect(link.getAttribute('href')).toBe('/workspace/billing?lang=en')
+  })
 })
 
 describe('invoice tool "Invoice downloaded" card', () => {

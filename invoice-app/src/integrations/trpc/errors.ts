@@ -3,6 +3,10 @@ import { TRPCError } from "@trpc/server";
 /** Safe error codes exposed to clients (mobile maps these to i18n). */
 export const CLIENT_ERROR_CODES = new Set([
   "FREE_INVOICE_LIMIT",
+  // Billing (Polar.sh)
+  "BILLING_UNAVAILABLE",
+  "BILLING_FAILED",
+  "ALREADY_PRO",
   "INVOICE_NOT_FOUND",
   "CLIENT_NOT_FOUND",
   "BUSINESS_NOT_FOUND",

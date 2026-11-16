@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
+import { getBillingCopy } from '#/lib/billing/copy'
 import { Link } from '@tanstack/react-router'
 import { AlertTriangle, ChevronDown, Download, Plus, Trash2 } from 'lucide-react'
 import { downloadInvoicePdf } from '#/lib/instant-invoice/invoice-pdf'
@@ -143,6 +144,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
   const [tab, setTab] = useState<'edit' | 'preview'>('edit')
   const [busy, setBusy] = useState<null | 'draft' | 'save' | 'pdf'>(null)
   const [error, setError] = useState<string | null>(null)
+  const [limitHit, setLimitHit] = useState(false)
   const [issueDate] = useState(() => new Date())
   const tableRef = useRef<HTMLDivElement>(null)
 
@@ -190,12 +192,14 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
     }
     setBusy(status === 'draft' ? 'draft' : 'save')
     setError(null)
+    setLimitHit(false)
     try {
       const input = buildCreateInvoiceInput({ business, client, lines, notes, supplyDate, dueDate, issueDate: new Date(), status })
       await onSave(input, { sendToZatca: status === 'unpaid' && zatcaConnected && !issues.includes('BUYER_INCOMPLETE') })
     } catch (err) {
       // Server error codes (e.g. FREE_INVOICE_LIMIT) have their own message.
       const code = err instanceof Error ? err.message : ''
+      setLimitHit(code === 'FREE_INVOICE_LIMIT')
       setError(getInstantInvoiceCopy(lang).errors[code] ?? copy.saveFailed)
     } finally {
       setBusy(null)
@@ -392,7 +396,23 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
           <dd className="tabular-nums">{formatMoney(totals.total, lang)}</dd>
         </div>
       </dl>
-      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+      {error ? (
+        <p className="text-sm text-destructive">
+          {error}
+          {limitHit ? (
+            <>
+              {' '}
+              <Link
+                to="/workspace/billing"
+                search={lang === 'en' ? { lang: 'en' as const } : {}}
+                className="font-semibold text-primary underline"
+              >
+                {getBillingCopy(lang).upgradeLink}
+              </Link>
+            </>
+          ) : null}
+        </p>
+      ) : null}
       <div className="flex flex-wrap gap-2">
         <Button className="qaftr-btn-primary flex-1" disabled={!canSave} onClick={() => void save('unpaid')}>
           {busy === 'save' ? <Spinner className="size-4" /> : null}
