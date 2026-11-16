@@ -193,7 +193,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
             <div className="min-w-0">
               <SectionHeader title={copy.followUps} />
               {followUps.length ? (
-                <div className="overflow-x-auto">
+                <div className="relative overflow-x-auto">
                   <table className="w-full min-w-[640px] text-sm">
                     <thead className="border-b border-border bg-background/50 text-xs font-medium text-muted-foreground">
                       <tr>
@@ -259,7 +259,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
                   {recentInvoices.length ? (
                     <>
                       <SectionHeader title={copy.recentInvoices} />
-                      <div className="overflow-x-auto">
+                      <div className="relative overflow-x-auto">
                         <table className="w-full min-w-[640px] text-sm">
                           <thead className="border-y border-border bg-background/50 text-xs font-medium text-muted-foreground">
                             <tr>

@@ -107,7 +107,7 @@ export function ZatcaQrDecoder({ lang }: { lang: MarketingLang }) {
               />
               <FieldDescription>{copy.inputHint}</FieldDescription>
             </Field>
-            <div className="flex flex-wrap gap-2">
+            <div className="relative flex flex-wrap gap-2">
               <Input
                 ref={fileRef}
                 id={fileId}

@@ -70,7 +70,7 @@ export function WorkspaceLayout({ lang, children }: { lang: MarketingLang; child
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-[208px_1fr]">
         <aside className="border-b border-border bg-background/60 lg:overflow-y-auto lg:border-b-0 lg:border-e">
-          <nav aria-label={copy.menu} className="flex gap-1 overflow-x-auto px-3 py-2 lg:flex-col lg:overflow-visible lg:pt-4">
+          <nav aria-label={copy.menu} className="relative flex gap-1 overflow-x-auto px-3 py-2 lg:flex-col lg:overflow-visible lg:pt-4">
             {nav.map((item) => {
               const Icon = item.icon
               const isActive = active === item.id

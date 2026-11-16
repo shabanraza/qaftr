@@ -146,7 +146,7 @@ function WorkspaceQuotesPage() {
           </EmptyContent>
         </Empty>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[760px] text-sm">
             <thead className="border-b border-border bg-background/50 text-xs font-medium text-muted-foreground">
               <tr>

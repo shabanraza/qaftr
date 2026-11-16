@@ -115,7 +115,7 @@ export function AeGuideContent({ lang }: AeGuideContentProps) {
               {section.heading}
             </h2>
             {section.id === 'timeline' ? (
-              <div className="mt-5 overflow-x-auto rounded-xl border border-border/70">
+              <div className="relative mt-5 overflow-x-auto rounded-xl border border-border/70">
                 <table className="w-full min-w-[32rem] border-collapse text-sm">
                   <caption className="px-4 pt-3 text-start text-xs text-muted-foreground">
                     {guide.timeline.caption}

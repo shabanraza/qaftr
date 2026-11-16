@@ -69,7 +69,7 @@ export function SaWaveGuide({ lang }: { lang: MarketingLang }) {
               {section.heading}
             </h2>
             {section.id === 'timeline' ? (
-              <div className="mt-5 overflow-x-auto rounded-xl border border-border/80">
+              <div className="relative mt-5 overflow-x-auto rounded-xl border border-border/80">
                 <table className="w-full min-w-[20rem] border-collapse text-sm">
                   <caption className="px-4 py-3 text-start text-xs text-muted-foreground">
                     {guide.timeline.caption}
