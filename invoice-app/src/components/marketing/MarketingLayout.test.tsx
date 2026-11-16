@@ -56,7 +56,6 @@ describe('MarketingLayout header', () => {
     expect(links).toEqual([
       ['Free tools', '/tools?lang=en'],
       ['Guides', '/guides?lang=en'],
-      ['UAE', '/ae?lang=en'],
       ['Features', '/?lang=en#features'],
       ['Pricing', '/?lang=en#pricing'],
       ['Support', '/support?lang=en'],
@@ -72,7 +71,7 @@ describe('MarketingLayout header', () => {
     await screen.findByText('body')
     fireEvent.click(screen.getByRole('button', { name: 'فتح القائمة' }))
     const dialog = await screen.findByRole('dialog', { name: 'القائمة' })
-    fireEvent.click(within(dialog).getByRole('link', { name: 'الإمارات' }))
+    fireEvent.click(within(dialog).getByRole('link', { name: 'الأدلة' }))
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull())
   })
 
