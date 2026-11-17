@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db } from "#/db";
 import { entitlements, invoices, user } from "#/db/schema";
 import { createPolarCheckout, createPolarPortalUrl, getPolarConfig } from "#/lib/billing/polar-server";
+import { PRO_CHECKOUT_OPEN } from "#/lib/billing/launch";
 import { createTRPCRouter, protectedProcedure } from "../init";
 
 export const FREE_INVOICE_LIMIT = 3;
@@ -55,7 +56,7 @@ export const billingRouter = createTRPCRouter({
       /** Pro bought on the web through Polar (can be managed in the Polar portal). */
       webSubscription: Boolean(row?.polarPro),
       currentPeriodEnd: row?.currentPeriodEnd ?? null,
-      checkoutAvailable: getPolarConfig() !== null,
+      checkoutAvailable: PRO_CHECKOUT_OPEN && getPolarConfig() !== null,
     };
   }),
 
@@ -64,7 +65,7 @@ export const billingRouter = createTRPCRouter({
     .input(z.object({ interval: z.enum(["monthly", "yearly"]), lang: z.enum(["ar", "en"]).default("ar") }))
     .mutation(async ({ ctx, input }) => {
       const config = getPolarConfig();
-      if (!config) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "BILLING_UNAVAILABLE" });
+      if (!config || !PRO_CHECKOUT_OPEN) throw new TRPCError({ code: "PRECONDITION_FAILED", message: "BILLING_UNAVAILABLE" });
 
       const [row] = await db.select().from(entitlements).where(eq(entitlements.ownerId, ctx.userId)).limit(1);
       if (row?.plan === "pro" && row.status === "active") {

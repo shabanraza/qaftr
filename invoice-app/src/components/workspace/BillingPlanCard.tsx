@@ -116,15 +116,14 @@ export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPa
             <CardDescription>{c.proBody}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4 text-sm">
-            {usage.checkoutAvailable ? (
-              <>
+            <>
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <Button type="button" size="lg" variant="outline" onClick={() => onUpgrade('monthly')} disabled={busy}>
+                  <Button type="button" size="lg" variant="outline" onClick={() => onUpgrade('monthly')} disabled={busy || !usage.checkoutAvailable}>
                     {pending === 'monthly' ? <Loader2 className="animate-spin" aria-hidden /> : null}
                     {c.monthly}
                   </Button>
                   <div className="flex flex-col gap-1">
-                    <Button type="button" size="lg" onClick={() => onUpgrade('yearly')} disabled={busy}>
+                    <Button type="button" size="lg" onClick={() => onUpgrade('yearly')} disabled={busy || !usage.checkoutAvailable}>
                       {pending === 'yearly' ? <Loader2 className="animate-spin" aria-hidden /> : null}
                       {c.yearly}
                     </Button>
@@ -132,11 +131,12 @@ export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPa
                   </div>
                 </div>
                 {busy && pending !== 'portal' ? <p className="text-muted-foreground">{c.opening}</p> : null}
-                <p className="text-xs leading-5 text-muted-foreground">{c.payNote}</p>
+                {usage.checkoutAvailable ? (
+                  <p className="text-xs leading-5 text-muted-foreground">{c.payNote}</p>
+                ) : (
+                  <p className="text-muted-foreground">{c.unavailable}</p>
+                )}
               </>
-            ) : (
-              <p className="text-muted-foreground">{c.unavailable}</p>
-            )}
           </CardContent>
         </Card>
       ) : null}

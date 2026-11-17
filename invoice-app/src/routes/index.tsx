@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { MarketingLayout } from '#/components/marketing/MarketingLayout'
 import { AccountCta } from '#/components/marketing/AccountCta'
+import { ProCardCta } from '#/components/marketing/ProCardCta'
 import { ComparisonTable } from '#/components/marketing/ComparisonTable'
 import { ToolFaqSection, buildFaqSchema } from '#/components/tools/ToolFaqSection'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
@@ -207,18 +208,7 @@ function HomePage() {
             badge={copy.pro.badge}
             features={copy.pro.features}
             highlighted
-            cta={
-              <AccountCta
-                lang={lang}
-                label={lang === 'ar' ? 'إنشاء حساب' : 'Create account'}
-                onSignUp={() => setSignupOpen(true)}
-                size="lg"
-                variant="secondary"
-                className="w-full text-primary"
-                data-cta="pricing_pro"
-                signedIn={{ to: '/workspace/billing', label: { ar: 'رقِّ إلى برو', en: 'Upgrade to Pro' } }}
-              />
-            }
+            cta={<ProCardCta lang={lang} onSignUp={() => setSignupOpen(true)} />}
           />
         </div>
       </section>
