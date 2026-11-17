@@ -8,7 +8,7 @@ Polar is the merchant of record for web subscriptions. Mobile purchases still go
 - Polar can charge in SAR (buyer location). Add a USD fallback of $10.40 / $93 (= 39 / 349 SAR at 3.75).
 - Fees (Starter): 5% + $0.50, plus 1.5% for non-US cards. The yearly plan loses much less to fees.
 - Cards, Apple Pay and Google Pay are supported. **mada-only cards are not.**
-- Open item: confirm with Polar support that Saudi VAT is collected on consumer sales before saying "VAT included" on the pricing card.
+- Saudi VAT: in the sandbox checkout with country Saudi Arabia, Polar showed "Taxes (included) SAR 5.09" on SAR 39 (15% inside the price, the buyer still pays 39). Confirm the same on the live account before saying "VAT included" on the pricing card.
 
 ## Polar setup (per environment: sandbox.polar.sh for testing, polar.sh for live)
 1. Create an organization (Qaftr). Live only: finish account review and payouts (Stripe Connect; Saudi Arabia is supported).
@@ -21,6 +21,19 @@ Polar is the merchant of record for web subscriptions. Mobile purchases still go
    - Events: `subscription.created`, `subscription.active`, `subscription.updated`, `subscription.canceled`, `subscription.uncanceled`, `subscription.revoked`
 4. In the organization settings, turn off multiple subscriptions per customer, so a double click can't create two subscriptions.
 5. Create an organization access token with the scopes `checkouts:write`, `customer_sessions:write`, `products:read` and `subscriptions:read`.
+
+## Sandbox (set up 2026-11-17)
+- Organization: **Qaftr** (slug `qaftr`) on sandbox.polar.sh, default currency SAR.
+- Products: Monthly `c33edfd1-988e-427d-8182-12754ed557ed`, Yearly `57ea8b21-949c-4ffc-9b01-787f17294e0d`.
+- Webhook "Qaftr local test (tunnel)": Raw, API version 2026-10, the 6 subscription events. Its URL is a Cloudflare quick tunnel, which changes on every run; edit the URL in Polar after restarting the tunnel.
+- Access token `qaftr-local-sandbox` (expires 2026-12-17). Token and webhook secret are only in `invoice-app/.env`.
+- Local test run:
+  1. `cloudflared tunnel --url http://localhost:3123`
+  2. `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=.trycloudflare.com CLOUDFLARE_INCLUDE_PROCESS_ENV=true node node_modules/vite/bin/vite.js dev --port 3123 --strictPort`
+  3. Pay with test card 4242 4242 4242 4242, any future expiry, any CVC.
+- Result 2026-11-17: checkout opened in SAR, payment went through, the 3 webhooks returned 200, Pro switched on, renewal date showed, Manage subscription opened the portal, and cancelling there kept Pro until the period end.
+- Polar rejects a pre-filled email whose domain can't receive mail. Checkout then retries without the email and the buyer types one on Polar's page.
+- New webhook secrets look like `whsec_…`. The verifier accepts both the raw-string key (Polar SDK) and the base64 key after `whsec_` (Standard Webhooks).
 
 ## Worker settings
 Set the secrets yourself; never paste them into chat:

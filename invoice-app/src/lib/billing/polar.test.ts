@@ -52,6 +52,19 @@ describe('verifyPolarWebhook (Standard Webhooks)', () => {
     expect(await verifyPolarWebhook(body, headers('msg_1', future, await sign('msg_1', future, body)), SECRET, now)).toBe(false)
   })
 
+  it('accepts a whsec_ secret signed with its base64-decoded key (Standard Webhooks format)', async () => {
+    const keyBytes = new Uint8Array(24).map((_, i) => (i * 37 + 11) % 256)
+    const whsec = 'whsec_' + btoa(String.fromCharCode(...keyBytes))
+    const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+    const mac = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`msg_1.${now}.${body}`))
+    const sig = 'v1,' + btoa(String.fromCharCode(...new Uint8Array(mac)))
+    expect(await verifyPolarWebhook(body, headers('msg_1', String(now), sig), whsec, now)).toBe(true)
+    // Polar's SDK style (whole secret string as the key) still works for whsec_ secrets.
+    const rawSig = await sign('msg_1', String(now), body, whsec)
+    expect(await verifyPolarWebhook(body, headers('msg_1', String(now), rawSig), whsec, now)).toBe(true)
+    expect(await verifyPolarWebhook(body + ' ', headers('msg_1', String(now), sig), whsec, now)).toBe(false)
+  })
+
   it('rejects missing headers', async () => {
     expect(await verifyPolarWebhook(body, new Headers(), SECRET, now)).toBe(false)
   })

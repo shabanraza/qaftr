@@ -34,16 +34,35 @@ async function polarPost<T>(config: PolarConfig, path: string, body: unknown): P
   })
   if (!res.ok) {
     // Log status and Polar's error body (no secrets in either), then fail generically.
-    console.error('[polar]', path, res.status, (await res.text()).slice(0, 500))
-    throw new Error('BILLING_FAILED')
+    const text = await res.text()
+    console.error('[polar]', path, res.status, text.slice(0, 500))
+    throw new PolarRequestError(res.status, text)
   }
   return (await res.json()) as T
 }
 
+class PolarRequestError extends Error {
+  constructor(
+    readonly status: number,
+    readonly body: string,
+  ) {
+    super('BILLING_FAILED')
+  }
+}
+
 export async function createPolarCheckout(config: PolarConfig, input: Omit<CheckoutInput, 'productId'> & { interval: BillingInterval }) {
   const { interval, ...rest } = input
-  const checkout = await polarPost<{ url: string }>(config, '/v1/checkouts/', buildCheckoutBody({ ...rest, productId: config.products[interval] }))
-  return checkout.url
+  const productId = config.products[interval]
+  try {
+    const checkout = await polarPost<{ url: string }>(config, '/v1/checkouts/', buildCheckoutBody({ ...rest, productId }))
+    return checkout.url
+  } catch (err) {
+    // Polar checks that the email domain accepts mail. If our stored email fails
+    // that check, open checkout without it and let the buyer type a working one.
+    if (!(err instanceof PolarRequestError) || err.status !== 422 || !err.body.includes('customer_email') || !rest.email) throw err
+    const checkout = await polarPost<{ url: string }>(config, '/v1/checkouts/', buildCheckoutBody({ ...rest, email: null, productId }))
+    return checkout.url
+  }
 }
 
 /** A short-lived link to Polar's customer portal (cancel, change card, invoices). */

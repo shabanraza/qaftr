@@ -49,13 +49,33 @@ export async function verifyPolarWebhook(
   const ts = Number(timestamp)
   if (!Number.isFinite(ts) || Math.abs(nowSeconds - ts) > TOLERANCE_SECONDS) return false
 
-  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
-  const expected = toBase64(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`${id}.${timestamp}.${body}`)))
+  const content = new TextEncoder().encode(`${id}.${timestamp}.${body}`)
+  const expected: string[] = []
+  for (const keyBytes of signingKeys(secret)) {
+    const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+    expected.push(toBase64(await crypto.subtle.sign('HMAC', key, content)))
+  }
 
   return signatures
     .split(' ')
     .map((part) => part.split(',', 2))
-    .some(([version, sig]) => version === 'v1' && typeof sig === 'string' && timingSafeEqual(sig, expected))
+    .some(([version, sig]) => version === 'v1' && typeof sig === 'string' && expected.some((e) => timingSafeEqual(sig, e)))
+}
+
+/**
+ * Polar's SDK signs with the whole secret string as the key. Standard Webhooks
+ * `whsec_` secrets instead carry a base64 key after the prefix. Accept both.
+ */
+function signingKeys(secret: string): Uint8Array<ArrayBuffer>[] {
+  const keys: Uint8Array<ArrayBuffer>[] = [new TextEncoder().encode(secret)]
+  if (secret.startsWith('whsec_')) {
+    try {
+      keys.push(Uint8Array.from(atob(secret.slice('whsec_'.length)), (c) => c.charCodeAt(0)))
+    } catch {
+      // Not valid base64: only the raw form applies.
+    }
+  }
+  return keys
 }
 
 export type PolarEntitlement = {
