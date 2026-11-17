@@ -84,6 +84,7 @@ export function workspaceSectionForPath(pathname: string): WorkspaceSection {
     case 'firm':
       return 'firm'
     case 'business':
+    case 'billing':
       return 'settings'
     default:
       return 'home'

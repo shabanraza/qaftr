@@ -392,6 +392,15 @@ export const entitlements = pgTable("entitlements", {
   plan: planEnum().notNull().default("free"),
   status: entitlementStatusEnum().notNull().default("active"),
   rcCustomerId: text("rc_customer_id"),
+  // Pro per source; `plan` is Pro while either is true (lib/billing/polar.ts combinedPlan).
+  storePro: boolean("store_pro").notNull().default(false),
+  polarPro: boolean("polar_pro").notNull().default(false),
+  // Web subscriptions billed by Polar.sh (merchant of record).
+  polarCustomerId: text("polar_customer_id"),
+  polarSubscriptionId: text("polar_subscription_id"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  /** modified_at of the last Polar event applied; older events are ignored. */
+  polarChangedAt: timestamp("polar_changed_at"),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 

@@ -42,6 +42,8 @@ const SAUDI_FILES = [
   'src/components/marketing/ComparisonTable.tsx',
   'src/components/marketing/GuideArticle.tsx',
   'src/routes/guides/index.tsx',
+  'src/lib/billing/copy.ts',
+  'src/components/workspace/BillingPlanCard.tsx',
 ]
 // Allowed Latin digits in Saudi Arabic strings: typed-input examples only.
 const ALLOWED = [/amountPlaceholder/]
