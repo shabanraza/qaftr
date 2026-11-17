@@ -35,6 +35,15 @@ Polar is the merchant of record for web subscriptions. Mobile purchases still go
 - Polar rejects a pre-filled email whose domain can't receive mail. Checkout then retries without the email and the buyer types one on Polar's page.
 - New webhook secrets look like `whsec_…`. The verifier accepts both the raw-string key (Polar SDK) and the base64 key after `whsec_` (Standard Webhooks).
 
+## Live (set up 2026-11-17)
+- Organization: **Qaftr** (slug `qaftr`) on polar.sh, Individual seller, default currency SAR.
+- Products: Monthly `5b59c9d9-fe65-4686-a027-bd337bc47399`, Yearly `d8eee7f6-8dc9-4061-97fd-3cf0a048e095`.
+- Webhook "Qaftr production" → `https://qaftr.com/api/webhooks/polar`, Raw, API version 2026-10, the 6 subscription events.
+- Access token `qaftr-production-worker` **expires 2027-11-17**. Create a new one before then and update `POLAR_ACCESS_TOKEN`, or checkout stops working.
+- All five `POLAR_*` values are Worker secrets on `tanstack-start-app` (set with `wrangler secret bulk`, so they survive deploys).
+- Polar shows the organization "in test mode" until account review passes. Still to do in Polar → Finance → Account: connect a payout account (Stripe), verify the support email, then Submit for review.
+- Deployed 2026-11-17 (version 63b39e11). Checked: the webhook rejects unsigned calls (403), the billing page offers both plans, and a live checkout opens at SAR 39.
+
 ## Worker settings
 Set the secrets yourself; never paste them into chat:
 
