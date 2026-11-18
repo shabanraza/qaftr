@@ -70,11 +70,21 @@ describe('BillingPlanCard', () => {
     expect(screen.queryByText(/activating pro/i)).toBeNull()
   })
 
-  it('shows a clear message for billing errors and when checkout is off', async () => {
+  it('shows a clear message for billing errors', async () => {
     renderWithRouter(<BillingPlanCard {...base} error="BILLING_FAILED" />)
     expect(await screen.findByRole('alert')).toBeTruthy()
-    renderWithRouter(<BillingPlanCard {...base} usage={{ ...free, checkoutAvailable: false }} />)
-    expect(await screen.findByText(/support@qaftr.com/i)).toBeTruthy()
+  })
+
+  it('while checkout is closed, shows both prices as disabled buttons and says it opens soon', async () => {
+    const onUpgrade = vi.fn()
+    renderWithRouter(<BillingPlanCard {...base} onUpgrade={onUpgrade} usage={{ ...free, checkoutAvailable: false }} />)
+    const monthly = (await screen.findByRole('button', { name: /39 SAR \/ month/i })) as HTMLButtonElement
+    const yearly = screen.getByRole('button', { name: /349 SAR \/ year/i }) as HTMLButtonElement
+    expect(monthly.disabled && yearly.disabled).toBe(true)
+    fireEvent.click(monthly)
+    expect(onUpgrade).not.toHaveBeenCalled()
+    expect(screen.getByText(/opens soon/i)).toBeTruthy()
+    expect(screen.getByText(/support@qaftr.com/i)).toBeTruthy()
   })
 
   it('says how payment works: Polar, cards and Apple Pay, cancel anytime', async () => {
