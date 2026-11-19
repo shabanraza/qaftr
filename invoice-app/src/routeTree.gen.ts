@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZatcaInvoiceGeneratorRouteImport } from './routes/zatca-invoice-generator'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
 import { Route as VatInvoiceGeneratorSaudiArabiaRouteImport } from './routes/vat-invoice-generator-saudi-arabia'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SmallBusinessInvoicingSaudiArabiaRouteImport } from './routes/small-business-invoicing-saudi-arabia'
+import { Route as RefundRouteImport } from './routes/refund'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as InvoicingSoftwareSaudiArabiaRouteImport } from './routes/invoicing-software-saudi-arabia'
 import { Route as InvoiceGeneratorSaudiArabiaRouteImport } from './routes/invoice-generator-saudi-arabia'
@@ -82,6 +84,11 @@ const VatInvoiceGeneratorSaudiArabiaRoute =
     path: '/vat-invoice-generator-saudi-arabia',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -93,6 +100,11 @@ const SmallBusinessInvoicingSaudiArabiaRoute =
     path: '/small-business-invoicing-saudi-arabia',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -365,8 +377,10 @@ export interface FileRoutesByFullPath {
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
@@ -423,8 +437,10 @@ export interface FileRoutesByTo {
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
   '/guides/saudi-tax-invoice-requirements': typeof GuidesSaudiTaxInvoiceRequirementsRoute
@@ -479,8 +495,10 @@ export interface FileRoutesById {
   '/invoice-generator-saudi-arabia': typeof InvoiceGeneratorSaudiArabiaRoute
   '/invoicing-software-saudi-arabia': typeof InvoicingSoftwareSaudiArabiaRoute
   '/privacy': typeof PrivacyRoute
+  '/refund': typeof RefundRoute
   '/small-business-invoicing-saudi-arabia': typeof SmallBusinessInvoicingSaudiArabiaRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/vat-invoice-generator-saudi-arabia': typeof VatInvoiceGeneratorSaudiArabiaRoute
   '/workspace': typeof WorkspaceRouteWithChildren
   '/zatca-invoice-generator': typeof ZatcaInvoiceGeneratorRoute
@@ -539,8 +557,10 @@ export interface FileRouteTypes {
     | '/invoice-generator-saudi-arabia'
     | '/invoicing-software-saudi-arabia'
     | '/privacy'
+    | '/refund'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/terms'
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
@@ -597,8 +617,10 @@ export interface FileRouteTypes {
     | '/invoice-generator-saudi-arabia'
     | '/invoicing-software-saudi-arabia'
     | '/privacy'
+    | '/refund'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/terms'
     | '/vat-invoice-generator-saudi-arabia'
     | '/zatca-invoice-generator'
     | '/guides/saudi-tax-invoice-requirements'
@@ -652,8 +674,10 @@ export interface FileRouteTypes {
     | '/invoice-generator-saudi-arabia'
     | '/invoicing-software-saudi-arabia'
     | '/privacy'
+    | '/refund'
     | '/small-business-invoicing-saudi-arabia'
     | '/support'
+    | '/terms'
     | '/vat-invoice-generator-saudi-arabia'
     | '/workspace'
     | '/zatca-invoice-generator'
@@ -711,8 +735,10 @@ export interface RootRouteChildren {
   InvoiceGeneratorSaudiArabiaRoute: typeof InvoiceGeneratorSaudiArabiaRoute
   InvoicingSoftwareSaudiArabiaRoute: typeof InvoicingSoftwareSaudiArabiaRoute
   PrivacyRoute: typeof PrivacyRoute
+  RefundRoute: typeof RefundRoute
   SmallBusinessInvoicingSaudiArabiaRoute: typeof SmallBusinessInvoicingSaudiArabiaRoute
   SupportRoute: typeof SupportRoute
+  TermsRoute: typeof TermsRoute
   VatInvoiceGeneratorSaudiArabiaRoute: typeof VatInvoiceGeneratorSaudiArabiaRoute
   WorkspaceRoute: typeof WorkspaceRouteWithChildren
   ZatcaInvoiceGeneratorRoute: typeof ZatcaInvoiceGeneratorRoute
@@ -768,6 +794,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VatInvoiceGeneratorSaudiArabiaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -780,6 +813,13 @@ declare module '@tanstack/react-router' {
       path: '/small-business-invoicing-saudi-arabia'
       fullPath: '/small-business-invoicing-saudi-arabia'
       preLoaderRoute: typeof SmallBusinessInvoicingSaudiArabiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund': {
+      id: '/refund'
+      path: '/refund'
+      fullPath: '/refund'
+      preLoaderRoute: typeof RefundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -1213,9 +1253,11 @@ const rootRouteChildren: RootRouteChildren = {
   InvoiceGeneratorSaudiArabiaRoute: InvoiceGeneratorSaudiArabiaRoute,
   InvoicingSoftwareSaudiArabiaRoute: InvoicingSoftwareSaudiArabiaRoute,
   PrivacyRoute: PrivacyRoute,
+  RefundRoute: RefundRoute,
   SmallBusinessInvoicingSaudiArabiaRoute:
     SmallBusinessInvoicingSaudiArabiaRoute,
   SupportRoute: SupportRoute,
+  TermsRoute: TermsRoute,
   VatInvoiceGeneratorSaudiArabiaRoute: VatInvoiceGeneratorSaudiArabiaRoute,
   WorkspaceRoute: WorkspaceRouteWithChildren,
   ZatcaInvoiceGeneratorRoute: ZatcaInvoiceGeneratorRoute,

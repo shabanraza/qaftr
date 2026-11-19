@@ -45,6 +45,8 @@ function seoRegistry(lang: MarketingLang): Record<string, Seo> {
   const reg: Record<string, Seo> = {
     home: sa.home,
     privacy: sa.privacy,
+    terms: sa.terms,
+    refund: sa.refund,
     support: sa.support,
     'tools-hub': tools.hub,
     fatora: tools.fatora,

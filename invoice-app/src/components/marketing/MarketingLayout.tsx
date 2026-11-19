@@ -242,6 +242,20 @@ export function MarketingLayout({ lang, children, deadline = false }: MarketingL
               {copy.footer.privacy}
             </Link>
             <Link
+              to="/terms"
+              search={lang === 'en' ? { lang: 'en' } : {}}
+              className="no-underline hover:text-primary"
+            >
+              {copy.footer.terms}
+            </Link>
+            <Link
+              to="/refund"
+              search={lang === 'en' ? { lang: 'en' } : {}}
+              className="no-underline hover:text-primary"
+            >
+              {copy.footer.refund}
+            </Link>
+            <Link
               to="/support"
               search={lang === 'en' ? { lang: 'en' } : {}}
               className="no-underline hover:text-primary"
