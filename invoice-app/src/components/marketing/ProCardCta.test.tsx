@@ -41,7 +41,7 @@ describe('ProCardCta (home Pro pricing card)', () => {
     ).toBe('/workspace/billing?lang=en')
   })
 
-  it('stays closed until Polar account review is done', () => {
-    expect(PRO_CHECKOUT_OPEN).toBe(false)
+  it('is open now that Polar has approved the account', () => {
+    expect(PRO_CHECKOUT_OPEN).toBe(true)
   })
 })

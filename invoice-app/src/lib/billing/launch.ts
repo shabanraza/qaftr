@@ -1,8 +1,7 @@
 /**
- * Web Pro checkout switch. Keep false until Polar's account review is done
- * (payout account connected, support email verified, review approved);
- * until then Polar keeps the organization in test mode and real cards fail.
- * While false: the home Pro card and the billing page show disabled buttons,
- * and billing.checkout refuses. Webhooks and the customer portal still work.
+ * Web Pro checkout switch. Polar approved the account on 2026-11-19, so live
+ * checkout is open. Set to false to close it again: the home Pro card and the
+ * billing page then show disabled buttons and billing.checkout refuses.
+ * Webhooks and the customer portal keep working either way.
  */
-export const PRO_CHECKOUT_OPEN = false
+export const PRO_CHECKOUT_OPEN = true
