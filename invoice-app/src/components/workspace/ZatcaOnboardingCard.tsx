@@ -38,6 +38,8 @@ const TEXT = {
     noBusiness: 'احفظ ملف المنشأة أولًا.',
     pro: 'الربط مع هيئة الزكاة في البيئة الفعلية يتطلب الباقة الاحترافية.',
     industry: 'النشاط التجاري',
+    industryPh: 'تجارة التجزئة',
+    branchPh: 'المركز الرئيسي',
     industryHint: 'مثال: تجارة التجزئة، الاستشارات، المقاولات.',
     branch: 'اسم الفرع (اختياري)',
     branchHint: 'يظهر في شهادة الجهاز. الافتراضي: المركز الرئيسي.',
@@ -74,6 +76,8 @@ const TEXT = {
     noBusiness: 'Save the business profile first.',
     pro: 'Connecting to ZATCA for real invoices needs the Pro plan.',
     industry: 'Business activity',
+    industryPh: 'Retail trading',
+    branchPh: 'Head Office',
     industryHint: 'For example: retail, consulting, contracting.',
     branch: 'Branch name (optional)',
     branchHint: 'Shown on the device certificate. Defaults to Head Office.',
@@ -214,6 +218,7 @@ export function ZatcaOnboardingCard({
                 <Input
                   id="zatca-industry"
                   value={industry}
+                  placeholder={t.industryPh}
                   maxLength={100}
                   aria-invalid={Boolean(fieldErrors.industry)}
                   onChange={(e) => setIndustry(e.target.value)}
@@ -222,7 +227,7 @@ export function ZatcaOnboardingCard({
               </Field>
               <Field>
                 <FieldLabel htmlFor="zatca-branch">{t.branch}</FieldLabel>
-                <Input id="zatca-branch" value={branchName} maxLength={100} onChange={(e) => setBranchName(e.target.value)} />
+                <Input id="zatca-branch" placeholder={t.branchPh} value={branchName} maxLength={100} onChange={(e) => setBranchName(e.target.value)} />
                 <FieldDescription>{t.branchHint}</FieldDescription>
               </Field>
               {needsOtp ? (

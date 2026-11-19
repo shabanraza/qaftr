@@ -59,6 +59,15 @@ describe('WorkspaceInvoiceEditor', () => {
     expect(select.getAttribute('aria-describedby')).toBe(hint.id)
   })
 
+  it('uses business-style example placeholders in the item rows and notes', () => {
+    setup()
+    expect((screen.getByLabelText('Description 1') as HTMLInputElement).placeholder).toBe('Monthly IT support services')
+    expect((screen.getByLabelText('Qty 1') as HTMLInputElement).placeholder).toBe('1')
+    expect((screen.getByLabelText('Price 1') as HTMLInputElement).placeholder).toBe('1,500.00')
+    fireEvent.click(screen.getByText('More options'))
+    expect((screen.getByLabelText('Notes') as HTMLTextAreaElement).placeholder).toMatch(/payment terms.*PO number/i)
+  })
+
   it('switches to a tax invoice when a customer with a VAT number is picked', () => {
     setup()
     fireEvent.change(screen.getByLabelText('Customer'), { target: { value: 'c1' } })

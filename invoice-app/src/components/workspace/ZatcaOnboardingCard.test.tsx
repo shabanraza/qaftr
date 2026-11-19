@@ -24,6 +24,12 @@ describe('ZatcaOnboardingCard', () => {
     expect(screen.getByRole('button', { name: /Connect to ZATCA/ }).hasAttribute('disabled')).toBe(true)
   })
 
+  it('gives example placeholders for the activity and branch fields', () => {
+    render(<ZatcaOnboardingCard lang="en" status={READY} onOnboard={vi.fn(async () => undefined)} />)
+    expect((screen.getByLabelText(/Business activity/) as HTMLInputElement).placeholder).toBe('Retail trading')
+    expect((screen.getByLabelText(/Branch name/) as HTMLInputElement).placeholder).toBe('Head Office')
+  })
+
   it('in the sandbox uses the test OTP and sends the industry and branch', async () => {
     const onOnboard = vi.fn(async (_v: unknown) => undefined)
     render(<ZatcaOnboardingCard lang="en" status={READY} onOnboard={onOnboard} />)

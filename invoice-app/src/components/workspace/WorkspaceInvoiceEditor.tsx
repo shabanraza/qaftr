@@ -61,7 +61,10 @@ function getCopy(lang: MarketingLang) {
         qty: 'الكمية',
         price: 'السعر',
         lineTotal: 'الإجمالي',
-        descriptionPh: 'مثال: تصميم شعار',
+        descriptionPh: 'مثال: خدمات دعم تقني شهرية',
+        qtyPh: '١',
+        pricePh: '١٬٥٠٠٫٠٠',
+        notesPh: 'شروط الدفع أو بيانات التحويل البنكي أو رقم أمر الشراء',
         addLine: 'إضافة بند',
         removeLine: 'حذف البند',
         more: 'خيارات إضافية',
@@ -103,7 +106,10 @@ function getCopy(lang: MarketingLang) {
         qty: 'Qty',
         price: 'Price',
         lineTotal: 'Total',
-        descriptionPh: 'Logo design',
+        descriptionPh: 'Monthly IT support services',
+        qtyPh: '1',
+        pricePh: '1,500.00',
+        notesPh: 'Payment terms, bank transfer details or PO number',
         addLine: 'Add item',
         removeLine: 'Remove item',
         more: 'More options',
@@ -321,6 +327,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
                   title={copy.qty}
                   inputMode="decimal"
                   dir="ltr"
+                  placeholder={copy.qtyPh}
                   value={line.qty}
                   onChange={(e) => updateLine(line.id, { qty: e.target.value })}
                 />
@@ -328,7 +335,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
                   aria-label={`${copy.price} ${index + 1}`}
                   inputMode="decimal"
                   dir="ltr"
-                  placeholder={copy.price}
+                  placeholder={copy.pricePh}
                   title={copy.price}
                   value={line.unitPrice}
                   onChange={(e) => updateLine(line.id, { unitPrice: e.target.value })}
@@ -379,7 +386,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
           </label>
           <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
             {copy.notes}
-            <Textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <Textarea rows={3} placeholder={copy.notesPh} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
         </div>
       </details>
