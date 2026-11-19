@@ -43,7 +43,8 @@ function getCopy(lang: MarketingLang) {
   return lang === 'ar'
     ? {
         customer: 'العميل',
-        cash: 'عميل نقدي (بدون بيانات)',
+        cash: 'بيع مباشر (بدون عميل)',
+        customerHint: 'اختر عميلاً محفوظاً، أو اضغط + لإضافة عميل جديد. اتركها على «بيع مباشر» للأفراد.',
         addCustomer: 'إضافة عميل جديد',
         typeStandard: 'فاتورة ضريبية',
         typeSimplified: 'فاتورة ضريبية مبسطة',
@@ -84,7 +85,8 @@ function getCopy(lang: MarketingLang) {
       }
     : {
         customer: 'Customer',
-        cash: 'Cash customer (no details)',
+        cash: 'Walk-in sale (no customer)',
+        customerHint: 'Choose a saved customer, or tap + to add a new one. Leave on walk-in sale for individuals.',
         addCustomer: 'Add a new customer',
         typeStandard: 'Tax invoice',
         typeSimplified: 'Simplified tax invoice',
@@ -250,6 +252,7 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
             id="invoice-customer"
             value={clientId}
             onChange={(e) => setClientId(e.target.value)}
+            aria-describedby="invoice-customer-hint"
             className="h-10 min-w-0 flex-1 rounded-md border border-input bg-background px-3 text-sm"
           >
             <option value={CASH}>{copy.cash}</option>
@@ -265,6 +268,9 @@ export function WorkspaceInvoiceEditor({ lang, business, clients, nextSeq, zatca
             </Link>
           </Button>
         </div>
+        <p id="invoice-customer-hint" data-testid="customer-hint" className="text-xs text-muted-foreground">
+          {copy.customerHint}
+        </p>
         <p className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground" data-testid="invoice-type">
           <span
             className={cn(

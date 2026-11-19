@@ -49,6 +49,16 @@ describe('WorkspaceInvoiceEditor', () => {
     expect(screen.queryByText('Trade name')).toBeNull()
   })
 
+  it('explains that the default is a walk-in sale and how to pick or add a customer', () => {
+    setup()
+    const select = screen.getByLabelText('Customer') as HTMLSelectElement
+    expect(select.options[select.selectedIndex]!.text).toBe('Walk-in sale (no customer)')
+    const hint = screen.getByTestId('customer-hint')
+    expect(hint.textContent).toMatch(/choose a saved customer/i)
+    expect(hint.textContent).toMatch(/\+/)
+    expect(select.getAttribute('aria-describedby')).toBe(hint.id)
+  })
+
   it('switches to a tax invoice when a customer with a VAT number is picked', () => {
     setup()
     fireEvent.change(screen.getByLabelText('Customer'), { target: { value: 'c1' } })
