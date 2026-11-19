@@ -53,7 +53,7 @@ export function PartyFields({
                 onChange={(e) => onChange(key, e.target.value)}
                 className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-ring/50 aria-invalid:border-destructive"
               >
-                <option value="">—</option>
+                <option value="">{copy.idSchemeNone}</option>
                 {BUYER_OTHER_ID_SCHEMES.map((scheme) => (
                   <option key={scheme} value={scheme}>
                     {copy.idSchemes[scheme] ?? scheme}
