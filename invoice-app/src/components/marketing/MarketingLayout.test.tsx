@@ -34,6 +34,24 @@ function renderLayout(lang: 'ar' | 'en', path = '/') {
   )
 }
 
+describe('MarketingLayout footer legal links', () => {
+  it('links Privacy, Terms and Refund Policy, keeping the English language', async () => {
+    renderLayout('en')
+    const footer = (await screen.findByRole('contentinfo')) as HTMLElement
+    const href = (name: string) => within(footer).getByRole('link', { name }).getAttribute('href')
+    expect(href('Privacy Policy')).toBe('/privacy?lang=en')
+    expect(href('Terms of Service')).toBe('/terms?lang=en')
+    expect(href('Refund Policy')).toBe('/refund?lang=en')
+  })
+
+  it('shows the Arabic names with clean URLs', async () => {
+    renderLayout('ar')
+    const footer = (await screen.findByRole('contentinfo')) as HTMLElement
+    expect(within(footer).getByRole('link', { name: 'شروط الخدمة' }).getAttribute('href')).toBe('/terms')
+    expect(within(footer).getByRole('link', { name: 'سياسة الاسترداد' }).getAttribute('href')).toBe('/refund')
+  })
+})
+
 describe('MarketingLayout header', () => {
   it('no longer shows the misleading "coming soon to stores" badge', async () => {
     renderLayout('en')

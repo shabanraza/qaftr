@@ -306,6 +306,38 @@
     <changefreq>yearly</changefreq>
     <priority>0.15</priority>
   </url>
+  <url>
+    <loc>https://qaftr.com/terms</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/terms?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/terms?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/terms?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.15</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/refund</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/refund"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/refund?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/refund"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://qaftr.com/refund?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/refund"/>
+    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/refund?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/refund"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.15</priority>
+  </url>
   <!-- UAE (ar-AE default, en-AE via ?lang=en) -->
   <url>
     <loc>https://qaftr.com/ae</loc>

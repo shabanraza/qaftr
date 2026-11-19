@@ -11,6 +11,8 @@ type Copy = {
   }
   footer: {
     privacy: string
+    terms: string
+    refund: string
     support: string
     rights: string
     tagline: string
@@ -47,6 +49,16 @@ type Copy = {
     updated: string
     sections: Array<{ heading: string; body: string }>
   }
+  terms: {
+    title: string
+    updated: string
+    sections: Array<{ heading: string; body: string }>
+  }
+  refund: {
+    title: string
+    updated: string
+    sections: Array<{ heading: string; body: string }>
+  }
   support: {
     title: string
     subtitle: string
@@ -69,6 +81,8 @@ const ar: Copy = {
   },
   footer: {
     privacy: 'سياسة الخصوصية',
+    terms: 'شروط الخدمة',
+    refund: 'سياسة الاسترداد',
     support: 'الدعم',
     rights: 'جميع الحقوق محفوظة',
     tagline: 'برنامج فواتير للمنشآت في السعودية — المرحلة الأولى من زاتكا',
@@ -144,7 +158,7 @@ const ar: Copy = {
   },
   privacy: {
     title: 'سياسة الخصوصية',
-    updated: 'آخر تحديث: يونيو ٢٠٢٦',
+    updated: 'آخر تحديث: نوفمبر ٢٠٢٦',
     sections: [
       {
         heading: 'مقدمة',
@@ -163,12 +177,112 @@ const ar: Copy = {
         body: 'تُخزَّن البيانات على خوادم آمنة مع تشفير أثناء النقل (HTTPS). الشعارات والبيانات الحساسة محمية بصلاحيات الحساب.',
       },
       {
+        heading: 'المدفوعات',
+        body: 'تُعالَج مدفوعات اشتراك برو عبر Polar، وهو البائع المسجّل لمبيعاتنا. تجمع Polar بيانات البطاقة والفوترة مباشرة، ولا نرى أرقام البطاقات الكاملة ولا نخزّنها. نستلم حالة اشتراكك ومعرّف العميل لدى Polar لنفعّل برو أو نوقفه.',
+      },
+      {
         heading: 'حقوقك',
         body: 'يمكنك طلب تصدير أو حذف بياناتك عبر support@qaftr.com. للمستخدمين في المملكة العربية السعودية، نلتزم بالأنظمة المعمول بها.',
       },
       {
         heading: 'تواصل معنا',
         body: 'لأي استفسار حول الخصوصية: support@qaftr.com',
+      },
+    ],
+  },
+  terms: {
+    title: 'شروط الخدمة',
+    updated: 'آخر تحديث: نوفمبر ٢٠٢٦',
+    sections: [
+      {
+        heading: 'القبول بالشروط',
+        body: 'باستخدامك موقع قافتر أو تطبيقه أو إنشائك حساباً فيه، فإنك توافق على هذه الشروط وعلى سياسة الخصوصية وسياسة الاسترداد. إن لم توافق عليها فلا تستخدم الخدمة.',
+      },
+      {
+        heading: 'عن قافتر',
+        body: 'قافتر برنامج لإعداد الفواتير وعروض الأسعار وإدارة العملاء للمنشآت، ويعمل عبر الموقع والتطبيق. نحسّن الخدمة باستمرار وقد تتغير مزاياها مع الوقت.',
+      },
+      {
+        heading: 'حسابك',
+        body: 'تُقدّم معلومات صحيحة عند التسجيل، وتحافظ على سرية كلمة المرور، وتتحمل مسؤولية كل نشاط يتم من حسابك. يجب أن تكون ممن يحق لهم قانوناً إبرام العقود، وأن تستخدم الخدمة لأغراض منشأتك.',
+      },
+      {
+        heading: 'الخطة المجانية وخطة برو',
+        body: 'تتيح الخطة المجانية حفظ ٣ فواتير شهرياً دون مقابل. وتفتح خطة برو الفواتير بلا حد والقوالب وتذكيرات الدفع والدعم ذا الأولوية، باشتراك شهري بسعر ٣٩ ر.س أو سنوي بسعر ٣٤٩ ر.س. السعر الذي يظهر لك عند الدفع هو السعر المطبّق على اشتراكك.',
+      },
+      {
+        heading: 'المدفوعات والاشتراكات',
+        body: 'تتم مدفوعات برو عبر Polar، وهو البائع المسجّل لمبيعاتنا، وهو من يحصّل الدفعة ويحتسب الضرائب المنطبقة ويعرضها عند الدفع. تتجدد الاشتراكات تلقائياً في نهاية كل فترة حتى تلغيها. يمكنك الإلغاء في أي وقت من «الخطة والفوترة» ثم «إدارة الاشتراك»، فيبقى برو فعّالاً حتى نهاية الفترة المدفوعة ولا يُخصم منك شيء بعدها. إن غيّرنا الأسعار فسنُعلمك قبل تطبيق السعر الجديد على تجديدك.',
+      },
+      {
+        heading: 'الاسترداد',
+        body: 'يخضع استرداد المبالغ لسياسة الاسترداد المنشورة في هذا الموقع، وهي جزء من هذه الشروط.',
+      },
+      {
+        heading: 'محتواك وبياناتك',
+        body: 'تبقى بيانات منشأتك وعملائك وفواتيرك ملكاً لك. تمنحنا الحق في تخزينها ومعالجتها بالقدر اللازم لتقديم الخدمة لك فقط، وفق سياسة الخصوصية. يمكنك طلب تصدير بياناتك أو حذفها عبر support@qaftr.com.',
+      },
+      {
+        heading: 'الاستخدام المقبول',
+        body: 'لا تستخدم قافتر لإصدار مستندات مزوّرة أو مضللة أو مخالفة للأنظمة، ولا لمحاولة الوصول إلى حسابات الآخرين أو تعطيل الخدمة أو نسخها بصورة آلية. يجوز لنا إيقاف الحسابات المخالفة.',
+      },
+      {
+        heading: 'ليست استشارة ضريبية أو قانونية',
+        body: 'قافتر أداة تساعدك على إعداد مستنداتك، والمعلومات والقوالب فيها ليست استشارة ضريبية أو قانونية. أنت المسؤول عن صحة فواتيرك وإقراراتك والتزامك بأنظمة الضريبة المعمول بها. قافتر غير تابع لهيئة الزكاة والضريبة والجمارك (زاتكا) ولا صادر عنها.',
+      },
+      {
+        heading: 'التوفر والتغييرات',
+        body: 'نسعى لإبقاء الخدمة متاحة، لكننا لا نضمن خلوها من الانقطاع أو الأخطاء. قد نُجري صيانة أو نغيّر المزايا أو نوقف جزءاً من الخدمة، وسنُعلمك مسبقاً متى أمكن ذلك.',
+      },
+      {
+        heading: 'إخلاء المسؤولية وحدودها',
+        body: 'تُقدَّم الخدمة كما هي. وبالقدر الذي تسمح به الأنظمة، لا نتحمل مسؤولية الخسائر غير المباشرة أو أرباح فاتتك، وتقتصر مسؤوليتنا الإجمالية على المبلغ الذي دفعته لنا مقابل الخدمة في الاثني عشر شهراً السابقة للمطالبة. لا يقيّد ذلك أي حقوق لا يجوز نظاماً تقييدها.',
+      },
+      {
+        heading: 'إنهاء الحساب',
+        body: 'يمكنك التوقف عن استخدام الخدمة وطلب حذف حسابك في أي وقت عبر support@qaftr.com. ويجوز لنا تعليق حسابك أو إنهاؤه عند مخالفة هذه الشروط.',
+      },
+      {
+        heading: 'تعديل الشروط',
+        body: 'قد نحدّث هذه الشروط، وسننشر النسخة الجديدة هنا مع تاريخ التحديث. استمرارك في استخدام الخدمة بعد التحديث يعني قبولك به.',
+      },
+      {
+        heading: 'النظام المطبّق والتواصل',
+        body: 'تخضع هذه الشروط لأنظمة المملكة العربية السعودية. لأي سؤال: support@qaftr.com',
+      },
+    ],
+  },
+  refund: {
+    title: 'سياسة الاسترداد',
+    updated: 'آخر تحديث: نوفمبر ٢٠٢٦',
+    sections: [
+      {
+        heading: 'نظرة عامة',
+        body: 'الخطة المجانية بلا أي رسوم. تنطبق هذه السياسة على اشتراكات برو الشهرية والسنوية المدفوعة عبر الموقع، وتتم الدفعات والاستردادات عبر Polar، وهو البائع المسجّل لمبيعاتنا.',
+      },
+      {
+        heading: 'الإلغاء في أي وقت',
+        body: 'يمكنك إلغاء اشتراكك متى شئت من «الخطة والفوترة» ثم «إدارة الاشتراك». يبقى برو فعّالاً حتى نهاية الفترة التي دفعتها، ولا يُخصم منك شيء بعد ذلك.',
+      },
+      {
+        heading: 'الدفعة الأولى: ١٤ يوماً',
+        body: 'إن لم تكن راضياً عن برو، فراسلنا خلال ١٤ يوماً من أول دفعة لك على الخطة وسنسترد لك المبلغ كاملاً.',
+      },
+      {
+        heading: 'التجديد: ٧ أيام',
+        body: 'إن نسيت الإلغاء وتم تجديد اشتراكك، فراسلنا خلال ٧ أيام من تاريخ التجديد وسنسترد لك دفعة التجديد إن لم تكن قد استخدمت برو في الفترة الجديدة.',
+      },
+      {
+        heading: 'كيف تطلب الاسترداد',
+        body: 'أرسل رسالة إلى support@qaftr.com من البريد المسجّل في حسابك، واذكر تاريخ الدفع. نرد خلال ٢٤–٤٨ ساعة عمل.',
+      },
+      {
+        heading: 'كيف يصلك المبلغ',
+        body: 'يُعاد المبلغ إلى وسيلة الدفع نفسها عبر Polar. قد يستغرق ظهوره في حسابك عدة أيام عمل بحسب البنك أو مصدر البطاقة.',
+      },
+      {
+        heading: 'حقوقك النظامية',
+        body: 'لا تقيّد هذه السياسة أي حقوق تثبت لك بموجب الأنظمة المعمول بها.',
       },
     ],
   },
@@ -211,6 +325,8 @@ const en: Copy = {
   },
   footer: {
     privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    refund: 'Refund Policy',
     support: 'Support',
     rights: 'All rights reserved',
     tagline: 'ZATCA Phase 1 invoicing software for Saudi businesses',
@@ -285,7 +401,7 @@ const en: Copy = {
   },
   privacy: {
     title: 'Privacy Policy',
-    updated: 'Last updated: June 2026',
+    updated: 'Last updated: November 2026',
     sections: [
       {
         heading: 'Introduction',
@@ -304,12 +420,112 @@ const en: Copy = {
         body: 'Data is stored on secure servers with encryption in transit (HTTPS). Logos and sensitive data are protected by account permissions.',
       },
       {
+        heading: 'Payments',
+        body: 'Pro subscription payments are processed by Polar, our merchant of record. Polar collects your card and billing details directly; we never see or store full card numbers. We receive your subscription status and your Polar customer reference so we can switch Pro on or off.',
+      },
+      {
         heading: 'Your rights',
         body: 'You may request export or deletion of your data via support@qaftr.com. For users in Saudi Arabia, we comply with applicable regulations.',
       },
       {
         heading: 'Contact us',
         body: 'For privacy questions: support@qaftr.com',
+      },
+    ],
+  },
+  terms: {
+    title: 'Terms of Service',
+    updated: 'Last updated: November 2026',
+    sections: [
+      {
+        heading: 'Accepting these terms',
+        body: 'By using the Qaftr website or app, or by creating an account, you agree to these terms, the Privacy Policy and the Refund Policy. If you do not agree, please do not use the service.',
+      },
+      {
+        heading: 'About Qaftr',
+        body: 'Qaftr is software for creating invoices and quotes and managing clients for businesses, available on the website and in the app. We keep improving it, so features can change over time.',
+      },
+      {
+        heading: 'Your account',
+        body: 'You give accurate details when you sign up, keep your password secret, and are responsible for all activity in your account. You must be legally able to enter a contract and use the service for your business.',
+      },
+      {
+        heading: 'Free and Pro plans',
+        body: 'The free plan lets you save 3 invoices a month at no cost. Pro unlocks unlimited invoices, templates, payment reminders and priority support, as a monthly subscription at SAR 39 or a yearly subscription at SAR 349. The price shown at checkout is the price that applies to your subscription.',
+      },
+      {
+        heading: 'Payments and subscriptions',
+        body: 'Pro is paid through Polar, our merchant of record, which collects the payment and calculates and shows any applicable taxes at checkout. Subscriptions renew automatically at the end of each period until you cancel. You can cancel any time under Plan & billing, then Manage subscription; Pro then stays active until the end of the paid period and you are not charged again. If we change prices, we will tell you before the new price applies to your renewal.',
+      },
+      {
+        heading: 'Refunds',
+        body: 'Refunds follow the Refund Policy published on this website, which is part of these terms.',
+      },
+      {
+        heading: 'Your content and data',
+        body: 'Your business, client and invoice data stays yours. You allow us to store and process it only as needed to provide the service to you, as described in the Privacy Policy. You can ask us to export or delete your data at support@qaftr.com.',
+      },
+      {
+        heading: 'Acceptable use',
+        body: 'Do not use Qaftr to issue forged, misleading or unlawful documents, to access other people’s accounts, to disrupt the service, or to copy it with automated tools. We may suspend accounts that break these rules.',
+      },
+      {
+        heading: 'Not tax or legal advice',
+        body: 'Qaftr is a tool that helps you prepare documents. Its information and templates are not tax or legal advice. You are responsible for the accuracy of your invoices and returns and for following the tax rules that apply to you. Qaftr is not affiliated with or endorsed by ZATCA, the Zakat, Tax and Customs Authority.',
+      },
+      {
+        heading: 'Availability and changes',
+        body: 'We work to keep the service available, but we cannot promise it will be free of interruptions or errors. We may do maintenance, change features or retire parts of the service, and will give notice where we can.',
+      },
+      {
+        heading: 'Disclaimer and limit of liability',
+        body: 'The service is provided as is. To the extent the law allows, we are not liable for indirect losses or lost profits, and our total liability is limited to the amount you paid us for the service in the 12 months before the claim. This does not limit any right that cannot lawfully be limited.',
+      },
+      {
+        heading: 'Ending your account',
+        body: 'You can stop using the service and ask us to delete your account any time at support@qaftr.com. We may suspend or end your account if you break these terms.',
+      },
+      {
+        heading: 'Changes to these terms',
+        body: 'We may update these terms. The new version will be posted here with its date. If you keep using the service after an update, you accept it.',
+      },
+      {
+        heading: 'Governing law and contact',
+        body: 'These terms are governed by the laws of the Kingdom of Saudi Arabia. Questions: support@qaftr.com',
+      },
+    ],
+  },
+  refund: {
+    title: 'Refund Policy',
+    updated: 'Last updated: November 2026',
+    sections: [
+      {
+        heading: 'Overview',
+        body: 'The free plan has no charge. This policy covers Pro monthly and yearly subscriptions bought on the website. Payments and refunds are handled by Polar, our merchant of record.',
+      },
+      {
+        heading: 'Cancel any time',
+        body: 'You can cancel your subscription whenever you like under Plan & billing, then Manage subscription. Pro stays active until the end of the period you paid for, and you are not charged again.',
+      },
+      {
+        heading: 'First payment: 14 days',
+        body: 'If you are not happy with Pro, email us within 14 days of your first payment for a plan and we will refund it in full.',
+      },
+      {
+        heading: 'Renewals: 7 days',
+        body: 'If you forgot to cancel and your subscription renewed, email us within 7 days of the renewal date and we will refund the renewal payment if you have not used Pro in the new period.',
+      },
+      {
+        heading: 'How to ask for a refund',
+        body: 'Email support@qaftr.com from the address on your account and tell us the payment date. We reply within 24–48 business hours.',
+      },
+      {
+        heading: 'How you get the money',
+        body: 'The refund goes back to the original payment method through Polar. It can take several business days to show up, depending on your bank or card issuer.',
+      },
+      {
+        heading: 'Your legal rights',
+        body: 'This policy does not limit any rights you have under the law that applies to you.',
       },
     ],
   },
@@ -363,6 +579,18 @@ export function seoCopy(lang: MarketingLang) {
       description: isAr
         ? 'كيف يجمع قافتر بيانات منشأتك وبريدك الإلكتروني وشعارك ويستخدمها ويحميها.'
         : 'How Qaftr collects, uses and protects your business data, email address and uploaded logo.',
+    },
+    terms: {
+      title: isAr ? 'شروط الخدمة | قافتر' : 'Terms of Service | Qaftr',
+      description: isAr
+        ? 'شروط استخدام قافتر: الحساب، والخطة المجانية وبرو، والاشتراك والدفع عبر Polar، والإلغاء، وحدود المسؤولية.'
+        : 'The terms for using Qaftr: your account, the free and Pro plans, subscription billing through Polar, cancelling, and limits of liability.',
+    },
+    refund: {
+      title: isAr ? 'سياسة الاسترداد | قافتر' : 'Refund Policy | Qaftr',
+      description: isAr
+        ? 'سياسة استرداد اشتراك برو في قافتر: الإلغاء في أي وقت، ومهلة ١٤ يوماً للدفعة الأولى و٧ أيام للتجديد.'
+        : 'How refunds work for Qaftr Pro: cancel any time, 14 days to ask for a refund of your first payment and 7 days after a renewal.',
     },
     support: {
       title: isAr ? 'الدعم | قافتر' : 'Support | Qaftr',
