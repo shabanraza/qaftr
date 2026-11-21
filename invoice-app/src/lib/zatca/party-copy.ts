@@ -22,7 +22,7 @@ export interface PartyCopy {
 
 const AR: Omit<PartyCopy, 'issueLine'> = {
   fields: {
-    name: { label: 'الاسم' },
+    name: { label: 'الاسم', placeholder: 'شركة النور للتجارة' },
     nameAr: { label: 'اسم المنشأة (بالعربية)', placeholder: 'مؤسسة قافتر التجارية' },
     nameEn: { label: 'اسم المنشأة (بالإنجليزية)', placeholder: 'Qaftr Trading Est.' },
     vatNumber: { label: 'الرقم الضريبي', placeholder: '٣٠٠٠٠٠٠٠٠٠٠٠٠٠٣', hint: '١٥ رقماً تبدأ وتنتهي بـ ٣' },
@@ -68,7 +68,7 @@ const AR: Omit<PartyCopy, 'issueLine'> = {
 
 const EN: Omit<PartyCopy, 'issueLine'> = {
   fields: {
-    name: { label: 'Name' },
+    name: { label: 'Name', placeholder: 'Al Noor Trading Co.' },
     nameAr: { label: 'Business name (Arabic)', placeholder: 'مؤسسة قافتر التجارية' },
     nameEn: { label: 'Business name (English)', placeholder: 'Qaftr Trading Est.' },
     vatNumber: { label: 'VAT number', placeholder: '300000000000003', hint: '15 digits, starting and ending with 3' },

@@ -110,6 +110,7 @@ export function AccountantAccessCard({ lang, members, inviteLink, creating, erro
                 type="email"
                 dir="ltr"
                 autoComplete="off"
+                placeholder="accountant@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 aria-describedby="seat-email-hint"
