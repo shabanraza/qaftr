@@ -171,6 +171,8 @@ export function buildWebApplicationSchema() {
     offers: [
       { '@type': 'Offer', price: '0', priceCurrency: 'SAR', category: 'Free' },
       { '@type': 'Offer', price: '0', priceCurrency: 'AED', category: 'Free' },
+      { '@type': 'Offer', name: 'Qaftr Pro monthly', price: '39', priceCurrency: 'SAR', category: 'Subscription' },
+      { '@type': 'Offer', name: 'Qaftr Pro yearly', price: '349', priceCurrency: 'SAR', category: 'Subscription' },
     ],
     featureList: [
       'ZATCA Phase 1 QR invoice generation (Saudi Arabia)',

@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { documentNumber } from '#/lib/zatca/document-kind'
+import { track } from '#/lib/analytics/track'
 import {
   ArrowUpRight,
   Clock3,
@@ -72,6 +73,7 @@ export function MoneyDeskDashboard({ lang, invoices, clientCount }: MoneyDeskDas
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(messageText)}`
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+    track('whatsapp_share', { tool: 'workspace' })
   }
 
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)

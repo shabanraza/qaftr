@@ -41,6 +41,12 @@ export type AnalyticsEvents = {
     reason?: string
   }
   invoice_save_click: { tool: InvoiceToolName; signed_in: boolean }
+  whatsapp_share: { tool: InvoiceToolName }
+  /** A free user saw the Pro plans with checkout open. */
+  paywall_view: { source: 'billing' }
+  begin_checkout: { interval: 'monthly' | 'yearly' }
+  /** Pro turned on after returning from Polar checkout. */
+  pro_activated: { interval: 'web' }
   sign_up: { method: 'email'; source: 'invoice' | 'general' }
   tool_used: { tool: ToolName; result?: string }
   cta_click: { cta: string; cta_location: string }

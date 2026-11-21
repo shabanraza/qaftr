@@ -4,6 +4,7 @@
   <!-- Saudi Arabia (ar-SA default, English via ?lang=en) -->
   <url>
     <loc>https://qaftr.com/</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -14,6 +15,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/?lang=en</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -24,6 +26,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools"/>
@@ -32,6 +35,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools"/>
@@ -40,6 +44,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/fatora</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
@@ -50,6 +55,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/fatora?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
@@ -60,6 +66,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoice-generator-saudi-arabia</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
@@ -68,6 +75,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoice-generator-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
@@ -76,6 +84,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/zatca-invoice-generator</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
@@ -84,6 +93,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/zatca-invoice-generator?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
@@ -92,6 +102,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
@@ -100,6 +111,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
@@ -108,6 +120,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/free-invoice-generator</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
@@ -116,6 +129,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/free-invoice-generator?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
@@ -124,6 +138,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-saudi-arabia</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
@@ -132,6 +147,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
@@ -140,6 +156,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/small-business-invoicing-saudi-arabia</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
@@ -148,6 +165,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
@@ -156,6 +174,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoicing-software-saudi-arabia</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
@@ -164,6 +183,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoicing-software-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
@@ -172,6 +192,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
@@ -180,6 +201,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
@@ -188,6 +210,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides"/>
@@ -196,6 +219,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides"/>
@@ -204,6 +228,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/saudi-tax-invoice-requirements</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
@@ -212,6 +237,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/saudi-tax-invoice-requirements?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/saudi-tax-invoice-requirements"/>
@@ -220,6 +246,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/tax-invoice-vs-simplified-invoice</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
@@ -228,6 +255,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/guides/tax-invoice-vs-simplified-invoice"/>
@@ -236,6 +264,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/vat-calculator</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
@@ -246,6 +275,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/vat-calculator?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
@@ -256,6 +286,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/trn-checker</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
@@ -266,6 +297,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/trn-checker?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
@@ -276,6 +308,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/support</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/support"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/support?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/support"/>
@@ -284,6 +317,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/support?lang=en</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/support"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/support?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/support"/>
@@ -292,6 +326,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/privacy</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/privacy"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/privacy?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/privacy"/>
@@ -300,6 +335,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/privacy?lang=en</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/privacy"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/privacy?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/privacy"/>
@@ -308,6 +344,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/terms</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/terms"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/terms?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/terms"/>
@@ -316,6 +353,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/terms?lang=en</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/terms"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/terms?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/terms"/>
@@ -324,6 +362,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/refund</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/refund"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/refund?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/refund"/>
@@ -332,6 +371,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/refund?lang=en</loc>
+    <lastmod>2026-11-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/refund"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/refund?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/refund"/>
@@ -341,6 +381,7 @@
   <!-- UAE (ar-AE default, en-AE via ?lang=en) -->
   <url>
     <loc>https://qaftr.com/ae</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -351,6 +392,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -361,6 +403,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/e-invoicing-readiness</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
@@ -371,6 +414,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/e-invoicing-readiness?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
@@ -381,6 +425,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/guides/uae-e-invoicing-2027</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
@@ -391,6 +436,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/guides/uae-e-invoicing-2027?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
@@ -401,6 +447,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/trn-checker</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
@@ -411,6 +458,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/trn-checker?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/trn-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/trn-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/trn-checker"/>
@@ -421,6 +469,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/vat-calculator</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
@@ -431,6 +480,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/vat-calculator?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/vat-calculator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/vat-calculator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/vat-calculator"/>
@@ -441,6 +491,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/invoice-generator</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
@@ -451,6 +502,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/ae/tools/invoice-generator?lang=en</loc>
+    <lastmod>2026-11-09</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/fatora"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/fatora?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/invoice-generator"/>
@@ -461,6 +513,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-wave-checker</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
@@ -471,6 +524,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-wave-checker?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-wave-checker"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-wave-checker?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/tools/e-invoicing-readiness"/>
@@ -481,6 +535,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/zatca-wave-25</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
@@ -491,6 +546,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/guides/zatca-wave-25?lang=en</loc>
+    <lastmod>2026-11-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/guides/zatca-wave-25"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/guides/zatca-wave-25?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae/guides/uae-e-invoicing-2027"/>
@@ -501,6 +557,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/quotation</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/quotation"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/quotation?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/quotation"/>
@@ -509,6 +566,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/quotation?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/quotation"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/quotation?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/quotation"/>
@@ -517,6 +575,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/receipt-voucher</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/receipt-voucher"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/receipt-voucher?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/receipt-voucher"/>
@@ -525,6 +584,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/receipt-voucher?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/receipt-voucher"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/receipt-voucher?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/receipt-voucher"/>
@@ -533,6 +593,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/credit-note</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/credit-note"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/credit-note?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/credit-note"/>
@@ -541,6 +602,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/credit-note?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/credit-note"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/credit-note?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/credit-note"/>
@@ -549,6 +611,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/non-tax-invoice</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/non-tax-invoice"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/non-tax-invoice?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/non-tax-invoice"/>
@@ -557,6 +620,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/non-tax-invoice?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/non-tax-invoice"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/non-tax-invoice?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/non-tax-invoice"/>
@@ -565,6 +629,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-qr</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-qr"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-qr?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-qr"/>
@@ -573,6 +638,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-qr?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-qr"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-qr?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-qr"/>
@@ -581,6 +647,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-xml-validator</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-xml-validator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-xml-validator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-xml-validator"/>
@@ -589,6 +656,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/tools/zatca-xml-validator?lang=en</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/tools/zatca-xml-validator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/tools/zatca-xml-validator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/tools/zatca-xml-validator"/>

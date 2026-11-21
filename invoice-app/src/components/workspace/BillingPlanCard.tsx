@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { CheckCircle2, CreditCard, Loader2, Sparkles } from 'lucide-react'
+import { track } from '#/lib/analytics/track'
 import { Alert, AlertDescription } from '#/components/ui/alert'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
@@ -34,8 +36,20 @@ type Props = {
   onManage: () => void
 }
 
-export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPaid, stillProcessing = false, onUpgrade, onManage }: Props) {
+export function BillingPlanCard({ lang, usage, isLoading, pending, error, justPaid, stillProcessing = false, onUpgrade: onUpgradeProp, onManage }: Props) {
   const c = getBillingCopy(lang)
+  const seeingPaywall = Boolean(usage && usage.plan === 'free' && usage.checkoutAvailable)
+  const activated = Boolean(usage && usage.plan === 'pro' && justPaid)
+  useEffect(() => {
+    if (seeingPaywall) track('paywall_view', { source: 'billing' })
+  }, [seeingPaywall])
+  useEffect(() => {
+    if (activated) track('pro_activated', { interval: 'web' })
+  }, [activated])
+  const onUpgrade = (interval: 'monthly' | 'yearly') => {
+    track('begin_checkout', { interval })
+    onUpgradeProp(interval)
+  }
   if (isLoading || !usage) {
     return <Skeleton className="h-64 w-full max-w-2xl" />
   }

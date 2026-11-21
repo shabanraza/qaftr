@@ -3,6 +3,7 @@ import { documentNumber, isNote } from '#/lib/zatca/document-kind'
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTRPC } from '#/integrations/trpc/react'
+import { track } from '#/lib/analytics/track'
 import { marketingSearchSchema, resolveLang } from '#/lib/marketing/lang'
 import { buildMarketingHead } from '#/lib/marketing/seo'
 import { WorkspaceShell } from '#/components/workspace/WorkspaceShell'
@@ -155,6 +156,7 @@ function WorkspaceInvoiceDetailPage() {
       : `https://wa.me/?text=${encodeURIComponent(messageText)}`
 
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+    track('whatsapp_share', { tool: 'workspace' })
   }
 
   async function handleDownload() {

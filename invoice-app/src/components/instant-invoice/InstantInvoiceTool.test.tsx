@@ -95,6 +95,20 @@ describe('InstantInvoiceTool line items (Saudi)', () => {
   })
 })
 
+describe('WhatsApp share analytics', () => {
+  it('sends whatsapp_share only when the share actually opens (valid invoice)', async () => {
+    const open = vi.spyOn(window, 'open').mockReturnValue(null)
+    await renderEn()
+    const whatsapp = () => screen.getAllByRole('button', { name: /whatsapp/i })[0]!
+    fireEvent.click(whatsapp())
+    expect(track).not.toHaveBeenCalledWith('whatsapp_share', expect.anything())
+    fillSellerAndLine()
+    fireEvent.click(whatsapp())
+    expect(track).toHaveBeenCalledWith('whatsapp_share', { tool: expect.stringMatching(/fatora|home_instant/) })
+    open.mockRestore()
+  })
+})
+
 describe('invoice type: standard (B2B) vs simplified (B2C)', () => {
   it('offers both ZATCA types, simplified by default, with buyer details optional', async () => {
     await renderEn()
