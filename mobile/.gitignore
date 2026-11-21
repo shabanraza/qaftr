@@ -58,3 +58,7 @@ pnpm-lock.yaml
 # generated native folders
 /ios
 /android
+
+# scratch files
+.tmp_*
+.tmp/

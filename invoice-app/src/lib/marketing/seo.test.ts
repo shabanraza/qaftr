@@ -185,13 +185,21 @@ describe('site-wide JSON-LD is region-neutral', () => {
     expect(buildWebsiteSchema().inLanguage).toEqual(['ar', 'en'])
   })
 
+  it('WebApplication lists the Pro plans at the live Polar prices (SAR 39 / month, SAR 349 / year)', () => {
+    const paid = buildWebApplicationSchema().offers.filter((o) => o.price !== '0')
+    expect(paid.map((o) => [o.price, o.priceCurrency, o.name])).toEqual([
+      ['39', 'SAR', 'Qaftr Pro monthly'],
+      ['349', 'SAR', 'Qaftr Pro yearly'],
+    ])
+  })
+
   it('WebApplication serves Saudi Arabia and the UAE', () => {
     const app = buildWebApplicationSchema()
     expect(app.areaServed).toEqual([
       { '@type': 'Country', name: 'Saudi Arabia' },
       { '@type': 'Country', name: 'United Arab Emirates' },
     ])
-    expect(app.offers.map((o) => o.priceCurrency)).toEqual(['SAR', 'AED'])
+    expect(app.offers.filter((o) => o.price === '0').map((o) => o.priceCurrency)).toEqual(['SAR', 'AED'])
     const features = app.featureList.join(' ')
     expect(features).toMatch(/ZATCA/)
     expect(features).toMatch(/UAE/)

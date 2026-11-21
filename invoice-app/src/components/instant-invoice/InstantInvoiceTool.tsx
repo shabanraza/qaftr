@@ -317,6 +317,7 @@ export function InstantInvoiceTool({
     setIssueDate(exportDate);
     const invoice = draftToPdfInvoice(draft, totals, previewSeq, exportDate);
     openWhatsAppShare(invoice, lang);
+    track("whatsapp_share", { tool: analyticsTool() });
   }
 
   async function handleSave() {

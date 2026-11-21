@@ -15,8 +15,6 @@ credentials.json
 .output
 .vinxi
 __unconfig*
-.paraglide/
-src/paraglide/
 coverage/
 *.tsbuildinfo
 .cursor/

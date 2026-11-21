@@ -1,5 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
-import { fireEvent, screen } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
+
+const track = vi.hoisted(() => vi.fn())
+vi.mock('#/lib/analytics/track', () => ({ track }))
 import { renderWithRouter } from '#/test/render-with-router'
 import { BillingPlanCard } from './BillingPlanCard'
 import { workspaceSectionForPath } from './workspace-nav'
@@ -18,6 +21,47 @@ const free = {
 const pro = { ...free, plan: 'pro' as const, limit: null, remaining: null, webSubscription: true, currentPeriodEnd: new Date('2026-12-17T00:00:00Z') }
 
 const base = { lang: 'en' as const, usage: free, isLoading: false, pending: null, error: null, justPaid: false, onUpgrade: vi.fn(), onManage: vi.fn() }
+
+describe('BillingPlanCard analytics', () => {
+  beforeEach(() => track.mockClear())
+
+  it('sends paywall_view once when a free user sees open checkout', async () => {
+    const { rerender } = render(<BillingPlanCard {...base} />)
+    await screen.findByText(/2 of 3 invoices this month/i)
+    expect(track.mock.calls.filter(([n]) => n === 'paywall_view')).toEqual([['paywall_view', { source: 'billing' }]])
+    rerender(<BillingPlanCard {...base} pending="monthly" />)
+    expect(track.mock.calls.filter(([n]) => n === 'paywall_view')).toHaveLength(1)
+  })
+
+  it('does not send paywall_view for Pro users or while checkout is closed', async () => {
+    const { unmount } = render(<BillingPlanCard {...base} usage={pro} />)
+    await screen.findByText(/unlimited invoices/i)
+    unmount()
+    render(<BillingPlanCard {...base} usage={{ ...free, checkoutAvailable: false }} />)
+    await screen.findAllByText(/opens soon/i)
+    expect(track).not.toHaveBeenCalledWith('paywall_view', expect.anything())
+  })
+
+  it('sends begin_checkout with the chosen interval', async () => {
+    render(<BillingPlanCard {...base} />)
+    fireEvent.click(await screen.findByRole('button', { name: /349 SAR \/ year/i }))
+    fireEvent.click(screen.getByRole('button', { name: /39 SAR \/ month/i }))
+    expect(track.mock.calls.filter(([n]) => n === 'begin_checkout')).toEqual([
+      ['begin_checkout', { interval: 'yearly' }],
+      ['begin_checkout', { interval: 'monthly' }],
+    ])
+  })
+
+  it('sends pro_activated once when Pro turns on after a checkout', async () => {
+    const { rerender } = render(<BillingPlanCard {...base} justPaid />)
+    await screen.findByText(/activating pro/i)
+    expect(track).not.toHaveBeenCalledWith('pro_activated', expect.anything())
+    rerender(<BillingPlanCard {...base} usage={pro} justPaid />)
+    await screen.findByText(/unlimited invoices/i)
+    rerender(<BillingPlanCard {...base} usage={pro} justPaid pending={null} />)
+    expect(track.mock.calls.filter(([n]) => n === 'pro_activated')).toEqual([['pro_activated', { interval: 'web' }]])
+  })
+})
 
 describe('BillingPlanCard', () => {
   it('shows the free plan usage and both Pro prices', async () => {

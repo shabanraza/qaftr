@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import { devtools } from '@tanstack/devtools-vite'
-import { paraglideVitePlugin } from '@inlang/paraglide-js'
 
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 
@@ -24,11 +23,6 @@ const config = defineConfig({
   },
   plugins: [
     devtools(),
-    paraglideVitePlugin({
-      project: './project.inlang',
-      outdir: './src/paraglide',
-      strategy: ['url', 'baseLocale'],
-    }),
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
     neon,
     tailwindcss(),
