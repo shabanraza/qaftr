@@ -41,7 +41,9 @@ Polar is the merchant of record for web subscriptions. Mobile purchases still go
 - Webhook "Qaftr production" → `https://qaftr.com/api/webhooks/polar`, Raw, API version 2026-10, the 6 subscription events.
 - Access token `qaftr-production-worker` **expires 2027-11-17**. Create a new one before then and update `POLAR_ACCESS_TOKEN`, or checkout stops working.
 - All five `POLAR_*` values are Worker secrets on `tanstack-start-app` (set with `wrangler secret bulk`, so they survive deploys).
-- Polar shows the organization "in test mode" until account review passes. Still to do in Polar → Finance → Account: connect a payout account (Stripe), verify the support email, then Submit for review.
+- Account review: payout (Stripe) connected, support email (support@qaftr.com, forwarded by Cloudflare Email Routing to the owner's inbox) and domain verified, submitted and **approved 2026-11-19**.
+- Checkout opened 2026-11-19: `PRO_CHECKOUT_OPEN = true` in `src/lib/billing/launch.ts` (set to false and redeploy to close it). Terms and Refund pages are live at /terms and /refund.
+- Open: Polar's docs name US sales tax and EU VAT only, so Saudi VAT collection is unconfirmed. Do not say "VAT included" on the pricing card until Polar support confirms it.
 - Deployed 2026-11-17 (version 63b39e11). Checked: the webhook rejects unsigned calls (403), the billing page offers both plans, and a live checkout opens at SAR 39.
 
 ## Worker settings
