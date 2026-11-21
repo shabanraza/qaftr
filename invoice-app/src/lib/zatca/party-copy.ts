@@ -10,6 +10,8 @@ export interface PartyFieldCopy {
 export interface PartyCopy {
   fields: Record<PartyField | 'nameAr' | 'nameEn', PartyFieldCopy>
   idSchemes: Record<string, string>
+  /** Label of the empty option in the ID type picker. */
+  idSchemeNone: string
   issues: Record<PartyIssueCode, string>
   optional: string
   addressTitle: string
@@ -35,6 +37,7 @@ const AR: Omit<PartyCopy, 'issueLine'> = {
     city: { label: 'المدينة', placeholder: 'الرياض' },
     postalCode: { label: 'الرمز البريدي', placeholder: '١٢٢١١', hint: '٥ أرقام' },
   },
+  idSchemeNone: 'لم تُختر هوية',
   idSchemes: {
     CRN: 'السجل التجاري',
     MOM: 'ترخيص وزارة الشؤون البلدية',
@@ -80,6 +83,7 @@ const EN: Omit<PartyCopy, 'issueLine'> = {
     city: { label: 'City', placeholder: 'Riyadh' },
     postalCode: { label: 'Postal code', placeholder: '12211', hint: '5 digits' },
   },
+  idSchemeNone: 'No ID selected',
   idSchemes: {
     CRN: 'Commercial registration',
     MOM: 'MOMRA licence',
