@@ -31,7 +31,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Arabic first, English when you need it',
-          body: 'Tax invoices in Saudi Arabia must be issued in Arabic, and another language may appear alongside it. Qaftr is built right-to-left from the start, so your Arabic invoice reads correctly and your English-speaking customers can still get a bilingual copy. The interface works in Arabic and English.',
+          body: 'Tax invoices in Saudi Arabia must be issued in Arabic, and another language may appear alongside it. Qaftr is built right-to-left from the start, so your Arabic invoice reads correctly and the invoice title is printed in both Arabic and English. The interface works in Arabic and English.',
         },
         {
           heading: 'Customers saved once, reused every time',
@@ -39,7 +39,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Corrections the way ZATCA expects',
-          body: 'Once an invoice is issued, you do not edit it. You correct it with a credit note or a debit note that states its type and the serial number of the invoice it amends. Qaftr’s credit and debit notes carry the original invoice reference.',
+          body: 'Once an invoice is issued, you do not edit it. You correct it with a credit note that states its type and the serial number of the invoice it amends. Qaftr’s free credit note tool records the original invoice number and date.',
         },
         {
           heading: 'PDF, WhatsApp and your accountant',
@@ -55,7 +55,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Free to start, SAR 39 a month for Pro',
-          body: 'The free plan saves 3 invoices a month, and you can create a first invoice without an account. Pro removes the limit and adds all templates and payment reminders for SAR 39 a month or SAR 349 a year. Subscriptions renew until you cancel, and you can cancel from the billing page.',
+          body: 'The free plan saves 3 invoices a month, and you can create a first invoice without an account. Pro removes the limit for SAR 39 a month or SAR 349 a year. Subscriptions renew until you cancel, and you can cancel from the billing page.',
         },
         {
           heading: "Quotations, receipts and notes in one place",
@@ -114,7 +114,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'عربي أولاً، وإنجليزي عند الحاجة',
-          body: 'يجب أن تصدر الفواتير الضريبية في السعودية باللغة العربية، ويجوز أن تظهر معها لغة أخرى. بُني قافتر من اليمين إلى اليسار منذ البداية، فتظهر فاتورتك العربية سليمة، ويحصل عملاؤك الناطقون بالإنجليزية على نسخة ثنائية اللغة. وتعمل الواجهة بالعربية والإنجليزية.',
+          body: 'يجب أن تصدر الفواتير الضريبية في السعودية باللغة العربية، ويجوز أن تظهر معها لغة أخرى. بُني قافتر من اليمين إلى اليسار منذ البداية، فتظهر فاتورتك العربية سليمة، ويُطبع عنوان الفاتورة بالعربية والإنجليزية. وتعمل الواجهة بالعربية والإنجليزية.',
         },
         {
           heading: 'عملاء تحفظهم مرة وتستخدمهم دائماً',
@@ -122,7 +122,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'تصحيحات بالطريقة التي تطلبها زاتكا',
-          body: 'بعد إصدار الفاتورة لا تعدّلها، بل تصحّحها بإشعار دائن أو مدين يذكر نوعه والرقم التسلسلي للفاتورة التي يعدّلها. وتحمل الإشعارات الدائنة والمدينة في قافتر المرجع إلى الفاتورة الأصلية.',
+          body: 'بعد إصدار الفاتورة لا تعدّلها، بل تصحّحها بإشعار دائن يذكر نوعه والرقم التسلسلي للفاتورة التي يعدّلها. وتسجّل أداة الإشعار الدائن المجانية في قافتر رقم الفاتورة الأصلية وتاريخها.',
         },
         {
           heading: 'PDF وواتساب ومحاسبك',
@@ -138,7 +138,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'ابدأ مجاناً، وبرو بـ ٣٩ ريالاً شهرياً',
-          body: 'تحفظ الخطة المجانية ٣ فواتير شهرياً، ويمكنك إنشاء أول فاتورة دون حساب. وتلغي خطة برو هذا الحد وتضيف جميع القوالب وتذكير العملاء بـ ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً. وتتجدد الاشتراكات حتى تلغيها، ويمكنك الإلغاء من صفحة الفوترة.',
+          body: 'تحفظ الخطة المجانية ٣ فواتير شهرياً، ويمكنك إنشاء أول فاتورة دون حساب. وتلغي خطة برو هذا الحد مقابل ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً. وتتجدد الاشتراكات حتى تلغيها، ويمكنك الإلغاء من صفحة الفوترة.',
         },
         {
           heading: "عروض الأسعار والسندات والإشعارات في مكان واحد",
@@ -199,7 +199,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Phase 1: Generation',
-          body: 'Phase 1 asks VAT-registered businesses to generate and store tax invoices electronically, not by hand or on paper. Simplified tax invoices, the type used for consumers, must carry a QR code with five fields. Standard tax invoices issued to businesses do not need the Phase 1 QR code.',
+          body: 'Phase 1 (Generation) is the first stage of ZATCA’s e-invoicing rules for VAT-registered businesses: tax invoices are generated and stored electronically. Simplified tax invoices, the type used for consumers, must carry a QR code with five fields. Standard tax invoices issued to businesses do not need the Phase 1 QR code.',
         },
         {
           heading: 'Phase 2: Integration',
@@ -207,7 +207,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Waves and deadlines',
-          body: 'ZATCA brings taxpayers into Phase 2 in waves and notifies taxpayers before their deadline. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. Check your notification, and use our free checker to see where you stand.',
+          body: 'ZATCA brings taxpayers into Phase 2 in waves. As announced by ZATCA, Wave 25 covers VAT-registered taxpayers whose VAT-subject revenue exceeded SAR 187,500 in the reference years ZATCA specifies (our checker asks about 2022 to 2025), with integration due by 1 February 2027. Your ZATCA notification is what counts. Check your notification, and use our free checker to see where you stand.',
         },
         {
           heading: 'Start with consistent invoice records',
@@ -215,15 +215,15 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Keep PDF copies and your corrections in order',
-          body: 'PDF exports make it easy to share invoices and keep records for your accountant. When an invoice needs correcting, issue a credit note or a debit note that states its type and the serial number of the original invoice, rather than editing the invoice.',
+          body: 'PDF exports make it easy to share invoices and keep records for your accountant. When an invoice needs correcting, issue a credit note that states its type and the serial number of the original invoice, rather than editing the invoice.',
         },
         {
           heading: 'A short readiness checklist',
-          body: 'Confirm whether you are VAT-registered and which wave ZATCA has placed you in. Make sure your invoices show every mandatory field. Choose who will onboard your device or solution, and agree a date with your accountant. If you are in Wave 25, plan to be integrated before 1 February 2027.',
+          body: 'Confirm whether you are VAT-registered and which wave ZATCA has placed you in. Make sure your invoices show every mandatory field. Choose who will onboard your device or solution, and agree a date with your accountant. If you are in Wave 25, plan to be integrated by 1 February 2027.',
         },
         {
           heading: 'Where Qaftr fits',
-          body: 'Today Qaftr issues Phase 1 invoices with the ZATCA QR code, credit and debit notes, PDF and WhatsApp sharing. Phase 2 support is in private beta on ZATCA’s simulation environment and is not open to everyone yet. Qaftr does not replace your accountant’s advice.',
+          body: 'Today Qaftr issues Phase 1 invoices with the ZATCA QR code, plus a free credit note tool, PDF and WhatsApp sharing. Phase 2 support is in private beta on ZATCA’s simulation environment and is not open to everyone yet. Qaftr does not replace your accountant’s advice.',
         },
         {
           heading: "Why not wait for your deadline",
@@ -248,7 +248,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
           answer:
-            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. Wave 25 covers taxpayers with VAT-subject revenue above SAR 187,500 in any year from 2022 to 2025, with integration due by 1 February 2027. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. As announced by ZATCA, Wave 25 covers VAT-registered taxpayers whose VAT-subject revenue exceeded SAR 187,500 in the reference years ZATCA specifies (our checker asks about 2022 to 2025), with integration due by 1 February 2027; your ZATCA notification is what counts. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
         },
         {
           question: 'What is the difference between clearance and reporting?',
@@ -258,7 +258,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'Do I need e-invoicing if I am not registered for VAT?',
           answer:
-            'E-invoicing applies to tax invoices issued by VAT-registered businesses. If you are not registered, you issue a regular invoice without VAT and without a QR code, and you must not show a VAT amount. Registration is mandatory when your taxable supplies pass SAR 375,000 in 12 months, and voluntary above SAR 187,500.',
+            'E-invoicing applies to tax invoices issued by VAT-registered businesses. If you are not registered, you issue a regular invoice without VAT and without a QR code, and you must not show a VAT amount. Registration is mandatory when your taxable supplies pass SAR 375,000 in 12 months, and voluntary when your taxable supplies or expenses pass SAR 187,500.',
         },
       ],
       related: [
@@ -285,7 +285,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
           body: 'هي إصدار الفواتير وتبادلها وحفظها بصيغة إلكترونية منظمة بدلاً من الفواتير الورقية أو المكتوبة يدوياً، وتنطبق على المنشآت المسجلة في ضريبة القيمة المضافة. أما المنشأة غير المسجلة فلا يجوز لها إصدار فاتورة ضريبية ولا أي مستند يظهر فيه مبلغ ضريبة.',
         },
         {
-          heading: 'المرحلة الأولى: الإصدار',
+          heading: 'المرحلة الأولى: الإصدار والحفظ',
           body: 'تطلب المرحلة الأولى من المنشآت المسجلة في الضريبة إصدار الفواتير الضريبية وحفظها إلكترونياً لا يدوياً ولا ورقياً. ويجب أن تحمل الفاتورة الضريبية المبسطة، وهي المستخدمة للأفراد، رمز QR بخمسة حقول. أما الفواتير الضريبية الصادرة للمنشآت فلا تحتاج رمز QR الخاص بالمرحلة الأولى.',
         },
         {
@@ -294,7 +294,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'الموجات والمواعيد',
-          body: 'تُدخل زاتكا المكلفين في المرحلة الثانية على موجات، وتُخطر المكلفين قبل موعدهم. وتشمل الموجة ٢٥ من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. راجع إشعارك، واستخدم أداتنا المجانية لتعرف موقعك.',
+          body: 'تُدخل زاتكا المكلفين في المرحلة الثانية على موجات، وتشمل الموجة ٢٥ بحسب إعلان زاتكا المسجلين في الضريبة الذين تجاوزت إيراداتهم الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في السنوات المرجعية التي تحددها زاتكا (تسأل أداتنا عن ٢٠٢٢ إلى ٢٠٢٥)، وموعد الربط ١ فبراير ٢٠٢٧. والمعتمد هو إشعارك من زاتكا. راجع إشعارك، واستخدم أداتنا المجانية لتعرف موقعك.',
         },
         {
           heading: 'ابدأ بسجلات فواتير منتظمة',
@@ -302,15 +302,15 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'احتفظ بنسخ PDF ورتّب تصحيحاتك',
-          body: 'يسهّل تصدير PDF مشاركة الفواتير وحفظ السجلات لمحاسبك. وعندما تحتاج الفاتورة إلى تصحيح، أصدر إشعاراً دائناً أو مديناً يذكر نوعه والرقم التسلسلي للفاتورة الأصلية بدلاً من تعديل الفاتورة.',
+          body: 'يسهّل تصدير PDF مشاركة الفواتير وحفظ السجلات لمحاسبك. وعندما تحتاج الفاتورة إلى تصحيح، أصدر إشعاراً دائناً يذكر نوعه والرقم التسلسلي للفاتورة الأصلية بدلاً من تعديل الفاتورة.',
         },
         {
           heading: 'قائمة جاهزية مختصرة',
-          body: 'تأكد هل أنت مسجل في ضريبة القيمة المضافة وفي أي موجة صنّفتك زاتكا. وتأكد أن فواتيرك تتضمن كل الحقول الإلزامية. وحدّد من سيتولى ربط جهازك أو حلّك، واتفق مع محاسبك على موعد. وإذا كنت ضمن الموجة ٢٥ فخطّط للربط قبل ١ فبراير ٢٠٢٧.',
+          body: 'تأكد مما إذا كنت مسجلاً في ضريبة القيمة المضافة وفي أي موجة صنّفتك زاتكا. وتأكد أن فواتيرك تتضمن كل الحقول الإلزامية. وحدّد من سيتولى ربط جهازك أو حلّك، واتفق مع محاسبك على موعد. وإذا كنت ضمن الموجة ٢٥ فخطّط للربط بحلول ١ فبراير ٢٠٢٧.',
         },
         {
           heading: 'أين يناسبك قافتر',
-          body: 'يُصدر قافتر اليوم فواتير المرحلة الأولى مع رمز QR من زاتكا، والإشعارات الدائنة والمدينة، ومشاركة PDF وواتساب. ودعم المرحلة الثانية في مرحلة تجريبية خاصة على بيئة المحاكاة لدى زاتكا، وليس متاحاً للجميع بعد. ولا يغني قافتر عن استشارة محاسبك.',
+          body: 'يُصدر قافتر اليوم فواتير المرحلة الأولى مع رمز QR وفق متطلبات زاتكا، وأداة إشعار دائن مجانية، ومشاركة PDF وواتساب. ودعم المرحلة الثانية في مرحلة تجريبية خاصة على بيئة المحاكاة لدى زاتكا، وليس متاحاً للجميع بعد. ولا يغني قافتر عن استشارة محاسبك.',
         },
         {
           heading: "لماذا لا تنتظر موعدك الأخير",
@@ -335,7 +335,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
           answer:
-            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. والموجة ٢٥ تشمل من تجاوزت إيراداته الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في أي سنة من ٢٠٢٢ إلى ٢٠٢٥، وموعد ربطها ١ فبراير ٢٠٢٧. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. والموجة ٢٥ تشمل بحسب إعلان زاتكا المسجلين الذين تجاوزت إيراداتهم الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في السنوات المرجعية التي تحددها زاتكا (تسأل أداتنا عن ٢٠٢٢ إلى ٢٠٢٥)، وموعد ربطها ١ فبراير ٢٠٢٧، والمعتمد هو إشعارك من زاتكا. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
         },
         {
           question: 'ما الفرق بين الاعتماد والإبلاغ؟',
@@ -345,7 +345,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'هل أحتاج الفوترة الإلكترونية إذا لم أكن مسجلاً في ضريبة القيمة المضافة؟',
           answer:
-            'تنطبق الفوترة الإلكترونية على الفواتير الضريبية التي تصدرها المنشآت المسجلة. وإذا لم تكن مسجلاً فتصدر فاتورة عادية بلا ضريبة وبلا رمز QR، ولا يجوز أن تُظهر فيها مبلغ ضريبة. والتسجيل إلزامي إذا تجاوزت توريداتك الخاضعة للضريبة ٣٧٥٬٠٠٠ ريال خلال ١٢ شهراً، واختياري إذا تجاوزت ١٨٧٬٥٠٠ ريال.',
+            'تنطبق الفوترة الإلكترونية على الفواتير الضريبية التي تصدرها المنشآت المسجلة. وإذا لم تكن مسجلاً فتصدر فاتورة عادية بلا ضريبة وبلا رمز QR، ولا يجوز أن تُظهر فيها مبلغ ضريبة. والتسجيل إلزامي إذا تجاوزت توريداتك الخاضعة للضريبة ٣٧٥٬٠٠٠ ريال خلال ١٢ شهراً، واختياري إذا تجاوزت توريداتك أو مصروفاتك الخاضعة للضريبة ١٨٧٬٥٠٠ ريال.',
         },
       ],
       related: [
@@ -387,19 +387,19 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Getting paid',
-          body: 'Send the PDF on WhatsApp the moment the job is done. On Pro, payment reminders help you follow up on invoices that are still open, so late payments do not depend on you remembering to chase.',
+          body: 'Send the PDF on WhatsApp the moment the job is done. A WhatsApp follow-up button on each unpaid invoice helps you chase payments, so late payments do not depend on you remembering to ask.',
         },
         {
           heading: 'Are you registered for VAT?',
-          body: 'VAT registration is mandatory when your taxable supplies pass SAR 375,000 in 12 months, and voluntary above SAR 187,500. If you are not registered, you must not issue a tax invoice or any document showing a VAT amount; use the free non-tax invoice tool instead.',
+          body: 'VAT registration is mandatory when your taxable supplies pass SAR 375,000 in 12 months, and voluntary when your taxable supplies or expenses pass SAR 187,500. If you are not registered, you must not issue a tax invoice or any document showing a VAT amount; use the free non-tax invoice tool instead.',
         },
         {
           heading: 'Month end with your accountant',
-          body: 'Give your accountant the monthly totals and a CSV export, or invite them to view your invoices directly. It replaces the shoebox of receipts and the end-of-month scramble.',
+          body: 'Give your accountant the monthly totals and a CSV export, or invite them to view your invoices directly. It replaces the shoebox of receipts and the end-of-month scramble, and keeps every invoice and credit note in one place that is easy to look up when a customer or accountant asks.',
         },
         {
           heading: 'Designed for clarity',
-          body: 'Clear totals, VAT separation, QR code support and PDF output make every invoice easier to review and share, whether it is your first of the week or your fiftieth.',
+          body: 'Clear totals, VAT separation, QR code support and PDF output make every invoice easier to review and share, whether it is your first of the week or your fiftieth, and your customer understands it at a glance without further explanation.',
         },
         {
           heading: "Quotations and receipts before the invoice",
@@ -436,7 +436,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'Is Qaftr free for a small business?',
           answer:
-            'You can create an invoice without signing up. A free account saves 3 invoices a month. Pro removes that limit and adds all templates and payment reminders for SAR 39 a month or SAR 349 a year.',
+            'You can create an invoice without signing up. A free account saves 3 invoices a month. Pro removes that limit for SAR 39 a month or SAR 349 a year.',
         },
         {
           question: 'I am not registered for VAT. Can I still use Qaftr?',
@@ -477,7 +477,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'مبيعات المحل والكاشير',
-          body: 'لعملاء المحل، أصدر فاتورة ضريبية مبسطة بنقرات قليلة. لا تحتاج بيانات المشتري وتحمل رمز QR من زاتكا. أبقِ النوع المبسط محدداً وتكون جاهزة للعميل التالي.',
+          body: 'لعملاء المحل، أصدر فاتورة ضريبية مبسطة بنقرات قليلة. لا تحتاج بيانات المشتري وتحمل رمز QR وفق متطلبات زاتكا. أبقِ النوع المبسط محدداً فتكون جاهزة للعميل التالي.',
         },
         {
           heading: 'البيع للشركات',
@@ -489,11 +489,11 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'تحصيل المدفوعات',
-          body: 'أرسل ملف PDF عبر واتساب فور إنجاز العمل. وفي خطة برو يساعدك تذكير العملاء على متابعة الفواتير المفتوحة، فلا يعتمد التحصيل المتأخر على تذكّرك للمطالبة.',
+          body: 'أرسل ملف PDF عبر واتساب فور إنجاز العمل. ويساعدك زر المتابعة عبر واتساب على كل فاتورة غير مدفوعة في مطالبة العملاء، فلا يعتمد التحصيل المتأخر على تذكّرك للمطالبة.',
         },
         {
           heading: 'هل أنت مسجل في ضريبة القيمة المضافة؟',
-          body: 'التسجيل إلزامي إذا تجاوزت توريداتك الخاضعة للضريبة ٣٧٥٬٠٠٠ ريال خلال ١٢ شهراً، واختياري إذا تجاوزت ١٨٧٬٥٠٠ ريال. وإذا لم تكن مسجلاً فلا يجوز لك إصدار فاتورة ضريبية ولا أي مستند يظهر فيه مبلغ ضريبة؛ استخدم أداة الفاتورة غير الضريبية المجانية.',
+          body: 'التسجيل إلزامي إذا تجاوزت توريداتك الخاضعة للضريبة ٣٧٥٬٠٠٠ ريال خلال ١٢ شهراً، واختياري إذا تجاوزت توريداتك أو مصروفاتك الخاضعة للضريبة ١٨٧٬٥٠٠ ريال. وإذا لم تكن مسجلاً فلا يجوز لك إصدار فاتورة ضريبية ولا أي مستند يظهر فيه مبلغ ضريبة؛ استخدم أداة الفاتورة غير الضريبية المجانية.',
         },
         {
           heading: 'نهاية الشهر مع محاسبك',
@@ -517,7 +517,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: "كم يكلّف",
-          body: "يمكنك إنشاء فاتورة دون تسجيل. ويحفظ الحساب المجاني ٣ فواتير شهرياً وقائمة عملائك. وإذا كنت تفوتر أكثر، تلغي خطة برو الحد بـ ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً، ويمكنك الإلغاء في أي وقت من صفحة الفوترة.",
+          body: "يمكنك إنشاء فاتورة دون تسجيل. ويحفظ الحساب المجاني ٣ فواتير شهرياً وقائمة عملائك. وإذا كنت تفوتر أكثر، تلغي خطة برو الحد مقابل ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً، ويمكنك الإلغاء في أي وقت من صفحة الفوترة.",
         },
         {
           heading: "روتين أسبوعي بسيط",
@@ -537,10 +537,10 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         {
           question: 'هل قافتر مجاني للمنشأة الصغيرة؟',
           answer:
-            'يمكنك إنشاء فاتورة دون تسجيل. ويحفظ الحساب المجاني ٣ فواتير شهرياً. وتلغي خطة برو هذا الحد وتضيف جميع القوالب وتذكير العملاء بـ ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً.',
+            'يمكنك إنشاء فاتورة دون تسجيل. ويحفظ الحساب المجاني ٣ فواتير شهرياً. وتلغي خطة برو هذا الحد مقابل ٣٩ ريالاً شهرياً أو ٣٤٩ ريالاً سنوياً.',
         },
         {
-          question: 'لست مسجلاً في ضريبة القيمة المضافة، هل أستخدم قافتر؟',
+          question: 'لست مسجلاً في ضريبة القيمة المضافة، هل يمكنني استخدام قافتر؟',
           answer:
             'نعم، للمستندات التي لا تُظهر ضريبة. وإذا لم تكن مسجلاً فلا يجوز لك إصدار فاتورة ضريبية ولا تحصيل ضريبة، فاستخدم أداة الفاتورة غير الضريبية المجانية وسجّل عندما تتجاوز توريداتك الحد المطلوب.',
         },

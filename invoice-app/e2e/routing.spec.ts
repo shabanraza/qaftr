@@ -36,6 +36,18 @@ test.describe('routing', () => {
     }
   })
 
+  // Landing pages merged into the tax invoice tool: permanent redirects, language kept.
+  for (const path of ['/free-invoice-generator', '/invoice-generator-saudi-arabia', '/vat-invoice-generator-saudi-arabia']) {
+    for (const [query, expected] of [['', '/tools/fatora'], ['?lang=en', '/tools/fatora?lang=en']] as const) {
+      test(`${path}${query} is a 301 to ${expected}`, async ({ request, baseURL }) => {
+        const res = await request.get(`${path}${query}`, { maxRedirects: 0 })
+        expect(res.status()).toBe(301)
+        const target = new URL(res.headers()['location'] ?? '', baseURL)
+        expect(`${target.pathname}${target.search}`).toBe(expected)
+      })
+    }
+  }
+
   for (const path of ['/workspace', '/invoices']) {
     test(`${path} is noindex`, async ({ request }) => {
       const res = await request.get(path)

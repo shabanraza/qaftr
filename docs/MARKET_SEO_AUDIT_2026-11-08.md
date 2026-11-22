@@ -211,3 +211,9 @@ Build سند قبض, عرض سعر (quotes already exist in the workspace, so ex
 - UAE corporate tax: [Khaleej Times – FTA filing](https://www.khaleejtimes.com/business/uae-tax-authority-asks-all-businesses-to-file-corporate-tax-returns-by-september-30), [Avyanco – registration penalty](https://avyanco.com/corporate-tax-registration-deadline-uae/)
 - UAE competitors: [Invovate](https://invovate.pages.dev/about), [Velmont Crest UAE tool](https://velmontcrest.ae/tools/uae-tax-invoice-generator/), [Wafeq UAE](https://www.wafeq.com/en-ae/tax-and-reporting/is-your-billing-fta-ready-how-to-choose-invoicing-software-in-the-uae), [Vyapar UAE](https://vyapar.com/en-ae)
 - EOSB: [HRSD calculator](https://www.hrsd.gov.sa/en/ministry-services/services/end-service-benefit-calculator)
+
+---
+
+## Status 2026-11-22
+
+Code items done: S1-S4, S7 (sitemap `lastmod` stamped by `npm run sitemap:lastmod`), S8 (funnel events in `docs/ANALYTICS.md`), S9, S10, S5/S6 (3 pages redirected, 3 expanded, PR #28), Paraglide removed. Still open: `/zatca-invoice-generator` is thin; Search Console Domain property, GA4 key events and the GA4-Search Console link, Bing verification (account settings); worker rename.

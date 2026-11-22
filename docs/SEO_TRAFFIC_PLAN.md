@@ -201,3 +201,9 @@ Primary 30-day KPI:
 - 10+ indexed utility/guide queries with impressions.
 - `/tools/fatora` becomes the top organic landing page.
 - At least one signup/save event from organic utility traffic.
+
+---
+
+## Update 2026-11-22 (PR #28)
+
+`/free-invoice-generator`, `/invoice-generator-saudi-arabia` and `/vat-invoice-generator-saudi-arabia` were merged into `/tools/fatora` (permanent 301, `?lang=en` kept) to end keyword overlap. The freelancer-search role of `/free-invoice-generator` now sits with the freelancer answers in the `/tools/fatora` FAQ. `/invoicing-software-saudi-arabia`, `/e-invoicing-saudi-arabia` and `/small-business-invoicing-saudi-arabia` were expanded (copy in `invoice-app/src/lib/marketing/expanded-landing-pages.ts`).
