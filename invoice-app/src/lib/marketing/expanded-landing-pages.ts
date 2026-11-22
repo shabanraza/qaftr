@@ -600,11 +600,11 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'Mistakes that break a QR invoice',
-          body: 'The most common problems are a VAT number that is not 15 digits starting and ending with 3, totals that do not add up with VAT, and an issue time that does not match the invoice. Fill in the fields once, check the totals, and use the checker before you send.',
+          body: 'Common problems include a VAT number that is not 15 digits, or does not start and end with 3, totals that do not add up with VAT, and an issue time that does not match the invoice. Fill in the fields once, check the totals, and use the checker before you send.',
         },
         {
           heading: "Corrections after you issue",
-          body: "If a QR invoice has a mistake, do not edit it. A credit note must state its type and the serial number of the tax invoice it amends, and it is only for an adjustment to a prior supply, such as an accepted return, a change in the agreed value, or an error in the customer’s information. Our free credit note tool prepares one.",
+          body: "If a QR invoice overstated the amount or has wrong customer details, do not edit it. A credit note must state its type and the serial number of the tax invoice it amends, and it is only for an adjustment to a prior supply, such as an accepted return, a change in the agreed value, or an error in the customer’s information. You can prepare one with our free credit note tool. If the amount was too low, ask your accountant how to correct it.",
         },
         {
           heading: "Share it with the customer",
@@ -612,11 +612,11 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: "Arabic, English and Saudi riyals",
-          body: "Tax invoices must be issued in Arabic, and another language may appear alongside it. Qaftr prints the invoice title in Arabic and English, and the VAT amount is shown in Saudi riyals.",
+          body: "Tax invoices must be issued in Arabic, and another language may appear alongside it. Qaftr prints the invoice title in Arabic and English, and the VAT amount is shown in Saudi riyals, as the rules require even when an invoice uses another currency.",
         },
         {
           heading: 'Who this is for',
-          body: 'Shops, service companies, contractors and other Saudi SMEs that need a fast, correct PDF invoice without heavy accounting software. If you also sell to companies, pick the customer and Qaftr switches to a standard tax invoice.',
+          body: 'Shops, service companies, contractors and other Saudi SMEs that need a fast, correct PDF invoice without heavy accounting software. If you also sell to companies, choose a saved customer with a VAT number and Qaftr switches to a standard tax invoice, or pick the standard type in the free tool.',
         },
       ],
       faq: [
@@ -649,6 +649,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
       related: [
         { label: 'Free invoice tool', href: '/tools/fatora' },
         { label: 'ZATCA QR checker', href: '/tools/zatca-qr' },
+        { label: 'Credit note tool', href: '/tools/credit-note' },
         { label: 'VAT number checker', href: '/tools/trn-checker' },
         { label: 'Is your business in Wave 25?', href: '/tools/zatca-wave-checker' },
         { label: 'ZATCA Wave 25 guide', href: '/guides/zatca-wave-25' },
@@ -691,11 +692,11 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'أخطاء تفسد فاتورة QR',
-          body: 'أكثر المشكلات شيوعاً رقم ضريبي ليس من ١٥ رقماً يبدأ وينتهي بالرقم ٣، وإجماليات لا تتطابق مع الضريبة، ووقت إصدار لا يطابق الفاتورة. أدخل الحقول مرة واحدة، وراجع الإجماليات، واستخدم أداة الفحص قبل الإرسال.',
+          body: 'من المشكلات الشائعة رقم ضريبي لا يتكون من ١٥ رقماً أو لا يبدأ وينتهي بالرقم ٣، وإجماليات لا تتطابق مع الضريبة، ووقت إصدار لا يطابق الفاتورة. أدخل الحقول مرة واحدة، وراجع الإجماليات، واستخدم أداة الفحص قبل الإرسال.',
         },
         {
           heading: "تصحيح الفاتورة بعد إصدارها",
-          body: "إذا كان في فاتورة QR خطأ فلا تعدّلها. يجب أن يذكر الإشعار الدائن نوعه والرقم التسلسلي للفاتورة الضريبية التي يعدّلها، ولا يصدر إلا لتعديل توريد سابق، مثل مرتجع مقبول أو تغيير في القيمة المتفق عليها أو خطأ في بيانات العميل. وتجهّز أداتنا المجانية للإشعار الدائن واحداً.",
+          body: "إذا بالغت فاتورة QR في المبلغ أو كانت بيانات العميل فيها خاطئة فلا تعدّلها. يجب أن يذكر الإشعار الدائن نوعه والرقم التسلسلي للفاتورة الضريبية التي يعدّلها، ولا يصدر إلا لتعديل توريد سابق، مثل مرتجع مقبول أو تغيير في القيمة المتفق عليها أو خطأ في بيانات العميل. ويمكنك إعداده بأداتنا المجانية للإشعار الدائن. وإذا كان المبلغ أقل من اللازم فاسأل محاسبك عن طريقة التصحيح.",
         },
         {
           heading: "شاركها مع عميلك",
@@ -707,7 +708,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         },
         {
           heading: 'لمن هذه الأداة؟',
-          body: 'للمتاجر وشركات الخدمات والمقاولين وغيرهم من المنشآت الصغيرة والمتوسطة التي تحتاج فاتورة PDF سريعة وصحيحة دون تعقيد برامج المحاسبة. وإذا كنت تبيع للشركات أيضاً فاختر العميل فيتحول قافتر إلى فاتورة ضريبية.',
+          body: 'للمتاجر وشركات الخدمات والمقاولين وغيرهم من المنشآت الصغيرة والمتوسطة التي تحتاج فاتورة PDF سريعة وصحيحة دون تعقيد برامج المحاسبة. وإذا كنت تبيع للشركات أيضاً فاختر عميلاً محفوظاً له رقم ضريبي فيحوّل قافتر الفاتورة إلى فاتورة ضريبية، أو اختر النوع الضريبي في الأداة المجانية.',
         },
       ],
       faq: [
@@ -739,6 +740,7 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
       related: [
         { label: 'أداة الفاتورة المجانية', href: '/tools/fatora' },
         { label: 'فاحص رمز QR', href: '/tools/zatca-qr' },
+        { label: 'أداة الإشعار الدائن', href: '/tools/credit-note' },
         { label: 'التحقق من الرقم الضريبي', href: '/tools/trn-checker' },
         { label: 'هل منشأتك ضمن الموجة ٢٥؟', href: '/tools/zatca-wave-checker' },
         { label: 'دليل الموجة ٢٥', href: '/guides/zatca-wave-25' },
