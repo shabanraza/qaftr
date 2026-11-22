@@ -157,3 +157,9 @@ Existing tests updated because the wording changed:
 8. **Disclaimers**: "not affiliated with ZATCA / FTA / MoF", "not an ASP", "general guidance, not tax advice", and the PDF footer "يُرجى مراجعتها مع محاسبك".
 9. **Pricing micro-copy**: "بدون بطاقة ائتمان / No credit card" (true today, since the free tier needs no card) and "٣ فواتير محفوظة شهرياً". Prices show no VAT-inclusive or VAT-exclusive note. Decide whether SAR 39 / 349 includes VAT and add the note the spec recommends.
 10. **Privacy policy** wording changed slightly ("بيانات المنشأة", "لإصدار الفواتير الضريبية"). Legal should re-read it.
+
+---
+
+## Update 2026-11-22 (PR #28)
+
+`/free-invoice-generator`, `/invoice-generator-saudi-arabia` and `/vat-invoice-generator-saudi-arabia` were merged into `/tools/fatora` (permanent 301, `?lang=en` kept) to end keyword overlap. The freelancer-search role of `/free-invoice-generator` now sits with the freelancer answers in the `/tools/fatora` FAQ. `/invoicing-software-saudi-arabia`, `/e-invoicing-saudi-arabia` and `/small-business-invoicing-saudi-arabia` were expanded (copy in `invoice-app/src/lib/marketing/expanded-landing-pages.ts`).

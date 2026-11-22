@@ -4,7 +4,7 @@
   <!-- Saudi Arabia (ar-SA default, English via ?lang=en) -->
   <url>
     <loc>https://qaftr.com/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -15,7 +15,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/?lang=en</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="ar-AE" href="https://qaftr.com/ae"/>
@@ -65,26 +65,8 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://qaftr.com/invoice-generator-saudi-arabia</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://qaftr.com/invoice-generator-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoice-generator-saudi-arabia?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoice-generator-saudi-arabia"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://qaftr.com/zatca-invoice-generator</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
@@ -93,7 +75,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/zatca-invoice-generator?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/zatca-invoice-generator"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/zatca-invoice-generator?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/zatca-invoice-generator"/>
@@ -101,44 +83,8 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/vat-invoice-generator-saudi-arabia?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/vat-invoice-generator-saudi-arabia"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://qaftr.com/free-invoice-generator</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://qaftr.com/free-invoice-generator?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/free-invoice-generator"/>
-    <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/free-invoice-generator?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/free-invoice-generator"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://qaftr.com/e-invoicing-saudi-arabia</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
@@ -147,7 +93,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-saudi-arabia"/>
@@ -156,7 +102,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/small-business-invoicing-saudi-arabia</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
@@ -165,7 +111,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/small-business-invoicing-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/small-business-invoicing-saudi-arabia"/>
@@ -174,7 +120,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoicing-software-saudi-arabia</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
@@ -183,7 +129,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/invoicing-software-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/invoicing-software-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/invoicing-software-saudi-arabia"/>
@@ -192,7 +138,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
@@ -201,7 +147,7 @@
   </url>
   <url>
     <loc>https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>
     <xhtml:link rel="alternate" hreflang="en-SA" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia?lang=en"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://qaftr.com/e-invoicing-software-comparison-saudi-arabia"/>

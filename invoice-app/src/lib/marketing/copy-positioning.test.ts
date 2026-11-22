@@ -64,7 +64,7 @@ function seoRegistry(lang: MarketingLang): Record<string, Seo> {
 }
 
 /** Pages whose job is to catch freelancer searches and funnel them to the product. */
-const FREELANCER_CHANNEL_PAGES = new Set(['free-invoice-generator', 'zatca-wave-25', 'ae-guide'])
+const FREELANCER_CHANNEL_PAGES = new Set(['zatca-wave-25', 'ae-guide'])
 
 describe('business positioning (not freelancers)', () => {
   for (const lang of LANGS) {
@@ -98,8 +98,6 @@ describe('business positioning (not freelancers)', () => {
   }
 
   it('keeps freelancer keywords on the freelancer channel (traffic)', () => {
-    expect(text(getSeoLandingPage('free-invoice-generator', 'ar'))).toMatch(FREELANCER)
-    expect(text(getSeoLandingPage('free-invoice-generator', 'en'))).toMatch(FREELANCER)
     expect(text(getFatoraFaq('ar'))).toMatch(FREELANCER)
     expect(getAeGuide('en').sections.map((s) => s.id)).toContain('freelancers')
   })
