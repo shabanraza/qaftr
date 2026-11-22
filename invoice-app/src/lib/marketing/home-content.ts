@@ -26,20 +26,14 @@ const SOLUTION_LABELS: Record<MarketingLang, Record<SeoLandingSlug, string>> = {
     'e-invoicing-software-comparison-saudi-arabia': 'E-invoicing software compared',
     'e-invoicing-saudi-arabia': 'E-invoicing in Saudi Arabia',
     'zatca-invoice-generator': 'ZATCA invoice with QR code',
-    'vat-invoice-generator-saudi-arabia': 'VAT invoice generator',
-    'invoice-generator-saudi-arabia': 'Saudi invoice generator',
     'small-business-invoicing-saudi-arabia': 'Invoicing for small businesses',
-    'free-invoice-generator': 'Free invoice generator',
   },
   ar: {
     'invoicing-software-saudi-arabia': 'برنامج فواتير للمنشآت في السعودية',
     'e-invoicing-software-comparison-saudi-arabia': 'مقارنة برامج الفوترة الإلكترونية',
     'e-invoicing-saudi-arabia': 'الفوترة الإلكترونية في السعودية',
     'zatca-invoice-generator': 'فاتورة زاتكا مع رمز QR',
-    'vat-invoice-generator-saudi-arabia': 'فاتورة ضريبة القيمة المضافة',
-    'invoice-generator-saudi-arabia': 'برنامج إصدار الفواتير',
     'small-business-invoicing-saudi-arabia': 'فواتير المنشآت الصغيرة',
-    'free-invoice-generator': 'برنامج فواتير مجاني',
   },
 }
 

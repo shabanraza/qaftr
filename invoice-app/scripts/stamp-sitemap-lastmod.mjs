@@ -18,6 +18,12 @@ function contentFiles(path) {
   if (path === '/') return [...i18n, 'src/lib/marketing/home-content.ts']
   if (['/support', '/privacy', '/terms', '/refund'].includes(path)) return i18n
   if (path.startsWith('/ae')) return ae
+  if (['/invoicing-software-saudi-arabia', '/e-invoicing-saudi-arabia', '/small-business-invoicing-saudi-arabia'].includes(path)) {
+    return ['src/lib/marketing/expanded-landing-pages.ts']
+  }
+  if (['/zatca-invoice-generator', '/e-invoicing-software-comparison-saudi-arabia'].includes(path)) {
+    return ['src/lib/marketing/seo-landing-pages.ts']
+  }
   if (path === '/guides/zatca-wave-25') return ['src/lib/sa/wave-guide-content.ts', 'src/lib/guides/content.ts']
   if (path.startsWith('/guides')) return ['src/lib/guides/content.ts']
   if (path === '/tools/zatca-wave-checker') return ['src/lib/sa/wave-copy.ts']
