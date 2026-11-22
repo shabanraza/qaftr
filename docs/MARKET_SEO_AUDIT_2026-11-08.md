@@ -216,4 +216,4 @@ Build سند قبض, عرض سعر (quotes already exist in the workspace, so ex
 
 ## Status 2026-11-22
 
-Code items done: S1-S4, S7 (sitemap `lastmod` stamped by `npm run sitemap:lastmod`), S8 (funnel events in `docs/ANALYTICS.md`), S9, S10, S5/S6 (3 pages redirected, 3 expanded, PR #28), Paraglide removed. Still open: `/zatca-invoice-generator` is thin; Search Console Domain property, GA4 key events and the GA4-Search Console link, Bing verification (account settings); worker rename.
+Code items done: S1-S4, S7 (sitemap `lastmod` stamped by `npm run sitemap:lastmod`), S8 (funnel events in `docs/ANALYTICS.md`), S9, S10, S5/S6 (3 pages redirected, 3 expanded, PR #28), Paraglide removed. Done 2026-11-22: `/zatca-invoice-generator` expanded; Pro wording matched to the product (unlimited saved invoices, priority support). Still open: Search Console Domain property, GA4 key events and the GA4-Search Console link, Bing verification (account settings); worker rename.

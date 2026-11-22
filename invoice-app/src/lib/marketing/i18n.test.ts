@@ -14,3 +14,14 @@ describe('home badges', () => {
     expect(src).not.toMatch(/>\s*ZATCA Phase 1\s*</)
   })
 })
+
+describe('Pro plan promises', () => {
+  // Pro only lifts the monthly saved-invoice limit today. Templates are not a
+  // paid feature and WhatsApp follow-ups work on the free plan too.
+  it.each(['ar', 'en'] as const)('does not sell templates or payment reminders as Pro features [%s]', async (lang) => {
+    const { getBillingCopy } = await import('#/lib/billing/copy')
+    const text = JSON.stringify([t(lang).home, t(lang).support, getBillingCopy(lang).proBody])
+    expect(text).not.toMatch(/templates|payment reminders|القوالب|تذكيرات الدفع|تذكير العملاء/i)
+    expect(text).toMatch(lang === 'en' ? /Unlimited invoices/ : /فواتير غير محدودة|بلا حد/)
+  })
+})

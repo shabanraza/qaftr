@@ -10,7 +10,7 @@ import type { SeoLandingPage, SeoLandingSlug } from './seo-landing-pages'
  * Tax statements only use items from docs/REGULATORY_CLAIMS_2026-11-13.md.
  * Phase 2 is a private beta: never say it is available, ready or approved.
  */
-type Slug = 'invoicing-software-saudi-arabia' | 'e-invoicing-saudi-arabia' | 'small-business-invoicing-saudi-arabia'
+type Slug = 'zatca-invoice-generator' | 'invoicing-software-saudi-arabia' | 'e-invoicing-saudi-arabia' | 'small-business-invoicing-saudi-arabia'
 
 export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<MarketingLang, SeoLandingPage>> = {
   'invoicing-software-saudi-arabia': {
@@ -559,6 +559,189 @@ export const expandedLandingPages: Record<Extract<SeoLandingSlug, Slug>, Record<
         { label: 'فاتورة غير ضريبية (غير مسجل في الضريبة)', href: '/tools/non-tax-invoice' },
         { label: 'برنامج فواتير للمنشآت', href: '/invoicing-software-saudi-arabia' },
         { label: 'الأدوات', href: '/tools' },
+      ],
+    },
+  },
+  'zatca-invoice-generator': {
+    en: {
+      slug: 'zatca-invoice-generator',
+      title: 'ZATCA Phase 1 Invoice Generator with QR Code | Qaftr',
+      description:
+        'Generate ZATCA Phase 1 simplified tax invoices with a QR code, 15% VAT and PDF export for Saudi SMEs and shops. Free, no signup.',
+      eyebrow: 'ZATCA Phase 1 invoices',
+      heading: 'ZATCA Phase 1 tax invoices with a QR code',
+      intro:
+        'Qaftr issues simplified tax invoices with the fields Saudi businesses need under Phase 1 (Generation), including the QR code and VAT totals. This page explains what the QR code contains, who needs it, and how to check the one you issue.',
+      cta: 'Create your first invoice free',
+      sections: [
+        {
+          heading: 'What is a ZATCA QR invoice?',
+          body: 'Under Phase 1, a simplified tax invoice carries a QR code that encodes the seller name, VAT number, invoice timestamp, invoice total and VAT amount. The values are packed into a short coded string, so a scanner can read the key facts of the invoice without typing them.',
+        },
+        {
+          heading: 'The five fields inside the code',
+          body: 'The Phase 1 QR code holds five values: the seller’s name, the seller’s VAT number, the date and time the invoice was issued, the invoice total including VAT, and the VAT amount. They must match what is printed on the invoice, so Qaftr builds the code from the same figures it shows.',
+        },
+        {
+          heading: 'Who needs the QR code',
+          body: 'The Phase 1 QR code is required on simplified tax invoices, the type used for consumers and counter sales. It is not required on standard tax invoices issued to businesses. A business that is not registered for VAT does not issue tax invoices at all, so it has no QR code to produce.',
+        },
+        {
+          heading: 'Issue one in four steps',
+          body: 'Choose the simplified invoice type, enter your business name, VAT number and address, add each item with its quantity and unit price, then download the PDF. Qaftr adds 15% VAT, totals the invoice and prints the QR code on the page.',
+        },
+        {
+          heading: 'Check the QR code you issued',
+          body: 'Paste the QR text or upload an image into our free QR checker and it reads the fields and checks their format in your browser. It is a format check, not an official verification. Official verification is done with ZATCA’s own VAT app.',
+        },
+        {
+          heading: 'Phase 1 QR code versus Phase 2',
+          body: 'In Phase 2, simplified invoices carry a longer QR code with nine fields, made by the business’s invoicing solution. For standard tax invoices, ZATCA generates the QR string itself when it clears the invoice. Phase 2 support in Qaftr is in private beta, so today Qaftr issues Phase 1 invoices.',
+        },
+        {
+          heading: 'Mistakes that break a QR invoice',
+          body: 'The most common problems are a VAT number that is not 15 digits starting and ending with 3, totals that do not add up with VAT, and an issue time that does not match the invoice. Fill in the fields once, check the totals, and use the checker before you send.',
+        },
+        {
+          heading: "Corrections after you issue",
+          body: "If a QR invoice has a mistake, do not edit it. A credit note must state its type and the serial number of the tax invoice it amends, and it is only for an adjustment to a prior supply, such as an accepted return, a change in the agreed value, or an error in the customer’s information. Our free credit note tool prepares one.",
+        },
+        {
+          heading: "Share it with the customer",
+          body: "Download the PDF and send it on WhatsApp or by email straight away. The QR code is part of the PDF, so your customer can scan it from the screen or from a printout. Keep your own copy for your records.",
+        },
+        {
+          heading: "Arabic, English and Saudi riyals",
+          body: "Tax invoices must be issued in Arabic, and another language may appear alongside it. Qaftr prints the invoice title in Arabic and English, and the VAT amount is shown in Saudi riyals.",
+        },
+        {
+          heading: 'Who this is for',
+          body: 'Shops, service companies, contractors and other Saudi SMEs that need a fast, correct PDF invoice without heavy accounting software. If you also sell to companies, pick the customer and Qaftr switches to a standard tax invoice.',
+        },
+      ],
+      faq: [
+        {
+          question: 'Is Qaftr an official ZATCA app?',
+          answer:
+            'No. Qaftr is an independent invoicing tool that issues Phase 1 invoice data and QR codes. It is not affiliated with ZATCA.',
+        },
+        {
+          question: 'Does Qaftr cover ZATCA Phase 2 (Integration)?',
+          answer:
+            "Phase 2 support is in private beta. Qaftr already signs invoices, sends them to ZATCA for clearance or reporting and prints the Phase 2 QR code; we are testing it with a small group of businesses on ZATCA's simulation environment before opening it to everyone. As announced by ZATCA, Wave 25 covers VAT-registered taxpayers whose VAT-subject revenue exceeded SAR 187,500 in the reference years ZATCA specifies (our checker asks about 2022 to 2025), with integration due by 1 February 2027; your ZATCA notification is what counts. If you are in Wave 25, email support@qaftr.com to join the early-access list; until it opens, Qaftr issues Phase 1 invoices. Confirm your plan with your accountant.",
+        },
+        {
+          question: 'Can I export the invoice as PDF?',
+          answer:
+            'Yes. Qaftr supports PDF export so you can share or archive the invoice.',
+        },
+        {
+          question: 'Does a standard (B2B) tax invoice need a QR code?',
+          answer:
+            'Not under Phase 1: the QR code is required on simplified tax invoices. In Phase 2, ZATCA generates the QR string for standard tax invoices when it clears them.',
+        },
+        {
+          question: 'How do I check that my QR code is correct?',
+          answer:
+            'Use our free QR checker to read the fields and check their format in your browser. For official verification, use ZATCA’s VAT app.',
+        },
+      ],
+      related: [
+        { label: 'Free invoice tool', href: '/tools/fatora' },
+        { label: 'ZATCA QR checker', href: '/tools/zatca-qr' },
+        { label: 'VAT number checker', href: '/tools/trn-checker' },
+        { label: 'Is your business in Wave 25?', href: '/tools/zatca-wave-checker' },
+        { label: 'ZATCA Wave 25 guide', href: '/guides/zatca-wave-25' },
+      ],
+    },
+    ar: {
+      slug: 'zatca-invoice-generator',
+      title: 'فاتورة زاتكا للمرحلة الأولى مع رمز QR | قافتر',
+      description:
+        'أصدر فاتورة ضريبية مبسطة وفق المرحلة الأولى من زاتكا مع رمز QR وضريبة ١٥٪ وتصدير PDF، للمنشآت الصغيرة والمتوسطة والمتاجر. مجاناً ودون تسجيل.',
+      eyebrow: 'فواتير المرحلة الأولى من زاتكا',
+      heading: 'فاتورة ضريبية وفق المرحلة الأولى من زاتكا مع رمز QR',
+      intro:
+        'يُصدر قافتر فاتورة ضريبية مبسطة بالحقول التي تحتاجها المنشآت في السعودية ضمن المرحلة الأولى (مرحلة الإصدار والحفظ)، مع رمز QR وإجماليات الضريبة. وتشرح هذه الصفحة ما يتضمنه رمز QR ومن يحتاجه وكيف تفحص الرمز الذي أصدرته.',
+      cta: 'أصدر فاتورتك الأولى مجاناً',
+      sections: [
+        {
+          heading: 'ما رمز QR في فاتورة زاتكا؟',
+          body: 'في المرحلة الأولى تحمل الفاتورة الضريبية المبسطة رمز QR يتضمن اسم البائع، ورقمه الضريبي، ووقت إصدار الفاتورة، وإجمالي الفاتورة، ومبلغ الضريبة. تُرمَّز القيم في سلسلة قصيرة، فيقرأ الماسح أهم بيانات الفاتورة دون كتابتها.',
+        },
+        {
+          heading: 'الحقول الخمسة داخل الرمز',
+          body: 'يحمل رمز QR في المرحلة الأولى خمس قيم: اسم البائع، ورقمه الضريبي، وتاريخ إصدار الفاتورة ووقتها، وإجمالي الفاتورة شاملاً الضريبة، ومبلغ الضريبة. ويجب أن تطابق المطبوع في الفاتورة، لذلك يبني قافتر الرمز من الأرقام نفسها التي يعرضها.',
+        },
+        {
+          heading: 'من يحتاج رمز QR؟',
+          body: 'رمز QR في المرحلة الأولى مطلوب في الفواتير الضريبية المبسطة، وهي المستخدمة للأفراد ومبيعات المحل. ولا يُطلب في الفواتير الضريبية الصادرة للمنشآت. والمنشأة غير المسجلة في ضريبة القيمة المضافة لا تصدر فواتير ضريبية أصلاً، فلا يلزمها رمز.',
+        },
+        {
+          heading: 'أصدر فاتورة في أربع خطوات',
+          body: 'اختر نوع الفاتورة المبسطة، وأدخل اسم منشأتك ورقمها الضريبي وعنوانها، وأضف كل بند بكميته وسعر وحدته، ثم نزّل ملف PDF. يضيف قافتر ضريبة ١٥٪ ويحسب الإجمالي ويطبع رمز QR في الصفحة.',
+        },
+        {
+          heading: 'افحص رمز QR الذي أصدرته',
+          body: 'الصق نص الرمز أو ارفع صورته في أداتنا المجانية لفحص الرمز، فتقرأ الحقول وتتحقق من صيغتها داخل متصفحك. وهو فحص للصيغة وليس تحققاً رسمياً؛ فالتحقق الرسمي يتم عبر تطبيق ضريبة القيمة المضافة من زاتكا.',
+        },
+        {
+          heading: 'رمز المرحلة الأولى والمرحلة الثانية',
+          body: 'في المرحلة الثانية تحمل الفواتير المبسطة رمز QR أطول بتسعة حقول يصنعه نظام الفوترة لدى المنشأة. أما الفواتير الضريبية فتولّد زاتكا سلسلة الرمز بنفسها عند اعتمادها. ودعم المرحلة الثانية في قافتر في مرحلة تجريبية خاصة، فيُصدر قافتر اليوم فواتير المرحلة الأولى.',
+        },
+        {
+          heading: 'أخطاء تفسد فاتورة QR',
+          body: 'أكثر المشكلات شيوعاً رقم ضريبي ليس من ١٥ رقماً يبدأ وينتهي بالرقم ٣، وإجماليات لا تتطابق مع الضريبة، ووقت إصدار لا يطابق الفاتورة. أدخل الحقول مرة واحدة، وراجع الإجماليات، واستخدم أداة الفحص قبل الإرسال.',
+        },
+        {
+          heading: "تصحيح الفاتورة بعد إصدارها",
+          body: "إذا كان في فاتورة QR خطأ فلا تعدّلها. يجب أن يذكر الإشعار الدائن نوعه والرقم التسلسلي للفاتورة الضريبية التي يعدّلها، ولا يصدر إلا لتعديل توريد سابق، مثل مرتجع مقبول أو تغيير في القيمة المتفق عليها أو خطأ في بيانات العميل. وتجهّز أداتنا المجانية للإشعار الدائن واحداً.",
+        },
+        {
+          heading: "شاركها مع عميلك",
+          body: "نزّل ملف PDF وأرسله عبر واتساب أو البريد الإلكتروني فوراً. رمز QR جزء من الملف، فيستطيع عميلك مسحه من الشاشة أو من النسخة المطبوعة. واحتفظ بنسختك في سجلاتك.",
+        },
+        {
+          heading: "العربية والإنجليزية والريال السعودي",
+          body: "يجب أن تصدر الفواتير الضريبية باللغة العربية، ويجوز أن تظهر معها لغة أخرى. ويطبع قافتر عنوان الفاتورة بالعربية والإنجليزية، ويظهر مبلغ الضريبة بالريال السعودي، وهو ما تشترطه القواعد حتى لو استُخدمت عملة أخرى في الفاتورة.",
+        },
+        {
+          heading: 'لمن هذه الأداة؟',
+          body: 'للمتاجر وشركات الخدمات والمقاولين وغيرهم من المنشآت الصغيرة والمتوسطة التي تحتاج فاتورة PDF سريعة وصحيحة دون تعقيد برامج المحاسبة. وإذا كنت تبيع للشركات أيضاً فاختر العميل فيتحول قافتر إلى فاتورة ضريبية.',
+        },
+      ],
+      faq: [
+        {
+          question: 'هل قافتر تطبيق رسمي من زاتكا؟',
+          answer:
+            'لا. قافتر أداة فوترة مستقلة تُصدر بيانات الفاتورة ورمز QR وفق المرحلة الأولى، وهي غير تابعة لهيئة الزكاة والضريبة والجمارك.',
+        },
+        {
+          question: 'هل يغطي قافتر المرحلة الثانية (مرحلة الربط والتكامل)؟',
+          answer:
+            'دعم المرحلة الثانية في مرحلة تجريبية خاصة. يوقّع قافتر الفواتير ويرسلها إلى زاتكا للاعتماد أو الإبلاغ ويطبع رمز QR للمرحلة الثانية، ونختبره حالياً مع عدد محدود من المنشآت على بيئة المحاكاة لدى زاتكا قبل إتاحته للجميع. والموجة ٢٥ تشمل بحسب إعلان زاتكا المسجلين الذين تجاوزت إيراداتهم الخاضعة للضريبة ١٨٧٬٥٠٠ ريال في السنوات المرجعية التي تحددها زاتكا (تسأل أداتنا عن ٢٠٢٢ إلى ٢٠٢٥)، وموعد ربطها ١ فبراير ٢٠٢٧، والمعتمد هو إشعارك من زاتكا. إذا كانت منشأتك ضمن الموجة ٢٥ فراسلنا على support@qaftr.com للانضمام إلى قائمة الوصول المبكر، وحتى الإتاحة يُصدر قافتر فواتير وفق المرحلة الأولى. وراجع خطتك مع محاسبك.',
+        },
+        {
+          question: 'هل يمكن تصدير الفاتورة بصيغة PDF؟',
+          answer: 'نعم. يمكنك تنزيل الفاتورة بصيغة PDF لإرسالها إلى عميلك أو أرشفتها.',
+        },
+        {
+          question: 'هل تحتاج الفاتورة الضريبية للمنشآت رمز QR؟',
+          answer:
+            'ليس في المرحلة الأولى؛ فالرمز مطلوب في الفواتير الضريبية المبسطة. وفي المرحلة الثانية تولّد زاتكا سلسلة الرمز للفواتير الضريبية عند اعتمادها.',
+        },
+        {
+          question: 'كيف أتأكد أن رمز QR صحيح؟',
+          answer:
+            'استخدم أداتنا المجانية لفحص الرمز لقراءة الحقول والتحقق من صيغتها داخل متصفحك. وللتحقق الرسمي استخدم تطبيق ضريبة القيمة المضافة من زاتكا.',
+        },
+      ],
+      related: [
+        { label: 'أداة الفاتورة المجانية', href: '/tools/fatora' },
+        { label: 'فاحص رمز QR', href: '/tools/zatca-qr' },
+        { label: 'التحقق من الرقم الضريبي', href: '/tools/trn-checker' },
+        { label: 'هل منشأتك ضمن الموجة ٢٥؟', href: '/tools/zatca-wave-checker' },
+        { label: 'دليل الموجة ٢٥', href: '/guides/zatca-wave-25' },
       ],
     },
   },

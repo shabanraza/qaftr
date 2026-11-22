@@ -16,7 +16,7 @@ export function getBillingCopy(lang: MarketingLang) {
       usage: (used: number, limit: number) =>
         used === 0 ? `لم تحفظ أي فاتورة هذا الشهر (الحد ${n(limit)} فواتير)` : `${n(used)} من ${n(limit)} فواتير هذا الشهر`,
       freeBody: 'تحفظ ٣ فواتير شهرياً مجاناً. برو يفتح الفواتير بلا حد.',
-      proBody: 'فواتير بلا حد، وكل القوالب، وتذكيرات الدفع، ودعم ذو أولوية.',
+      proBody: 'فواتير بلا حد، ودعم ذو أولوية.',
       upgradeTitle: 'رقِّ إلى برو',
       monthly: `${n(PRO_PRICE_SAR.monthly)} ر.س / شهرياً`,
       yearly: `${n(PRO_PRICE_SAR.yearly)} ر.س / سنوياً`,
@@ -49,7 +49,7 @@ export function getBillingCopy(lang: MarketingLang) {
     proName: 'Pro',
     usage: (used: number, limit: number) => `${used} of ${limit} invoices this month`,
     freeBody: 'Save 3 invoices a month for free. Pro unlocks unlimited invoices.',
-    proBody: 'Unlimited invoices, all templates, payment reminders and priority support.',
+    proBody: 'Unlimited invoices and priority support.',
     upgradeTitle: 'Upgrade to Pro',
     monthly: `${PRO_PRICE_SAR.monthly} SAR / month`,
     yearly: `${PRO_PRICE_SAR.yearly} SAR / year`,

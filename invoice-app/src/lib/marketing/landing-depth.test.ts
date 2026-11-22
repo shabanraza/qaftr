@@ -5,6 +5,7 @@ import type { SeoLandingSlug } from './seo-landing-pages'
 import type { MarketingLang } from './lang'
 
 const LONG_FORM: SeoLandingSlug[] = [
+  'zatca-invoice-generator',
   'invoicing-software-saudi-arabia',
   'e-invoicing-saudi-arabia',
   'small-business-invoicing-saudi-arabia',
