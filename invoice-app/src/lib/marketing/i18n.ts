@@ -137,7 +137,7 @@ const ar: Copy = {
       // A lone Arabic-Indic zero (٠) reads as a dot, so spell the free price out.
       price: 'مجاناً',
       period: 'دون اشتراك شهري',
-      features: ['٣ فواتير محفوظة شهرياً', 'رمز QR للفاتورة', 'PDF وواتساب', 'قالب أساسي'],
+      features: ['٣ فواتير محفوظة شهرياً', 'رمز QR للفاتورة', 'PDF وواتساب'],
     },
     pro: {
       name: 'برو',
@@ -148,8 +148,6 @@ const ar: Copy = {
       badge: 'الأكثر طلباً',
       features: [
         'فواتير غير محدودة',
-        'جميع القوالب',
-        'تذكير العملاء بالفواتير المستحقة',
         'دعم فني بأولوية',
       ],
     },
@@ -208,7 +206,7 @@ const ar: Copy = {
       },
       {
         heading: 'الخطة المجانية وخطة برو',
-        body: 'تتيح الخطة المجانية حفظ ٣ فواتير شهرياً دون مقابل. وتفتح خطة برو الفواتير بلا حد والقوالب وتذكيرات الدفع والدعم ذا الأولوية، باشتراك شهري بسعر ٣٩ ر.س أو سنوي بسعر ٣٤٩ ر.س. السعر الذي يظهر لك عند الدفع هو السعر المطبّق على اشتراكك.',
+        body: 'تتيح الخطة المجانية حفظ ٣ فواتير شهرياً دون مقابل. وتفتح خطة برو الفواتير بلا حد والدعم ذا الأولوية، باشتراك شهري بسعر ٣٩ ر.س أو سنوي بسعر ٣٤٩ ر.س. السعر الذي يظهر لك عند الدفع هو السعر المطبّق على اشتراكك.',
       },
       {
         heading: 'المدفوعات والاشتراكات',
@@ -380,7 +378,7 @@ const en: Copy = {
       name: 'Free',
       price: '0',
       period: 'SAR / month',
-      features: ['3 saved invoices / month', 'Tax invoice QR code', 'PDF & WhatsApp', 'Basic template'],
+      features: ['3 saved invoices / month', 'Tax invoice QR code', 'PDF & WhatsApp'],
     },
     pro: {
       name: 'Pro',
@@ -391,8 +389,6 @@ const en: Copy = {
       badge: 'Most popular',
       features: [
         'Unlimited invoices',
-        'All templates',
-        'Payment reminders for customers',
         'Priority support',
       ],
     },
@@ -451,7 +447,7 @@ const en: Copy = {
       },
       {
         heading: 'Free and Pro plans',
-        body: 'The free plan lets you save 3 invoices a month at no cost. Pro unlocks unlimited invoices, templates, payment reminders and priority support, as a monthly subscription at SAR 39 or a yearly subscription at SAR 349. The price shown at checkout is the price that applies to your subscription.',
+        body: 'The free plan lets you save 3 invoices a month at no cost. Pro unlocks unlimited invoices and priority support, as a monthly subscription at SAR 39 or a yearly subscription at SAR 349. The price shown at checkout is the price that applies to your subscription.',
       },
       {
         heading: 'Payments and subscriptions',
