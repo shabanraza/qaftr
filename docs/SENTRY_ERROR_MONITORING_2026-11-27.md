@@ -37,8 +37,7 @@ error messages.
 ## Settings to add
 
 1. Project: `hisaab-kro` / `qaftr-web` (created). Its DSN is under Settings > Client Keys (DSN).
-2. In that project: Settings > Security & Privacy: turn on **Data Scrubber** and
-   **Prevent Storing of IP Addresses**.
+2. Done 2026-11-27: **Data Scrubber** and **Prevent Storing of IP Addresses** are on.
 3. `invoice-app/.env.local` (gitignored), then build and deploy:
 
    ```
@@ -62,43 +61,19 @@ error messages.
 The release is `qaftr-web@<git commit>` (override with `SENTRY_RELEASE` at build time). Nothing is
 sent in `vite dev` or tests, or from localhost unless an environment is named.
 
-## Privacy wording to change before adding the DSN (needs your / legal sign-off)
+## Privacy wording
 
-Not changed in code. Files: `invoice-app/src/lib/marketing/i18n.ts` (privacy, `ar` and `en`, and the
-"updated" date) and `invoice-app/src/lib/analytics/consent-copy.ts`.
+Added 2026-11-27: an "Error monitoring" / «مراقبة الأعطال» section in the privacy policy
+(`invoice-app/src/lib/marketing/i18n.ts`) and error reports in the cookie banner
+(`invoice-app/src/lib/analytics/consent-copy.ts`).
 
-**1. New privacy section, "Error monitoring" / «مراقبة الأعطال»**
+Still open (owner):
 
-> **EN:** We use Sentry (Functional Software, Inc.) to find and fix errors in Qaftr. When something
-> fails, Sentry receives technical details: the error and where in our code it happened, the page or
-> service address without query parameters or record identifiers, the app version, and the browser
-> type. Our software removes request contents, cookies, sign-in data, email addresses and tax numbers
-> before sending, and does not record your screen. Errors in your browser are sent only if you accept
-> cookies; errors on our servers are always recorded. Your browser connects to Sentry directly, so
-> Sentry receives your IP address when a report is sent; we configure it not to store it. The data is
-> stored in the European Union and kept for up to 90 days.
-
-> **AR:** نستخدم خدمة Sentry (شركة Functional Software, Inc.) لاكتشاف أعطال قافتر وإصلاحها. عند حدوث
-> عطل تستلم Sentry تفاصيل تقنية: نص الخطأ وموضعه في برمجياتنا، وعنوان الصفحة أو الخدمة دون معاملات
-> الرابط أو معرّفات السجلات، وإصدار التطبيق، ونوع المتصفح. يحذف نظامنا قبل الإرسال محتوى الطلبات
-> وملفات تعريف الارتباط وبيانات الدخول وعناوين البريد الإلكتروني والأرقام الضريبية، ولا نسجّل شاشتك.
-> لا تُرسل أعطال المتصفح إلا إذا قبلت ملفات تعريف الارتباط، أما أعطال خوادمنا فتُسجَّل دائماً. يتصل
-> متصفحك بخدمة Sentry مباشرة، فيصلها عنوان IP عند إرسال التقرير، وقد ضبطناها على عدم تخزينه. تُخزَّن
-> البيانات في الاتحاد الأوروبي وتُحفظ مدة لا تتجاوز ٩٠ يوماً.
-
-Check before publishing: the retention period of your Sentry plan, and that Sentry's DPA is accepted
-(Sentry > Settings > Legal & Compliance). Storage in the EU is a transfer outside Saudi Arabia, so
-have the PDPL transfer wording reviewed.
-
-**2. Cookie banner body** (it names only Google Analytics today)
-
-> **EN:** We use analytics cookies (Google Analytics) to understand how Qaftr is used, and send error
-> reports (Sentry) to fix problems. We don’t use them for ads.
-
-> **AR:** نستخدم ملفات تعريف الارتباط التحليلية (Google Analytics) لفهم كيفية استخدام قافتر وتحسينه،
-> ونرسل تقارير الأعطال (Sentry) لإصلاحها. لا نستخدمها للإعلانات.
-
-People who accepted the old banner have not agreed to error reports. If that matters, change
-`CONSENT_STORAGE_KEY` so the banner asks again.
-
-Also noticed: the privacy policy does not name Google Analytics at all.
+- Accept Sentry's Data Processing Amendment (Sentry > Settings > Legal & Compliance). Not accepted
+  as of 2026-11-27.
+- Legal review of the wording, including the PDPL transfer outside Saudi Arabia (data is stored in
+  the EU). The organisation is on the Developer plan (30-day error retention) with a Business trial
+  until 2026-12-09 (90 days), so "no longer than 90 days" holds for both.
+- People who accepted the old banner have not agreed to error reports. If that matters, change
+  `CONSENT_STORAGE_KEY` so the banner asks again (this also asks again for analytics).
+- The privacy policy does not name Google Analytics.
