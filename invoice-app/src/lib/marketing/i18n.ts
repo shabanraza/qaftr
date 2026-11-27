@@ -179,6 +179,10 @@ const ar: Copy = {
         body: 'تُعالَج مدفوعات اشتراك برو عبر Polar، وهو البائع المسجّل لمبيعاتنا. تجمع Polar بيانات البطاقة والفوترة مباشرة، ولا نرى أرقام البطاقات الكاملة ولا نخزّنها. نستلم حالة اشتراكك ومعرّف العميل لدى Polar لنفعّل برو أو نوقفه.',
       },
       {
+        heading: 'مراقبة الأعطال',
+        body: 'نستخدم خدمة Sentry (شركة Functional Software, Inc.) لاكتشاف أعطال قافتر وإصلاحها. عند حدوث عطل تستلم Sentry تفاصيل تقنية: نص الخطأ وموضعه في برمجياتنا، وعنوان الصفحة أو الخدمة دون معاملات الرابط أو معرّفات السجلات، وإصدار التطبيق، ونوع المتصفح. يحذف نظامنا قبل الإرسال محتوى الطلبات وملفات تعريف الارتباط وبيانات الدخول وعناوين البريد الإلكتروني والأرقام الضريبية، ولا نسجّل شاشتك. لا تُرسل أعطال المتصفح إلا إذا قبلت ملفات تعريف الارتباط، أما أعطال خوادمنا فتُسجَّل دائماً. يتصل متصفحك بخدمة Sentry مباشرة، فيصلها عنوان IP عند إرسال التقرير، وقد ضبطناها على عدم تخزينه. تُخزَّن البيانات في الاتحاد الأوروبي وتُحفظ مدة لا تتجاوز ٩٠ يوماً.',
+      },
+      {
         heading: 'حقوقك',
         body: 'يمكنك طلب تصدير أو حذف بياناتك عبر support@qaftr.com. للمستخدمين في المملكة العربية السعودية، نلتزم بالأنظمة المعمول بها.',
       },
@@ -418,6 +422,10 @@ const en: Copy = {
       {
         heading: 'Payments',
         body: 'Pro subscription payments are processed by Polar, our merchant of record. Polar collects your card and billing details directly; we never see or store full card numbers. We receive your subscription status and your Polar customer reference so we can switch Pro on or off.',
+      },
+      {
+        heading: 'Error monitoring',
+        body: 'We use Sentry (Functional Software, Inc.) to find and fix errors in Qaftr. When something fails, Sentry receives technical details: the error and where in our code it happened, the page or service address without query parameters or record identifiers, the app version, and the browser type. Our software removes request contents, cookies, sign-in data, email addresses and tax numbers before sending, and does not record your screen. Errors in your browser are sent only if you accept cookies; errors on our servers are always recorded. Your browser connects to Sentry directly, so Sentry receives your IP address when a report is sent; we configure it not to store it. The data is stored in the European Union and kept for no longer than 90 days.',
       },
       {
         heading: 'Your rights',

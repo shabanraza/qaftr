@@ -6,8 +6,15 @@ import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query
 import TanstackQueryProvider, {
   getContext,
 } from './integrations/tanstack-query/root-provider'
+import {
+  captureBrowserError,
+  startBrowserErrorReporting,
+} from '#/lib/observability/browser'
 
 export function getRouter() {
+  // Off unless a Sentry DSN was built in (lib/observability/browser.ts).
+  if (typeof window !== 'undefined') void startBrowserErrorReporting()
+
   const context = getContext()
 
   const router = createTanStackRouter({
@@ -16,6 +23,8 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    // Errors shown by an error component never reach window.onerror.
+    defaultOnCatch: (error) => captureBrowserError(error),
 
     Wrap: (props: { children: ReactNode }) => {
       return (

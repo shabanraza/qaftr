@@ -4,7 +4,7 @@ import type { MarketingLang } from '#/lib/marketing/lang'
 const COPY = {
   ar: {
     label: 'ملفات تعريف الارتباط',
-    body: 'نستخدم ملفات تعريف الارتباط التحليلية (Google Analytics) لفهم كيفية استخدام قافتر وتحسينه. لا نستخدمها للإعلانات.',
+    body: 'نستخدم ملفات تعريف الارتباط التحليلية (Google Analytics) لفهم كيفية استخدام قافتر وتحسينه، ونرسل تقارير الأعطال (Sentry) لإصلاحها. لا نستخدمها للإعلانات.',
     privacy: 'سياسة الخصوصية',
     accept: 'قبول',
     reject: 'رفض',
@@ -12,7 +12,7 @@ const COPY = {
   },
   en: {
     label: 'Cookies',
-    body: 'We use analytics cookies (Google Analytics) to understand how Qaftr is used and improve it. We don’t use them for ads.',
+    body: 'We use analytics cookies (Google Analytics) to understand how Qaftr is used and improve it, and send error reports (Sentry) to fix problems. We don’t use them for ads.',
     privacy: 'Privacy policy',
     accept: 'Accept',
     reject: 'Reject',
