@@ -1,7 +1,7 @@
 # Error monitoring (Sentry), web app
 
-Status 2026-11-27: code ready, **off** until a DSN is set. No Qaftr Sentry project exists yet
-(the `hisaab-kro` organisation, EU region, only has `hisaabkro-web`).
+Status 2026-11-27: code ready, **off** until a DSN is set. The Sentry project `qaftr-web` exists in the
+`hisaab-kro` organisation (EU region); no alert rule was added by us.
 
 ## What is captured
 
@@ -36,7 +36,7 @@ error messages.
 
 ## Settings to add
 
-1. Create a Sentry project (platform: Cloudflare or JavaScript) in `hisaab-kro`, for example `qaftr-web`.
+1. Project: `hisaab-kro` / `qaftr-web` (created). Its DSN is under Settings > Client Keys (DSN).
 2. In that project: Settings > Security & Privacy: turn on **Data Scrubber** and
    **Prevent Storing of IP Addresses**.
 3. `invoice-app/.env.local` (gitignored), then build and deploy:
