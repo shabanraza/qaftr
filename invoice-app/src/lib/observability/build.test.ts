@@ -20,10 +20,17 @@ describe('resolveRelease', () => {
 describe('resolveSourceMapUpload', () => {
   const full = { SENTRY_AUTH_TOKEN: 't', SENTRY_ORG: 'o', SENTRY_PROJECT: 'p' }
 
-  it('is off unless token, org and project are all set', () => {
+  it('is off without a token', () => {
     expect(resolveSourceMapUpload({}, null)).toBeNull()
     expect(resolveSourceMapUpload({ ...full, SENTRY_AUTH_TOKEN: '' }, null)).toBeNull()
-    expect(resolveSourceMapUpload({ ...full, SENTRY_PROJECT: undefined }, null)).toBeNull()
+  })
+
+  it('needs only the token for the Qaftr project', () => {
+    expect(resolveSourceMapUpload({ SENTRY_AUTH_TOKEN: 't' }, null)).toEqual({
+      authToken: 't',
+      org: 'hisaab-kro',
+      project: 'qaftr-web',
+    })
   })
 
   it('reads the environment', () => {

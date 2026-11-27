@@ -22,7 +22,10 @@ export function resolveRelease(env: Env, gitCommit: () => string): string {
 export function resolveSourceMapUpload(env: Env, file: string | null) {
   const vars: Env = { ...(file ? parseEnv(file) : {}), ...env }
   const authToken = vars.SENTRY_AUTH_TOKEN
-  const org = vars.SENTRY_ORG
-  const project = vars.SENTRY_PROJECT
-  return authToken && org && project ? { authToken, org, project } : null
+  if (!authToken) return null
+  return {
+    authToken,
+    org: vars.SENTRY_ORG || 'hisaab-kro',
+    project: vars.SENTRY_PROJECT || 'qaftr-web',
+  }
 }

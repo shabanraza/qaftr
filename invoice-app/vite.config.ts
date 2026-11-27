@@ -20,8 +20,8 @@ import {
 const release = resolveRelease(process.env, () =>
   execFileSync('git', ['rev-parse', '--short=12', 'HEAD'], { encoding: 'utf8' }),
 )
-// Source maps are built and uploaded only when SENTRY_AUTH_TOKEN, SENTRY_ORG
-// and SENTRY_PROJECT are set (environment or .env.sentry-build-plugin).
+// Source maps are built and uploaded only when SENTRY_AUTH_TOKEN is set
+// (environment, e.g. a Cloudflare build secret, or .env.sentry-build-plugin).
 const sentryEnvFile = new URL('./.env.sentry-build-plugin', import.meta.url)
 const upload = resolveSourceMapUpload(
   process.env,

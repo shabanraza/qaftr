@@ -38,25 +38,20 @@ error messages.
 
 1. Project: `hisaab-kro` / `qaftr-web` (created). Its DSN is under Settings > Client Keys (DSN).
 2. Done 2026-11-27: **Data Scrubber** and **Prevent Storing of IP Addresses** are on.
-3. `invoice-app/.env.local` (gitignored), then build and deploy:
+3. Production is built by **Cloudflare Workers Builds** from GitHub (`main` deploys; other branches
+   upload a preview version), so settings go in Worker `tanstack-start-app` > Settings > Builds >
+   Variables and secrets. Present on 2026-11-27:
 
-   ```
-   VITE_SENTRY_DSN=<the project DSN>
-   ```
+   - `VITE_SENTRY_DSN` (variable): the one value covers browser and Worker.
+   - `SENTRY_AUTH_TOKEN` (secret, organisation token): turns on source map upload. Maps are deleted
+     from `dist` after upload, and a failed upload fails the build.
 
-   The one value covers browser and Worker. Optional: `VITE_SENTRY_ENVIRONMENT` (default
-   `production`). Worker variables `SENTRY_DSN` / `SENTRY_ENVIRONMENT` override the Worker side only.
-4. Source maps (optional), in `invoice-app/.env.sentry-build-plugin` (gitignored, loaded by neither
-   Vite nor Wrangler):
+   Optional: `SENTRY_ORG` / `SENTRY_PROJECT` (default `hisaab-kro` / `qaftr-web`) and
+   `VITE_SENTRY_ENVIRONMENT` (default `production`, so preview versions report as production too
+   unless it is set). Worker variables `SENTRY_DSN` / `SENTRY_ENVIRONMENT` override the Worker side.
 
-   ```
-   SENTRY_AUTH_TOKEN=<organisation auth token>
-   SENTRY_ORG=hisaab-kro
-   SENTRY_PROJECT=qaftr-web
-   ```
-
-   With all three set, the build uploads source maps and deletes them from `dist`. A failed upload
-   fails the build: do not deploy that output.
+   For a local build, use the gitignored `invoice-app/.env.local` and
+   `invoice-app/.env.sentry-build-plugin` instead.
 
 The release is `qaftr-web@<git commit>` (override with `SENTRY_RELEASE` at build time). Nothing is
 sent in `vite dev` or tests, or from localhost unless an environment is named.
