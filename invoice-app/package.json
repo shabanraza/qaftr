@@ -32,6 +32,8 @@
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.26.0",
     "@neondatabase/serverless": "^1.0.2",
+    "@sentry/browser": "11.18.0",
+    "@sentry/cloudflare": "11.18.0",
     "@t3-oss/env-core": "^0.13.10",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/match-sorter-utils": "8.19.4",
@@ -72,6 +74,7 @@
     "@fontsource-variable/noto-kufi-arabic": "5.3.0",
     "@fontsource/ibm-plex-sans-arabic": "5.3.0",
     "@playwright/test": "1.60.0",
+    "@sentry/vite-plugin": "11.18.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/devtools-vite": "0.7.0",
     "@tanstack/eslint-config": "0.4.0",
