@@ -7,5 +7,7 @@
   // Signed and cleared ZATCA invoice XML (kept 6+ years under the VAT law).
   "r2_buckets": [{ "binding": "ZATCA_XML", "bucket_name": "qaftr-zatca-xml" }],
   // Resend signed invoices ZATCA has not accepted yet (src/server.ts scheduled handler).
-  "triggers": { "crons": ["*/5 * * * *"] }
+  // Hourly: each run wakes the database, and Neon only suspends it after 5 idle
+  // minutes, so a 5-minute schedule kept it running all month.
+  "triggers": { "crons": ["0 * * * *"] }
 }
