@@ -57,9 +57,11 @@ The `/ae` section stays as free tools that need no official certification: the P
      with the PIH chained.
    - Before deploying: create the R2 bucket `qaftr-zatca-xml`.
 6. **Done (sandbox):**
-   - **Retry sweeper:** a cron trigger every 5 minutes (`src/server.ts`, now the Worker `main`, wrapping TanStack Start's
-     handler) resends `signed` / `pending_clearance` invoices from R2. It backs off 5, 10, 20… minutes up to 2 hours, and always
-     tries again 15 minutes before the 24-hour reporting deadline (`lib/zatca/sweeper.ts`, `lib/zatca/resubmit.ts`).
+   - **Retry sweeper:** an hourly cron trigger (`src/server.ts`, now the Worker `main`, wrapping TanStack Start's
+     handler) resends `signed` / `pending_clearance` invoices from R2. It backs off 5, 10, 20… minutes up to 2 hours (rounded up
+     to the next hourly run; 5 minutes of slack keeps a 2-hour wait at 2 hours), and becomes due again 90 minutes before the
+     24-hour reporting deadline. A run resends up to 150 invoices: nearest deadline first, overdue last (`lib/zatca/sweeper.ts`,
+     `lib/zatca/resubmit.ts`). It ran every 5 minutes until 2026-11-28; that kept the Neon database awake all month.
    - **Certificate expiry:** the ZATCA card on the business page warns 30 days before the device certificate expires.
      Renewal itself (new OTP, `renewProductionCsid`) is not built yet.
    - **Credit and debit notes:** `zatca.createNote` creates a CN-/DN- row linked to the original invoice, with the original's

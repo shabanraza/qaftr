@@ -30,8 +30,18 @@ export interface SweepSummary {
 const MIN = 60_000
 const BASE_BACKOFF = 5 * MIN
 const MAX_BACKOFF = 120 * MIN
-/** Last-chance attempt this long before the reporting deadline. */
-const DEADLINE_MARGIN = 15 * MIN
+/**
+ * Last-chance attempt this long before the reporting deadline. Longer than the
+ * hourly cron interval (wrangler.jsonc), so a run always lands inside it.
+ */
+const DEADLINE_MARGIN = 90 * MIN
+/**
+ * An attempt is recorded a few seconds into its run, so a backoff of whole hours
+ * ends just after a later run starts. Count it as due on that run.
+ */
+const CRON_SLACK = 5 * MIN
+/** Resends per run (one an hour), sent one after another. */
+const RUN_LIMIT = 150
 
 /** When the next retry may run; null = now. */
 export function nextAttemptAt(c: SweepCandidate): Date | null {
@@ -51,13 +61,16 @@ export async function sweepPending(p: {
   limit?: number
 }): Promise<SweepSummary> {
   const summary: SweepSummary = { attempted: 0, done: 0, stillPending: 0, skipped: 0, failed: 0, overdue: 0 }
-  const limit = p.limit ?? 50
-  const due = (c: SweepCandidate) => c.reportDueAt?.getTime() ?? Number.MAX_SAFE_INTEGER
-  const ordered = [...p.candidates].sort((a, b) => due(a) - due(b))
+  const limit = p.limit ?? RUN_LIMIT
+  // Nearest deadline first, then no deadline, then already overdue: invoices
+  // that keep failing must not use up the run before the ones still in time.
+  const rank = (c: SweepCandidate) => (!c.reportDueAt ? 1 : c.reportDueAt <= p.now ? 2 : 0)
+  const due = (c: SweepCandidate) => c.reportDueAt?.getTime() ?? 0
+  const ordered = [...p.candidates].sort((a, b) => rank(a) - rank(b) || due(a) - due(b))
 
   for (const c of ordered) {
     const next = nextAttemptAt(c)
-    if (next && next > p.now) {
+    if (next && next.getTime() > p.now.getTime() + CRON_SLACK) {
       summary.skipped += 1
       continue
     }

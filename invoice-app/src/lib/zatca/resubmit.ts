@@ -2,7 +2,7 @@
  * Resend an already-signed invoice from its stored XML (Retry button and the
  * cron sweeper). Server-only.
  */
-import { and, eq, inArray, sql } from 'drizzle-orm'
+import { and, asc, eq, inArray, lte, sql } from 'drizzle-orm'
 import { createZatcaClient } from '@zatca/shared/zatca-phase2'
 import { db } from '#/db'
 import { egsUnits, invoices, zatcaSubmissions } from '#/db/schema'
@@ -50,7 +50,7 @@ export async function resubmitInvoice(p: {
 
 type PendingRow = SweepCandidate & SignedInvoiceRef
 
-async function loadPending(env: OnboardingEnv): Promise<PendingRow[]> {
+async function loadPending(env: OnboardingEnv, now: Date): Promise<PendingRow[]> {
   const rows = await db
     .select({
       invoiceId: invoices.id,
@@ -68,6 +68,11 @@ async function loadPending(env: OnboardingEnv): Promise<PendingRow[]> {
     .from(invoices)
     .innerJoin(egsUnits, eq(invoices.egsUnitId, egsUnits.id))
     .where(and(inArray(invoices.zatcaStatus, ['signed', 'pending_clearance']), eq(egsUnits.env, env)))
+    // Same order as sweepPending, so the 500 loaded are the most urgent.
+    .orderBy(
+      sql`case when ${invoices.reportDueAt} is null then 1 when ${lte(invoices.reportDueAt, now)} then 2 else 0 end`,
+      asc(invoices.reportDueAt),
+    )
     .limit(500)
   return rows.flatMap((r) =>
     r.activeCredentialId && r.signedXmlKey && r.invoiceHash && r.zatcaUuid && r.zatcaSubtype
@@ -93,11 +98,12 @@ async function loadPending(env: OnboardingEnv): Promise<PendingRow[]> {
 
 /** One cron run: resend everything that is due. */
 export async function runZatcaSweep(p: { env: OnboardingEnv; store: XmlStore; now?: Date }): Promise<SweepSummary> {
-  const candidates = await loadPending(p.env)
+  const now = p.now ?? new Date()
+  const candidates = await loadPending(p.env, now)
   const credentials = new Map<string, Promise<SigningCredential>>()
   const summary = await sweepPending({
     candidates,
-    now: p.now ?? new Date(),
+    now,
     submit: (c, attempt) => {
       const ref = c as PendingRow
       if (!credentials.has(ref.egsUnitId)) credentials.set(ref.egsUnitId, loadSigningCredential(ref.egsUnitId, ref.activeCredentialId))
